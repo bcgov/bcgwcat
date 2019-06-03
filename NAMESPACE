@@ -3,6 +3,7 @@
 export("%>%")
 export(":=")
 export(.data)
+export(ac_gui)
 export(enexpr)
 export(enexprs)
 export(enquo)
