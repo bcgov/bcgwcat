@@ -34,7 +34,7 @@ Fetch and convert data from rems to AquaChem format
 \examples{
 
 # Convert one well and save the data in the working directory
-rems_to_aquachem(ems_ids = "1401030")
+rems_to_aquachem(ems_ids = "E289551")
 
 # Convert several wells (this will overwrite the previous data!)
 rems_to_aquachem(ems_ids = c("1401030", "1401377"))

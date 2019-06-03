@@ -29,6 +29,7 @@ get_rems <- function(ems_ids, date_range, interactive) {
     }
   }
 
+
   # Get the historic data from ems
   if(hist) {
     message("Checking for locally stored historical data...")
@@ -141,7 +142,7 @@ check_present <- function(d, ems_ids, type = "all") {
 #' @examples
 #'
 #' # Convert one well and save the data in the working directory
-#' rems_to_aquachem(ems_ids = "1401030")
+#' rems_to_aquachem(ems_ids = "E289551")
 #'
 #' # Convert several wells (this will overwrite the previous data!)
 #' rems_to_aquachem(ems_ids = c("1401030", "1401377"))
