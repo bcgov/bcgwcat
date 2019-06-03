@@ -1,0 +1,50 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
+# `rems2aquachem`
+
+<!-- badges: start -->
+<!-- badges: end -->
+
+The goal of `rems2aquachem` is to provide a quick and painless way of converting EMS data into a format compatible with AquaChem.
+
+Data is first downloaded with BC Govs [`rems`](http://github.com/bcgov/rems) package, then formated for use by AquaChem.
+
+## Installation
+
+You can install `rems2aquachem` from [GitHub](https://github.com/steffilazerte/rems2aquachem) with:
+
+``` r
+install.packages("remotes")
+remotes::install_github("steffilazerte/rems2aquachem")
+```
+## Usage
+
+You can either use R command line
+
+```{r example}
+library(rems2aquachem)
+rems_to_aquachem(ems_ids = "1401030")
+```
+
+```{r, include = FALSE}
+file.remove(paste0("aquachem_", Sys.Date(), ".csv"))
+```
+
+
+Or you can use the `shiny` GUI
+
+```{r eval = FALSE}
+ac_gui()
+```
