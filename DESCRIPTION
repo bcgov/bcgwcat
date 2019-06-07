@@ -31,4 +31,5 @@ Remotes:
     bcgov/rems
 Suggests: 
     roxygen2,
+    shinytest,
     testthat (>= 2.1.0)

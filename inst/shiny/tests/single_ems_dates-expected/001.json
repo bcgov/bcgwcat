@@ -1,0 +1,133 @@
+{
+  "input": {
+    "check_status": 0,
+    "data_cell_clicked": {
+
+    },
+    "data_rows_all": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "data_rows_current": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "data_rows_selected": null,
+    "data_search": "",
+    "data_state": null,
+    "date_range": [
+      "2000-01-01",
+      "2098-12-31"
+    ],
+    "ems_ids": "1401030",
+    "get_data": 1,
+    "sidebarCollapsed": false,
+    "sidebarItemExpanded": null,
+    "update_historic": 0,
+    "update_recent": 0
+  },
+  "output": {
+    "data": {
+      "x": {
+        "filter": "none",
+        "container": "<table class=\"display\">\n  <thead>\n    <tr>\n      <th>StationID<\/th>\n      <th>SampleID<\/th>\n      <th>Sample_Date<\/th>\n      <th>Analysis_Date<\/th>\n      <th>Project<\/th>\n      <th>Watertype<\/th>\n      <th>shortWatertype<\/th>\n      <th>Comment<\/th>\n      <th>Reference<\/th>\n      <th>Quality_control<\/th>\n      <th>Duplicate_ID<\/th>\n      <th>Labcode<\/th>\n      <th>Location<\/th>\n      <th>Geology<\/th>\n      <th>Coord_Lat<\/th>\n      <th>Coord_Long<\/th>\n      <th>X<\/th>\n      <th>Y<\/th>\n      <th>Elevation<\/th>\n      <th>Well_Depth<\/th>\n      <th>Screen_Top<\/th>\n      <th>Screen_Mid<\/th>\n      <th>Screen_Bottom<\/th>\n      <th>Gradient<\/th>\n      <th>Station_Comment<\/th>\n      <th>Sample_Depth<\/th>\n      <th>Temp<\/th>\n      <th>pH_lab<\/th>\n      <th>Cond<\/th>\n      <th>Meas_Alk<\/th>\n      <th>CO3<\/th>\n      <th>HC03<\/th>\n      <th>Cl<\/th>\n      <th>F<\/th>\n      <th>Meas_Hardness<\/th>\n      <th>NH4<\/th>\n      <th>NO3<\/th>\n      <th>NO2<\/th>\n      <th>SO4<\/th>\n      <th>Ag_diss<\/th>\n      <th>Al_diss<\/th>\n      <th>As_diss<\/th>\n      <th>B<\/th>\n      <th>Ba<\/th>\n      <th>Ca<\/th>\n      <th>Cd_diss<\/th>\n      <th>Cr_diss<\/th>\n      <th>Cu_diss<\/th>\n      <th>DO<\/th>\n      <th>Fe_diss<\/th>\n      <th>K<\/th>\n      <th>Mg<\/th>\n      <th>Mn_diss<\/th>\n      <th>Mo_diss<\/th>\n      <th>Na<\/th>\n      <th>Ni_diss<\/th>\n      <th>Pb_diss<\/th>\n      <th>pH_field<\/th>\n      <th>Sb_diss<\/th>\n      <th>Cond_field<\/th>\n      <th>Se_diss<\/th>\n      <th>Si<\/th>\n      <th>Sr<\/th>\n      <th>Tl_diss<\/th>\n      <th>U_diss<\/th>\n      <th>V_diss<\/th>\n      <th>Zn_diss<\/th>\n      <th>Cd_tot<\/th>\n      <th>Zn_tot<\/th>\n      <th>Fe_tot<\/th>\n      <th>Cu_tot<\/th>\n      <th>Ni_tot<\/th>\n      <th>Al_tot<\/th>\n      <th>Tl_tot<\/th>\n      <th>As_tot<\/th>\n      <th>Sb_tot<\/th>\n      <th>V_tot<\/th>\n      <th>Mo_tot<\/th>\n      <th>Ag_tot<\/th>\n      <th>Pb_tot<\/th>\n      <th>Li<\/th>\n      <th>Mn_tot<\/th>\n      <th>U_tot<\/th>\n      <th>Br<\/th>\n      <th>Acidity_pH_4_5<\/th>\n      <th>Acidity_pH_8_3<\/th>\n      <th>Alkalinity_Phen__8_3<\/th>\n      <th>Anion_Sum<\/th>\n      <th>Barium_Total<\/th>\n      <th>Beryllium_Dissolved<\/th>\n      <th>Beryllium_Total<\/th>\n      <th>Bismuth_Dissolved<\/th>\n      <th>Bismuth_Total<\/th>\n      <th>Boron_Total<\/th>\n      <th>Calcium_Total<\/th>\n      <th>Cation_-_Anion_Balance<\/th>\n      <th>Cation_Sum<\/th>\n      <th>Chromium_Total<\/th>\n      <th>Cobalt_Dissolved<\/th>\n      <th>Cobalt_Total<\/th>\n      <th>Cyanide_WAD<\/th>\n      <th>Hardness_Total_(Total)<\/th>\n      <th>Hydroxide_Alkalinity<\/th>\n      <th>Lithium_Total<\/th>\n      <th>Magnesium_Total<\/th>\n      <th>Nitrate(NO3)_+_Nitrite(NO2)_Dissolved<\/th>\n      <th>Nitrogen_(Kjeldahl)_Total_Dissolved<\/th>\n      <th>Nitrogen_Ammonia_Total<\/th>\n      <th>Nitrogen_Kjel_Tot(N)<\/th>\n      <th>Nitrogen_NO2_+_NO3<\/th>\n      <th>Nitrogen_Organic_Total_Dissolved<\/th>\n      <th>Nitrogen_Organic-Total<\/th>\n      <th>Nitrogen_Total<\/th>\n      <th>Nitrogen_Total_Dissolved<\/th>\n      <th>Phosphorus_Ort_Dis-P<\/th>\n      <th>Phosphorus_Total<\/th>\n      <th>Phosphorus_Total_Dissolved<\/th>\n      <th>Potassium_Total<\/th>\n      <th>Residue:_Filterable_1_0u_(TDS)<\/th>\n      <th>Selenium_Total<\/th>\n      <th>Silicon_Total<\/th>\n      <th>Sodium_Total<\/th>\n      <th>Strontium_Total<\/th>\n      <th>Sulfur_Dissolved<\/th>\n      <th>Sulfur_Total<\/th>\n      <th>Tin_Dissolved<\/th>\n      <th>Tin_Total<\/th>\n      <th>Titanium_Dissolved<\/th>\n      <th>Titanium_Total<\/th>\n      <th>Turbidity<\/th>\n      <th>Zirconium_Dissolved<\/th>\n      <th>Zirconium_Total<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>",
+        "options": {
+          "pageLength": 10,
+          "scrollX": true,
+          "order": [
+
+          ],
+          "autoWidth": false,
+          "orderClasses": false,
+          "ajax": {
+            "type": "POST",
+            "data": "function(d) {\nd.search.caseInsensitive = true;\nd.search.smart = true;\nd.escape = true;\nvar encodeAmp = function(x) { x.value = x.value.replace(/&/g, \"%26\"); }\nencodeAmp(d.search);\n$.each(d.columns, function(i, v) {encodeAmp(v.search);});\n}"
+          },
+          "serverSide": true,
+          "processing": true
+        },
+        "selection": {
+          "mode": "multiple",
+          "selected": null,
+          "target": "row"
+        }
+      },
+      "evals": [
+        "options.ajax.data"
+      ],
+      "jsHooks": [
+
+      ],
+      "deps": [
+        {
+          "name": "dt-core",
+          "version": "1.10.16",
+          "src": {
+            "href": "dt-core-1.10.16"
+          },
+          "meta": null,
+          "script": "js/jquery.dataTables.min.js",
+          "stylesheet": [
+            "css/jquery.dataTables.min.css",
+            "css/jquery.dataTables.extra.css"
+          ],
+          "head": null,
+          "attachment": null,
+          "package": null,
+          "all_files": false
+        },
+        {
+          "name": "jquery",
+          "version": "1.11.3",
+          "src": {
+            "href": "jquery-1.11.3"
+          },
+          "meta": null,
+          "script": "jquery.min.js",
+          "stylesheet": null,
+          "head": null,
+          "attachment": null,
+          "package": null,
+          "all_files": true
+        },
+        {
+          "name": "crosstalk",
+          "version": "1.0.0",
+          "src": {
+            "href": "crosstalk-1.0.0"
+          },
+          "meta": null,
+          "script": "js/crosstalk.min.js",
+          "stylesheet": "css/crosstalk.css",
+          "head": null,
+          "attachment": null,
+          "package": null,
+          "all_files": true
+        }
+      ]
+    },
+    "rems_status_historic": {
+      "html": "<div class=\"small-box bg-green\">\n  <div class=\"inner\">\n    <h3>Up-to-date<\/h3>\n    <p>Historic EMS Data<\/p>\n  <\/div>\n<\/div>",
+      "deps": [
+
+      ]
+    },
+    "rems_status_recent": {
+      "html": "<div class=\"small-box bg-green\">\n  <div class=\"inner\">\n    <h3>Up-to-date<\/h3>\n    <p>Recent EMS Data<\/p>\n  <\/div>\n<\/div>",
+      "deps": [
+
+      ]
+    }
+  },
+  "export": {
+
+  }
+}
