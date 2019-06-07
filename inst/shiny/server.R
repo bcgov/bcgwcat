@@ -1,4 +1,5 @@
 library(shinyjs)
+library(rems2aquachem)
 
 server <- function(input, output) {
 
@@ -89,15 +90,18 @@ server <- function(input, output) {
                                           !stringr::str_detect(ems_ids(), "^[a-zA-Z0-9]*$")],
                               collapse = ", "), "")))
 
-    withCallingHandlers(
+    r <- try(withCallingHandlers(
       rems_to_aquachem(ems_ids = ems_ids(), date_range = input$date_range,
                        save = FALSE),
+      error = function(e) {
+        shinyjs::html(id = "messages", html = e$message, add = TRUE)
+      },
       message = function(m) {
         shinyjs::html(id = "messages", html = m$message, add = TRUE)
       }
-    )
-    rems_to_aquachem(ems_ids = ems_ids(), date_range = input$date_range,
-                     save = FALSE)
+    ), silent = TRUE)
+    if(any(class(r) == "try-error")) r <- NULL
+    r
   })
 
   output$data <- DT::renderDT({
