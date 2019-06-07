@@ -5,6 +5,8 @@
 
 <!-- badges: start -->
 
+[![Travis build
+status](https://travis-ci.org/steffilazerte/rems2aquachem.svg?branch=master)](https://travis-ci.org/steffilazerte/rems2aquachem)
 <!-- badges: end -->
 
 The goal of `rems2aquachem` is to provide a quick and painless way of
