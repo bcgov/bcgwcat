@@ -90,6 +90,13 @@ server <- function(input, output) {
                                           !stringr::str_detect(ems_ids(), "^[a-zA-Z0-9]*$")],
                               collapse = ", "), "")))
 
+    validate(need(
+      rems_status_recent(),
+      message = "Recent REMS data is out of date, please update it"))
+    validate(need(
+      rems_status_historic(),
+      message = "Historical REMS data is out of date, please update it"))
+
     r <- try(withCallingHandlers(
       rems_to_aquachem(ems_ids = ems_ids(), date_range = input$date_range,
                        save = FALSE),
