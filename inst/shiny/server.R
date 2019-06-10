@@ -8,7 +8,7 @@ server <- function(input, output) {
   # Update recent REMS data
   observeEvent(input$update_recent, {
     withProgress(message = "Updating recent EMS data",
-                 detail = HTML("<br>This may take several minutes"), {
+                 detail = HTML("This may take several minutes"), {
       withCallingHandlers(
         {rems::get_ems_data(force = TRUE, ask = FALSE); message("Done")},
         message = function(m) {
@@ -21,7 +21,7 @@ server <- function(input, output) {
   # Update historic REMS data
   observeEvent(input$update_historic, {
     withProgress(message = "Updating historic EMS data",
-                 detail = HTML("<br>This may take up to an hour"), {
+                 detail = HTML("This may take up to an hour"), {
       withCallingHandlers(
         {rems::download_historic_data(force = TRUE, ask = FALSE); message("Done")},
         message = function(m) {
