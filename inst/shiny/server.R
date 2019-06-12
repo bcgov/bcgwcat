@@ -4,8 +4,7 @@ library(rems2aquachem)
 server <- function(input, output) {
 
   status <- reactiveValues(check_rems_recent = TRUE,
-                           check_rems_historic = TRUE,
-                           reset_data = FALSE)
+                           check_rems_historic = TRUE)
 
   # Check status and update EMS data -------------------------------------------
 
