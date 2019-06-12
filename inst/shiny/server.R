@@ -154,6 +154,10 @@ server <- function(input, output) {
     },
     content = function(con) {
       req(data_ac())
+
+      # Reset output messages
+      shinyjs::html(id = "messages", html = "")
+
       readr::write_csv(data_ac(), con, na = "N/A")
     }
   )
@@ -164,6 +168,10 @@ server <- function(input, output) {
     },
     content = function(con) {
       req(data_ac())
+
+      # Reset output messages
+      shinyjs::html(id = "messages", html = "")
+
       d <- data_ac() %>%
         dplyr::mutate_all(~replace(., is.na(.), "N/A"))
 
