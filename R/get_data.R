@@ -218,9 +218,13 @@ rems_to_aquachem <- function(ems_ids, date_range = NULL, save = TRUE,
                   aqua_code = stringr::str_replace_all(
                     .data$aqua_code, c(" " = "_", "\\." = "_")))
 
-  # TEMPORARY
-  # Add StationID placeholder
-  d <- dplyr::mutate(d, StationID = .data$SampleID)
+  # Add StationID
+  d <- d %>%
+    dplyr::left_join(dplyr::select(ow, "StationID" = "ow", "SampleID" = "ems_id"),
+                     by = "SampleID") %>%
+    dplyr::mutate(StationID = replace(.data$StationID,
+                                      is.na(.data$StationID),
+                                      .data$SampleID))
 
   # Find multiple measures
   # (i.e. same location, same date, same paramter, but different method)
@@ -267,6 +271,12 @@ rems_to_aquachem <- function(ems_ids, date_range = NULL, save = TRUE,
     dplyr::group_by(.data$StationID) %>%
     dplyr::mutate(SampleID = paste0(.data$SampleID, "-", 1:dplyr::n())) %>%
     dplyr::ungroup()
+
+  # Remove StationID if not ems id
+  d <- dplyr::mutate(d, StationID = replace(
+    .data$StationID,
+    stringr::str_detect(.data$SampleID, .data$StationID),
+    as.character(NA)))
 
   # Spread and Order units by column names in d
   units <- units %>%
