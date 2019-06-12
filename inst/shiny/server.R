@@ -3,14 +3,26 @@ library(rems2aquachem)
 
 server <- function(input, output) {
 
+  status <- reactiveValues(check_rems_recent = TRUE,
+                           check_rems_historic = TRUE,
+                           reset_data = FALSE)
+
   # Check status and update EMS data -------------------------------------------
 
   # Update recent REMS data
   observeEvent(input$update_recent, {
     withProgress(message = "Updating recent EMS data",
                  detail = HTML("This may take several minutes"), {
-      withCallingHandlers(
-        {rems::get_ems_data(force = TRUE, ask = FALSE); message("Done")},
+      withCallingHandlers({
+        # Catch errors if curl issues and try again
+        t <- try(rems::get_ems_data(force = TRUE, ask = FALSE), silent = TRUE)
+        if(any(class(t) == "try-error")) {
+          rems::get_ems_data(force = TRUE, ask = FALSE)
+        }
+
+        message("Done")
+        status$check_rems_recent <- TRUE
+        },
         message = function(m) {
           shinyjs::html(id = "messages", html = m$message, add = TRUE)
         }
@@ -22,8 +34,14 @@ server <- function(input, output) {
   observeEvent(input$update_historic, {
     withProgress(message = "Updating historic EMS data",
                  detail = HTML("This may take up to an hour"), {
-      withCallingHandlers(
-        {rems::download_historic_data(force = TRUE, ask = FALSE); message("Done")},
+      withCallingHandlers({
+        t <- try(rems::download_historic_data(force = TRUE, ask = FALSE), silent = TRUE)
+        if(any(class(t) == "try-error")) {
+          rems::download_historic_data(force = TRUE, ask = FALSE)
+        }
+        message("Done")
+        status$check_rems_historic <- TRUE
+        },
         message = function(m) {
           shinyjs::html(id = "messages", html = m$message, add = TRUE)
         }
@@ -31,23 +49,24 @@ server <- function(input, output) {
     })
   })
 
-  # Get recent status
-  rems_status_recent <- reactive({
-    input$check_status
+  observeEvent(input$check_status, {
+    status$check_rems_recent <- TRUE
+    status$check_rems_historic <- TRUE
+  })
 
+  # Get recent status
+  rems_status_recent <- eventReactive(status$check_rems_recent, {
     server_recent <- rems:::get_file_metadata("2yr")$server_date
     cache_recent <- rems:::get_cache_date("2yr")
-
+    status$check_rems_recent <- FALSE
     server_recent == cache_recent
   })
 
   # Get historic status
-  rems_status_historic <- reactive({
-    input$check_status
-
+  rems_status_historic <- eventReactive(status$check_rems_historic, {
     server_historic <- rems:::get_file_metadata("historic")$server_date
     cache_historic <- rems:::get_cache_date("historic")
-
+    status$check_rems_historic <- FALSE
     server_historic == cache_historic
   })
 
@@ -107,6 +126,7 @@ server <- function(input, output) {
         shinyjs::html(id = "messages", html = m$message, add = TRUE)
       }
     ), silent = TRUE)
+
     if(any(class(r) == "try-error")) r <- NULL
     r
   })
