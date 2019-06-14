@@ -270,13 +270,14 @@ rems_to_aquachem <- function(ems_ids, date_range = NULL, save = TRUE,
   d <- d %>%
     dplyr::group_by(.data$StationID) %>%
     dplyr::mutate(SampleID = paste0(.data$SampleID, "-", 1:dplyr::n())) %>%
-    dplyr::ungroup()
+    dplyr::ungroup() %>%
+    dplyr::arrange(.data$StationID)
 
   # Remove StationID if not ems id
-  d <- dplyr::mutate(d, StationID = replace(
-    .data$StationID,
-    stringr::str_detect(.data$SampleID, .data$StationID),
-    as.character(NA)))
+  # d <- dplyr::mutate(d, StationID = replace(
+  #   .data$StationID,
+  #   stringr::str_detect(.data$SampleID, .data$StationID),
+  #   as.character(NA)))
 
   # Spread and Order units by column names in d
   units <- units %>%
