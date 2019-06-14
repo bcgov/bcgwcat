@@ -180,8 +180,8 @@ server <- function(input, output) {
         dplyr::summarize(start = n[1]+1, end = dplyr::last(n)+1,
                          colour = NA)
 
-      c$colour[2:nrow(c)] <- c("#ac8fb4", "#a9b3cc", "#9dcecc", "#b8e7ba",
-                               "#fef391")[2:nrow(c)]
+      suppressWarnings(c$colour[2:nrow(c)] <- c("#ac8fb4", "#a9b3cc", "#9dcecc", "#b8e7ba",
+                                                "#fef391"))
 
       wb <- openxlsx::createWorkbook()
       openxlsx::addWorksheet(wb, "aquachem")
