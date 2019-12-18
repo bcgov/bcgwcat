@@ -134,8 +134,11 @@ server <- function(input, output) {
     validate(need(class(data_ac()) != "try-error",
                   message = data_ac()[1]))
 
-    DT::datatable(data_ac(),
+    d <- data_ac()
+
+    DT::datatable(d[-1,],
                   options = list(pageLength = 10, scrollX = TRUE),
+                  colnames = paste(colnames(d), d[1,], sep = "\n"),
                   rownames = FALSE)
   })
 
