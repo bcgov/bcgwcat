@@ -24,19 +24,29 @@ Data is first downloaded with BC Govs [`rems`](http://github.com/bcgov/rems) pac
 
 ## Installation
 
-You can install `rems2aquachem` from [GitHub](https://github.com/steffilazerte/rems2aquachem) with:
+You can install `rems2aquachem` from [GitHub](https://github.com/steffilazerte/rems2aquachem).
 
-``` r
+```{r, eval = FALSE}
 install.packages("remotes")
-remotes::install_github("steffilazerte/rems2aquachem")
+remotes::install_github("steffilazerte/rems2aquachem", build_vignettes = TRUE)
 ```
+
+If you run into errors right at the start, consider updating your packages.
+
+```{r, eval = FALSE}
+remotes::update_packages()
+```
+
+
 ## Usage
 
-You can either use R command line
+### R command line
+
+Shows and saves to csv
 
 ```{r example}
 library(rems2aquachem)
-rems_to_aquachem(ems_ids = "1401030")
+rems_to_aquachem(ems_ids = c("1401030", "1401377", "E292373"))
 ```
 
 ```{r, include = FALSE}
@@ -44,10 +54,20 @@ file.remove(paste0("aquachem_", Sys.Date(), ".csv"))
 ```
 
 
-Or you can use the `shiny` GUI
+### Shiny GUI
 
+Launch the shiny GUI with the function `ac_gui()`
 ```{r eval = FALSE}
 ac_gui()
 ```
 
 ![Screenshot](https://raw.githubusercontent.com/steffilazerte/rems2aquachem/master/inst/assets/screenshot.png)
+
+## Vignette/Tutorials
+
+After installing `rems2aquachem` you can access the Walkthrough vignette with:
+
+```{r, eval = FALSE}
+vignette("walkthrough", package = "rems2aquachem")
+```
+
