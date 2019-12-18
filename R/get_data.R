@@ -59,16 +59,15 @@ get_rems <- function(ems_ids, date_range, interactive) {
   d <- dplyr::bind_rows(h, d) %>%
     dplyr::distinct()
 
-  ems_ids <- check_present(d, ems_ids, "all")
-
   if(!is.null(date_range)) {
     d <- d %>%
       dplyr::mutate(date = as.Date(.data$COLLECTION_START)) %>%
       dplyr::filter(date >= as.Date(date_range[1]),
                     date <= as.Date(date_range[2])) %>%
       dplyr::select(-date)
-    ems_ids <- check_present(d, ems_ids, "date")
   }
+
+  ems_ids <- check_present(d, ems_ids, "all")
 
   d
 }
