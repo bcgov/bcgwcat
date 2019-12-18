@@ -223,7 +223,7 @@ rems_to_aquachem <- function(ems_ids, date_range = NULL, save = TRUE,
                      by = "SampleID") %>%
     dplyr::mutate(StationID = replace(.data$StationID,
                                       is.na(.data$StationID),
-                                      .data$SampleID))
+                                      .data$SampleID[is.na(.data$StationID)]))
 
   # Find multiple measures
   # (i.e. same location, same date, same paramter, but different method)
