@@ -8,10 +8,7 @@
       1,
       2
     ],
-    "data_rows_current": [
-      1,
-      2
-    ],
+    "data_rows_current": 1,
     "data_rows_selected": null,
     "data_search": "",
     "data_state": null,
@@ -30,7 +27,7 @@
     "data": {
       "x": {
         "filter": "none",
-        "container": "<table class=\"display\">\n  <thead>\n    <tr>\n      <th>StationID<\/th>\n      <th>SampleID<\/th>\n      <th>Sample_Date<\/th>\n      <th>Analysis_Date<\/th>\n      <th>Project<\/th>\n      <th>Watertype<\/th>\n      <th>shortWatertype<\/th>\n      <th>Comment<\/th>\n      <th>Reference<\/th>\n      <th>Quality_control<\/th>\n      <th>Duplicate_ID<\/th>\n      <th>Labcode<\/th>\n      <th>Location<\/th>\n      <th>Geology<\/th>\n      <th>Coord_Lat<\/th>\n      <th>Coord_Long<\/th>\n      <th>X<\/th>\n      <th>Y<\/th>\n      <th>Elevation<\/th>\n      <th>Well_Depth<\/th>\n      <th>Screen_Top<\/th>\n      <th>Screen_Mid<\/th>\n      <th>Screen_Bottom<\/th>\n      <th>Gradient<\/th>\n      <th>Station_Comment<\/th>\n      <th>Sample_Depth<\/th>\n      <th>Temp<\/th>\n      <th>pH_lab<\/th>\n      <th>Cond<\/th>\n      <th>Meas_Alk<\/th>\n      <th>Cl<\/th>\n      <th>F<\/th>\n      <th>NH4<\/th>\n      <th>NO2<\/th>\n      <th>SO4<\/th>\n      <th>K<\/th>\n      <th>Na<\/th>\n      <th>Cd_tot<\/th>\n      <th>Zn_tot<\/th>\n      <th>Fe_tot<\/th>\n      <th>Cu_tot<\/th>\n      <th>Ni_tot<\/th>\n      <th>Al_tot<\/th>\n      <th>As_tot<\/th>\n      <th>V_tot<\/th>\n      <th>Mo_tot<\/th>\n      <th>Pb_tot<\/th>\n      <th>Mn_tot<\/th>\n      <th>Alkalinity_Phen__8_3<\/th>\n      <th>Barium_Total<\/th>\n      <th>Calcium_Total<\/th>\n      <th>Chromium_Total<\/th>\n      <th>Cobalt_Total<\/th>\n      <th>Magnesium_Total<\/th>\n      <th>Nitrate(NO3)_+_Nitrite(NO2)_Dissolved<\/th>\n      <th>Nitrogen_Kjel_Tot(N)<\/th>\n      <th>Phosphorus_Total<\/th>\n      <th>Phosphorus_Total_Dissolved<\/th>\n      <th>Residue:_Filterable_1_0u_(TDS)<\/th>\n      <th>Silica_Reactive_Diss<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>",
+        "container": "<table class=\"display\">\n  <thead>\n    <tr>\n      <th>StationID\n<\/th>\n      <th>SampleID\n<\/th>\n      <th>Sample_Date\n<\/th>\n      <th>Analysis_Date\n<\/th>\n      <th>Project\n<\/th>\n      <th>Watertype\n<\/th>\n      <th>shortWatertype\n<\/th>\n      <th>Comment\n<\/th>\n      <th>Reference\n<\/th>\n      <th>Quality_control\n<\/th>\n      <th>Duplicate_ID\n<\/th>\n      <th>Labcode\n<\/th>\n      <th>Location\n<\/th>\n      <th>Geology\n<\/th>\n      <th>Coord_Lat\n°<\/th>\n      <th>Coord_Long\n°<\/th>\n      <th>X\nm<\/th>\n      <th>Y\nm<\/th>\n      <th>Elevation\nm(asl)<\/th>\n      <th>Well_Depth\nm<\/th>\n      <th>Screen_Top\nm<\/th>\n      <th>Screen_Mid\nm<\/th>\n      <th>Screen_Bottom\nm<\/th>\n      <th>Gradient\n<\/th>\n      <th>Station_Comment\n<\/th>\n      <th>Sample_Depth\nm<\/th>\n      <th>Temp\n°C<\/th>\n      <th>pH_lab\n<\/th>\n      <th>Cond\nuS/cm<\/th>\n      <th>Meas_Alk\nmg/L<\/th>\n      <th>Cl\nmg/L<\/th>\n      <th>F\nmg/L<\/th>\n      <th>NH4\nmg/L<\/th>\n      <th>NO2\nmg/L<\/th>\n      <th>SO4\nmg/L<\/th>\n      <th>K\nmg/L<\/th>\n      <th>Na\nmg/L<\/th>\n      <th>Cd_tot\nmg/L<\/th>\n      <th>Zn_tot\nmg/L<\/th>\n      <th>Fe_tot\nmg/L<\/th>\n      <th>Cu_tot\nmg/L<\/th>\n      <th>Ni_tot\nmg/L<\/th>\n      <th>Al_tot\nmg/L<\/th>\n      <th>As_tot\nmg/L<\/th>\n      <th>V_tot\nmg/L<\/th>\n      <th>Mo_tot\nmg/L<\/th>\n      <th>Pb_tot\nmg/L<\/th>\n      <th>Mn_tot\nmg/L<\/th>\n      <th>Alkalinity_Phen__8_3\nmg/L<\/th>\n      <th>Barium_Total\nmg/L<\/th>\n      <th>Calcium_Total\nmg/L<\/th>\n      <th>Chromium_Total\nmg/L<\/th>\n      <th>Cobalt_Total\nmg/L<\/th>\n      <th>Magnesium_Total\nmg/L<\/th>\n      <th>Nitrate(NO3)_+_Nitrite(NO2)_Dissolved\nmg/L<\/th>\n      <th>Nitrogen_Kjel_Tot(N)\nmg/L<\/th>\n      <th>Phosphorus_Total\nmg/L<\/th>\n      <th>Phosphorus_Total_Dissolved\nmg/L<\/th>\n      <th>Residue:_Filterable_1_0u_(TDS)\nmg/L<\/th>\n      <th>Silica_Reactive_Diss\nmg/L<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>",
         "options": {
           "pageLength": 10,
           "scrollX": true,
@@ -61,9 +58,9 @@
       "deps": [
         {
           "name": "dt-core",
-          "version": "1.10.16",
+          "version": "1.10.19",
           "src": {
-            "href": "dt-core-1.10.16"
+            "href": "dt-core-1.10.19"
           },
           "meta": null,
           "script": "js/jquery.dataTables.min.js",
