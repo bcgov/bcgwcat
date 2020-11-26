@@ -66,24 +66,35 @@ include_graphics("ems_ids2.png")
 
 **Dates**
 
-If you want the full date range, simply leave the range as is and click on "Get and convert EMS data"
+If you want the full date range, simply leave the range as is and click on **"Get and convert EMS data"**
 
-If you want a particular date range, select the first and last dates you wish to include (this applies to the complete date range). Click on "Get and convert EMS data".
+If you want a particular date range, select the first and last dates you wish to include (this applies to the complete date range). Click on **"Get and convert EMS data"**.
 
 
 ```{r, echo = FALSE, out.width = "40%"}
 include_graphics("dates.png")
 ```
 
-### Viewing data
+### Previewing data
 
-The results of your ID and date filtering will be available in the lower half of the window. You can scroll and sort through the data to ensure you have the data you wanted.
+You can choose which columns to preview by selecting either "Relevant Columns" (default) or "All Columns". Relevant columns only show metadata, cations, anions and charge balance. **ALL data is downloaded, this only affects the preview**.
+
+```{r, echo = FALSE, out.width = "40%"}
+include_graphics("data_preview.png")
+```
+
+The results of your ID, date and data filtering will be available under the **Results** tab. 
+
+You can scroll and sort through the data to ensure you have the data you wanted.
+
+The `charage_balance` values will be highlighted in green (value ranges from -10% to 10%) or red (values < -10% or > 10%) to indicate possibly problematic samples
+
 
 > **Note** This may take a few minutes, depending on the amount of data you have requested.
 
 
 ```{r, echo = FALSE, out.width = "100%"}
-include_graphics("results.png")
+include_graphics("results_v2.png")
 ```
 
 
@@ -98,7 +109,7 @@ include_graphics("results2.png")
 
 ## Missing data
 
-Not all EMS stations have data for all dates, or even any data at all. Be sure to check the "Data Messages" window for status messages regarding any missing data.
+Not all EMS stations have data for all dates, or even any data at all. Be sure to check the "Data Messages" window on the **REM Status** tab for status messages regarding any missing data.
 
 ```{r, echo = FALSE, out.width = "80%"}
 include_graphics("missing_data.png")
@@ -108,15 +119,26 @@ include_graphics("missing_data.png")
 include_graphics("missing_data2.png")
 ```
 
+## Plots
+
+Plots can be previewed by clicking on the **Plots** tab.
+
+Click on the radio button associated with the EMS ID of the site you wish to view. To download **ALL** plots (i.e. not just the ones you can see), click on the "Download All Plots" button. This will zip the individual plots and ask you where to save the file.
+
+```{r, echo = FALSE, out.width = "80%"}
+include_graphics("plots.png")
+```
+
+
 ## FAQ
 
 1. When in doubt, restart RStudio
 
 2. If you run into errors right at the start, try updating your packages:
 
-```{r, eval = FALSE}
-remotes::update_packages()
-```
+  ```{r, eval = FALSE}
+  remotes::update_packages()
+  ```
 
-3. Remember that the output is optimaized for AquaChem, not necessarily for other data analyses (i.e. the second row of the data frame is for units, which wouldn't work in R)
+3. Remember that the output is optimized for AquaChem, not necessarily for other data analyses (i.e. the second row of the data frame is for units, which wouldn't work in R)
 

@@ -1,5 +1,6 @@
 library(shinyjs)
 library(rems2aquachem)
+library(patchwork)
 
 server <- function(input, output) {
 
@@ -133,14 +134,55 @@ server <- function(input, output) {
   output$data <- DT::renderDT({
     validate(need(class(data_ac()) != "try-error",
                   message = data_ac()[1]))
+    req(input$data_show)
 
     d <- data_ac()
+    cb <- charge_balance(d, return = "all") %>%
+      dplyr::select("SampleID", "cations", "anions", "charge_balance")
+    units <- dplyr::bind_cols(d[1, ], cations = "", anions = "", charge_balance = "%")
+    d <- dplyr::left_join(d[-1, ], cb, by = "SampleID")
 
-    DT::datatable(d[-1,],
-                  options = list(pageLength = 10, scrollX = TRUE),
-                  colnames = paste(colnames(d), d[1,], sep = "\n"),
-                  rownames = FALSE)
+    if(input$data_show == "rel"){
+      d <- d[, c("StationID", "SampleID", "Sample_Date",
+                 "Ca", "Mg", "Na", "Cl", "HCO3", "SO4",
+                 "Ca_meq", "Mg_meq", "Na_meq", "Cl_meq", "HCO3_meq", "SO4_meq",
+                 "cations", "anions", "charge_balance")]
+
+    }
+    d <- dplyr::select(d, "StationID", "SampleID", "Sample_Date", "cations",
+                       "anions", "charge_balance", dplyr::everything())
+
+    col_names <- paste(colnames(d), units[colnames(d)], sep = "\n")
+
+    DT::datatable(d, options = list(pageLength = 20, scrollX = TRUE),
+                  colnames = col_names,
+                  rownames = FALSE) %>%
+      DT::formatRound(columns = c("Ca_meq", "Mg_meq", "Na_meq", "Cl_meq",
+                                  "SO4_meq", "HCO3_meq", "cations",
+                                  "anions", "charge_balance")) %>%
+      DT::formatStyle("charge_balance",
+                      backgroundColor = DT::styleInterval(cuts = c(-10, 10, Inf),
+                                                          values = c("#f8d7da", "#d4edda", "#d4edda", "#f8d7da")))
   })
+
+
+# Ems IDs for plots
+  output$data_ids <- renderUI({
+    req(data_ac())
+    d <- data_ac()
+    ids <- unique(stringr::str_extract(d$SampleID[-1], "^[0-9A-Z]+"))
+    radioButtons("ids_to_plot", "EMS ID to plot", ids, inline = TRUE)
+  })
+
+# Plots -------------------------------------------------------------
+  output$piperplot <- renderPlot({
+    req(data_ac(), input$ids_to_plot)
+
+    d <- data_ac()
+    (stiff_plot(d, ems_id = input$ids_to_plot) + ~piper_plot(d, ems_id = input$ids_to_plot)) +
+      plot_annotation(title = input$ids_to_plot)
+  })
+
 
 
   # Download formatted data -------------------------------------------------
@@ -200,6 +242,32 @@ server <- function(input, output) {
       #writexl::write_xlsx(list("aquachem" = d), con)
 
     }
+  )
+
+
+
+
+  # Download plots ----------------------------------------------------------
+  output$download_plots <- downloadHandler(
+    filename = function() {
+      paste0("plots_", Sys.Date(), ".zip")
+    },
+    content = function(fname) {
+      tempdir <- tempdir()
+      d <- data_ac()
+
+      f <- c()
+      for(i in ems_ids()) {
+        f <- c(f,
+               file.path(tempdir, glue::glue("{i}_stiff.png")),
+               file.path(tempdir, glue::glue("{i}_piperplot.png")))
+        ggplot2::ggsave(file.path(tempdir, glue::glue("{i}_stiff.png")), stiff_plot(d, ems_id = i))
+        png(file.path(tempdir, glue::glue("{i}_piperplot.png")))
+        piper_plot(d, ems_id = i)
+        dev.off()
+      }
+      zip(zipfile = fname, files = f, flags = "-j")
+    }, contentType = "application/zip"
   )
 
 }

@@ -42,16 +42,25 @@ remotes::update_packages()
 
 ### R command line
 
-Shows and saves to csv
+Downloads, converts and saves to csv
 
 ```{r example}
 library(rems2aquachem)
-rems_to_aquachem(ems_ids = c("1401030", "1401377", "E292373"))
+r <- rems_to_aquachem(ems_ids = c("1401030", "1401377", "E292373"))
+r
 ```
 
 ```{r, include = FALSE}
 file.remove(paste0("aquachem_", Sys.Date(), ".csv"))
 ```
+
+Create plots
+
+```{r}
+piper_plot(r, ems_id = "1401030")
+stiff_plot(r, ems_id = "1401030")
+```
+
 
 
 ### Shiny GUI

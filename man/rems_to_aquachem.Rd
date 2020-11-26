@@ -4,8 +4,14 @@
 \alias{rems_to_aquachem}
 \title{Fetch and convert data from rems to AquaChem format}
 \usage{
-rems_to_aquachem(ems_ids, date_range = NULL, save = TRUE,
-  out_folder = "./", out_file = NULL, interactive = TRUE)
+rems_to_aquachem(
+  ems_ids,
+  date_range = NULL,
+  save = TRUE,
+  out_folder = "./",
+  out_file = NULL,
+  interactive = TRUE
+)
 }
 \arguments{
 \item{ems_ids}{Character vector. Unique EMS ids}
@@ -57,5 +63,9 @@ rems_to_aquachem(ems_ids = "1401030", out_file = "water_quality01.csv")
                  date_range = c("2000-01-01", "2015-01-01"),
                  out_file = "water_quality05.csv",
                  out_folder = "H:\\\\Rcode\\\\Outputs/")}
+
+# Clean up
+unlink("water_quality01.csv")
+unlink(paste0("aquachem_", Sys.Date(), ".csv"))
 
 }

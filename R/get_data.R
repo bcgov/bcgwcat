@@ -279,7 +279,13 @@ rems_to_aquachem <- function(ems_ids, date_range = NULL, save = TRUE,
   # Spread and Order units by column names in d
   units <- units %>%
     tidyr::spread(.data$aqua_code, .data$aqua_unit) %>%
-    dplyr::select(names(d))
+    dplyr::select(tidyselect::all_of(names(d))) %>%
+    dplyr::mutate(dplyr::across(c("Ca", "Mg", "Na", "Cl", "HCO3", "SO4"),
+                                ~"meq",
+                                .names = "{.col}_meq"))
+
+  # Calculate MEQ
+  d <- meq(d)
 
   # Add units to d
   d <- d %>%
