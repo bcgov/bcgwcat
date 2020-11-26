@@ -1,0 +1,60 @@
+{
+  "input": {
+    "check_status": 0,
+    "data_rows_all": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13
+    ],
+    "data_rows_current": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
+    "data_show": "rel",
+    "date_range": [
+      "1900-01-01",
+      "2098-12-31"
+    ],
+    "ems_ids": "\"1401030\", \"1401377\"",
+    "get_data": 1,
+    "sidebarCollapsed": false,
+    "sidebarItemExpanded": null,
+    "update_historic": 0,
+    "update_recent": 0
+  },
+  "output": {
+    "rems_status_historic": {
+      "html": "<div class=\"small-box bg-green\">\n  <div class=\"inner\">\n    <h3>Up-to-date<\/h3>\n    <p>Historic EMS Data<\/p>\n  <\/div>\n<\/div>",
+      "deps": [
+
+      ]
+    },
+    "rems_status_recent": {
+      "html": "<div class=\"small-box bg-green\">\n  <div class=\"inner\">\n    <h3>Up-to-date<\/h3>\n    <p>Recent EMS Data<\/p>\n  <\/div>\n<\/div>",
+      "deps": [
+
+      ]
+    }
+  },
+  "export": {
+
+  }
+}

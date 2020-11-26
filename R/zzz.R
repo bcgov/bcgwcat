@@ -1,4 +1,6 @@
 .onLoad <- function(libname = find.package("rems2aquachem"), pkgname = "rems2aquachem"){
+  options(rems2aquachem.shinydir = ".")
+
   # CRAN Note avoidance
   if(getRversion() >= "2.15.1")
     utils::globalVariables(

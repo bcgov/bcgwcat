@@ -1,5 +1,3 @@
-context("ac_gui")
-
 library(shinytest)
 
 test_that("ac_gui() works", {
