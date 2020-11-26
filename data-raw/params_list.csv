@@ -33,7 +33,7 @@ Turbidity,0015,NTU,,,param,
 Alkalinity Phen. 8.3,0101,mg/L,,,param,
 Alkalinity Total 4.5,0102,mg/L,Meas_Alk,mg/L,param,CHECK
 Carbonate Alkalinity,0149,mg/L,CO3,mg/l,param,CHECK
-Bicarbonate Alkalinity,0150,mg/L,HC03,mg/l,param,CHECK
+Bicarbonate Alkalinity,0150,mg/L,HCO3,mg/l,param,CHECK
 Chloride Dissolved,1104,mg/L,Cl,mg/l,param,
 Fluoride Dissolved,1106,mg/L,F,mg/l,param,
 Hardness (Dissolved),1107,mg/L,Meas_Hardness,mg/L,param,
