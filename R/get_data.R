@@ -64,7 +64,7 @@ get_rems <- function(ems_ids, date_range, interactive) {
       dplyr::mutate(date = as.Date(.data$COLLECTION_START)) %>%
       dplyr::filter(date >= as.Date(date_range[1]),
                     date <= as.Date(date_range[2])) %>%
-      dplyr::select(-date)
+      dplyr::select(-"date")
   }
 
   ems_ids <- check_present(d, ems_ids, "all")
@@ -165,6 +165,10 @@ check_present <- function(d, ems_ids, type = "all") {
 #'                  out_file = "water_quality05.csv",
 #'                  out_folder = "H:\\Rcode\\Outputs/")}
 #'
+#' # Clean up
+#' unlink("water_quality01.csv")
+#' unlink(paste0("aquachem_", Sys.Date(), ".csv"))
+#'
 #' @export
 rems_to_aquachem <- function(ems_ids, date_range = NULL, save = TRUE,
                              out_folder = "./", out_file = NULL,
@@ -237,10 +241,10 @@ rems_to_aquachem <- function(ems_ids, date_range = NULL, save = TRUE,
     # Filter out all but first observations
     dplyr::filter(.data$keep == TRUE)
 
-  # Remove now unessary parameter columns:
+  # Remove now unnecessary parameter columns:
   d <- dplyr::select(d,
-                     -.data$keep, -.data$rems_code, -.data$PARAMETER,
-                     -.data$PARAMETER_CODE, -.data$ANALYTICAL_METHOD)
+                     -"keep", -"rems_code", -"PARAMETER",
+                     -"PARAMETER_CODE", -"ANALYTICAL_METHOD")
 
   # Remove Ph units
   d <- dplyr::mutate(d, UNIT = dplyr::if_else(.data$UNIT == "pH",
@@ -263,7 +267,7 @@ rems_to_aquachem <- function(ems_ids, date_range = NULL, save = TRUE,
   d <- d %>%
     dplyr::select(-"UNIT") %>%
     tidyr::spread(.data$aqua_code, .data$RESULT) %>%
-    dplyr::select(meta$aqua_code, dplyr::everything())
+    dplyr::select(tidyselect::all_of(meta$aqua_code), dplyr::everything())
 
   # Add sample numbers to SampleID
   d <- d %>%
@@ -271,12 +275,6 @@ rems_to_aquachem <- function(ems_ids, date_range = NULL, save = TRUE,
     dplyr::mutate(SampleID = paste0(.data$SampleID, "-", 1:dplyr::n())) %>%
     dplyr::ungroup() %>%
     dplyr::arrange(.data$StationID)
-
-  # Remove StationID if not ems id
-  # d <- dplyr::mutate(d, StationID = replace(
-  #   .data$StationID,
-  #   stringr::str_detect(.data$SampleID, .data$StationID),
-  #   as.character(NA)))
 
   # Spread and Order units by column names in d
   units <- units %>%
@@ -290,7 +288,7 @@ rems_to_aquachem <- function(ems_ids, date_range = NULL, save = TRUE,
 
   # Arrange column order as in AquaChem template (unknown colums to end)
   cols <- a$aqua_code[a$aqua_code %in% names(d)]
-  d <- dplyr::select(d, cols, dplyr::everything())
+  d <- dplyr::select(d, tidyselect::all_of(cols), dplyr::everything())
 
   # Save data to disk, specfying NA values
   if(save) {
