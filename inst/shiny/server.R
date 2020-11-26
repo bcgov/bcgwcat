@@ -64,10 +64,10 @@ server <- function(input, output) {
 
   # Get historic status
   rems_status_historic <- eventReactive(status$check_rems_historic, {
-    server_historic <- rems:::get_file_metadata("historic")$server_date
-    cache_historic <- rems:::get_cache_date("historic")
+    server_historic <- rems:::get_sqlite_gh_date()
+    cache_historic <- rems::get_cache_date("historic")
     status$check_rems_historic <- FALSE
-    server_historic == cache_historic
+    server_historic >= cache_historic
   })
 
 
