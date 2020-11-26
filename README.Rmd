@@ -56,8 +56,10 @@ file.remove(paste0("aquachem_", Sys.Date(), ".csv"))
 
 Create plots
 
-```{r}
+```{r, out.width = "50%", fig.width = 8, fig.asp = 1}
 piper_plot(r, ems_id = "1401030")
+```
+```{r, out.width = "50%", fig.width = 6, fig.asp = 0.75}
 stiff_plot(r, ems_id = "1401030")
 ```
 

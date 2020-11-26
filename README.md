@@ -100,13 +100,13 @@ Create plots
 piper_plot(r, ems_id = "1401030")
 ```
 
-<img src="man/figures/README-unnamed-chunk-5-1.png" width="100%" />
+<img src="man/figures/README-unnamed-chunk-5-1.png" width="50%" />
 
 ``` r
 stiff_plot(r, ems_id = "1401030")
 ```
 
-<img src="man/figures/README-unnamed-chunk-5-2.png" width="100%" />
+<img src="man/figures/README-unnamed-chunk-6-1.png" width="50%" />
 
 ### Shiny GUI
 
