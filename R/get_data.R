@@ -282,10 +282,14 @@ rems_to_aquachem <- function(ems_ids, date_range = NULL, save = TRUE,
     dplyr::select(tidyselect::all_of(names(d))) %>%
     dplyr::mutate(dplyr::across(c("Ca", "Mg", "Na", "Cl", "HCO3", "SO4"),
                                 ~"meq",
-                                .names = "{.col}_meq"))
+                                .names = "{.col}_meq"),
+                  cations = "", anions = "", charge_balance = "%")
 
   # Calculate MEQ
   d <- meq(d)
+
+  # Calculate charge balance
+  d <- charge_balance(d)
 
   # Add units to d
   d <- d %>%

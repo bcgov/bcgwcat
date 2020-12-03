@@ -137,10 +137,8 @@ server <- function(input, output) {
     req(input$data_show)
 
     d <- data_ac()
-    cb <- charge_balance(d, return = "all") %>%
-      dplyr::select("SampleID", "cations", "anions", "charge_balance")
-    units <- dplyr::bind_cols(d[1, ], cations = "", anions = "", charge_balance = "%")
-    d <- dplyr::left_join(d[-1, ], cb, by = "SampleID")
+    units <- dplyr::bind_cols(d[1, ])
+    d <- d[-1,]
 
     if(input$data_show == "rel"){
       d <- d[, c("StationID", "SampleID", "Sample_Date",
@@ -161,8 +159,8 @@ server <- function(input, output) {
                                   "SO4_meq", "HCO3_meq", "cations",
                                   "anions", "charge_balance")) %>%
       DT::formatStyle("charge_balance",
-                      backgroundColor = DT::styleInterval(cuts = c(-10, 10, Inf),
-                                                          values = c("#f8d7da", "#d4edda", "#d4edda", "#f8d7da")))
+                      backgroundColor = DT::styleInterval(cuts = c(-10, 10),
+                                                          values = c("#f8d7da", "#d4edda", "#f8d7da")))
   })
 
 

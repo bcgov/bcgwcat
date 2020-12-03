@@ -17,16 +17,12 @@ meq <- function(d) {
 #' @return Data frame
 #' @export
 #'
-charge_balance <- function(d, return = "relevant") {
-
-  vars <- c("SampleID", "Ca_meq", "Mg_meq", "Na_meq", "Cl_meq", "HCO3_meq")
-
-  dplyr::select(d, tidyselect::all_of(vars)) %>%
-    dplyr::slice(-1) %>%
-    dplyr::mutate(dplyr::across(-"SampleID", as.numeric),
-                  cations = .data$Ca_meq + .data$Mg_meq + .data$Na_meq,
+charge_balance <- function(d) {
+  d %>%
+    dplyr::mutate(cations = .data$Ca_meq + .data$Mg_meq + .data$Na_meq,
                   anions = .data$Cl_meq + .data$HCO3_meq + .data$Na_meq,
-                  charge_balance = ((.data$cations - .data$anions) / (.data$cations + .data$anions)) * 100)
+                  charge_balance = ((.data$cations - abs(.data$anions)) /
+                                      (.data$cations + abs(.data$anions))) * 100)
 }
 
 
