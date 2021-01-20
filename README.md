@@ -13,18 +13,32 @@ The goal of `rems2aquachem` is to provide a quick and painless way of
 converting EMS data into a format compatible with AquaChem.
 
 Data is first downloaded with BC Govs
-[`rems`](http://github.com/bcgov/rems) package, then formated for use by
-AquaChem.
+[`rems`](http://github.com/bcgov/rems) package, then formatted for use
+by AquaChem.
 
-## Installation
+## Installation steps
 
-You can install `rems2aquachem` from
-[GitHub](https://github.com/steffilazerte/rems2aquachem).
+1.  [Update RStudio](https://rstudio.com/) (if it’s been a while)
 
-``` r
-install.packages("remotes")
-remotes::install_github("steffilazerte/rems2aquachem", build_vignettes = TRUE)
-```
+2.  [Update R](https://cloud.r-project.org/) (if it’s been a while)
+
+3.  Open RStudio
+
+4.  Install `remotes`
+    
+    In the console type the following and hit enter
+    
+    ``` r
+    install.packages("remotes")
+    ```
+
+5.  Install `rems2aquachem`
+    
+    In the console type the following and hit enter
+    
+    ``` r
+    remotes::install_github("steffilazerte/rems2aquachem")
+    ```
 
 If you run into errors right at the start, consider updating your
 packages.
@@ -33,9 +47,34 @@ packages.
 remotes::update_packages()
 ```
 
-## Usage
+## Using `rems2aquachem`
+
+### Shiny GUI
+
+1.  In RStudio, first load the `rems2aquachem` package (this must be
+    done every time)
+    
+    ``` r
+    library(rems2aquachem)
+    ```
+
+2.  Next, launch the shiny GUI.
+    
+    Type the following in the console and hit enter
+    
+    ``` r
+    ac_gui()
+    ```
+
+**See the
+[tutorial](https://steffilazerte.github.io/rems2aquachem/articles/walkthrough.html)
+for a more in-depth look at the GUI**
+
+![Screenshot](https://raw.githubusercontent.com/steffilazerte/rems2aquachem/master/inst/assets/screenshot.png)
 
 ### R command line
+
+For advanced users, `rems2aquachem` can be used directly from R.
 
 Downloads, converts and saves to csv
 
@@ -100,29 +139,15 @@ Create plots
 piper_plot(r, ems_id = "1401030")
 ```
 
-<img src="man/figures/README-unnamed-chunk-5-1.png" width="50%" />
+<img src="man/figures/README-unnamed-chunk-8-1.png" width="50%" />
 
 ``` r
 stiff_plot(r, ems_id = "1401030")
 ```
 
-<img src="man/figures/README-unnamed-chunk-6-1.png" width="50%" />
-
-### Shiny GUI
-
-Launch the shiny GUI with the function `ac_gui()`
-
-``` r
-ac_gui()
-```
-
-![Screenshot](https://raw.githubusercontent.com/steffilazerte/rems2aquachem/master/inst/assets/screenshot.png)
+<img src="man/figures/README-unnamed-chunk-9-1.png" width="50%" />
 
 ## Vignette/Tutorials
 
-After installing `rems2aquachem` you can access the Walkthrough vignette
-with:
-
-``` r
-vignette("walkthrough", package = "rems2aquachem")
-```
+See the [`rems2aquachem`
+website](https://steffilazerte.github.io/rems2aquachem)
