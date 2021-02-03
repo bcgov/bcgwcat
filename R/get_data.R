@@ -32,18 +32,27 @@ get_rems <- function(ems_ids, date_range, interactive) {
 
   # Get the historic data from ems
   if(hist) {
-    message("Checking for locally stored historical data...")
-    rems::download_historic_data(ask = interactive)
+    if(interactive) {
+      message("Checking for locally stored historical data...")
+      message("Last download was ",
+              round(difftime(Sys.Date(),
+                             rems::get_cache_date("historic"), units = "day")),
+              " days ago")
+      message("If you would like to update historical data, run 'rems::download_historic_data()'")
+    }
 
     # Filter historic data
-    h <- rems::attach_historic_data() %>%
+    con <- suppressMessages(rems::connect_historic_db())
+    h <- rems::attach_historic_data(con) %>%
       dplyr::select("EMS_ID", "COLLECTION_START", "LOCATION_PURPOSE",
                     "SAMPLE_STATE", "LATITUDE", "LONGITUDE", "PARAMETER",
                     "PARAMETER_CODE", "ANALYTICAL_METHOD", "RESULT", "UNIT") %>%
       dplyr::filter(.data$EMS_ID %in% ems_ids) %>%
       dplyr::collect() %>%
-      dplyr::mutate(COLLECTION_START = rems::ems_posix_numeric(.data$COLLECTION_START)) %>%
+      dplyr::mutate(COLLECTION_START =
+                      rems::ems_posix_numeric(.data$COLLECTION_START)) %>%
       dplyr::arrange(.data$COLLECTION_START)
+    rems::disconnect_historic_db(con)
   } else h <- data.frame()
 
   if(recent) {
@@ -288,9 +297,6 @@ rems_to_aquachem <- function(ems_ids, date_range = NULL, save = TRUE,
   # Calculate MEQ
   d <- meq(d)
 
-  # Calculate charge balance
-  d <- charge_balance(d)
-
   # Add units to d
   d <- d %>%
     dplyr::mutate_all(.funs = as.character) %>%
@@ -306,7 +312,6 @@ rems_to_aquachem <- function(ems_ids, date_range = NULL, save = TRUE,
     out_file <- file.path(out_folder, out_file)
     readr::write_csv(d, out_file, "N/A")
   }
-
   d
 }
 

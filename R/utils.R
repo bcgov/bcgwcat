@@ -3,27 +3,28 @@ meq <- function(d) {
                 Ca_meq = smwrBase::conc2meq(.data$Ca, "calcium"),
                 Mg_meq = smwrBase::conc2meq(.data$Mg, "magnesium"),
                 Na_meq = smwrBase::conc2meq(.data$Na, "sodium"),
+                K_meq = smwrBase::conc2meq(.data$K, "potassium"),
                 Cl_meq = smwrBase::conc2meq(.data$Cl, "chloride"),
                 HCO3_meq = smwrBase::conc2meq(.data$HCO3, "bicarb"),
                 SO4_meq = smwrBase::conc2meq(.data$SO4, "sulfate"))
 }
 
 
-#' Calculate charge balance
-#'
-#' @param d AquaChem formatted dataset
-#' @param return Return "all" columns or only "relevant" columns?
-#'
-#' @return Data frame
-#' @export
-#'
-charge_balance <- function(d) {
-  d %>%
-    dplyr::mutate(cations = .data$Ca_meq + .data$Mg_meq + .data$Na_meq,
-                  anions = .data$Cl_meq + .data$HCO3_meq + .data$Na_meq,
-                  charge_balance = ((.data$cations - abs(.data$anions)) /
-                                      (.data$cations + abs(.data$anions))) * 100)
-}
+#' #' Calculate charge balance
+#' #'
+#' #' @param d AquaChem formatted dataset
+#' #' @param return Return "all" columns or only "relevant" columns?
+#' #'
+#' #' @return Data frame
+#' #' @export
+#' #'
+#' charge_balance <- function(d) {
+#'   d %>%
+#'     dplyr::mutate(cations = .data$Ca_meq + .data$Mg_meq + .data$Na_meq + .data$K_meq,
+#'                   anions = .data$Cl_meq + .data$HCO3_meq + .data$SO4_meq,
+#'                   charge_balance = ((.data$cations - abs(.data$anions)) /
+#'                                       (.data$cations + abs(.data$anions))) * 100)
+#' }
 
 
 #' Create Piper plot
