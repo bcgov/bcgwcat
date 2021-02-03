@@ -2,9 +2,13 @@ library(shiny)
 library(shinydashboard)
 library(shinyjs)
 
+styles <- "h4 {margin-left: 5px;}"
+
 header <- dashboardHeader(title = "REMS to AquaChem")
 
 sidebar <- dashboardSidebar(
+  tags$head(tags$style(HTML(styles))),
+  h4("Data options"),
   # Select EMS IDs
   textInput(inputId = "ems_ids", label = strong("EMS IDs (Comma-separated)")),
 
@@ -21,8 +25,19 @@ sidebar <- dashboardSidebar(
   actionButton("get_data", "Get and convert EMS data"),
 
   hr(),
-  p("This ShinyApp collects EMS data from BCGOV using the 'rems' package. Data is filtered to the EMS IDs and the Date Range specificied and is then formated for easy input into AquaChem."),
-  p("Data can be downloaded as either csv or a colour-coded xlsx.")
+
+  # Plot options
+  h4("Plot options"),
+  uiOutput("data_ids"),
+  radioButtons("data_omit", strong("Omit 'bad' charge balances?"),
+               choices = c("Yes" = TRUE, "No" = FALSE), inline = TRUE),
+  radioButtons("legend", strong("Piper plot legend"),
+               choices = c("Show" = TRUE, "Hide" = FALSE), inline = TRUE),
+
+  # Help
+  hr(),
+  h4(a(icon("question"), "Help", href = "https://steffilazerte.ca/rems2aquachem/",
+       target = "_blank"))
 )
 
 
@@ -43,15 +58,21 @@ body <- dashboardBody(
 
            tabPanel("REMS Status",
                     fluidRow(
-                      h3("Status of REMS data"),
-                      valueBoxOutput("rems_status_recent", width = 4),
-                      valueBoxOutput("rems_status_historic", width = 4),
-                      actionButton("check_status", "Check status"), br(),
-                      actionButton("update_recent", "Update recent data (2yr)"), br(),
-                      actionButton("update_historic", "Update historic data")),
+                      box(width = 12,
+                        h3("Status of REMS data"),
+                        valueBoxOutput("rems_status_historic", width = 4),
+                        valueBoxOutput("rems_status_recent", width = 4),
+                        actionButton("check_status", "Check status"), br(),
+                        actionButton("update_recent", "Update recent data (2yr)"), br(),
+                        actionButton("update_historic", "Update historic data")),
+                      box("Historical data is now being updated daily. ",
+                          "However this is such a large download you may not want to update it everyday.",
+                          width = 4),
+                      box("Recent EMS Data will need to be updated when ever it is out of date.",
+                          width = 4)),
                     fluidRow(
-                      h3("Data Messages"),
-                      verbatimTextOutput("messages", placeholder = TRUE))),
+                      box(h3("Data Messages"), width = 12,
+                          verbatimTextOutput("messages", placeholder = TRUE)))),
 
            tabPanel("Results",
                     shinyjs::disabled(downloadButton("download_csv_data", "Download to CSV")),
@@ -59,13 +80,32 @@ body <- dashboardBody(
                     DT::DTOutput("data")),
 
            tabPanel("Plots",
-                    uiOutput("data_ids"),
-                    strong("Note that Stiff plots only include complete samples"),
-                    br(),
-                    downloadButton(outputId = "download_plots", label = "Download All Plots"),
-                    plotOutput("piperplot", width = "900px", height = "500px"))
-
-    ), footer = HTML("<br>"))
-)
+                    fluidRow(
+                      column(width = 6,
+                             box(width = NULL,
+                                 downloadButton(outputId = "download_plots", label = "Download All Plots"),
+                                 br(),
+                                 "Note that downloaded plots may not have the same dimensions as the preview plots"),
+                             box(title = "Stiff Plot",
+                                 strong("Note that Stiff plots only include complete samples"),
+                                 plotOutput("stiff", width = "450px", height = "350px"), width = NULL)
+                      ),
+                      column(width = 6,
+                             box(title = "Piper Plot", width = NULL, height = "575px",
+                                 plotOutput("piperplot"))
+                      ))
+                    ),
+           tabPanel("About",
+                    fluidRow(
+                      box(title = "About this Shiny App", width = 12,
+                        p("This Shiny App collects EMS data from BCGOV using the",
+                          a('rems', href = "https://github.com/bcgov/rems", target = "_blank"),
+                          "package. ",
+                          "Data is filtered to the EMS IDs and the Date Range ",
+                          "specificied and is then formated for easy input into AquaChem."),
+                        p("Data can be downloaded as either csv or a colour-coded xlsx."),
+                        p("Piper plots and stiff diagrams can be viewed and downloaded as png."))
+                    ), footer = HTML("<br>"))
+    )))
 
 ui <- dashboardPage(header, sidebar, body)

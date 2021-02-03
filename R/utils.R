@@ -34,8 +34,7 @@ meq <- function(d) {
 #'
 #' @export
 
-piper_plot <- function(d, ems_id = NULL) {
-
+piper_plot <- function(d, ems_id = NULL, point_size = 0.1, legend = TRUE) {
   d <- d[-1, ]
 
   if(!is.null(ems_id)) {
@@ -46,21 +45,29 @@ piper_plot <- function(d, ems_id = NULL) {
   }
 
 
-  d <- dplyr::select(d, c("SampleID", "Ca_meq", "Mg_meq", "Na_meq", "Cl_meq", "HCO3_meq", "SO4_meq")) %>%
+  d <- dplyr::select(d, c("SampleID", "Ca_meq", "Mg_meq", "Na_meq",
+                          "Cl_meq", "HCO3_meq", "SO4_meq")) %>%
     dplyr::mutate(dplyr::across(-"SampleID", as.numeric))
 
-  with(d, smwrGraphs::piperPlot(Ca_meq, Mg_meq, Na_meq,
-                                 Cl_meq, HCO3_meq, SO4_meq,
-                                 x.zAn.title = "Cl + SO4",
-                                 x.yCat.title = "Ca + Mg",
-                                 zCat.title = "Na + K",
-                                 #xAn.title = "Cl",
-                                 xAn.title = "Cl- + F- + NO2- + NO3-",
-                                 yAn.title = "HCO3 + CO3",
-                                 zAn.title = "SO4",
-                                 xCat.title = "Ca",
-                                 yCat.title = "Mg",
-                                 units.title = ""))
+  pp <- with(d, smwrGraphs::piperPlot(
+    Ca_meq, Mg_meq, Na_meq,
+    Cl_meq, HCO3_meq, SO4_meq,
+    x.zAn.title = "Cl + SO4",
+    x.yCat.title = "Ca + Mg",
+    zCat.title = "Na + K",
+    #xAn.title = "Cl",
+    xAn.title = "Cl- + F- + NO2- + NO3-",
+    yAn.title = "HCO3 + CO3",
+    zAn.title = "SO4",
+    xCat.title = "Ca",
+    yCat.title = "Mg",
+    units.title = "",
+    Plot = list(name = SampleID,
+                color = viridisLite::viridis(n = nrow(d), end = 0.8),
+                size = point_size
+    )))
+
+  if(legend) smwrGraphs::addExplanation(pp, title = "SampleID", where = "ul", box.off = FALSE)
 }
 
 #' Create Stiff plot

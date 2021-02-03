@@ -37,7 +37,7 @@ server <- function(input, output) {
       withCallingHandlers({
         t <- try(rems::download_historic_data(force = TRUE, ask = FALSE), silent = TRUE)
         if(any(class(t) == "try-error")) {
-          rems::download_historic_data(force = TRUE, ask = FALSE)
+          rems::download_historic_data(force = FALSE, ask = FALSE)
         }
         message("Done")
         status$check_rems_historic <- TRUE
@@ -64,26 +64,29 @@ server <- function(input, output) {
 
   # Get historic status
   rems_status_historic <- eventReactive(status$check_rems_historic, {
-    server_historic <- rems:::get_sqlite_gh_date()
     cache_historic <- rems::get_cache_date("historic")
     status$check_rems_historic <- FALSE
-    server_historic >= cache_historic
+    Sys.Date() == lubridate::as_date(cache_historic)
   })
 
 
   # Output recent status
   output$rems_status_recent <- renderValueBox({
+    dt <- rems::get_cache_date("2yr")
+    if(dt == -Inf) dt <- "never" else dt <- as.character(lubridate::as_date(dt))
     valueBox(value = if(!rems_status_recent()) "Out-of-date" else "Up-to-date",
-             subtitle = "Recent EMS Data",
+             subtitle = paste0("Recent EMS Data (last updated: ", dt, ")"),
              color = if(!rems_status_recent()) "red" else "green"
     )
   })
 
   # Output historic status
   output$rems_status_historic <- renderValueBox({
+    dt <- round(difftime(Sys.Date(), rems::get_cache_date("historic"), units = "days"))
+    if(dt == Inf) dt <- "never" else dt <- paste0(dt, " days ago")
     valueBox(value = if(!rems_status_historic()) "Out-of-date" else "Up-to-date",
-             subtitle = "Historic EMS Data",
-             color = if(!rems_status_historic()) "red" else "green"
+             subtitle = paste0("Historic EMS Data (last updated: ", dt, ")"),
+             color = if(!rems_status_historic()) "blue" else "green"
     )
   })
 
@@ -112,13 +115,10 @@ server <- function(input, output) {
     validate(need(
       rems_status_recent(),
       message = "Recent REMS data is out of date, please update it"))
-    validate(need(
-      rems_status_historic(),
-      message = "Historical REMS data is out of date, please update it"))
 
     r <- try(withCallingHandlers(
       rems_to_aquachem(ems_ids = ems_ids(), date_range = input$date_range,
-                       save = FALSE),
+                       save = FALSE, interactive = FALSE),
       error = function(e) {
         shinyjs::html(id = "messages", html = e$message, add = TRUE)
       },
@@ -128,7 +128,17 @@ server <- function(input, output) {
     ), silent = TRUE)
 
     if(any(class(r) == "try-error")) r <- NULL
+    shinyjs::html(id = "messages", html = "EMS data received - Go to Results Tab to explore",
+                   add = TRUE)
+
     r
+  })
+
+  data_plot <- reactive({
+    req(data_ac())
+    if(input$data_omit) {
+      dplyr::filter(data_ac()[-1,], abs(as.numeric(.data$charge_balance)) < 10)
+    } else data_ac()
   })
 
   output$data <- DT::renderDT({
@@ -169,17 +179,24 @@ server <- function(input, output) {
     req(data_ac())
     d <- data_ac()
     ids <- unique(stringr::str_extract(d$SampleID[-1], "^[0-9A-Z]+"))
-    radioButtons("ids_to_plot", "EMS ID to plot", ids, inline = TRUE)
+    selectInput("ids_to_plot", "EMS ID to plot", ids)
   })
 
 # Plots -------------------------------------------------------------
-  output$piperplot <- renderPlot({
-    req(data_ac(), input$ids_to_plot)
 
-    d <- data_ac()
-    (stiff_plot(d, ems_id = input$ids_to_plot) + ~piper_plot(d, ems_id = input$ids_to_plot)) +
+  output$stiff <- renderPlot({
+    req(data_plot(), input$ids_to_plot)
+    d <- data_plot()
+    stiff_plot(d, ems_id = input$ids_to_plot) +
       plot_annotation(title = input$ids_to_plot)
   })
+
+  output$piperplot <- renderPlot({
+    req(data_plot(), input$ids_to_plot)
+    d <- data_plot()
+    piper_plot(d, ems_id = input$ids_to_plot, point_size = 0.15, legend = input$legend)
+    title(input$ids_to_plot, line = -1)
+  }, width = 550, height = 550)
 
 
 
@@ -252,16 +269,18 @@ server <- function(input, output) {
     },
     content = function(fname) {
       tempdir <- tempdir()
-      d <- data_ac()
+      d <- data_plot()
 
       f <- c()
       for(i in ems_ids()) {
         f <- c(f,
                file.path(tempdir, glue::glue("{i}_stiff.png")),
                file.path(tempdir, glue::glue("{i}_piperplot.png")))
-        ggplot2::ggsave(file.path(tempdir, glue::glue("{i}_stiff.png")), stiff_plot(d, ems_id = i))
-        png(file.path(tempdir, glue::glue("{i}_piperplot.png")))
-        piper_plot(d, ems_id = i)
+        ggplot2::ggsave(file.path(tempdir, glue::glue("{i}_stiff.png")),
+                        stiff_plot(d, ems_id = i), dpi = 300)
+        png(file.path(tempdir, glue::glue("{i}_piperplot.png")), width = 2250, height = 2250,
+            res = 300)
+        piper_plot(d, ems_id = i, point_size = 0.2, legend = input$legend)
         dev.off()
       }
       zip(zipfile = fname, files = f, flags = "-j")
