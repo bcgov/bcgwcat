@@ -17,8 +17,13 @@ knitr::opts_chunk$set(
 library(knitr)
 ```
 
-```{r setup}
+## Opening the GUI
+
+In the R console type the following, hiting enter after each line. This will launch the Shiny App.
+
+```{r setup, eval = FALSE}
 library(rems2aquachem)
+ac_gui()
 ```
 
 
@@ -39,13 +44,15 @@ include_graphics("update_progress_console.png")
 2. Next, click on **Update historic data** to download the `rems` historic dataset. As above, you will see a progress message in the lower right corner and if you look at the R console, you will see the progress bar advance.
 
 ```{r, echo = FALSE, out.width = "80%"}
-include_graphics("update_historical2.png")
+include_graphics("out-of-date2.png")
 ```
 
 > **Note**   
 >
 > - Together these datasets are ~ 6.5 GB  
 > - You'll have to wait for both status to be green before you can proceed
+> - Historical Data is now being updated daily, but this is a **large** download
+>   so you may not want to update it unless you have good reason
 
 
 ## Selecting data
@@ -87,14 +94,14 @@ The results of your ID, date and data filtering will be available under the **Re
 
 You can scroll and sort through the data to ensure you have the data you wanted.
 
-The `charage_balance` values will be highlighted in green (value ranges from -10% to 10%) or red (values < -10% or > 10%) to indicate possibly problematic samples
+The `charge_balance` values will be highlighted in green (value ranges from -10% to 10%) or red (values < -10% or > 10%) to indicate possibly problematic samples
 
 
 > **Note** This may take a few minutes, depending on the amount of data you have requested.
 
 
 ```{r, echo = FALSE, out.width = "100%"}
-include_graphics("results_v2.png")
+include_graphics("results.png")
 ```
 
 
@@ -123,7 +130,9 @@ include_graphics("missing_data2.png")
 
 Plots can be previewed by clicking on the **Plots** tab.
 
-Click on the radio button associated with the EMS ID of the site you wish to view. To download **ALL** plots (i.e. not just the ones you can see), click on the "Download All Plots" button. This will zip the individual plots and ask you where to save the file.
+From the drop-down menu on the left, select the EMS ID of the site you wish to view. To download **ALL** plots (i.e. not just the ones you can see), click on the "Download All Plots" button. This will zip the individual plots and ask you where to save the file.
+
+If you wish, you can change the plot settings on the left hand side by including questionable data (**Omit 'bad' charge balances?**; where the charge balance is > 10 or < -10) or omitting sample legends on the piper plot (**Piper plot legend**).
 
 ```{r, echo = FALSE, out.width = "80%"}
 include_graphics("plots.png")

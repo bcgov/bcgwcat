@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">rems2aquachem</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.0</span>
       </span>
     </div>
 
@@ -46,19 +46,13 @@
   </a>
 </li>
 <li>
+  <a href="articles/rems2aquachem.html">Get started</a>
+</li>
+<li>
   <a href="reference/index.html">Reference</a>
 </li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Articles
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="articles/walkthrough.html">Shiny GUI Walkthrough</a>
-    </li>
-  </ul>
+  <a href="news/index.html">Changelog</a>
 </li>
       </ul>
 <ul class="nav navbar-nav navbar-right"></ul>
@@ -86,24 +80,27 @@
 <h2 class="hasAnchor">
 <a href="#installation-steps" class="anchor"></a>Installation steps</h2>
 <ol>
-<li><p><a href="https://rstudio.com/">Update RStudio</a> (if it’s been a while)</p></li>
-<li><p><a href="https://cloud.r-project.org/">Update R</a> (if it’s been a while)</p></li>
-<li><p>Open RStudio</p></li>
+<li><p><a href="https://rstudio.com/"><strong>Update RStudio</strong></a> (if it’s been a while)</p></li>
+<li><p><a href="https://cloud.r-project.org/"><strong>Update R</strong></a> (if it’s been a while)</p></li>
+<li><p><strong>Open RStudio</strong></p></li>
 <li>
-<p>Install <code>remotes</code></p>
-<p>In the console type the following and hit enter</p>
+<p><strong>Install <code>remotes</code></strong> In the console type the following and hit enter</p>
 <div class="sourceCode" id="cb1"><pre class="downlit">
 <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"remotes"</span><span class="op">)</span></pre></div>
 </li>
 <li>
-<p>Install <code>rems2aquachem</code></p>
-<p>In the console type the following and hit enter</p>
+<p><strong>Update <code>rems</code></strong> In the console type the following and hit enter</p>
 <div class="sourceCode" id="cb2"><pre class="downlit">
+<span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span><span class="op">(</span><span class="st">"bcgov/rems"</span><span class="op">)</span></pre></div>
+</li>
+<li>
+<p><strong>Install <code>rems2aquachem</code></strong> In the console type the following and hit enter (be sure to install all updates if prompted!)</p>
+<div class="sourceCode" id="cb3"><pre class="downlit">
 <span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span><span class="op">(</span><span class="st">"steffilazerte/rems2aquachem"</span><span class="op">)</span></pre></div>
 </li>
 </ol>
 <p>If you run into errors right at the start, consider updating your packages.</p>
-<div class="sourceCode" id="cb3"><pre class="downlit">
+<div class="sourceCode" id="cb4"><pre class="downlit">
 <span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/update_packages.html">update_packages</a></span><span class="op">(</span><span class="op">)</span></pre></div>
 </div>
 <div id="using-rems2aquachem" class="section level2">
@@ -116,83 +113,76 @@
 <ol>
 <li>
 <p>In RStudio, first load the <code>rems2aquachem</code> package (this must be done every time)</p>
-<div class="sourceCode" id="cb4"><pre class="downlit">
+<div class="sourceCode" id="cb5"><pre class="downlit">
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">rems2aquachem</span><span class="op">)</span></pre></div>
 </li>
 <li>
 <p>Next, launch the shiny GUI.</p>
 <p>Type the following in the console and hit enter</p>
-<div class="sourceCode" id="cb5"><pre class="downlit">
+<div class="sourceCode" id="cb6"><pre class="downlit">
 <span class="fu"><a href="reference/ac_gui.html">ac_gui</a></span><span class="op">(</span><span class="op">)</span></pre></div>
 </li>
 </ol>
-<p><img src="https://raw.githubusercontent.com/steffilazerte/rems2aquachem/master/inst/assets/screenshot.png" alt="Screenshot"></p>
+<p><strong>See the <a href="https://steffilazerte.github.io/rems2aquachem/articles/rems2aquachem.html">tutorial</a> for a more in-depth look at the GUI</strong></p>
+<p><img src="https://raw.githubusercontent.com/steffilazerte/rems2aquachem/master/inst/assets/up-to-date.png" alt="Screenshot"></p>
 </div>
 <div id="r-command-line" class="section level3">
 <h3 class="hasAnchor">
 <a href="#r-command-line" class="anchor"></a>R command line</h3>
 <p>For advanced users, <code>rems2aquachem</code> can be used directly from R.</p>
 <p>Downloads, converts and saves to csv</p>
-<div class="sourceCode" id="cb6"><pre class="downlit">
+<div class="sourceCode" id="cb7"><pre class="downlit">
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">rems2aquachem</span><span class="op">)</span>
 <span class="va">r</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/rems_to_aquachem.html">rems_to_aquachem</a></span><span class="op">(</span>ems_ids <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"1401030"</span>, <span class="st">"1401377"</span>, <span class="st">"E292373"</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt; Checking for locally stored historical data...</span>
-<span class="co">#&gt; It appears that you already have the most up-to date version of the historic ems data.</span>
+<span class="co">#&gt; Last download was 0 days ago</span>
+<span class="co">#&gt; If you would like to update historical data, run 'rems::download_historic_data()'</span>
 <span class="co">#&gt; Checking for locally stored recent data...</span>
 <span class="co">#&gt; Fetching data from cache...</span>
 <span class="va">r</span>
-<span class="co">#&gt; # A tibble: 16 x 142</span>
-<span class="co">#&gt;    StationID SampleID Sample_Date Analysis_Date Project Watertype shortWatertype</span>
-<span class="co">#&gt;    &lt;chr&gt;     &lt;chr&gt;    &lt;chr&gt;       &lt;chr&gt;         &lt;chr&gt;   &lt;chr&gt;     &lt;chr&gt;         </span>
-<span class="co">#&gt;  1 ""        ""       ""          ""            ""      ""        ""            </span>
-<span class="co">#&gt;  2 "075"     "140103… "1987-07-0…  &lt;NA&gt;         "BACKG… "Fresh W…  &lt;NA&gt;         </span>
-<span class="co">#&gt;  3 "075"     "140103… "1991-08-0…  &lt;NA&gt;         "BACKG… "Fresh W…  &lt;NA&gt;         </span>
-<span class="co">#&gt;  4 "075"     "140103… "1994-06-0…  &lt;NA&gt;         "BACKG… "Fresh W…  &lt;NA&gt;         </span>
-<span class="co">#&gt;  5 "075"     "140103… "2001-09-0…  &lt;NA&gt;         "BACKG… "Fresh W…  &lt;NA&gt;         </span>
-<span class="co">#&gt;  6 "075"     "140103… "2009-11-1…  &lt;NA&gt;         "BACKG… "Fresh W…  &lt;NA&gt;         </span>
-<span class="co">#&gt;  7 "075"     "140103… "2010-08-0…  &lt;NA&gt;         "BACKG… "Fresh W…  &lt;NA&gt;         </span>
-<span class="co">#&gt;  8 "075"     "140103… "2016-11-0…  &lt;NA&gt;         "BACKG… "Fresh W…  &lt;NA&gt;         </span>
-<span class="co">#&gt;  9 "075"     "140103… "2018-06-1…  &lt;NA&gt;         "BACKG… "Ground …  &lt;NA&gt;         </span>
-<span class="co">#&gt; 10 "203"     "140137… "1987-07-0…  &lt;NA&gt;         "BACKG… "Fresh W…  &lt;NA&gt;         </span>
-<span class="co">#&gt; 11 "203"     "140137… "1989-10-1…  &lt;NA&gt;         "BACKG… "Fresh W…  &lt;NA&gt;         </span>
-<span class="co">#&gt; 12 "203"     "140137… "1994-03-2…  &lt;NA&gt;         "BACKG… "Fresh W…  &lt;NA&gt;         </span>
-<span class="co">#&gt; 13 "203"     "140137… "2016-11-0…  &lt;NA&gt;         "BACKG… "Fresh W…  &lt;NA&gt;         </span>
-<span class="co">#&gt; 14 "203"     "140137… "2020-06-2…  &lt;NA&gt;         "BACKG… "Ground …  &lt;NA&gt;         </span>
-<span class="co">#&gt; 15 "426"     "E29237… "2015-03-0…  &lt;NA&gt;         "GROUN… "Fresh W…  &lt;NA&gt;         </span>
-<span class="co">#&gt; 16 "426"     "E29237… "2017-10-1…  &lt;NA&gt;         "GROUN… "Fresh W…  &lt;NA&gt;         </span>
-<span class="co">#&gt; # … with 135 more variables: Comment &lt;chr&gt;, Reference &lt;chr&gt;,</span>
-<span class="co">#&gt; #   Quality_control &lt;chr&gt;, Duplicate_ID &lt;chr&gt;, Labcode &lt;chr&gt;, Location &lt;chr&gt;,</span>
-<span class="co">#&gt; #   Geology &lt;chr&gt;, Coord_Lat &lt;chr&gt;, Coord_Long &lt;chr&gt;, X &lt;chr&gt;, Y &lt;chr&gt;,</span>
-<span class="co">#&gt; #   Elevation &lt;chr&gt;, Well_Depth &lt;chr&gt;, Screen_Top &lt;chr&gt;, Screen_Mid &lt;chr&gt;,</span>
-<span class="co">#&gt; #   Screen_Bottom &lt;chr&gt;, Gradient &lt;chr&gt;, Station_Comment &lt;chr&gt;,</span>
-<span class="co">#&gt; #   Sample_Depth &lt;chr&gt;, Temp &lt;chr&gt;, pH_lab &lt;chr&gt;, Cond &lt;chr&gt;, Meas_Alk &lt;chr&gt;,</span>
-<span class="co">#&gt; #   CO3 &lt;chr&gt;, HCO3 &lt;chr&gt;, Cl &lt;chr&gt;, F &lt;chr&gt;, Meas_Hardness &lt;chr&gt;, NH4 &lt;chr&gt;,</span>
-<span class="co">#&gt; #   NO3 &lt;chr&gt;, NO2 &lt;chr&gt;, SO4 &lt;chr&gt;, Ag_diss &lt;chr&gt;, Al_diss &lt;chr&gt;,</span>
-<span class="co">#&gt; #   As_diss &lt;chr&gt;, B &lt;chr&gt;, Ba &lt;chr&gt;, Ca &lt;chr&gt;, Cd_diss &lt;chr&gt;, Cr_diss &lt;chr&gt;,</span>
-<span class="co">#&gt; #   Cu_diss &lt;chr&gt;, DO &lt;chr&gt;, Fe_diss &lt;chr&gt;, K &lt;chr&gt;, Mg &lt;chr&gt;, Mn_diss &lt;chr&gt;,</span>
-<span class="co">#&gt; #   Mo_diss &lt;chr&gt;, Na &lt;chr&gt;, Ni_diss &lt;chr&gt;, Pb_diss &lt;chr&gt;, pH_field &lt;chr&gt;,</span>
-<span class="co">#&gt; #   Sb_diss &lt;chr&gt;, Cond_field &lt;chr&gt;, Se_diss &lt;chr&gt;, Si &lt;chr&gt;, Sr &lt;chr&gt;,</span>
-<span class="co">#&gt; #   Tl_diss &lt;chr&gt;, U_diss &lt;chr&gt;, V_diss &lt;chr&gt;, Zn_diss &lt;chr&gt;, Cd_tot &lt;chr&gt;,</span>
-<span class="co">#&gt; #   Zn_tot &lt;chr&gt;, Fe_tot &lt;chr&gt;, Cu_tot &lt;chr&gt;, Ni_tot &lt;chr&gt;, Al_tot &lt;chr&gt;,</span>
-<span class="co">#&gt; #   Tl_tot &lt;chr&gt;, As_tot &lt;chr&gt;, Sb_tot &lt;chr&gt;, V_tot &lt;chr&gt;, Mo_tot &lt;chr&gt;,</span>
-<span class="co">#&gt; #   Ag_tot &lt;chr&gt;, Pb_tot &lt;chr&gt;, Li &lt;chr&gt;, Mn_tot &lt;chr&gt;, U_tot &lt;chr&gt;, Br &lt;chr&gt;,</span>
-<span class="co">#&gt; #   `Acidity_pH_4_5_(as_CaCO3)` &lt;chr&gt;, `Acidity_pH_8_3_(as_CaCO3)` &lt;chr&gt;,</span>
-<span class="co">#&gt; #   `Alkalinity;_Phenolphthalein_(as_CaCO3)` &lt;chr&gt;, Anion_Sum &lt;chr&gt;,</span>
-<span class="co">#&gt; #   Barium_Total &lt;chr&gt;, Beryllium_Dissolved &lt;chr&gt;, Beryllium_Total &lt;chr&gt;,</span>
-<span class="co">#&gt; #   Bismuth_Dissolved &lt;chr&gt;, Bismuth_Total &lt;chr&gt;, Boron_Total &lt;chr&gt;,</span>
-<span class="co">#&gt; #   Calcium_Total &lt;chr&gt;, Carbon_Dissolved_Organic &lt;chr&gt;, Cation_Sum &lt;chr&gt;,</span>
-<span class="co">#&gt; #   `Cation-Anion_Balance_%=100*(Cations-Anions)/(Cations+Anions)` &lt;chr&gt;,</span>
-<span class="co">#&gt; #   Chromium_Total &lt;chr&gt;, Cobalt_Dissolved &lt;chr&gt;, Cobalt_Total &lt;chr&gt;,</span>
-<span class="co">#&gt; #   Cyanide_WAD &lt;chr&gt;, `Hardness_Total_(Total)` &lt;chr&gt;,</span>
-<span class="co">#&gt; #   `Hydroxide_Alkalinity_(as_CaCO3)` &lt;chr&gt;, Lithium_Total &lt;chr&gt;,</span>
-<span class="co">#&gt; #   Magnesium_Total &lt;chr&gt;, `Nitrate(NO3)_+_Nitrite(NO2)_Dissolved` &lt;chr&gt;, …</span></pre></div>
+<span class="co">#&gt; # A tibble: 16 x 145</span>
+<span class="co">#&gt;    StationID SampleID Sample_Date Analysis_Date Project Watertype shortWatertype Comment Reference Quality_control</span>
+<span class="co">#&gt;    &lt;chr&gt;     &lt;chr&gt;    &lt;chr&gt;       &lt;chr&gt;         &lt;chr&gt;   &lt;chr&gt;     &lt;chr&gt;          &lt;chr&gt;   &lt;chr&gt;     &lt;chr&gt;          </span>
+<span class="co">#&gt;  1 ""        ""       ""          ""            ""      ""        ""             ""      ""        ""             </span>
+<span class="co">#&gt;  2 "075"     "140103… "1987-07-0…  &lt;NA&gt;         "BACKG… "Fresh W…  &lt;NA&gt;           &lt;NA&gt;    &lt;NA&gt;      &lt;NA&gt;          </span>
+<span class="co">#&gt;  3 "075"     "140103… "1991-08-0…  &lt;NA&gt;         "BACKG… "Fresh W…  &lt;NA&gt;           &lt;NA&gt;    &lt;NA&gt;      &lt;NA&gt;          </span>
+<span class="co">#&gt;  4 "075"     "140103… "1994-06-0…  &lt;NA&gt;         "BACKG… "Fresh W…  &lt;NA&gt;           &lt;NA&gt;    &lt;NA&gt;      &lt;NA&gt;          </span>
+<span class="co">#&gt;  5 "075"     "140103… "2001-09-0…  &lt;NA&gt;         "BACKG… "Fresh W…  &lt;NA&gt;           &lt;NA&gt;    &lt;NA&gt;      &lt;NA&gt;          </span>
+<span class="co">#&gt;  6 "075"     "140103… "2009-11-1…  &lt;NA&gt;         "BACKG… "Fresh W…  &lt;NA&gt;           &lt;NA&gt;    &lt;NA&gt;      &lt;NA&gt;          </span>
+<span class="co">#&gt;  7 "075"     "140103… "2010-08-0…  &lt;NA&gt;         "BACKG… "Fresh W…  &lt;NA&gt;           &lt;NA&gt;    &lt;NA&gt;      &lt;NA&gt;          </span>
+<span class="co">#&gt;  8 "075"     "140103… "2016-11-0…  &lt;NA&gt;         "BACKG… "Fresh W…  &lt;NA&gt;           &lt;NA&gt;    &lt;NA&gt;      &lt;NA&gt;          </span>
+<span class="co">#&gt;  9 "075"     "140103… "2018-06-1…  &lt;NA&gt;         "BACKG… "Ground …  &lt;NA&gt;           &lt;NA&gt;    &lt;NA&gt;      &lt;NA&gt;          </span>
+<span class="co">#&gt; 10 "203"     "140137… "1987-07-0…  &lt;NA&gt;         "BACKG… "Fresh W…  &lt;NA&gt;           &lt;NA&gt;    &lt;NA&gt;      &lt;NA&gt;          </span>
+<span class="co">#&gt; 11 "203"     "140137… "1989-10-1…  &lt;NA&gt;         "BACKG… "Fresh W…  &lt;NA&gt;           &lt;NA&gt;    &lt;NA&gt;      &lt;NA&gt;          </span>
+<span class="co">#&gt; 12 "203"     "140137… "1994-03-2…  &lt;NA&gt;         "BACKG… "Fresh W…  &lt;NA&gt;           &lt;NA&gt;    &lt;NA&gt;      &lt;NA&gt;          </span>
+<span class="co">#&gt; 13 "203"     "140137… "2016-11-0…  &lt;NA&gt;         "BACKG… "Fresh W…  &lt;NA&gt;           &lt;NA&gt;    &lt;NA&gt;      &lt;NA&gt;          </span>
+<span class="co">#&gt; 14 "203"     "140137… "2020-06-2…  &lt;NA&gt;         "BACKG… "Ground …  &lt;NA&gt;           &lt;NA&gt;    &lt;NA&gt;      &lt;NA&gt;          </span>
+<span class="co">#&gt; 15 "426"     "E29237… "2015-03-0…  &lt;NA&gt;         "GROUN… "Fresh W…  &lt;NA&gt;           &lt;NA&gt;    &lt;NA&gt;      &lt;NA&gt;          </span>
+<span class="co">#&gt; 16 "426"     "E29237… "2017-10-1…  &lt;NA&gt;         "GROUN… "Fresh W…  &lt;NA&gt;           &lt;NA&gt;    &lt;NA&gt;      &lt;NA&gt;          </span>
+<span class="co">#&gt; # … with 135 more variables: Duplicate_ID &lt;chr&gt;, Labcode &lt;chr&gt;, Location &lt;chr&gt;, Geology &lt;chr&gt;, Coord_Lat &lt;chr&gt;,</span>
+<span class="co">#&gt; #   Coord_Long &lt;chr&gt;, X &lt;chr&gt;, Y &lt;chr&gt;, Elevation &lt;chr&gt;, Well_Depth &lt;chr&gt;, Screen_Top &lt;chr&gt;, Screen_Mid &lt;chr&gt;,</span>
+<span class="co">#&gt; #   Screen_Bottom &lt;chr&gt;, Gradient &lt;chr&gt;, Station_Comment &lt;chr&gt;, Sample_Depth &lt;chr&gt;, Temp &lt;chr&gt;, pH_lab &lt;chr&gt;,</span>
+<span class="co">#&gt; #   Cond &lt;chr&gt;, Meas_Alk &lt;chr&gt;, CO3 &lt;chr&gt;, HCO3 &lt;chr&gt;, Cl &lt;chr&gt;, F &lt;chr&gt;, Meas_Hardness &lt;chr&gt;, NH4 &lt;chr&gt;, NO3 &lt;chr&gt;,</span>
+<span class="co">#&gt; #   NO2 &lt;chr&gt;, SO4 &lt;chr&gt;, Ag_diss &lt;chr&gt;, Al_diss &lt;chr&gt;, As_diss &lt;chr&gt;, anion_sum &lt;chr&gt;, B &lt;chr&gt;, Ba &lt;chr&gt;, Ca &lt;chr&gt;,</span>
+<span class="co">#&gt; #   charge_balance &lt;chr&gt;, Cd_diss &lt;chr&gt;, Cr_diss &lt;chr&gt;, cation_sum &lt;chr&gt;, Cu_diss &lt;chr&gt;, DO &lt;chr&gt;, Fe_diss &lt;chr&gt;,</span>
+<span class="co">#&gt; #   K &lt;chr&gt;, Mg &lt;chr&gt;, Mn_diss &lt;chr&gt;, Mo_diss &lt;chr&gt;, Na &lt;chr&gt;, Ni_diss &lt;chr&gt;, Pb_diss &lt;chr&gt;, pH_field &lt;chr&gt;,</span>
+<span class="co">#&gt; #   Sb_diss &lt;chr&gt;, Cond_field &lt;chr&gt;, Se_diss &lt;chr&gt;, Si &lt;chr&gt;, Sr &lt;chr&gt;, Tl_diss &lt;chr&gt;, U_diss &lt;chr&gt;, V_diss &lt;chr&gt;,</span>
+<span class="co">#&gt; #   Zn_diss &lt;chr&gt;, Cd_tot &lt;chr&gt;, Zn_tot &lt;chr&gt;, Fe_tot &lt;chr&gt;, Cu_tot &lt;chr&gt;, Ni_tot &lt;chr&gt;, Al_tot &lt;chr&gt;, Tl_tot &lt;chr&gt;,</span>
+<span class="co">#&gt; #   As_tot &lt;chr&gt;, Sb_tot &lt;chr&gt;, V_tot &lt;chr&gt;, Mo_tot &lt;chr&gt;, Ag_tot &lt;chr&gt;, Pb_tot &lt;chr&gt;, Li &lt;chr&gt;, Mn_tot &lt;chr&gt;,</span>
+<span class="co">#&gt; #   U_tot &lt;chr&gt;, Br &lt;chr&gt;, `Acidity_pH_4_5_(as_CaCO3)` &lt;chr&gt;, `Acidity_pH_8_3_(as_CaCO3)` &lt;chr&gt;,</span>
+<span class="co">#&gt; #   `Alkalinity;_Phenolphthalein_(as_CaCO3)` &lt;chr&gt;, Barium_Total &lt;chr&gt;, Beryllium_Dissolved &lt;chr&gt;,</span>
+<span class="co">#&gt; #   Beryllium_Total &lt;chr&gt;, Bismuth_Dissolved &lt;chr&gt;, Bismuth_Total &lt;chr&gt;, Boron_Total &lt;chr&gt;, Calcium_Total &lt;chr&gt;,</span>
+<span class="co">#&gt; #   Carbon_Dissolved_Organic &lt;chr&gt;, Chromium_Total &lt;chr&gt;, Cobalt_Dissolved &lt;chr&gt;, Cobalt_Total &lt;chr&gt;, Cyanide_WAD &lt;chr&gt;,</span>
+<span class="co">#&gt; #   `Hardness_Total_(Total)` &lt;chr&gt;, `Hydroxide_Alkalinity_(as_CaCO3)` &lt;chr&gt;, Lithium_Total &lt;chr&gt;, Magnesium_Total &lt;chr&gt;,</span>
+<span class="co">#&gt; #   `Nitrate(NO3)_+_Nitrite(NO2)_Dissolved` &lt;chr&gt;, `Nitrogen_(Kjeldahl)_Total_Dissolved` &lt;chr&gt;,</span>
+<span class="co">#&gt; #   Nitrogen_Ammonia_Total &lt;chr&gt;, `Nitrogen_Kjel_Tot(N)` &lt;chr&gt;, …</span></pre></div>
 <p>Create plots</p>
-<div class="sourceCode" id="cb7"><pre class="downlit">
-<span class="fu"><a href="reference/piper_plot.html">piper_plot</a></span><span class="op">(</span><span class="va">r</span>, ems_id <span class="op">=</span> <span class="st">"1401030"</span><span class="op">)</span></pre></div>
-<p><img src="reference/figures/README-unnamed-chunk-8-1.png" width="50%"></p>
 <div class="sourceCode" id="cb8"><pre class="downlit">
+<span class="fu"><a href="reference/piper_plot.html">piper_plot</a></span><span class="op">(</span><span class="va">r</span>, ems_id <span class="op">=</span> <span class="st">"1401030"</span><span class="op">)</span></pre></div>
+<p><img src="reference/figures/README-unnamed-chunk-9-1.png" width="50%" style="display: block; margin: auto;"></p>
+<div class="sourceCode" id="cb9"><pre class="downlit">
 <span class="fu"><a href="reference/stiff_plot.html">stiff_plot</a></span><span class="op">(</span><span class="va">r</span>, ems_id <span class="op">=</span> <span class="st">"1401030"</span><span class="op">)</span></pre></div>
-<p><img src="reference/figures/README-unnamed-chunk-9-1.png" width="50%"></p>
+<p><img src="reference/figures/README-unnamed-chunk-10-1.png" width="50%" style="display: block; margin: auto;"></p>
 </div>
 </div>
 <div id="vignettetutorials" class="section level2">

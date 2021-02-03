@@ -24,23 +24,25 @@ Data is first downloaded with BC Govs [`rems`](http://github.com/bcgov/rems) pac
 
 ## Installation steps
 
-1. [Update RStudio](https://rstudio.com/) (if it's been a while)
+1. [**Update RStudio**](https://rstudio.com/) (if it's been a while)
 
-2. [Update R](https://cloud.r-project.org/) (if it's been a while)
+2. [**Update R**](https://cloud.r-project.org/) (if it's been a while)
 
-3. Open RStudio
+3. **Open RStudio**
 
-4. Install `remotes`
-
-    In the console type the following and hit enter
+4. **Install `remotes`** In the console type the following and hit enter
 
      ```{r, eval = FALSE}
      install.packages("remotes")
      ```
-  
-5. Install `rems2aquachem`
+     
+5. **Update `rems`** In the console type the following and hit enter
 
-    In the console type the following and hit enter
+     ```{r, eval = FALSE}
+     remotes::install_github("bcgov/rems")
+     ```
+     
+6. **Install `rems2aquachem`** In the console type the following and hit enter (be sure to install all updates if prompted!)
   
     ```{r, eval = FALSE}
     remotes::install_github("steffilazerte/rems2aquachem")
@@ -71,9 +73,9 @@ remotes::update_packages()
     ac_gui()
     ```
     
-**See the [tutorial](https://steffilazerte.github.io/rems2aquachem/articles/walkthrough.html) for a more in-depth look at the GUI**
+**See the [tutorial](https://steffilazerte.github.io/rems2aquachem/articles/rems2aquachem.html) for a more in-depth look at the GUI**
 
-![Screenshot](https://raw.githubusercontent.com/steffilazerte/rems2aquachem/master/inst/assets/screenshot.png)
+![Screenshot](https://raw.githubusercontent.com/steffilazerte/rems2aquachem/master/inst/assets/up-to-date.png)
 
 
 ### R command line
@@ -97,6 +99,7 @@ Create plots
 ```{r, out.width = "50%", fig.width = 8, fig.asp = 1}
 piper_plot(r, ems_id = "1401030")
 ```
+
 ```{r, out.width = "50%", fig.width = 6, fig.asp = 0.75}
 stiff_plot(r, ems_id = "1401030")
 ```

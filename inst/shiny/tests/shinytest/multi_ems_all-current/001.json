@@ -1,6 +1,7 @@
 {
   "input": {
     "check_status": 0,
+    "data_omit": "TRUE",
     "data_rows_all": [
       1,
       2,
@@ -35,20 +36,41 @@
     ],
     "ems_ids": "\"1401030\", \"1401377\"",
     "get_data": 1,
+    "ids_to_plot": "1401030",
+    "legend": "TRUE",
     "sidebarCollapsed": false,
     "sidebarItemExpanded": null,
     "update_historic": 0,
     "update_recent": 0
   },
   "output": {
+    "data_ids": {
+      "html": "<div class=\"form-group shiny-input-container\">\n  <label class=\"control-label\" for=\"ids_to_plot\">EMS ID to plot<\/label>\n  <div>\n    <select id=\"ids_to_plot\"><option value=\"1401030\" selected>1401030<\/option>\n<option value=\"1401377\">1401377<\/option><\/select>\n    <script type=\"application/json\" data-for=\"ids_to_plot\" data-nonempty=\"\">{}<\/script>\n  <\/div>\n<\/div>",
+      "deps": [
+        {
+          "name": "selectize",
+          "version": "0.11.2",
+          "src": {
+            "href": "shared/selectize"
+          },
+          "meta": null,
+          "script": null,
+          "stylesheet": "css/selectize.bootstrap3.css",
+          "head": "<!--[if lt IE 9]>\n<script src=\"shared/selectize/js/es5-shim.min.js\"><\/script>\n<![endif]-->\n<script src=\"shared/selectize/js/selectize.min.js\"><\/script>",
+          "attachment": null,
+          "package": null,
+          "all_files": true
+        }
+      ]
+    },
     "rems_status_historic": {
-      "html": "<div class=\"small-box bg-green\">\n  <div class=\"inner\">\n    <h3>Up-to-date<\/h3>\n    <p>Historic EMS Data<\/p>\n  <\/div>\n<\/div>",
+      "html": "<div class=\"small-box bg-blue\">\n  <div class=\"inner\">\n    <h3>Out-of-date<\/h3>\n    <p>Historic EMS Data (last updated 1 days ago)<\/p>\n  <\/div>\n<\/div>",
       "deps": [
 
       ]
     },
     "rems_status_recent": {
-      "html": "<div class=\"small-box bg-green\">\n  <div class=\"inner\">\n    <h3>Up-to-date<\/h3>\n    <p>Recent EMS Data<\/p>\n  <\/div>\n<\/div>",
+      "html": "<div class=\"small-box bg-green\">\n  <div class=\"inner\">\n    <h3>Up-to-date<\/h3>\n    <p>Recent EMS Data (last updated 2021-02-03)<\/p>\n  <\/div>\n<\/div>",
       "deps": [
 
       ]
