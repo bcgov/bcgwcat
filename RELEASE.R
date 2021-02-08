@@ -2,6 +2,8 @@
 
 # Check version
 
+devtools::check()
+
 # Render README.Rmd
 rmarkdown::render("README.Rmd")
 unlink("README.html")

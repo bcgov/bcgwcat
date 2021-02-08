@@ -18,9 +18,11 @@ knitr::opts_chunk$set(
 <!-- [![Travis build status](https://travis-ci.org/steffilazerte/rems2aquachem.svg?branch=master)](https://travis-ci.org/steffilazerte/rems2aquachem) -->
 <!-- badges: end -->
 
-The goal of `rems2aquachem` is to provide a quick and painless way of converting EMS data into a format compatible with AquaChem.
+The goal of `rems2aquachem` is to provide a quick and painless way of converting 
+EMS data into a format compatible with AquaChem.
 
-Data is first downloaded with BC Govs [`rems`](http://github.com/bcgov/rems) package, then formatted for use by AquaChem.
+Data is first downloaded with BC Govs [`rems`](http://github.com/bcgov/rems) 
+package, then formatted for use by AquaChem.
 
 ## Installation steps
 
@@ -42,7 +44,24 @@ Data is first downloaded with BC Govs [`rems`](http://github.com/bcgov/rems) pac
      remotes::install_github("bcgov/rems")
      ```
      
-6. **Install `rems2aquachem`** In the console type the following and hit enter (be sure to install all updates if prompted!)
+    > **Note:** If you run into errors during the `rems` data updates, this might 
+    > be due to old rems caches. 
+    > 
+    > **Try the following:** 
+    >  1. Uninstall `rems` - RStudio, go to the lower right hand window, click 
+    >     on the "Packages" tab, in the search bar, search for "rems", then 
+    >     click on the "X" in a circle to the right of it's name.
+    > 
+    > 2. Remove the `rems` cache - Delete the cache folders by going to 
+    >    C:\Users\YOUR_USER\AppData\Local (windows) or 
+    >    ~/Library/Application Support (mac) and delete the "rems" folder
+    > 
+    > 3. Re-install `rems` remotes::install_github("bcgov/rems") and 
+    >    then try again
+
+     
+6. **Install `rems2aquachem`** In the console type the following and hit enter 
+(be sure to install all updates if prompted!)
   
     ```{r, eval = FALSE}
     remotes::install_github("steffilazerte/rems2aquachem")

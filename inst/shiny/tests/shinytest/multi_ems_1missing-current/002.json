@@ -1,12 +1,20 @@
 {
   "input": {
-    "box": "About",
+    "box": "Plots",
     "check_status": 0,
     "data_omit": "TRUE",
+    "data_rows_all": [
+      1,
+      2
+    ],
+    "data_rows_current": [
+      1,
+      2
+    ],
     "data_show": "rel",
     "date_range": [
-      "1992-01-01",
-      "1993-01-01"
+      "1991-01-01",
+      "1992-01-01"
     ],
     "ems_ids": "\"1401030\", \"1401377\"",
     "get_data": 1,
@@ -39,7 +47,7 @@
       ]
     },
     "rems_status_historic": {
-      "html": "<div class=\"small-box bg-blue\">\n  <div class=\"inner\">\n    <h3>Out-of-date<\/h3>\n    <p>Historic EMS Data (last updated: 5 days ago)<\/p>\n  <\/div>\n<\/div>",
+      "html": "<div class=\"small-box bg-green\">\n  <div class=\"inner\">\n    <h3>Up-to-date<\/h3>\n    <p>Historic EMS Data (last updated: 0 days ago)<\/p>\n  <\/div>\n<\/div>",
       "deps": [
 
       ]

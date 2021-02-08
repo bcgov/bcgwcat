@@ -92,6 +92,15 @@
 <p><strong>Update <code>rems</code></strong> In the console type the following and hit enter</p>
 <div class="sourceCode" id="cb2"><pre class="downlit">
 <span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span><span class="op">(</span><span class="st">"bcgov/rems"</span><span class="op">)</span></pre></div>
+<blockquote>
+<p><strong>Note:</strong> If you run into errors during the <code>rems</code> data updates, this might be due to old rems caches.</p>
+<strong>Try the following:</strong>
+<ol>
+<li><p>Uninstall <code>rems</code> - RStudio, go to the lower right hand window, click on the “Packages” tab, in the search bar, search for “rems”, then click on the “X” in a circle to the right of it’s name.</p></li>
+<li><p>Remove the <code>rems</code> cache - Delete the cache folders by going to C:_USER(windows) or ~/Library/Application Support (mac) and delete the “rems” folder</p></li>
+<li><p>Re-install <code>rems</code> remotes::install_github(“bcgov/rems”) and then try again</p></li>
+</ol>
+</blockquote>
 </li>
 <li>
 <p><strong>Install <code>rems2aquachem</code></strong> In the console type the following and hit enter (be sure to install all updates if prompted!)</p>
@@ -135,54 +144,63 @@
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">rems2aquachem</span><span class="op">)</span>
 <span class="va">r</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/rems_to_aquachem.html">rems_to_aquachem</a></span><span class="op">(</span>ems_ids <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"1401030"</span>, <span class="st">"1401377"</span>, <span class="st">"E292373"</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt; Checking for locally stored historical data...</span>
-<span class="co">#&gt; Last download was 0 days ago</span>
+<span class="co">#&gt; Last download was -1 days ago</span>
 <span class="co">#&gt; If you would like to update historical data, run 'rems::download_historic_data()'</span>
 <span class="co">#&gt; Checking for locally stored recent data...</span>
 <span class="co">#&gt; Fetching data from cache...</span>
 <span class="va">r</span>
 <span class="co">#&gt; # A tibble: 16 x 145</span>
-<span class="co">#&gt;    StationID SampleID Sample_Date Analysis_Date Project Watertype shortWatertype Comment Reference Quality_control</span>
-<span class="co">#&gt;    &lt;chr&gt;     &lt;chr&gt;    &lt;chr&gt;       &lt;chr&gt;         &lt;chr&gt;   &lt;chr&gt;     &lt;chr&gt;          &lt;chr&gt;   &lt;chr&gt;     &lt;chr&gt;          </span>
-<span class="co">#&gt;  1 ""        ""       ""          ""            ""      ""        ""             ""      ""        ""             </span>
-<span class="co">#&gt;  2 "075"     "140103… "1987-07-0…  &lt;NA&gt;         "BACKG… "Fresh W…  &lt;NA&gt;           &lt;NA&gt;    &lt;NA&gt;      &lt;NA&gt;          </span>
-<span class="co">#&gt;  3 "075"     "140103… "1991-08-0…  &lt;NA&gt;         "BACKG… "Fresh W…  &lt;NA&gt;           &lt;NA&gt;    &lt;NA&gt;      &lt;NA&gt;          </span>
-<span class="co">#&gt;  4 "075"     "140103… "1994-06-0…  &lt;NA&gt;         "BACKG… "Fresh W…  &lt;NA&gt;           &lt;NA&gt;    &lt;NA&gt;      &lt;NA&gt;          </span>
-<span class="co">#&gt;  5 "075"     "140103… "2001-09-0…  &lt;NA&gt;         "BACKG… "Fresh W…  &lt;NA&gt;           &lt;NA&gt;    &lt;NA&gt;      &lt;NA&gt;          </span>
-<span class="co">#&gt;  6 "075"     "140103… "2009-11-1…  &lt;NA&gt;         "BACKG… "Fresh W…  &lt;NA&gt;           &lt;NA&gt;    &lt;NA&gt;      &lt;NA&gt;          </span>
-<span class="co">#&gt;  7 "075"     "140103… "2010-08-0…  &lt;NA&gt;         "BACKG… "Fresh W…  &lt;NA&gt;           &lt;NA&gt;    &lt;NA&gt;      &lt;NA&gt;          </span>
-<span class="co">#&gt;  8 "075"     "140103… "2016-11-0…  &lt;NA&gt;         "BACKG… "Fresh W…  &lt;NA&gt;           &lt;NA&gt;    &lt;NA&gt;      &lt;NA&gt;          </span>
-<span class="co">#&gt;  9 "075"     "140103… "2018-06-1…  &lt;NA&gt;         "BACKG… "Ground …  &lt;NA&gt;           &lt;NA&gt;    &lt;NA&gt;      &lt;NA&gt;          </span>
-<span class="co">#&gt; 10 "203"     "140137… "1987-07-0…  &lt;NA&gt;         "BACKG… "Fresh W…  &lt;NA&gt;           &lt;NA&gt;    &lt;NA&gt;      &lt;NA&gt;          </span>
-<span class="co">#&gt; 11 "203"     "140137… "1989-10-1…  &lt;NA&gt;         "BACKG… "Fresh W…  &lt;NA&gt;           &lt;NA&gt;    &lt;NA&gt;      &lt;NA&gt;          </span>
-<span class="co">#&gt; 12 "203"     "140137… "1994-03-2…  &lt;NA&gt;         "BACKG… "Fresh W…  &lt;NA&gt;           &lt;NA&gt;    &lt;NA&gt;      &lt;NA&gt;          </span>
-<span class="co">#&gt; 13 "203"     "140137… "2016-11-0…  &lt;NA&gt;         "BACKG… "Fresh W…  &lt;NA&gt;           &lt;NA&gt;    &lt;NA&gt;      &lt;NA&gt;          </span>
-<span class="co">#&gt; 14 "203"     "140137… "2020-06-2…  &lt;NA&gt;         "BACKG… "Ground …  &lt;NA&gt;           &lt;NA&gt;    &lt;NA&gt;      &lt;NA&gt;          </span>
-<span class="co">#&gt; 15 "426"     "E29237… "2015-03-0…  &lt;NA&gt;         "GROUN… "Fresh W…  &lt;NA&gt;           &lt;NA&gt;    &lt;NA&gt;      &lt;NA&gt;          </span>
-<span class="co">#&gt; 16 "426"     "E29237… "2017-10-1…  &lt;NA&gt;         "GROUN… "Fresh W…  &lt;NA&gt;           &lt;NA&gt;    &lt;NA&gt;      &lt;NA&gt;          </span>
-<span class="co">#&gt; # … with 135 more variables: Duplicate_ID &lt;chr&gt;, Labcode &lt;chr&gt;, Location &lt;chr&gt;, Geology &lt;chr&gt;, Coord_Lat &lt;chr&gt;,</span>
-<span class="co">#&gt; #   Coord_Long &lt;chr&gt;, X &lt;chr&gt;, Y &lt;chr&gt;, Elevation &lt;chr&gt;, Well_Depth &lt;chr&gt;, Screen_Top &lt;chr&gt;, Screen_Mid &lt;chr&gt;,</span>
-<span class="co">#&gt; #   Screen_Bottom &lt;chr&gt;, Gradient &lt;chr&gt;, Station_Comment &lt;chr&gt;, Sample_Depth &lt;chr&gt;, Temp &lt;chr&gt;, pH_lab &lt;chr&gt;,</span>
-<span class="co">#&gt; #   Cond &lt;chr&gt;, Meas_Alk &lt;chr&gt;, CO3 &lt;chr&gt;, HCO3 &lt;chr&gt;, Cl &lt;chr&gt;, F &lt;chr&gt;, Meas_Hardness &lt;chr&gt;, NH4 &lt;chr&gt;, NO3 &lt;chr&gt;,</span>
-<span class="co">#&gt; #   NO2 &lt;chr&gt;, SO4 &lt;chr&gt;, Ag_diss &lt;chr&gt;, Al_diss &lt;chr&gt;, As_diss &lt;chr&gt;, anion_sum &lt;chr&gt;, B &lt;chr&gt;, Ba &lt;chr&gt;, Ca &lt;chr&gt;,</span>
-<span class="co">#&gt; #   charge_balance &lt;chr&gt;, Cd_diss &lt;chr&gt;, Cr_diss &lt;chr&gt;, cation_sum &lt;chr&gt;, Cu_diss &lt;chr&gt;, DO &lt;chr&gt;, Fe_diss &lt;chr&gt;,</span>
-<span class="co">#&gt; #   K &lt;chr&gt;, Mg &lt;chr&gt;, Mn_diss &lt;chr&gt;, Mo_diss &lt;chr&gt;, Na &lt;chr&gt;, Ni_diss &lt;chr&gt;, Pb_diss &lt;chr&gt;, pH_field &lt;chr&gt;,</span>
-<span class="co">#&gt; #   Sb_diss &lt;chr&gt;, Cond_field &lt;chr&gt;, Se_diss &lt;chr&gt;, Si &lt;chr&gt;, Sr &lt;chr&gt;, Tl_diss &lt;chr&gt;, U_diss &lt;chr&gt;, V_diss &lt;chr&gt;,</span>
-<span class="co">#&gt; #   Zn_diss &lt;chr&gt;, Cd_tot &lt;chr&gt;, Zn_tot &lt;chr&gt;, Fe_tot &lt;chr&gt;, Cu_tot &lt;chr&gt;, Ni_tot &lt;chr&gt;, Al_tot &lt;chr&gt;, Tl_tot &lt;chr&gt;,</span>
-<span class="co">#&gt; #   As_tot &lt;chr&gt;, Sb_tot &lt;chr&gt;, V_tot &lt;chr&gt;, Mo_tot &lt;chr&gt;, Ag_tot &lt;chr&gt;, Pb_tot &lt;chr&gt;, Li &lt;chr&gt;, Mn_tot &lt;chr&gt;,</span>
-<span class="co">#&gt; #   U_tot &lt;chr&gt;, Br &lt;chr&gt;, `Acidity_pH_4_5_(as_CaCO3)` &lt;chr&gt;, `Acidity_pH_8_3_(as_CaCO3)` &lt;chr&gt;,</span>
-<span class="co">#&gt; #   `Alkalinity;_Phenolphthalein_(as_CaCO3)` &lt;chr&gt;, Barium_Total &lt;chr&gt;, Beryllium_Dissolved &lt;chr&gt;,</span>
-<span class="co">#&gt; #   Beryllium_Total &lt;chr&gt;, Bismuth_Dissolved &lt;chr&gt;, Bismuth_Total &lt;chr&gt;, Boron_Total &lt;chr&gt;, Calcium_Total &lt;chr&gt;,</span>
-<span class="co">#&gt; #   Carbon_Dissolved_Organic &lt;chr&gt;, Chromium_Total &lt;chr&gt;, Cobalt_Dissolved &lt;chr&gt;, Cobalt_Total &lt;chr&gt;, Cyanide_WAD &lt;chr&gt;,</span>
-<span class="co">#&gt; #   `Hardness_Total_(Total)` &lt;chr&gt;, `Hydroxide_Alkalinity_(as_CaCO3)` &lt;chr&gt;, Lithium_Total &lt;chr&gt;, Magnesium_Total &lt;chr&gt;,</span>
-<span class="co">#&gt; #   `Nitrate(NO3)_+_Nitrite(NO2)_Dissolved` &lt;chr&gt;, `Nitrogen_(Kjeldahl)_Total_Dissolved` &lt;chr&gt;,</span>
-<span class="co">#&gt; #   Nitrogen_Ammonia_Total &lt;chr&gt;, `Nitrogen_Kjel_Tot(N)` &lt;chr&gt;, …</span></pre></div>
+<span class="co">#&gt;    StationID SampleID Sample_Date Analysis_Date Project Watertype shortWatertype</span>
+<span class="co">#&gt;    &lt;chr&gt;     &lt;chr&gt;    &lt;chr&gt;       &lt;chr&gt;         &lt;chr&gt;   &lt;chr&gt;     &lt;chr&gt;         </span>
+<span class="co">#&gt;  1 ""        ""       ""          ""            ""      ""        ""            </span>
+<span class="co">#&gt;  2 "075"     "140103… "1987-07-0…  &lt;NA&gt;         "BACKG… "Fresh W…  &lt;NA&gt;         </span>
+<span class="co">#&gt;  3 "075"     "140103… "1991-08-0…  &lt;NA&gt;         "BACKG… "Fresh W…  &lt;NA&gt;         </span>
+<span class="co">#&gt;  4 "075"     "140103… "1994-06-0…  &lt;NA&gt;         "BACKG… "Fresh W…  &lt;NA&gt;         </span>
+<span class="co">#&gt;  5 "075"     "140103… "2001-09-0…  &lt;NA&gt;         "BACKG… "Fresh W…  &lt;NA&gt;         </span>
+<span class="co">#&gt;  6 "075"     "140103… "2009-11-1…  &lt;NA&gt;         "BACKG… "Fresh W…  &lt;NA&gt;         </span>
+<span class="co">#&gt;  7 "075"     "140103… "2010-08-0…  &lt;NA&gt;         "BACKG… "Fresh W…  &lt;NA&gt;         </span>
+<span class="co">#&gt;  8 "075"     "140103… "2016-11-0…  &lt;NA&gt;         "BACKG… "Fresh W…  &lt;NA&gt;         </span>
+<span class="co">#&gt;  9 "075"     "140103… "2018-06-1…  &lt;NA&gt;         "BACKG… "Ground …  &lt;NA&gt;         </span>
+<span class="co">#&gt; 10 "203"     "140137… "1987-07-0…  &lt;NA&gt;         "BACKG… "Fresh W…  &lt;NA&gt;         </span>
+<span class="co">#&gt; 11 "203"     "140137… "1989-10-1…  &lt;NA&gt;         "BACKG… "Fresh W…  &lt;NA&gt;         </span>
+<span class="co">#&gt; 12 "203"     "140137… "1994-03-2…  &lt;NA&gt;         "BACKG… "Fresh W…  &lt;NA&gt;         </span>
+<span class="co">#&gt; 13 "203"     "140137… "2016-11-0…  &lt;NA&gt;         "BACKG… "Fresh W…  &lt;NA&gt;         </span>
+<span class="co">#&gt; 14 "203"     "140137… "2020-06-2…  &lt;NA&gt;         "BACKG… "Ground …  &lt;NA&gt;         </span>
+<span class="co">#&gt; 15 "426"     "E29237… "2015-03-0…  &lt;NA&gt;         "GROUN… "Fresh W…  &lt;NA&gt;         </span>
+<span class="co">#&gt; 16 "426"     "E29237… "2017-10-1…  &lt;NA&gt;         "GROUN… "Fresh W…  &lt;NA&gt;         </span>
+<span class="co">#&gt; # … with 138 more variables: Comment &lt;chr&gt;, Reference &lt;chr&gt;,</span>
+<span class="co">#&gt; #   Quality_control &lt;chr&gt;, Duplicate_ID &lt;chr&gt;, Labcode &lt;chr&gt;, Location &lt;chr&gt;,</span>
+<span class="co">#&gt; #   Geology &lt;chr&gt;, Coord_Lat &lt;chr&gt;, Coord_Long &lt;chr&gt;, X &lt;chr&gt;, Y &lt;chr&gt;,</span>
+<span class="co">#&gt; #   Elevation &lt;chr&gt;, Well_Depth &lt;chr&gt;, Screen_Top &lt;chr&gt;, Screen_Mid &lt;chr&gt;,</span>
+<span class="co">#&gt; #   Screen_Bottom &lt;chr&gt;, Gradient &lt;chr&gt;, Station_Comment &lt;chr&gt;,</span>
+<span class="co">#&gt; #   Sample_Depth &lt;chr&gt;, Temp &lt;chr&gt;, pH_lab &lt;chr&gt;, Cond &lt;chr&gt;, Meas_Alk &lt;chr&gt;,</span>
+<span class="co">#&gt; #   CO3 &lt;chr&gt;, HCO3 &lt;chr&gt;, Cl &lt;chr&gt;, F &lt;chr&gt;, Meas_Hardness &lt;chr&gt;, NH4 &lt;chr&gt;,</span>
+<span class="co">#&gt; #   NO3 &lt;chr&gt;, NO2 &lt;chr&gt;, SO4 &lt;chr&gt;, Ag_diss &lt;chr&gt;, Al_diss &lt;chr&gt;,</span>
+<span class="co">#&gt; #   As_diss &lt;chr&gt;, anion_sum &lt;chr&gt;, B &lt;chr&gt;, Ba &lt;chr&gt;, Ca &lt;chr&gt;,</span>
+<span class="co">#&gt; #   charge_balance &lt;chr&gt;, Cd_diss &lt;chr&gt;, Cr_diss &lt;chr&gt;, cation_sum &lt;chr&gt;,</span>
+<span class="co">#&gt; #   Cu_diss &lt;chr&gt;, DO &lt;chr&gt;, Fe_diss &lt;chr&gt;, K &lt;chr&gt;, Mg &lt;chr&gt;, Mn_diss &lt;chr&gt;,</span>
+<span class="co">#&gt; #   Mo_diss &lt;chr&gt;, Na &lt;chr&gt;, Ni_diss &lt;chr&gt;, Pb_diss &lt;chr&gt;, pH_field &lt;chr&gt;,</span>
+<span class="co">#&gt; #   Sb_diss &lt;chr&gt;, Cond_field &lt;chr&gt;, Se_diss &lt;chr&gt;, Si &lt;chr&gt;, Sr &lt;chr&gt;,</span>
+<span class="co">#&gt; #   Tl_diss &lt;chr&gt;, U_diss &lt;chr&gt;, V_diss &lt;chr&gt;, Zn_diss &lt;chr&gt;, Cd_tot &lt;chr&gt;,</span>
+<span class="co">#&gt; #   Zn_tot &lt;chr&gt;, Fe_tot &lt;chr&gt;, Cu_tot &lt;chr&gt;, Ni_tot &lt;chr&gt;, Al_tot &lt;chr&gt;,</span>
+<span class="co">#&gt; #   Tl_tot &lt;chr&gt;, As_tot &lt;chr&gt;, Sb_tot &lt;chr&gt;, V_tot &lt;chr&gt;, Mo_tot &lt;chr&gt;,</span>
+<span class="co">#&gt; #   Ag_tot &lt;chr&gt;, Pb_tot &lt;chr&gt;, Li &lt;chr&gt;, Mn_tot &lt;chr&gt;, U_tot &lt;chr&gt;, Br &lt;chr&gt;,</span>
+<span class="co">#&gt; #   `Acidity_pH_4_5_(as_CaCO3)` &lt;chr&gt;, `Acidity_pH_8_3_(as_CaCO3)` &lt;chr&gt;,</span>
+<span class="co">#&gt; #   `Alkalinity;_Phenolphthalein_(as_CaCO3)` &lt;chr&gt;, Barium_Total &lt;chr&gt;,</span>
+<span class="co">#&gt; #   Beryllium_Dissolved &lt;chr&gt;, Beryllium_Total &lt;chr&gt;, Bismuth_Dissolved &lt;chr&gt;,</span>
+<span class="co">#&gt; #   Bismuth_Total &lt;chr&gt;, Boron_Total &lt;chr&gt;, Calcium_Total &lt;chr&gt;,</span>
+<span class="co">#&gt; #   Carbon_Dissolved_Organic &lt;chr&gt;, Chromium_Total &lt;chr&gt;,</span>
+<span class="co">#&gt; #   Cobalt_Dissolved &lt;chr&gt;, Cobalt_Total &lt;chr&gt;, Cyanide_WAD &lt;chr&gt;,</span>
+<span class="co">#&gt; #   `Hardness_Total_(Total)` &lt;chr&gt;, `Hydroxide_Alkalinity_(as_CaCO3)` &lt;chr&gt;,</span>
+<span class="co">#&gt; #   Lithium_Total &lt;chr&gt;, Magnesium_Total &lt;chr&gt;,</span>
+<span class="co">#&gt; #   `Nitrate(NO3)_+_Nitrite(NO2)_Dissolved` &lt;chr&gt;, …</span></pre></div>
 <p>Create plots</p>
 <div class="sourceCode" id="cb8"><pre class="downlit">
 <span class="fu"><a href="reference/piper_plot.html">piper_plot</a></span><span class="op">(</span><span class="va">r</span>, ems_id <span class="op">=</span> <span class="st">"1401030"</span><span class="op">)</span></pre></div>
-<p><img src="reference/figures/README-unnamed-chunk-9-1.png" width="50%" style="display: block; margin: auto;"></p>
+<p><img src="reference/figures/README-unnamed-chunk-9-1.png" width="50%"></p>
 <div class="sourceCode" id="cb9"><pre class="downlit">
 <span class="fu"><a href="reference/stiff_plot.html">stiff_plot</a></span><span class="op">(</span><span class="va">r</span>, ems_id <span class="op">=</span> <span class="st">"1401030"</span><span class="op">)</span></pre></div>
-<p><img src="reference/figures/README-unnamed-chunk-10-1.png" width="50%" style="display: block; margin: auto;"></p>
+<p><img src="reference/figures/README-unnamed-chunk-10-1.png" width="50%"></p>
 </div>
 </div>
 <div id="vignettetutorials" class="section level2">

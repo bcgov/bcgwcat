@@ -10,27 +10,30 @@ meq <- function(d) {
 }
 
 
-#' #' Calculate charge balance
-#' #'
-#' #' @param d AquaChem formatted dataset
-#' #' @param return Return "all" columns or only "relevant" columns?
-#' #'
-#' #' @return Data frame
-#' #' @export
-#' #'
-#' charge_balance <- function(d) {
-#'   d %>%
-#'     dplyr::mutate(cations = .data$Ca_meq + .data$Mg_meq + .data$Na_meq + .data$K_meq,
-#'                   anions = .data$Cl_meq + .data$HCO3_meq + .data$SO4_meq,
-#'                   charge_balance = ((.data$cations - abs(.data$anions)) /
-#'                                       (.data$cations + abs(.data$anions))) * 100)
-#' }
+#' Calculate charge balance
+#'
+#' @param d AquaChem formatted dataset
+#' @param return Return "all" columns or only "relevant" columns?
+#'
+#' @return Data frame
+#'
+#'
+charge_balance <- function(d) {
+  d %>%
+    dplyr::mutate(cations = .data$Ca_meq + .data$Mg_meq + .data$Na_meq + .data$K_meq,
+                  anions = .data$Cl_meq + .data$HCO3_meq + .data$SO4_meq,
+                  charge_balance = ((.data$cations - abs(.data$anions)) /
+                                      (.data$cations + abs(.data$anions))) * 100)
+}
 
 
 #' Create Piper plot
 #'
 #' @param d  AquaChem formatted dataset
 #' @param ems_id Ids to plot if dataset includes more than one
+#' @param point_size Point size
+#' @param colour Whether to add colour by ems_id
+#' @param legend Whether to show the legend
 #'
 #' @export
 
@@ -84,6 +87,7 @@ piper_plot <- function(d, ems_id = NULL, point_size = 0.1,
 #'
 #' @param d  AquaChem formatted dataset
 #' @param ems_id Ids to plot if dataset includes more than one
+#' @param colour Whether to add colour by ems_id
 #'
 #' @export
 

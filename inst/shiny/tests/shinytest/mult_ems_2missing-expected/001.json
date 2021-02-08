@@ -1,6 +1,6 @@
 {
   "input": {
-    "box": "REMS Status",
+    "box": "Results",
     "check_status": 0,
     "data_omit": "TRUE",
     "data_show": "rel",
@@ -17,6 +17,11 @@
     "update_recent": 0
   },
   "output": {
+    "data": [
+      "no applicable method for 'select' applied to an object of class \"NULL\"",
+      "UseMethod(\"select\")",
+      "NULL"
+    ],
     "data_ids": {
       "message": "",
       "call": "NULL",
@@ -26,7 +31,7 @@
       ]
     },
     "rems_status_historic": {
-      "html": "<div class=\"small-box bg-blue\">\n  <div class=\"inner\">\n    <h3>Out-of-date<\/h3>\n    <p>Historic EMS Data (last updated: 5 days ago)<\/p>\n  <\/div>\n<\/div>",
+      "html": "<div class=\"small-box bg-green\">\n  <div class=\"inner\">\n    <h3>Up-to-date<\/h3>\n    <p>Historic EMS Data (last updated: 0 days ago)<\/p>\n  <\/div>\n<\/div>",
       "deps": [
 
       ]

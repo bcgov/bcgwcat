@@ -6,22 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>#' Calculate charge balance
-#'
-#' @param d AquaChem formatted dataset
-#' @param return Return "all" columns or only "relevant" columns?
-#'
-#' @return Data frame
-#' @export
-#'
-charge_balance &lt;- function(d) 
-  d 
-    dplyr::mutate(cations = .data$Ca_meq + .data$Mg_meq + .data$Na_meq + .data$K_meq,
-                  anions = .data$Cl_meq + .data$HCO3_meq + .data$SO4_meq,
-                  charge_balance = ((.data$cations - abs(.data$anions)) /
-                                      (.data$cations + abs(.data$anions))) * 100)
-
-Create Piper plot — piper_plot • rems2aquachem</title>
+<title>Calculate charge balance — piper_plot • rems2aquachem</title>
 
 
 <!-- jquery -->
@@ -54,38 +39,8 @@ Create Piper plot — piper_plot • rems2aquachem</title>
 
 
 
-<meta property="og:title" content="#' Calculate charge balance
-#'
-#' @param d AquaChem formatted dataset
-#' @param return Return "all" columns or only "relevant" columns?
-#'
-#' @return Data frame
-#' @export
-#'
-charge_balance &lt;- function(d) 
-  d 
-    dplyr::mutate(cations = .data$Ca_meq + .data$Mg_meq + .data$Na_meq + .data$K_meq,
-                  anions = .data$Cl_meq + .data$HCO3_meq + .data$SO4_meq,
-                  charge_balance = ((.data$cations - abs(.data$anions)) /
-                                      (.data$cations + abs(.data$anions))) * 100)
-
-Create Piper plot — piper_plot" />
-<meta property="og:description" content="#' Calculate charge balance
-#'
-#' @param d AquaChem formatted dataset
-#' @param return Return &quot;all&quot; columns or only &quot;relevant&quot; columns?
-#'
-#' @return Data frame
-#' @export
-#'
-charge_balance &amp;lt;- function(d) 
-  d 
-    dplyr::mutate(cations = .data$Ca_meq + .data$Mg_meq + .data$Na_meq + .data$K_meq,
-                  anions = .data$Cl_meq + .data$HCO3_meq + .data$SO4_meq,
-                  charge_balance = ((.data$cations - abs(.data$anions)) /
-                                      (.data$cations + abs(.data$anions))) * 100)
-
-Create Piper plot" />
+<meta property="og:title" content="Calculate charge balance — piper_plot" />
+<meta property="og:description" content="Calculate charge balance" />
 
 
 
@@ -154,46 +109,16 @@ Create Piper plot" />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>#' Calculate charge balance
-#'
-#' @param d AquaChem formatted dataset
-#' @param return Return "all" columns or only "relevant" columns?
-#'
-#' @return Data frame
-#' @export
-#'
-charge_balance &lt;- function(d) 
-  d <!-- %&gt;% -->
-    dplyr::mutate(cations = .data$Ca_meq + .data$Mg_meq + .data$Na_meq + .data$K_meq,
-                  anions = .data$Cl_meq + .data$HCO3_meq + .data$SO4_meq,
-                  charge_balance = ((.data$cations - abs(.data$anions)) /
-                                      (.data$cations + abs(.data$anions))) * 100)
-
-Create Piper plot</h1>
+    <h1>Calculate charge balance</h1>
     
     <div class="hidden name"><code>piper_plot.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>#' Calculate charge balance
-#'
-#' @param d AquaChem formatted dataset
-#' @param return Return "all" columns or only "relevant" columns?
-#'
-#' @return Data frame
-#' @export
-#'
-charge_balance &lt;- function(d) 
-  d <!-- %&gt;% -->
-    dplyr::mutate(cations = .data$Ca_meq + .data$Mg_meq + .data$Na_meq + .data$K_meq,
-                  anions = .data$Cl_meq + .data$HCO3_meq + .data$SO4_meq,
-                  charge_balance = ((.data$cations - abs(.data$anions)) /
-                                      (.data$cations + abs(.data$anions))) * 100)
-
-Create Piper plot</p>
+    <p>Calculate charge balance</p>
     </div>
 
-    <pre class="usage"><span class='fu'>piper_plot</span><span class='op'>(</span><span class='va'>d</span>, ems_id <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>piper_plot</span><span class='op'>(</span><span class='va'>d</span>, ems_id <span class='op'>=</span> <span class='cn'>NULL</span>, point_size <span class='op'>=</span> <span class='fl'>0.1</span>, colour <span class='op'>=</span> <span class='cn'>TRUE</span>, legend <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -206,8 +131,15 @@ Create Piper plot</p>
       <th>ems_id</th>
       <td><p>Ids to plot if dataset includes more than one</p></td>
     </tr>
+    <tr>
+      <th>return</th>
+      <td><p>Return "all" columns or only "relevant" columns?</p></td>
+    </tr>
     </table>
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>Data frame</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

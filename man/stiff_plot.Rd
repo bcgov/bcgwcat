@@ -4,7 +4,7 @@
 \alias{stiff_plot}
 \title{Create Stiff plot}
 \usage{
-stiff_plot(d, ems_id = NULL)
+stiff_plot(d, ems_id = NULL, colour = TRUE)
 }
 \arguments{
 \item{d}{AquaChem formatted dataset}

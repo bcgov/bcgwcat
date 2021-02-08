@@ -143,22 +143,7 @@ Shiny app to launch an interactive interface for getting and formating data.</p>
         <td>
           <p><code><a href="piper_plot.html">piper_plot()</a></code> </p>
         </td>
-        <td><p>#' Calculate charge balance
-#'
-#' @param d AquaChem formatted dataset
-#' @param return Return "all" columns or only "relevant" columns?
-#'
-#' @return Data frame
-#' @export
-#'
-charge_balance &lt;- function(d) 
-  d <!-- %&gt;% -->
-    dplyr::mutate(cations = .data$Ca_meq + .data$Mg_meq + .data$Na_meq + .data$K_meq,
-                  anions = .data$Cl_meq + .data$HCO3_meq + .data$SO4_meq,
-                  charge_balance = ((.data$cations - abs(.data$anions)) /
-                                      (.data$cations + abs(.data$anions))) * 100)
-
-Create Piper plot</p></td>
+        <td><p>Calculate charge balance</p></td>
       </tr><tr>
         
         <td>
