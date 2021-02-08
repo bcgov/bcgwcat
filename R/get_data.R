@@ -148,7 +148,7 @@ check_present <- function(d, ems_ids, type = "all") {
 #    data files are placed in the same directory as these scripts.
 #'
 #' @examples
-#'
+#' \dontrun{
 #' # Convert one well and save the data in the working directory
 #' rems_to_aquachem(ems_ids = "E289551")
 #'
@@ -165,18 +165,19 @@ check_present <- function(d, ems_ids, type = "all") {
 #' # To save the output to a specific folder
 #' # (here, the Outputs folder in the Rcode folder on the H drive)
 #' # Note that the out_folder must exist or you'll get an error
-#' \dontrun{rems_to_aquachem(ems_ids = c("1401030", "1401377"),
-#'                  out_folder = "H:\\Rcode\\Outputs/")}
+#' rems_to_aquachem(ems_ids = c("1401030", "1401377"),
+#'                  out_folder = "H:\\Rcode\\Outputs/")
 #'
 #' # All together now!
-#' \dontrun{rems_to_aquachem(ems_ids = c("1401030", "1401377"),
+#' rems_to_aquachem(ems_ids = c("1401030", "1401377"),
 #'                  date_range = c("2000-01-01", "2015-01-01"),
 #'                  out_file = "water_quality05.csv",
-#'                  out_folder = "H:\\Rcode\\Outputs/")}
+#'                  out_folder = "H:\\Rcode\\Outputs/")
 #'
 #' # Clean up
 #' unlink("water_quality01.csv")
 #' unlink(paste0("aquachem_", Sys.Date(), ".csv"))
+#' }
 #'
 #' @export
 rems_to_aquachem <- function(ems_ids, date_range = NULL, save = TRUE,
