@@ -1,0 +1,59 @@
+{
+  "input": {
+    "box": "REMS Status",
+    "check_status": 0,
+    "data_omit": "TRUE",
+    "data_show": "rel",
+    "date_range": [
+      "1900-01-01",
+      "2016-01-01"
+    ],
+    "ems_ids": "1401057",
+    "get_data": 1,
+    "ids_to_plot": "1401057",
+    "legend": "TRUE",
+    "sidebarCollapsed": false,
+    "sidebarItemExpanded": null,
+    "update_historic": 0,
+    "update_recent": 0
+  },
+  "output": {
+    "data_ids": {
+      "html": "<div class=\"form-group shiny-input-container\">\n  <label class=\"control-label\" id=\"ids_to_plot-label\" for=\"ids_to_plot\">EMS IDs to plot (click to add or click/DELETE to remove)<\/label>\n  <div>\n    <select id=\"ids_to_plot\" multiple=\"multiple\"><option value=\"1401057\" selected>1401057<\/option><\/select>\n    <script type=\"application/json\" data-for=\"ids_to_plot\">{\"plugins\":[\"selectize-plugin-a11y\"]}<\/script>\n  <\/div>\n<\/div>",
+      "deps": [
+        {
+          "name": "selectize",
+          "version": "0.12.4",
+          "src": {
+            "href": "shared/selectize"
+          },
+          "meta": null,
+          "script": [
+            "js/selectize.min.js",
+            "accessibility/js/selectize-plugin-a11y.min.js"
+          ],
+          "stylesheet": "css/selectize.bootstrap3.css",
+          "head": null,
+          "attachment": null,
+          "package": null,
+          "all_files": true
+        }
+      ]
+    },
+    "rems_status_historic": {
+      "html": "<div class=\"small-box bg-blue\">\n  <div class=\"inner\">\n    <h3>Out-of-date<\/h3>\n    <p>Historic EMS Data (last updated: 5 days ago)<\/p>\n  <\/div>\n<\/div>",
+      "deps": [
+
+      ]
+    },
+    "rems_status_recent": {
+      "html": "<div class=\"small-box bg-green\">\n  <div class=\"inner\">\n    <h3>Up-to-date<\/h3>\n    <p>Recent EMS Data (last updated: 2021-02-08)<\/p>\n  <\/div>\n<\/div>",
+      "deps": [
+
+      ]
+    }
+  },
+  "export": {
+
+  }
+}

@@ -1,0 +1,212 @@
+{
+  "input": {
+    "box": "Results",
+    "check_status": 0,
+    "data_cell_clicked": {
+
+    },
+    "data_cells_selected": [
+
+    ],
+    "data_columns_selected": null,
+    "data_omit": "TRUE",
+    "data_rows_all": [
+      1,
+      2,
+      3
+    ],
+    "data_rows_current": [
+      1,
+      2
+    ],
+    "data_rows_selected": null,
+    "data_search": "",
+    "data_show": "rel",
+    "data_state": null,
+    "date_range": [
+      "1900-01-01",
+      "2098-12-31"
+    ],
+    "ems_ids": "E292373",
+    "get_data": 1,
+    "ids_to_plot": "E292373",
+    "legend": "TRUE",
+    "sidebarCollapsed": false,
+    "sidebarItemExpanded": null,
+    "update_historic": 0,
+    "update_recent": 0
+  },
+  "output": {
+    "data": {
+      "x": {
+        "filter": "none",
+        "container": "<table class=\"display\">\n  <thead>\n    <tr>\n      <th>StationID\n<\/th>\n      <th>SampleID\n<\/th>\n      <th>Sample_Date\n<\/th>\n      <th>cations\n<\/th>\n      <th>anions\n<\/th>\n      <th>charge_balance\n%<\/th>\n      <th>Ca\nmg/L<\/th>\n      <th>Mg\nmg/L<\/th>\n      <th>Na\nmg/L<\/th>\n      <th>Cl\nmg/L<\/th>\n      <th>HCO3\nmg/L<\/th>\n      <th>SO4\nmg/L<\/th>\n      <th>Ca_meq\nmeq<\/th>\n      <th>Mg_meq\nmeq<\/th>\n      <th>Na_meq\nmeq<\/th>\n      <th>Cl_meq\nmeq<\/th>\n      <th>HCO3_meq\nmeq<\/th>\n      <th>SO4_meq\nmeq<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>",
+        "options": {
+          "pageLength": 20,
+          "scrollX": true,
+          "order": [
+
+          ],
+          "autoWidth": false,
+          "orderClasses": false,
+          "lengthMenu": [
+            10,
+            20,
+            25,
+            50,
+            100
+          ],
+          "columnDefs": [
+            {
+              "targets": 12,
+              "render": "function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatRound(data, 2, 3, \",\", \".\");\n  }"
+            },
+            {
+              "targets": 13,
+              "render": "function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatRound(data, 2, 3, \",\", \".\");\n  }"
+            },
+            {
+              "targets": 14,
+              "render": "function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatRound(data, 2, 3, \",\", \".\");\n  }"
+            },
+            {
+              "targets": 15,
+              "render": "function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatRound(data, 2, 3, \",\", \".\");\n  }"
+            },
+            {
+              "targets": 17,
+              "render": "function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatRound(data, 2, 3, \",\", \".\");\n  }"
+            },
+            {
+              "targets": 16,
+              "render": "function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatRound(data, 2, 3, \",\", \".\");\n  }"
+            },
+            {
+              "targets": 3,
+              "render": "function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatRound(data, 2, 3, \",\", \".\");\n  }"
+            },
+            {
+              "targets": 4,
+              "render": "function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatRound(data, 2, 3, \",\", \".\");\n  }"
+            },
+            {
+              "targets": 5,
+              "render": "function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatRound(data, 2, 3, \",\", \".\");\n  }"
+            }
+          ],
+          "rowCallback": "function(row, data) {\nvar value=data[5]; $(this.api().cell(row, 5).node()).css({'background-color':isNaN(parseFloat(value)) ? '' : value <= -10 ? \"#f8d7da\" : value <= 10 ? \"#d4edda\" : \"#f8d7da\"});\n}",
+          "ajax": {
+            "type": "POST",
+            "data": "function(d) {\nd.search.caseInsensitive = true;\nd.search.smart = true;\nd.escape = true;\nvar encodeAmp = function(x) { x.value = x.value.replace(/&/g, \"%26\"); }\nencodeAmp(d.search);\n$.each(d.columns, function(i, v) {encodeAmp(v.search);});\n}"
+          },
+          "serverSide": true,
+          "processing": true
+        },
+        "selection": {
+          "mode": "multiple",
+          "selected": null,
+          "target": "row",
+          "selectable": null
+        }
+      },
+      "evals": [
+        "options.columnDefs.0.render",
+        "options.columnDefs.1.render",
+        "options.columnDefs.2.render",
+        "options.columnDefs.3.render",
+        "options.columnDefs.4.render",
+        "options.columnDefs.5.render",
+        "options.columnDefs.6.render",
+        "options.columnDefs.7.render",
+        "options.columnDefs.8.render",
+        "options.rowCallback",
+        "options.ajax.data"
+      ],
+      "jsHooks": [
+
+      ],
+      "deps": [
+        {
+          "name": "dt-core",
+          "version": "1.10.20",
+          "src": {
+            "href": "dt-core-1.10.20"
+          },
+          "meta": null,
+          "script": "js/jquery.dataTables.min.js",
+          "stylesheet": [
+            "css/jquery.dataTables.min.css",
+            "css/jquery.dataTables.extra.css"
+          ],
+          "head": null,
+          "attachment": null,
+          "package": null,
+          "all_files": false
+        },
+        {
+          "name": "jquery",
+          "version": "3.5.1",
+          "src": {
+            "href": "jquery-3.5.1"
+          },
+          "meta": null,
+          "script": "jquery.min.js",
+          "stylesheet": null,
+          "head": null,
+          "attachment": null,
+          "all_files": true
+        },
+        {
+          "name": "crosstalk",
+          "version": "1.1.1",
+          "src": {
+            "href": "crosstalk-1.1.1"
+          },
+          "meta": null,
+          "script": "js/crosstalk.min.js",
+          "stylesheet": "css/crosstalk.css",
+          "head": null,
+          "attachment": null,
+          "all_files": true
+        }
+      ]
+    },
+    "data_ids": {
+      "html": "<div class=\"form-group shiny-input-container\">\n  <label class=\"control-label\" id=\"ids_to_plot-label\" for=\"ids_to_plot\">EMS IDs to plot (click to add or click/DELETE to remove)<\/label>\n  <div>\n    <select id=\"ids_to_plot\" multiple=\"multiple\"><option value=\"E292373\" selected>E292373<\/option><\/select>\n    <script type=\"application/json\" data-for=\"ids_to_plot\">{\"plugins\":[\"selectize-plugin-a11y\"]}<\/script>\n  <\/div>\n<\/div>",
+      "deps": [
+        {
+          "name": "selectize",
+          "version": "0.12.4",
+          "src": {
+            "href": "shared/selectize"
+          },
+          "meta": null,
+          "script": [
+            "js/selectize.min.js",
+            "accessibility/js/selectize-plugin-a11y.min.js"
+          ],
+          "stylesheet": "css/selectize.bootstrap3.css",
+          "head": null,
+          "attachment": null,
+          "package": null,
+          "all_files": true
+        }
+      ]
+    },
+    "rems_status_historic": {
+      "html": "<div class=\"small-box bg-blue\">\n  <div class=\"inner\">\n    <h3>Out-of-date<\/h3>\n    <p>Historic EMS Data (last updated: 5 days ago)<\/p>\n  <\/div>\n<\/div>",
+      "deps": [
+
+      ]
+    },
+    "rems_status_recent": {
+      "html": "<div class=\"small-box bg-green\">\n  <div class=\"inner\">\n    <h3>Up-to-date<\/h3>\n    <p>Recent EMS Data (last updated: 2021-02-08)<\/p>\n  <\/div>\n<\/div>",
+      "deps": [
+
+      ]
+    }
+  },
+  "export": {
+
+  }
+}
