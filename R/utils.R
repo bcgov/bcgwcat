@@ -34,20 +34,33 @@ meq <- function(d) {
 #'
 #' @export
 
-piper_plot <- function(d, ems_id = NULL, point_size = 0.1, legend = TRUE) {
-  d <- d[-1, ]
+piper_plot <- function(d, ems_id = NULL, point_size = 0.1,
+                       colour = TRUE, legend = TRUE) {
+  d <- d[-1, ] %>%
+    dplyr::mutate(ems_id = stringr::str_extract(.data$SampleID, "^[0-9A-Z]+"))
 
   if(!is.null(ems_id)) {
-    if(length(ems_id) > 1) stop("Can only specify one ems_id at a time", call. = FALSE)
-    d <- dplyr::filter(d, stringr::str_extract(.data$SampleID, "^[0-9A-Z]+") %in% ems_id)
-  } else if(length(unique(d$StationID)) > 1) {
-    stop("With more than one ems_id included in data, need to specify which id", call. = FALSE)
+    if(length(ems_id) > 1 & !colour) {
+      stop("Can only specify one ems_id at a time unless 'colour = TRUE'",
+           call. = FALSE)
+    }
+    d <- dplyr::filter(d, .data$ems_id %in% !!ems_id)
+  } else if(length(unique(d$ems_id)) > 1 & !colour) {
+    stop("With more than one ems_id included in data, need to specify which id ",
+         "OR 'colour = TRUE'", call. = FALSE)
   }
 
-
-  d <- dplyr::select(d, c("SampleID", "Ca_meq", "Mg_meq", "Na_meq",
+  d <- dplyr::select(d, c("ems_id", "Ca_meq", "Mg_meq", "Na_meq",
                           "Cl_meq", "HCO3_meq", "SO4_meq")) %>%
-    dplyr::mutate(dplyr::across(-"SampleID", as.numeric))
+    dplyr::mutate(dplyr::across(-"ems_id", as.numeric))
+
+  if(colour) {
+    col <- list(name = unique(d$ems_id),
+                color = viridisLite::viridis(n = length(unique(d$ems_id)), end = 0.8),
+                size = point_size)
+  } else {
+    col <- list()
+  }
 
   pp <- with(d, smwrGraphs::piperPlot(
     Ca_meq, Mg_meq, Na_meq,
@@ -62,12 +75,9 @@ piper_plot <- function(d, ems_id = NULL, point_size = 0.1, legend = TRUE) {
     xCat.title = "Ca",
     yCat.title = "Mg",
     units.title = "",
-    Plot = list(name = SampleID,
-                color = viridisLite::viridis(n = nrow(d), end = 0.8),
-                size = point_size
-    )))
+    Plot = col))
 
-  if(legend) smwrGraphs::addExplanation(pp, title = "SampleID", where = "ul", box.off = FALSE)
+  if(legend) smwrGraphs::addExplanation(pp, title = "EMS ID", where = "ul", box.off = FALSE)
 }
 
 #' Create Stiff plot
@@ -77,19 +87,25 @@ piper_plot <- function(d, ems_id = NULL, point_size = 0.1, legend = TRUE) {
 #'
 #' @export
 
-stiff_plot <- function(d, ems_id = NULL) {
+stiff_plot <- function(d, ems_id = NULL, colour = TRUE) {
 
-  d <- d[-1, ]
+  d <- d[-1, ] %>%
+    dplyr::mutate(ems_id = stringr::str_extract(.data$SampleID, "^[0-9A-Z]+"))
 
   if(!is.null(ems_id)) {
-    if(length(ems_id) > 1) stop("Can only specify one ems_id at a time", call. = FALSE)
-    d <- dplyr::filter(d, stringr::str_extract(.data$SampleID, "^[0-9A-Z]+") %in% ems_id)
-  } else if(length(unique(d$StationID)) > 1) {
-    stop("With more than one ems_id included in data, need to specify which id", call. = FALSE)
+    if(length(ems_id) > 1 & !colour) {
+      stop("Can only specify one ems_id at a time unless 'colour = TRUE'",
+           call. = FALSE)
+    }
+    d <- dplyr::filter(d, .data$ems_id %in% !!ems_id)
+  } else if(length(unique(d$ems_id)) > 1 & !colour) {
+    stop("With more than one ems_id included in data, need to specify which id ",
+         "OR 'colour = TRUE'" , call. = FALSE)
   }
 
-  stiff <- dplyr::select(d, c("SampleID", "Ca_meq", "Mg_meq", "Na_meq", "Cl_meq", "HCO3_meq", "SO4_meq")) %>%
-    dplyr::mutate(dplyr::across(-"SampleID", as.numeric)) %>%
+  stiff <- dplyr::select(d, c("ems_id", "SampleID", "Ca_meq", "Mg_meq", "Na_meq",
+                              "Cl_meq", "HCO3_meq", "SO4_meq")) %>%
+    dplyr::mutate(dplyr::across(c(-"ems_id", -"SampleID"), as.numeric)) %>%
     tidyr::pivot_longer(cols = c("Ca_meq", "Mg_meq", "Na_meq",
                                  "Cl_meq", "HCO3_meq", "SO4_meq"),
                         names_to = "element", values_to = "value") %>%
@@ -110,14 +126,18 @@ stiff_plot <- function(d, ems_id = NULL) {
                   n = sum(!is.na(.data$value))) %>%
     dplyr::filter(.data$n == 6)
 
-  ggplot2::ggplot(stiff, ggplot2::aes_string(x = "value", y = "sample", group = "SampleID")) +
+  if(colour) fill <- "ems_id" else fill <- NULL
+  ggplot2::ggplot(stiff, ggplot2::aes_string(x = "value", y = "sample",
+                                                  group = "SampleID", fill = fill)) +
     ggplot2::theme_classic() +
     ggplot2::theme(axis.title.y = ggplot2::element_blank()) +
-    ggplot2::geom_polygon(colour = "black", fill = "grey50") +
+    ggplot2::geom_polygon(colour = "black") +
     ggplot2::geom_vline(xintercept = 0) +
     ggplot2::scale_y_discrete(labels = function(x) stringr::str_remove(x, " [0-9]{1}$"),
                               breaks = function(x) x[seq(2, by = 3, along.with = x)]) +
     ggplot2::scale_x_continuous(limits = function(x) c(-max(abs(x)), max(abs(x)))) +
-    ggplot2::labs(x = "Milliequivalents per litre")
+    ggplot2::labs(x = "Milliequivalents per litre") +
+    ggplot2::facet_wrap(~ ems_id, scales = "free_y") +
+    ggplot2::scale_fill_viridis_d(end = 0.8)
 }
 

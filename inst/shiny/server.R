@@ -137,7 +137,9 @@ server <- function(input, output) {
   data_plot <- reactive({
     req(data_ac())
     if(input$data_omit) {
-      dplyr::filter(data_ac()[-1,], abs(as.numeric(.data$charge_balance)) < 10)
+      dplyr::bind_rows(data_ac()[1,],
+                       dplyr::filter(data_ac()[-1,],
+                                     abs(as.numeric(.data$charge_balance)) < 10))
     } else data_ac()
   })
 
@@ -174,29 +176,32 @@ server <- function(input, output) {
   })
 
 
+
+# Dynamic inputs ----------------------------------------------------------
 # Ems IDs for plots
   output$data_ids <- renderUI({
     req(data_ac())
     d <- data_ac()
     ids <- unique(stringr::str_extract(d$SampleID[-1], "^[0-9A-Z]+"))
-    selectInput("ids_to_plot", "EMS ID to plot", ids)
+    selectInput("ids_to_plot",
+                "EMS IDs to plot (click to add or click/DELETE to remove)",
+                ids, multiple = TRUE, selected = ids)
   })
 
 # Plots -------------------------------------------------------------
-
+  plot_msg <- "No data to plot\n\nPick a different set of EMS IDs or allow samples with 'bad charge balances' (see left-hand panel)"
   output$stiff <- renderPlot({
     req(data_plot(), input$ids_to_plot)
-    d <- data_plot()
-    stiff_plot(d, ems_id = input$ids_to_plot) +
-      plot_annotation(title = input$ids_to_plot)
+    validate(need(nrow(data_plot()) > 1, message = plot_msg))
+    stiff_plot(data_plot(), ems_id = input$ids_to_plot)
   })
 
   output$piperplot <- renderPlot({
     req(data_plot(), input$ids_to_plot)
-    d <- data_plot()
-    piper_plot(d, ems_id = input$ids_to_plot, point_size = 0.15, legend = input$legend)
-    title(input$ids_to_plot, line = -1)
-  }, width = 550, height = 550)
+    validate(need(nrow(data_plot()) > 1, message = plot_msg))
+    piper_plot(data_plot(), ems_id = input$ids_to_plot, point_size = 0.15,
+               legend = input$legend)
+  }, width = 550, height = 500)
 
 
 
@@ -268,21 +273,28 @@ server <- function(input, output) {
       paste0("plots_", Sys.Date(), ".zip")
     },
     content = function(fname) {
+      req(input$ids_to_plot)
+      validate(need(nrow(data_plot()) > 1, message = "No plots to download"))
       tempdir <- tempdir()
       d <- data_plot()
+      nm <- glue::glue_collapse(input$ids_to_plot, sep = "_")
 
-      f <- c()
-      for(i in ems_ids()) {
-        f <- c(f,
-               file.path(tempdir, glue::glue("{i}_stiff.png")),
-               file.path(tempdir, glue::glue("{i}_piperplot.png")))
-        ggplot2::ggsave(file.path(tempdir, glue::glue("{i}_stiff.png")),
-                        stiff_plot(d, ems_id = i), dpi = 300)
-        png(file.path(tempdir, glue::glue("{i}_piperplot.png")), width = 2250, height = 2250,
-            res = 300)
-        piper_plot(d, ems_id = i, point_size = 0.2, legend = input$legend)
-        dev.off()
-      }
+      ratio <- d %>%
+        dplyr::mutate(ems_id = stringr::str_extract(SampleID, "[0-9A-Za-z]*")) %>%
+        dplyr::filter(ems_id %in% input$ids_to_plot) %>%
+        dplyr::count(ems_id) %>%
+        dplyr::pull(n) %>%
+        max(.) / length(input$ids_to_plot)
+
+      f <- file.path(tempdir, glue::glue("{nm}_{c('stiff', 'piperplot')}.png"))
+      ggplot2::ggsave(f[1], stiff_plot(d, ems_id = input$ids_to_plot), dpi = 300,
+                      width = 8, height = 5 * ratio)
+
+      png(f[2], width = 2250, height = 2250, res = 300)
+      piper_plot(d, ems_id = input$ids_to_plot,
+                 point_size = 0.2, legend = input$legend)
+      dev.off()
+
       zip(zipfile = fname, files = f, flags = "-j")
     }, contentType = "application/zip"
   )

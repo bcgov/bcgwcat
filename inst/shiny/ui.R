@@ -54,8 +54,7 @@ body <- dashboardBody(
   ),
 
   fluidRow(
-    tabBox(title = NULL, width = 12,
-
+    tabBox(title = NULL, width = 12, id = "box",
            tabPanel("REMS Status",
                     fluidRow(
                       box(width = 12,
@@ -86,12 +85,12 @@ body <- dashboardBody(
                                  downloadButton(outputId = "download_plots", label = "Download All Plots"),
                                  br(),
                                  "Note that downloaded plots may not have the same dimensions as the preview plots"),
-                             box(title = "Stiff Plot",
-                                 strong("Note that Stiff plots only include complete samples"),
-                                 plotOutput("stiff", width = "450px", height = "350px"), width = NULL)
+                             box(title = "Stiff Plot", width = NULL,
+                                 plotOutput("stiff", width = "100%", height = "350px"),
+                                 strong("Note that Stiff plots only include complete samples"))
                       ),
                       column(width = 6,
-                             box(title = "Piper Plot", width = NULL, height = "575px",
+                             box(title = "Piper Plot", width = NULL, height = "525px",
                                  plotOutput("piperplot"))
                       ))
                     ),
