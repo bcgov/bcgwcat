@@ -1,6 +1,6 @@
 {
   "input": {
-    "box": "Results",
+    "box": "Plots",
     "check_status": 0,
     "data_cell_clicked": {
 
@@ -17,7 +17,8 @@
     ],
     "data_rows_current": [
       1,
-      2
+      2,
+      3
     ],
     "data_rows_selected": null,
     "data_search": "",
@@ -193,8 +194,43 @@
         }
       ]
     },
+    "piperplot": {
+      "src": "[image data sha1: c73dd81a3b9a578fbd948eb0c54470d18cb33305]",
+      "width": 550,
+      "height": 500,
+      "alt": "Plot object",
+      "coordmap": {
+        "panels": [
+          {
+            "domain": {
+              "left": -1,
+              "right": 1,
+              "bottom": -1,
+              "top": 1
+            },
+            "range": {
+              "left": 69.64,
+              "right": 480.36,
+              "bottom": 425.56,
+              "top": 14.84
+            },
+            "log": {
+              "x": null,
+              "y": null
+            },
+            "mapping": {
+
+            }
+          }
+        ],
+        "dims": {
+          "width": 550,
+          "height": 500
+        }
+      }
+    },
     "rems_status_historic": {
-      "html": "<div class=\"small-box bg-blue\">\n  <div class=\"inner\">\n    <h3>Out-of-date<\/h3>\n    <p>Historic EMS Data (last updated: 5 days ago)<\/p>\n  <\/div>\n<\/div>",
+      "html": "<div class=\"small-box bg-green\">\n  <div class=\"inner\">\n    <h3>Up-to-date<\/h3>\n    <p>Historic EMS Data (last updated: 0 days ago)<\/p>\n  <\/div>\n<\/div>",
       "deps": [
 
       ]
@@ -204,6 +240,56 @@
       "deps": [
 
       ]
+    },
+    "stiff": {
+      "src": "[image data sha1: 5e0ad1d128f123b3432aae3b99e7394e656eb90e]",
+      "width": 313,
+      "height": 350,
+      "alt": "Plot object",
+      "coordmap": {
+        "panels": [
+          {
+            "panel": 1,
+            "row": 1,
+            "col": 1,
+            "panel_vars": {
+
+            },
+            "log": {
+              "x": null,
+              "y": null
+            },
+            "domain": {
+              "left": -1.1808995,
+              "right": 1.1808995,
+              "bottom": 0.4,
+              "top": 3.6,
+              "discrete_limits": {
+                "y": [
+                  "E292373-2 0",
+                  "E292373-2 1",
+                  "E292373-2 2"
+                ]
+              }
+            },
+            "mapping": {
+              "group": "SampleID",
+              "x": "value",
+              "y": "sample"
+            },
+            "range": {
+              "left": 54.4109589041096,
+              "right": 307.520547945205,
+              "bottom": 316.849315068493,
+              "top": 5.47945205479452
+            }
+          }
+        ],
+        "dims": {
+          "width": 313,
+          "height": 350
+        }
+      }
     }
   },
   "export": {

@@ -10,6 +10,8 @@ stiff_plot(d, ems_id = NULL, colour = TRUE)
 \item{d}{AquaChem formatted dataset}
 
 \item{ems_id}{Ids to plot if dataset includes more than one}
+
+\item{colour}{Whether to add colour by ems_id}
 }
 \description{
 Create Stiff plot
