@@ -82,7 +82,7 @@ server <- function(input, output) {
 
   # Output historic status
   output$rems_status_historic <- renderValueBox({
-    cache <- as.Date(format(rems::get_cache_date("historic"), "%Y-%m-%d"))
+    cache <- rems::get_cache_date("historic")
     dt <- round(difftime(Sys.Date(), cache, units = "days"))
     if(dt == Inf) dt <- "never" else dt <- paste0(dt, " days ago")
     valueBox(value = if(!rems_status_historic()) "Out-of-date" else "Up-to-date",
