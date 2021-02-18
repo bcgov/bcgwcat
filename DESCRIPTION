@@ -1,7 +1,7 @@
 Package: rems2aquachem
 Type: Package
 Title: Download from rems and export data in format for AquaChem
-Version: 0.3.0
+Version: 0.3.1
 Author: Steffi LaZerte
 Maintainer: Steffi LaZerte <steffi@steffi.ca>
 Description: Use bcgov package 'rems' to download data for specific EMS ids. 
