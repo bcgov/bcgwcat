@@ -4,7 +4,7 @@
 \alias{stiff_plot}
 \title{Create Stiff plot}
 \usage{
-stiff_plot(d, ems_id = NULL, colour = TRUE)
+stiff_plot(d, ems_id = NULL, colour = TRUE, legend = TRUE)
 }
 \arguments{
 \item{d}{AquaChem formatted dataset}
@@ -12,6 +12,8 @@ stiff_plot(d, ems_id = NULL, colour = TRUE)
 \item{ems_id}{Ids to plot if dataset includes more than one}
 
 \item{colour}{Whether to add colour by ems_id}
+
+\item{legend}{Whether to show the legend}
 }
 \description{
 Create Stiff plot

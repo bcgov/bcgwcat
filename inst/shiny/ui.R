@@ -45,7 +45,7 @@ sidebar <- dashboardSidebar(
   uiOutput("data_ids"),
   radioButtons("data_omit", strong("Omit 'bad' charge balances?"),
                choices = c("Yes" = TRUE, "No" = FALSE), inline = TRUE),
-  radioButtons("legend", strong("Piper plot legend"),
+  radioButtons("legend", strong("Plot legends"),
                choices = c("Show" = TRUE, "Hide" = FALSE), inline = TRUE),
 
   # Help

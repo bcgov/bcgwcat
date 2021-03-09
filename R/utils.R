@@ -88,10 +88,11 @@ piper_plot <- function(d, ems_id = NULL, point_size = 0.1,
 #' @param d  AquaChem formatted dataset
 #' @param ems_id Ids to plot if dataset includes more than one
 #' @param colour Whether to add colour by ems_id
+#' @param legend Whether to show the legend
 #'
 #' @export
 
-stiff_plot <- function(d, ems_id = NULL, colour = TRUE) {
+stiff_plot <- function(d, ems_id = NULL, colour = TRUE, legend = TRUE) {
 
   d <- d[-1, ] %>%
     dplyr::mutate(ems_id = stringr::str_extract(.data$SampleID, "^[0-9A-Z]+"))
@@ -135,13 +136,13 @@ stiff_plot <- function(d, ems_id = NULL, colour = TRUE) {
                                                   group = "SampleID", fill = fill)) +
     ggplot2::theme_classic() +
     ggplot2::theme(axis.title.y = ggplot2::element_blank()) +
-    ggplot2::geom_polygon(colour = "black") +
+    ggplot2::geom_polygon(colour = "black", show.legend = legend) +
     ggplot2::geom_vline(xintercept = 0) +
     ggplot2::scale_y_discrete(labels = function(x) stringr::str_remove(x, " [0-9]{1}$"),
                               breaks = function(x) x[seq(2, by = 3, along.with = x)]) +
     ggplot2::scale_x_continuous(limits = function(x) c(-max(abs(x)), max(abs(x)))) +
     ggplot2::labs(x = "Milliequivalents per litre") +
     ggplot2::facet_wrap(~ ems_id, scales = "free_y") +
-    ggplot2::scale_fill_viridis_d(end = 0.8)
+    ggplot2::scale_fill_viridis_d(name = "EMS ID", end = 0.8)
 }
 

@@ -208,7 +208,7 @@ server <- function(input, output) {
   output$stiff <- renderPlot({
     req(data_plot(), input$ids_to_plot)
     validate(need(nrow(data_plot()) > 1, message = plot_msg))
-    stiff_plot(data_plot(), ems_id = input$ids_to_plot)
+    stiff_plot(data_plot(), ems_id = input$ids_to_plot, legend = as.logical(input$legend))
   })
 
   output$piperplot <- renderPlot({
@@ -294,16 +294,13 @@ server <- function(input, output) {
       d <- data_plot()
       nm <- glue::glue_collapse(input$ids_to_plot, sep = "_")
 
-      ratio <- d %>%
-        dplyr::mutate(ems_id = stringr::str_extract(SampleID, "[0-9A-Za-z]*")) %>%
-        dplyr::filter(ems_id %in% input$ids_to_plot) %>%
-        dplyr::count(ems_id) %>%
-        dplyr::pull(n) %>%
-        max(.) / length(input$ids_to_plot)
+      ratio <- 2 / length(input$ids_to_plot)
 
       f <- file.path(tempdir, glue::glue("{nm}_{c('stiff', 'piperplot')}.png"))
-      ggplot2::ggsave(f[1], stiff_plot(d, ems_id = input$ids_to_plot), dpi = 300,
-                      width = 8, height = 5 * ratio)
+      ggplot2::ggsave(f[1],
+                      stiff_plot(d, ems_id = input$ids_to_plot,
+                                 legend = as.logical(input$legend)),
+                      dpi = 300, width = 8, height = 5 * ratio)
 
       png(f[2], width = 2250, height = 2250, res = 300)
       piper_plot(d, ems_id = input$ids_to_plot,
