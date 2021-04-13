@@ -1,0 +1,37 @@
+---
+title: "Introducing `rems2aquachem`"
+author: "Steffi LaZerte"
+date: "`r Sys.Date()`"
+output:
+  xaringan::moon_reader:
+    css: [pres_styles.css, global_styles.css]
+    seal: false
+    self-contained: false
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      ratio: "16:9"
+---
+
+# What does rems2aquachem do?
+
+### Main tasks
+- Download EMS data using `rems` package
+- Format data for input into AquaChem
+
+### Also
+- Preview data
+- Stiff plots
+- Piper plots (from USGS packages `smwrBase` and `smwrGraphs`)
+
+### How
+- R command-line **or** 
+- Interactive Shiny App
+
+--
+
+.center[
+### Website
+**https://bcgov.github.io/rems2aquachem**
+]
