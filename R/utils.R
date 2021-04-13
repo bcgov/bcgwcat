@@ -1,12 +1,57 @@
-meq <- function(d) {
-  dplyr::mutate(d,
-                Ca_meq = smwrBase::conc2meq(.data$Ca, "calcium"),
-                Mg_meq = smwrBase::conc2meq(.data$Mg, "magnesium"),
-                Na_meq = smwrBase::conc2meq(.data$Na, "sodium"),
-                K_meq = smwrBase::conc2meq(.data$K, "potassium"),
-                Cl_meq = smwrBase::conc2meq(.data$Cl, "chloride"),
-                HCO3_meq = smwrBase::conc2meq(.data$HCO3, "bicarb"),
-                SO4_meq = smwrBase::conc2meq(.data$SO4, "sulfate"))
+units_remove <- function(d) {
+
+  num <- dplyr::filter(params, data_type == "numeric", !is.na(aqua_code)) %>%
+    dplyr::pull(aqua_code)
+  num <- c(num, "Ca_meq", "Mg_meq", "Na_meq", "K_meq", "Cl_meq",
+           "HCO3_meq", "SO4_meq")
+  date <- dplyr::filter(params, data_type == "date", !is.na(aqua_code)) %>%
+    dplyr::pull(aqua_code)
+
+  d %>%
+    dplyr::slice(-1) %>%
+    dplyr::mutate(dplyr::across(dplyr::any_of(num), as.numeric)) %>%
+    dplyr::mutate(dplyr::across(dplyr::any_of(date), lubridate::as_date))
+}
+
+units_convert <- function(x, from, to) {
+  dplyr::case_when(from == "mg/L" & to == "ug/L" ~ x * 1000,
+                   from == "ug/L" & to == "mg/L" ~ x / 1000,
+                   from == to | (is.na(from) & is.na(to)) ~ x,
+                   TRUE ~ NA_real_)
+}
+
+meq <- function(d, format = "long") {
+
+  if(format == "long") {
+    # Values all in mg/L which is the standard reported by EMS and used by
+    # AquaChem for these elements
+   d2 <- d %>%
+     dplyr::filter(aqua_code %in% c("Ca", "Mg", "Na", "K", "Cl", "HCO3", "SO4")) %>%
+     dplyr::mutate(type = dplyr::case_when(aqua_code == "Ca" ~ "calcium",
+                                           aqua_code == "Mg" ~ "magnesium",
+                                           aqua_code == "Na" ~ "sodium",
+                                           aqua_code == "K" ~ "potassium",
+                                           aqua_code == "Cl" ~ "chloride",
+                                           aqua_code == "HCO3" ~ "bicarb",
+                                           aqua_code == "SO4" ~ "sulfate"),
+                   RESULT = purrr::map2_dbl(RESULT, type, ~smwrBase::conc2meq(.x, .y)),
+                   aqua_code = paste0(aqua_code, "_meq"),
+                   UNIT = "meq") %>%
+     dplyr::select(-"type")
+   d <- dplyr::bind_rows(d, d2)
+  }
+
+  if(format == "wide") {
+    d <- dplyr::mutate(d,
+                       Ca_meq = smwrBase::conc2meq(.data$Ca, "calcium"),
+                       Mg_meq = smwrBase::conc2meq(.data$Mg, "magnesium"),
+                       Na_meq = smwrBase::conc2meq(.data$Na, "sodium"),
+                       K_meq = smwrBase::conc2meq(.data$K, "potassium"),
+                       Cl_meq = smwrBase::conc2meq(.data$Cl, "chloride"),
+                       HCO3_meq = smwrBase::conc2meq(.data$HCO3, "bicarb"),
+                       SO4_meq = smwrBase::conc2meq(.data$SO4, "sulfate"))
+  }
+  d
 }
 
 

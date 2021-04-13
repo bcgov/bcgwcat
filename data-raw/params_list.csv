@@ -1,159 +1,159 @@
-rems_name,rems_code,rems_unit,aqua_code,aqua_unit,type,check
-OBS_WELL,,,StationID,,meta,
-EMS_ID,,,SampleID,,meta,
-COLLECTION_START,,,Sample_Date,,meta,
-,,,Analysis_Date,,meta,
-LOCATION_PURPOSE,,,Project,,meta,
-SAMPLE_STATE,,,Watertype,,meta,
-,,,shortWatertype,,meta,
-,,,Comment,,meta,
-,,,Reference,,meta,
-,,,Quality_control,,meta,
-,,,Duplicate_ID,,meta,
-,,,Labcode,,meta,
-,,,Location,,meta,
-,,,Geology,,meta,
-LATITUDE,,,Coord_Lat,°,meta,
-LONGITUDE,,,Coord_Long,°,meta,
-,,,X,m,meta,
-,,,Y,m,meta,
-,,,Elevation,m(asl),meta,
-,,,Well_Depth,m,meta,
-,,,Screen_Top,m,meta,
-,,,Screen_Mid,m,meta,
-,,,Screen_Bottom,m,meta,
-,,,Gradient,,meta,
-,,,Station_Comment,,meta,
-,,,Sample_Depth,m,meta,
-,,,Temp,°C,meta,
-pH,0004,pH,pH_lab,,param,
-Residue: Filterable 1.0u (TDS),0007,mg/L,,,param,
-Specific Conductance,0011,uS/cm,Cond,uS/cm,param,
-Turbidity,0015,NTU,,,param,
-Alkalinity Phen. 8.3,0101,mg/L,,,param,
-Alkalinity Total 4.5,0102,mg/L,Meas_Alk,mg/L,param,CHECK
-Carbonate Alkalinity,0149,mg/L,CO3,mg/l,param,CHECK
-Bicarbonate Alkalinity,0150,mg/L,HCO3,mg/l,param,CHECK
-Chloride Dissolved,1104,mg/L,Cl,mg/l,param,
-Fluoride Dissolved,1106,mg/L,F,mg/l,param,
-Hardness (Dissolved),1107,mg/L,Meas_Hardness,mg/L,param,
-Nitrogen Ammonia Dissolved,1108,mg/L,NH4,mg/l,param,
-Nitrate(NO3) + Nitrite(NO2) Dissolved,1109,mg/L,,,param,
-Nitrate (NO3) Dissolved,1110,mg/L,NO3,mg/l,param,CHECK
-Nitrogen - Nitrite Dissolved (NO2),1111,mg/L,NO2,mg/l,param,CHECK
-Nitrogen Organic Total Dissolved,1112,mg/L,,,param,
-Nitrogen (Kjeldahl) Total Dissolved,1113,mg/L,,,param,
-Nitrogen Total Dissolved,1114,mg/L,,,param,
-Sulfate Dissolved,1121,mg/L,SO4,mg/l,param,CHECK
-Silver Dissolved,AG-D,mg/L,Ag_diss,ug/l,param,
-Hydroxide Alkalinity,AK-H,mg/L,,,param,
-Aluminum Dissolved,AL-D,mg/L,Al_diss,ug/l,param,
-Arsenic Dissolved,AS-D,mg/L,As_diss,ug/l,param,
-Anion Sum,ASUM,meq/L,anion_sum,,param,
-Boron Dissolved,B--D,mg/L,B,mg/l,param,
-Barium Dissolved,BA-D,mg/L,Ba,mg/l,param,
-Beryllium Dissolved,BE-D,mg/L,,,param,
-Bismuth Dissolved,BI-D,mg/L,,,param,
-Calcium Dissolved,CA-D,mg/L,Ca,mg/l,param,
-Cation - Anion Balance,CBAL,%,charge_balance,%,param,
-Cadmium Dissolved,CD-D,mg/L,Cd_diss,ug/l,param,
-Cobalt Dissolved,CO-D,mg/L,,,param,
-Chromium Dissolved,CR-D,mg/L,Cr_diss,ug/l,param,
-Cation Sum,CSUM,meq/L,cation_sum,,param,
-Copper Dissolved,CU-D,mg/L,Cu_diss,ug/l,param,
-Dissolved Oxygen-Field,DO-F,mg/L,DO,mg/l,param,
-Iron Dissolved,FE-D,mg/L,Fe_diss,mg/l,param,
-Potassium Dissolved,K--D,mg/L,K,mg/l,param,
-Magnesium Dissolved,MG-D,mg/L,Mg,mg/l,param,
-Manganese Dissolved,MN-D,mg/L,Mn_diss,mg/l,param,
-Molybdenum Dissolved,MO-D,mg/L,Mo_diss,ug/L,param,
-Sodium Dissolved,NA-D,mg/L,Na,mg/l,param,
-Nickel Dissolved,NI-D,mg/L,Ni_diss,ug/L,param,
-Phosphorus Total Dissolved,P--D,mg/L,,,param,
-Lead Dissolved,PB-D,mg/L,Pb_diss,ug/L,param,
-pH-Field,PH-F,pH,pH_field,,param,
-Sulfur Dissolved,S--D,mg/L,,,param,
-Antimony Dissolved,SB-D,mg/L,Sb_diss,ug/L,param,
-Specific Conductivity-Field,SC-F,uS/cm,Cond_field,,param,
-Selenium Dissolved,SE-D,mg/L,Se_diss,ug/L,param,
-Silicon Dissolved,SI-D,mg/L,Si,mg/l,param,
-Tin Dissolved,SN-D,mg/L,,,param,
-Strontium Dissolved,SR-D,mg/L,Sr,mg/l,param,
-Titanium Dissolved,TI-D,mg/L,,,param,
-Thallium Dissolved,TL-D,mg/L,Tl_diss,mg/l,param,
-Uranium Dissolved,U--D,mg/L,U_diss,ug/l,param,
-Vanadium Dissolved,V--D,mg/L,V_diss,ug/L,param,
-Zinc Dissolved,ZN-D,mg/L,Zn_diss,ug/L,param,
-Cadmium Total,CD-T,mg/L,Cd_tot,ug/l,param,
-Zinc Total,ZN-T,mg/L,Zn_tot,ug/l,param,
-Phosphorus Total,P--T,mg/L,,,param,
-Iron Total,FE-T,mg/L,Fe_tot,mg/l,param,
-Silica Reactive Diss,1120,mg/L,,,param,
-Copper Total,CU-T,mg/L,Cu_tot,ug/l,param,
-Nickel Total,NI-T,mg/L,Ni_tot,ug/l,param,
-Aluminum Total,AL-T,mg/L,Al_tot,ug/l,param,
-Selenium Total,SE-T,mg/L,,,param,
-Thallium Total,TL-T,mg/L,Tl_tot,mg/l,param,
-Nitrogen Kjel.Tot(N),0113,mg/L,,,param,
-Hardness Total (Total),0107,mg/L,,,param,
-Arsenic Total,AS-T,mg/L,As_tot,ug/l,param,
-Nitrogen Total,0114,mg/L,,,param,
-Acidity pH 4.5,0132,mg/L,,,param,
-Nitrogen NO2 + NO3,0109,mg/L,,,param,
-Sodium Total,NA-T,mg/L,,,param,
-Chromium Total,CR-T,mg/L,,,param,
-Cobalt Total,CO-T,mg/L,,,param,
-Strontium Total,SR-T,mg/L,,,param,
-Tellurium Total,TE-T,mg/L,,,param,
-Sulfur Total,S--T,mg/L,,,param,
-Antimony Total,SB-T,mg/L,Sb_tot,ug/l,param,
-Titanium Total,TI-T,mg/L,,,param,
-Vanadium Total,V--T,mg/L,V_tot,ug/L,param,
-Molybdenum Total,MO-T,mg/L,Mo_tot,ug/l,param,
-Silver Total,AG-T,mg/L,Ag_tot,ug/l,param,
-Lead Total,PB-T,mg/L,Pb_tot,ug/l,param,
-Boron Total,B--T,mg/L,,,param,
-Potassium Total,K--T,mg/L,,,param,
-Tin Total,SN-T,mg/L,,,param,
-Barium Total,BA-T,mg/L,,,param,
-Phosphorus Ort.Dis-P,1118,mg/L,,,param,
-Lithium Dissolved,LI-D,mg/L,Li,mg/l,param,
-Silicon Total,SI-T,mg/L,,,param,
-Calcium Total,CA-T,mg/L,,,param,
-Magnesium Total,MG-T,mg/L,,,param,
-Beryllium Total,BE-T,mg/L,,,param,
-Zirconium Total,ZR-T,mg/L,,,param,
-Manganese Total,MN-T,mg/L,Mn_tot,mg/L,param,
-Lithium Total,LI-T,mg/L,,,param,
-Nitrogen Organic-Total,0112,mg/L,,,param,
-Uranium Total,U--T,mg/L,U_tot,ug/l,param,
-Cyanide WAD,0157,mg/L,,,param,
-Bismuth Total,BI-T,mg/L,,,param,
-Bromide Dissolved,1101,mg/L,Br,mg/l,param,
-Acidity pH 8.3,0131,mg/L,,,param,
-Zirconium Dissolved,ZR-D,mg/L,,,param,
-Nitrogen Amm.Total,0108,mg/L,,,param,
-Tellerium Dissolved,TE-D,mg/L,,,param,
-,,,Eh,mV,param,
-,,,TOC,mg/l,param,
-,,,TSS,mg/l,param,
-,,,CN_diss,ug/l,param,
-,,,CN_tot,ug/l,param,
-,,,Cr_III_diss,ug/l,param,
-,,,Cr_VI_diss,ug/l,param,
-,,,Fe_II_diss,mg/l,param,
-,,,Fe_III_diss,mg/l,param,
-,,,Hg_diss,ug/l,param,
-,,,Hg_tot,ug/L,param,
-,,,Benzene,ug/l,param,
-,,,Ethylbenzene,ug/l,param,
-,,,Toluene,ug/l,param,
-,,,TCE,ug/l,param,
-,,,PCE,ug/l,param,
-,,,Vinyl chloride,ug/l,param,
-,,,Xylene,ug/l,param,
-,,,18O,,param,
-,,,2H,‰,param,
-,,,14C,% mod.,param,
-,,,Tritium,T.U.,param,
-,,,Density,g/cm3,param,
+rems_name,rems_code,rems_unit,aqua_code,aqua_unit,type,water_quality,data_type
+Acidity pH 4.5,132,mg/L,,,param,,numeric
+Acidity pH 8.3,131,mg/L,,,param,,numeric
+Alkalinity Phen. 8.3,101,mg/L,,,param,,numeric
+Alkalinity Total 4.5,102,mg/L,Meas_Alk,mg/L,param,,numeric
+Aluminum Dissolved,AL-D,mg/L,Al_diss,ug/L,param,,numeric
+Aluminum Total,AL-T,mg/L,Al_tot,ug/L,param,,numeric
+Anion Sum,ASUM,meq/L,anion_sum,,param,,numeric
+Antimony Dissolved,SB-D,mg/L,Sb_diss,ug/L,param,,numeric
+Antimony Total,SB-T,mg/L,Sb_tot,ug/L,param,,numeric
+Arsenic Dissolved,AS-D,mg/L,As_diss,ug/L,param,,numeric
+Arsenic Total,AS-T,mg/L,As_tot,ug/L,param,,numeric
+Barium Dissolved,BA-D,mg/L,Ba,mg/L,param,,numeric
+Barium Total,BA-T,mg/L,Ba_tot,mg/L,param,,numeric
+Beryllium Dissolved,BE-D,mg/L,,,param,,numeric
+Beryllium Total,BE-T,mg/L,,,param,,numeric
+Bicarbonate Alkalinity,150,mg/L,HCO3,mg/L,param,FALSE,numeric
+Bismuth Dissolved,BI-D,mg/L,,,param,,numeric
+Bismuth Total,BI-T,mg/L,,,param,,numeric
+Boron Dissolved,B--D,mg/L,B,mg/L,param,,numeric
+Boron Total,B--T,mg/L,B_tot,mg/L,param,,numeric
+Bromide Dissolved,1101,mg/L,Br,mg/L,param,,numeric
+Cadmium Dissolved,CD-D,mg/L,Cd_diss,ug/L,param,,numeric
+Cadmium Total,CD-T,mg/L,Cd_tot,ug/L,param,,numeric
+Calcium Dissolved,CA-D,mg/L,Ca,mg/L,param,,numeric
+Calcium Total,CA-T,mg/L,Ca_tot,mg/L,param,,numeric
+Carbonate Alkalinity,149,mg/L,CO3,mg/L,param,FALSE,numeric
+Cation - Anion Balance,CBAL,%,charge_balance,%,param,,numeric
+Cation Sum,CSUM,meq/L,cation_sum,,param,,numeric
+Chloride Dissolved,1104,mg/L,Cl,mg/L,param,,numeric
+Chromium Dissolved,CR-D,mg/L,Cr_diss,ug/L,param,,numeric
+Chromium Total,CR-T,mg/L,Cr_tot,ug/L,param,,numeric
+Cobalt Dissolved,CO-D,mg/L,Co_diss,mg/L,param,,numeric
+Cobalt Total,CO-T,mg/L,Co_tot,mg/L,param,,numeric
+COLLECTION_START,,,Sample_Date,,meta,,date
+Copper Dissolved,CU-D,mg/L,Cu_diss,ug/L,param,,numeric
+Copper Total,CU-T,mg/L,Cu_tot,ug/L,param,,numeric
+Cyanide WAD,157,mg/L,,,param,,numeric
+Dissolved Oxygen-Field,DO-F,mg/L,DO,mg/L,param,FALSE,numeric
+EMS_ID,,,SampleID,,meta,,character
+Fluoride Dissolved,1106,mg/L,F,mg/L,param,,numeric
+Hardness (Dissolved),1107,mg/L,Meas_Hardness,mg/L,param,FALSE,numeric
+Hardness Total (Total),107,mg/L,,,param,,numeric
+Hydroxide Alkalinity,AK-H,mg/L,,,param,,numeric
+Iron Dissolved,FE-D,mg/L,Fe_diss,mg/L,param,,numeric
+Iron Total,FE-T,mg/L,Fe_tot,mg/L,param,,numeric
+LATITUDE,,,Coord_Lat,°,meta,,numeric
+Lead Dissolved,PB-D,mg/L,Pb_diss,ug/L,param,,numeric
+Lead Total,PB-T,mg/L,Pb_tot,ug/L,param,,numeric
+Lithium Dissolved,LI-D,mg/L,Li,mg/L,param,FALSE,numeric
+Lithium Total,LI-T,mg/L,Li_tot,mg/L,param,,numeric
+LOCATION_PURPOSE,,,Project,,meta,,character
+LONGITUDE,,,Coord_Long,°,meta,,numeric
+Magnesium Dissolved,MG-D,mg/L,Mg,mg/L,param,FALSE,numeric
+Magnesium Total,MG-T,mg/L,Mg_tot,mg/L,param,,numeric
+Manganese Dissolved,MN-D,mg/L,Mn_diss,mg/L,param,,numeric
+Manganese Total,MN-T,mg/L,Mn_tot,mg/L,param,,numeric
+Molybdenum Dissolved,MO-D,mg/L,Mo_diss,ug/L,param,,numeric
+Molybdenum Total,MO-T,mg/L,Mo_tot,ug/L,param,,numeric
+Nickel Dissolved,NI-D,mg/L,Ni_diss,ug/L,param,,numeric
+Nickel Total,NI-T,mg/L,Ni_tot,ug/L,param,,numeric
+Nitrate (NO3) Dissolved,1110,mg/L,NO3,mg/L,param,,numeric
+Nitrate(NO3) + Nitrite(NO2) Dissolved,1109,mg/L,,,param,,numeric
+Nitrogen - Nitrite Dissolved (NO2),1111,mg/L,NO2,mg/L,param,,numeric
+Nitrogen (Kjeldahl) Total Dissolved,1113,mg/L,,,param,,numeric
+Nitrogen Amm.Total,108,mg/L,,,param,,numeric
+Nitrogen Ammonia Dissolved,1108,mg/L,NH4,mg/L,param,,numeric
+Nitrogen Kjel.Tot(N),113,mg/L,,,param,,numeric
+Nitrogen NO2 + NO3,109,mg/L,,,param,,numeric
+Nitrogen Organic Total Dissolved,1112,mg/L,,,param,,numeric
+Nitrogen Organic-Total,112,mg/L,,,param,,numeric
+Nitrogen Total,114,mg/L,,,param,,numeric
+Nitrogen Total Dissolved,1114,mg/L,,,param,,numeric
+OBS_WELL,,,StationID,,meta,,character
+pH,4,pH,pH_lab,,param,,numeric
+pH-Field,PH-F,pH,pH_field,,param,,numeric
+Phosphorus Ort.Dis-P,1118,mg/L,,,param,,numeric
+Phosphorus Total,P--T,mg/L,,,param,,numeric
+Phosphorus Total Dissolved,P--D,mg/L,,,param,,numeric
+Potassium Dissolved,K--D,mg/L,K,mg/L,param,FALSE,numeric
+Potassium Total,K--T,mg/L,K_tot,mg/L,param,FALSE,numeric
+Residue: Filterable 1.0u (TDS),7,mg/L,,,param,,numeric
+SAMPLE_STATE,,,Watertype,,meta,,character
+Selenium Dissolved,SE-D,mg/L,Se_diss,ug/L,param,,numeric
+Selenium Total,SE-T,mg/L,Se_tot,ug/L,param,,numeric
+Silica Reactive Diss,1120,mg/L,,,param,,numeric
+Silicon Dissolved,SI-D,mg/L,Si,mg/L,param,FALSE,numeric
+Silicon Total,SI-T,mg/L,Si_tot,mg/L,param,,numeric
+Silver Dissolved,AG-D,mg/L,Ag_diss,ug/L,param,,numeric
+Silver Total,AG-T,mg/L,Ag_tot,ug/L,param,,numeric
+Sodium Dissolved,NA-D,mg/L,Na,mg/L,param,FALSE,numeric
+Sodium Total,NA-T,mg/L,Na_tot,mg/L,param,,numeric
+Specific Conductance,11,uS/cm,Cond,uS/cm,param,FALSE,numeric
+Specific Conductivity-Field,SC-F,uS/cm,Cond_field,,param,FALSE,numeric
+Strontium Dissolved,SR-D,mg/L,Sr,mg/L,param,FALSE,numeric
+Strontium Total,SR-T,mg/L,Sr_tot,mg/L,param,,numeric
+Sulfate Dissolved,1121,mg/L,SO4,mg/L,param,FALSE,numeric
+Sulfur Dissolved,S--D,mg/L,,,param,,numeric
+Sulfur Total,S--T,mg/L,,,param,,numeric
+Tellerium Dissolved,TE-D,mg/L,,,param,,numeric
+Tellurium Total,TE-T,mg/L,,,param,,numeric
+Thallium Dissolved,TL-D,mg/L,Tl_diss,mg/L,param,,numeric
+Thallium Total,TL-T,mg/L,Tl_tot,mg/L,param,,numeric
+Tin Dissolved,SN-D,mg/L,,,param,,numeric
+Tin Total,SN-T,mg/L,,,param,,numeric
+Titanium Dissolved,TI-D,mg/L,,,param,,numeric
+Titanium Total,TI-T,mg/L,,,param,,numeric
+Turbidity,15,NTU,,,param,,numeric
+Uranium Dissolved,U--D,mg/L,U_diss,ug/L,param,,numeric
+Uranium Total,U--T,mg/L,U_tot,ug/L,param,,numeric
+Vanadium Dissolved,V--D,mg/L,V_diss,ug/L,param,FALSE,numeric
+Vanadium Total,V--T,mg/L,V_tot,ug/L,param,,numeric
+Zinc Dissolved,ZN-D,mg/L,Zn_diss,ug/L,param,,numeric
+Zinc Total,ZN-T,mg/L,Zn_tot,ug/L,param,,numeric
+Zirconium Dissolved,ZR-D,mg/L,,,param,,numeric
+Zirconium Total,ZR-T,mg/L,,,param,,numeric
+,,,Analysis_Date,,meta,,date
+,,,shortWatertype,,meta,,character
+,,,Comment,,meta,,character
+,,,Reference,,meta,,character
+,,,Quality_control,,meta,,character
+,,,Duplicate_ID,,meta,,character
+,,,Labcode,,meta,,character
+,,,Location,,meta,,character
+,,,Geology,,meta,,character
+,,,X,m,meta,,numeric
+,,,Y,m,meta,,numeric
+,,,Elevation,m(asl),meta,,numeric
+,,,Well_Depth,m,meta,,numeric
+,,,Screen_Top,m,meta,,numeric
+,,,Screen_Mid,m,meta,,numeric
+,,,Screen_Bottom,m,meta,,numeric
+,,,Gradient,,meta,,
+,,,Station_Comment,,meta,,
+,,,Sample_Depth,m,meta,,numeric
+,,,Temp,°C,meta,,numeric
+,,,Eh,mV,param,,numeric
+,,,TOC,mg/L,param,,numeric
+,,,TSS,mg/L,param,,numeric
+,,,CN_diss,ug/L,param,,numeric
+,,,CN_tot,ug/L,param,,numeric
+,,,Cr_III_diss,ug/L,param,,numeric
+,,,Cr_VI_diss,ug/L,param,,numeric
+,,,Fe_II_diss,mg/L,param,,numeric
+,,,Fe_III_diss,mg/L,param,,numeric
+,,,Hg_diss,ug/L,param,,numeric
+,,,Hg_tot,ug/L,param,,numeric
+,,,Benzene,ug/L,param,,numeric
+,,,Ethylbenzene,ug/L,param,,numeric
+,,,Toluene,ug/L,param,,numeric
+,,,TCE,ug/L,param,,numeric
+,,,PCE,ug/L,param,,numeric
+,,,Vinyl chloride,ug/L,param,,numeric
+,,,Xylene,ug/L,param,,numeric
+,,,18O,,param,,numeric
+,,,2H,‰,param,,numeric
+,,,14C,% mod.,param,,numeric
+,,,Tritium,T.U.,param,,numeric
+,,,Density,g/cm3,param,,numeric
