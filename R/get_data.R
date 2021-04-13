@@ -209,15 +209,7 @@ rems_to_aquachem <- function(ems_ids, date_range = NULL, save = TRUE,
     stop("'out_file' should have an extension, either 'csv', 'txt', or 'dat")
   }
 
-  a <- params
-
-  meta <- dplyr::filter(a, .data$type == "meta", !is.na(.data$aqua_code)) %>%
-    dplyr::select("rems_name", "aqua_code")
-
-  params <- dplyr::filter(a, .data$type == "param", !is.na(.data$aqua_code)) %>%
-    dplyr::select("rems_code", "aqua_code")
-
-  # Get data and select only the columns of interets
+  # Get data and select only the columns of interest
   # - Columns in params_list.csv (internal params)
   # - Parameter columns
   d <- get_rems(ems_ids = ems_ids, date_range = date_range,
@@ -225,9 +217,30 @@ rems_to_aquachem <- function(ems_ids, date_range = NULL, save = TRUE,
 
   if(nrow(d) == 0) return(data.frame())
 
+  d <- ac_format(d)
+  d <- ac_units(d)
+
+  # Save data to disk, specfying NA values
+  if(save) {
+    # Get output location
+    out_file <- file.path(out_folder, out_file)
+    readr::write_csv(d, out_file, "N/A")
+  }
+  d
+}
+
+ac_format <- function(d) {
+
+  meta_ac <- dplyr::filter(params, .data$type == "meta", !is.na(.data$aqua_code)) %>%
+    dplyr::select("rems_name", "aqua_code")
+
+  params_ac <- dplyr::filter(params, .data$type == "param", !is.na(.data$aqua_code)) %>%
+    dplyr::select("rems_code", "aqua_code", "aqua_unit")
+
   # Rename the meta data in rems to correspond to AquaChem
-  names(d)[!is.na(match(names(d), meta$rems_name))] <-
-    meta$aqua_code[stats::na.omit(match(names(d), meta$rems_name))]
+
+  names(d)[!is.na(match(names(d), meta_ac$rems_name))] <-
+    meta_ac$aqua_code[stats::na.omit(match(names(d), meta_ac$rems_name))]
 
   # Make Sample_Date a date (as opposed to date/time)
   d <- dplyr::mutate(d, Sample_Date = as.Date(.data$Sample_Date))
@@ -235,7 +248,7 @@ rems_to_aquachem <- function(ems_ids, date_range = NULL, save = TRUE,
   # Add AquaChem parameter names
   d <- d %>%
     dplyr::mutate(rems_code = .data$PARAMETER_CODE) %>%
-    dplyr::left_join(params, by = "rems_code") %>%
+    dplyr::left_join(params_ac, by = "rems_code") %>%
     # Replace parameter name with rems name if doesn't exist in AquaChem
     # Replace all spaces and periods with _
     dplyr::mutate(aqua_code = dplyr::if_else(is.na(.data$aqua_code),
@@ -243,6 +256,7 @@ rems_to_aquachem <- function(ems_ids, date_range = NULL, save = TRUE,
                                              .data$aqua_code),
                   aqua_code = stringr::str_replace_all(
                     .data$aqua_code, c(" " = "_", "\\." = "_")))
+
 
   # Add StationID
   d <- d %>%
@@ -253,7 +267,7 @@ rems_to_aquachem <- function(ems_ids, date_range = NULL, save = TRUE,
                                       .data$SampleID[is.na(.data$StationID)]))
 
   # Find multiple measures
-  # (i.e. same location, same date, same paramter, but different method)
+  # (i.e. same location, same date, same parameter, but different method)
   d <- d %>%
     # Group by location, date and parameter
     dplyr::group_by(.data$StationID, .data$Sample_Date, .data$aqua_code) %>%
@@ -264,52 +278,66 @@ rems_to_aquachem <- function(ems_ids, date_range = NULL, save = TRUE,
     # Filter out all but first observations
     dplyr::filter(.data$keep == TRUE)
 
+  # Remove Ph units
+  d <- dplyr::mutate(d, UNIT = dplyr::if_else(.data$UNIT == "pH units",
+                                              NA_character_, .data$UNIT))
+
+  # Convert units to those used in AquaChem
+  d <- d %>%
+    dplyr::mutate(aqua_unit = dplyr::if_else(is.na(aqua_unit), UNIT, aqua_unit),
+                  RESULT2 = purrr::pmap_dbl(list(RESULT, UNIT, aqua_unit),
+                                            ~units_convert(..1, ..2, ..3)))
+
   # Remove now unnecessary parameter columns:
   d <- dplyr::select(d,
-                     -"keep", -"rems_code", -"PARAMETER",
+                     -"keep",  -"rems_code", -"PARAMETER",
                      -"PARAMETER_CODE", -"ANALYTICAL_METHOD")
 
-  # Remove Ph units
-  d <- dplyr::mutate(d, UNIT = dplyr::if_else(.data$UNIT == "pH",
-                                              as.character(NA), .data$UNIT))
+  # Add in any missing AquaChem columns
+  missing_cols <- meta_ac$aqua_code[!(meta_ac$aqua_code %in% names(d))]
+  d[, missing_cols] <- NA
+
+  # Add sample numbers to SampleID
+  ids <- d %>%
+    dplyr::select(StationID, SampleID, Sample_Date) %>%
+    dplyr::distinct() %>%
+    dplyr::group_by(StationID, SampleID) %>%
+    dplyr::mutate(SampleID = paste0(.data$SampleID, "-", 1:dplyr::n_distinct(Sample_Date)))
+
+  d <- d %>%
+    dplyr::select(-SampleID) %>%
+    dplyr::left_join(ids, by = c("StationID", "Sample_Date")) %>%
+    dplyr::arrange(.data$StationID)
+
+  # Calculate MEQ
+  d <- meq(d)
+
+  d
+}
+
+ac_units <- function(d) {
 
   # Get units as separate data frame so we can add them in later
   units <- d %>%
-    dplyr::select("aqua_code", "aqua_unit" = "UNIT") %>%
+    dplyr::select("aqua_code", "aqua_unit") %>%
     dplyr::distinct() %>%
-    dplyr::bind_rows(a[a$type == "meta", c("aqua_code", "aqua_unit")], .) %>%
+    dplyr::bind_rows(params[params$type == "meta", c("aqua_code", "aqua_unit")], .) %>%
     dplyr::mutate(aqua_unit = replace(.data$aqua_unit,
                                       is.na(.data$aqua_unit), "")) %>%
     dplyr::filter(!is.na(.data$aqua_code))
 
-  # Add in any missing AquaChem columns
-  missing_cols <- meta$aqua_code[!(meta$aqua_code %in% names(d))]
-  d[, missing_cols] <- NA
-
   # Transform to wide format
   d <- d %>%
-    dplyr::select(-"UNIT") %>%
-    tidyr::spread(.data$aqua_code, .data$RESULT) %>%
-    dplyr::select(tidyselect::all_of(meta$aqua_code), dplyr::everything())
-
-  # Add sample numbers to SampleID
-  d <- d %>%
-    dplyr::group_by(.data$StationID) %>%
-    dplyr::mutate(SampleID = paste0(.data$SampleID, "-", 1:dplyr::n())) %>%
-    dplyr::ungroup() %>%
-    dplyr::arrange(.data$StationID)
+    dplyr::select(-"UNIT", -"RESULT", -"aqua_unit") %>%
+    tidyr::spread(.data$aqua_code, .data$RESULT2) %>%
+    dplyr::select(tidyselect::all_of(params$aqua_code[params$type == "meta"]),
+                  dplyr::everything())
 
   # Spread and Order units by column names in d
   units <- units %>%
     tidyr::spread(.data$aqua_code, .data$aqua_unit) %>%
     dplyr::select(tidyselect::all_of(names(d))) %>%
-    dplyr::mutate(dplyr::across(c("Ca", "Mg", "Na", "Cl", "HCO3", "SO4"),
-                                ~"meq",
-                                .names = "{.col}_meq"),
-                  cations = "", anions = "", charge_balance = "%")
-
-  # Calculate MEQ
-  d <- meq(d)
+    dplyr::mutate(cations = "", anions = "", charge_balance = "%")
 
   # Add units to d
   d <- d %>%
@@ -317,15 +345,9 @@ rems_to_aquachem <- function(ems_ids, date_range = NULL, save = TRUE,
     dplyr::bind_rows(units, .)
 
   # Arrange column order as in AquaChem template (unknown colums to end)
-  cols <- a$aqua_code[a$aqua_code %in% names(d)]
+  cols <- params$aqua_code[params$type == "meta" & params$aqua_code %in% names(d)]
   d <- dplyr::select(d, tidyselect::all_of(cols), dplyr::everything())
 
-  # Save data to disk, specfying NA values
-  if(save) {
-    # Get output location
-    out_file <- file.path(out_folder, out_file)
-    readr::write_csv(d, out_file, "N/A")
-  }
   d
 }
 
