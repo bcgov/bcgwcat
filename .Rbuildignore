@@ -7,3 +7,4 @@ CONTRIBUTING.md
 ^\.travis\.yml$
 ^RELEASE\.R$
 ^docs$
+^DEVTESTS\.R$
