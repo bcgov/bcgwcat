@@ -30,9 +30,9 @@ server <- function(input, output) {
                  detail = HTML("This may take several minutes"), {
       withCallingHandlers({
         # Catch errors if curl issues and try again
-        t <- try(rems::get_ems_data(force = TRUE, ask = FALSE), silent = TRUE)
+        t <- try(get_ems_data(force = TRUE, ask = FALSE), silent = TRUE)
         if(any(class(t) == "try-error")) {
-          rems::get_ems_data(force = TRUE, ask = FALSE)
+          get_ems_data(force = TRUE, ask = FALSE)
         }
 
         message("Done")
@@ -50,9 +50,9 @@ server <- function(input, output) {
     withProgress(message = "Updating historic EMS data",
                  detail = HTML("This may take up to an hour"), {
       withCallingHandlers({
-        t <- try(rems::download_historic_data(force = TRUE, ask = FALSE), silent = TRUE)
+        t <- try(download_historic_data(force = TRUE, ask = FALSE), silent = TRUE)
         if(any(class(t) == "try-error")) {
-          rems::download_historic_data(force = FALSE, ask = FALSE)
+          download_historic_data(force = FALSE, ask = FALSE)
         }
         message("Done")
         status$check_rems_historic <- TRUE
@@ -79,7 +79,7 @@ server <- function(input, output) {
 
   # Get historic status
   rems_status_historic <- eventReactive(status$check_rems_historic, {
-    cache_historic <- rems::get_cache_date("historic")
+    cache_historic <- get_cache_date("historic")
     status$check_rems_historic <- FALSE
     Sys.Date() == lubridate::as_date(cache_historic)
   })
@@ -87,7 +87,7 @@ server <- function(input, output) {
 
   # Output recent status
   output$rems_status_recent <- renderValueBox({
-    dt <- rems::get_cache_date("2yr")
+    dt <- get_cache_date("2yr")
     if(dt == -Inf) dt <- "never" else dt <- as.character(lubridate::as_date(dt))
     valueBox(value = if(!rems_status_recent()) "Out-of-date" else "Up-to-date",
              subtitle = paste0("Recent EMS Data (last updated: ", dt, ")"),
@@ -97,7 +97,7 @@ server <- function(input, output) {
 
   # Output historic status
   output$rems_status_historic <- renderValueBox({
-    cache <- rems::get_cache_date("historic")
+    cache <- get_cache_date("historic")
     dt <- trunc(difftime(Sys.Date(), cache, units = "days"))
     if(dt == Inf) dt <- "never" else dt <- paste0(dt, " days ago")
     valueBox(value = if(!rems_status_historic()) "Out-of-date" else "Up-to-date",
@@ -107,8 +107,10 @@ server <- function(input, output) {
   })
 
 
-  # Download EMS data ----------------------------------------------------------
 
+  # Inputs and Values -------------------------------------------------------
+
+  # EMS IDs - General
   ems_ids <- reactive({
     input$ems_ids %>%
       stringr::str_remove_all(pattern = "\"") %>%
@@ -117,6 +119,38 @@ server <- function(input, output) {
       .[. != ""]
   })
 
+  # EMS IDs - Plots
+  output$data_ids <- renderUI({
+    req(data_ac())
+    d <- data_ac()
+    ids <- unique(stringr::str_extract(d$SampleID[-1], "^[0-9A-Z]+"))
+    selectInput("ids_to_plot",
+                "EMS IDs to plot (click to add or click/DELETE to remove)",
+                ids, multiple = TRUE, selected = ids)
+  })
+
+  # Parameters - Water Quality Summary
+  output$data_params <- renderUI({
+    req(data_wq())
+    d <- data_wq()
+    param <- unique(d$param)
+    selectInput("params_to_show",
+                "Parameters to include (click to add or click/DELETE to remove)",
+                param, multiple = TRUE, selected = param)
+  })
+
+  # Reset Params
+  observeEvent(input$reset_params, {
+    req(data_wq())
+    if(!is.null(input$params_to_show)) {
+     s <- ""
+    } else s <- unique(data_wq()$param)
+    updateSelectInput(inputId = "params_to_show", selected = s)
+
+  })
+
+
+  # Data - EMS --------------------------------------------------------------
   data_ac <- eventReactive(input$get_data, {
     req(ems_ids())
     validate(need({
@@ -150,6 +184,8 @@ server <- function(input, output) {
     r
   })
 
+
+  # Data - Plot -------------------------------------------------------------
   data_plot <- reactive({
     req(data_ac())
     if(input$data_omit) {
@@ -159,6 +195,23 @@ server <- function(input, output) {
     } else data_ac()
   })
 
+
+  # Data - Water Quality ----------------------------------------------------
+  data_wq <- reactive({
+    validate(need(class(data_ac()) != "try-error",
+                  message = data_ac()[1]))
+
+    data_ac() %>%
+      water_quality() %>%
+      dplyr::left_join(dplyr::select(rems2aquachem:::params, rems_name, aqua_code),
+                       by = "aqua_code") %>%
+      dplyr::select(StationID, SampleID, Sample_Date, aqua_code,
+                    param = rems_name, value_transformed = value2, limit, units,
+                    quality_problem) %>%
+      dplyr::arrange(StationID, SampleID, Sample_Date, param)
+  })
+
+  # Data Output - Results -----------------------------------------------------
   output$data <- DT::renderDT({
     validate(need(class(data_ac()) != "try-error",
                   message = data_ac()[1]))
@@ -192,17 +245,37 @@ server <- function(input, output) {
   })
 
 
+  # Data Output - Water Quality -------------------------------------------------
+  output$data_wq <- DT::renderDT({
+    req(data_wq(), input$wq_show, input$params_to_show)
 
-# Dynamic inputs ----------------------------------------------------------
-# Ems IDs for plots
-  output$data_ids <- renderUI({
-    req(data_ac())
-    d <- data_ac()
-    ids <- unique(stringr::str_extract(d$SampleID[-1], "^[0-9A-Z]+"))
-    selectInput("ids_to_plot",
-                "EMS IDs to plot (click to add or click/DELETE to remove)",
-                ids, multiple = TRUE, selected = ids)
+    d <- data_wq() %>%
+      dplyr::filter(param %in% input$params_to_show)
+
+    if(input$wq_show == "problems") d <- dplyr::filter(d, quality_problem)
+    if(input$wq_show == "no_missing") d <- dplyr::filter(d, !is.na(quality_problem))
+
+
+    q_col <- which(names(d) == "quality_problem")
+
+    d %>%
+      dplyr::rename(`AquaChem Code` = aqua_code,
+                    Parameter = param,
+                    `Value (Transformed)` = value_transformed,
+                    `Water Quality Limit (Upper)` = limit) %>%
+      dplyr::rename_with(~tools::toTitleCase(stringr::str_replace_all(., "_", " "))) %>%
+      DT::datatable(options = list(pageLength = 20, scrollX = TRUE,
+                                   columnDefs = list(list(visible = FALSE, targets = q_col - 1))),
+                    rownames = FALSE) %>%
+      DT::formatRound(columns = "Value (Transformed)") %>%
+      DT::formatStyle(columns = 1:ncol(d), valueColumns = "Quality Problem",
+                      backgroundColor = DT::styleEqual(levels = c(TRUE, FALSE, NA),
+                                                       values = c("#f8d7da", "#d4edda", "white")))
   })
+
+
+
+
 
 # Plots -------------------------------------------------------------
   plot_msg <- "No data to plot\n\nPick a different set of EMS IDs or allow samples with 'bad charge balances' (see left-hand panel)"
@@ -221,7 +294,7 @@ server <- function(input, output) {
 
 
 
-  # Download formatted data -------------------------------------------------
+  # Download data -------------------------------------------------
   observe({
     req(data_ac())
     shinyjs::enable("download_csv_data")

@@ -20,6 +20,8 @@ styles <- "h4 {margin-left: 5px;}"
 
 header <- dashboardHeader(title = "REMS to AquaChem")
 
+
+# Sidebar -----------------------------------------------------------------
 sidebar <- dashboardSidebar(
   tags$head(tags$style(HTML(styles))),
   h4("Data options"),
@@ -69,15 +71,17 @@ body <- dashboardBody(
 
   fluidRow(
     tabBox(title = NULL, width = 12, id = "box",
+
+           # REMS Status Tab ----------------------------------------------------------
            tabPanel("REMS Status",
                     fluidRow(
                       box(width = 12,
-                        h3("Status of REMS data"),
-                        valueBoxOutput("rems_status_historic", width = 4),
-                        valueBoxOutput("rems_status_recent", width = 4),
-                        actionButton("check_status", "Check status"), br(),
-                        actionButton("update_recent", "Update recent data (2yr)"), br(),
-                        actionButton("update_historic", "Update historic data")),
+                          h3("Status of REMS data"),
+                          valueBoxOutput("rems_status_historic", width = 4),
+                          valueBoxOutput("rems_status_recent", width = 4),
+                          actionButton("check_status", "Check status"), br(),
+                          actionButton("update_recent", "Update recent data (2yr)"), br(),
+                          actionButton("update_historic", "Update historic data")),
                       box("Historical data is now being updated daily. ",
                           "However this is such a large download you may not want to update it everyday.",
                           width = 4),
@@ -87,11 +91,25 @@ body <- dashboardBody(
                       box(h3("Data Messages"), width = 12,
                           verbatimTextOutput("messages", placeholder = TRUE)))),
 
+           # Results Tab -------------------------------------------------------------
            tabPanel("Results",
                     shinyjs::disabled(downloadButton("download_csv_data", "Download to CSV")),
                     shinyjs::disabled(downloadButton("download_excel_data", "Download to Excel")),
                     DT::DTOutput("data")),
 
+
+           # Water Quality Tab -------------------------------------------------------
+           tabPanel("Water Quality Summary",
+                    fluidRow(box(width = 2,
+                                 radioButtons("wq_show", strong("Samples to include:"),
+                                              choices = list("All" = "all",
+                                                             "Problems only" = "problems",
+                                                             "Non-missing only" = "no_missing"))),
+                             box(width = 10, uiOutput("data_params"),
+                                 actionButton("reset_params", "Select/Unselect All"))),
+                    fluidRow(DT::DTOutput("data_wq"))),
+
+           # Plots Tab ---------------------------------------------------------------
            tabPanel("Plots",
                     fluidRow(
                       column(width = 6,
@@ -107,7 +125,9 @@ body <- dashboardBody(
                              box(title = "Piper Plot", width = NULL, height = "525px",
                                  plotOutput("piperplot"))
                       ))
-                    ),
+           ),
+
+           # About Tab ---------------------------------------------------------------
            tabPanel("About",
                     fluidRow(
                       box(title = "About this Shiny App", width = 12,
