@@ -104,7 +104,7 @@ remotes::update_packages()
 For advanced users, `rems2aquachem` can be used directly from R.
 
 Downloads, converts and saves to csv
-
+ 
 ```{r example}
 library(rems2aquachem)
 r <- rems_to_aquachem(ems_ids = c("1401030", "1401377", "E292373"))

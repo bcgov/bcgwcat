@@ -63,7 +63,7 @@
 
       
 
-      </header><script src="rems2aquachem_files/header-attrs-2.6/header-attrs.js"></script><div class="row">
+      </header><script src="rems2aquachem_files/header-attrs-2.7/header-attrs.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Shiny GUI Walkthrough</h1>
@@ -145,6 +145,16 @@
 <p>Not all EMS stations have data for all dates, or even any data at all. Be sure to check the “Data Messages” window on the <strong>REM Status</strong> tab for status messages regarding any missing data.</p>
 <p><img src="missing_data.png" width="80%" style="display: block; margin: auto;"></p>
 <p><img src="missing_data2.png" width="80%" style="display: block; margin: auto;"></p>
+</div>
+<div id="water-quality-summary" class="section level2">
+<h2 class="hasAnchor">
+<a href="#water-quality-summary" class="anchor"></a>Water Quality Summary</h2>
+<p>The Water Quality Summary tab displays information on whether specific compounds exceed Drinking Water quality guidelines (guidelines from the <a href="https://catalogue.data.gov.bc.ca/ca/dataset/85d3990a-ec0a-4436-8ebd-150de3ba0747">Data Catalogue</a> accessed via the <code>bcdata</code> package).</p>
+<p>By default, all relevant parameters are included (see the list at the top). Parameters can be omitted individually (clicking on a parameter and using the DELETE button) or can be all added or all removed (via the “Select/Unselect All” button).</p>
+<p>Parameters can also be filtered to only show those for which there are problematic values (“Problems only” radio button), or for which there are non-missing data (“Non-missing only” radio button).</p>
+<p>Parameters that exceed the Drinking Water Quality Limit are highlighted in red. Those that do not exceed the limit are highlighted in green. Those for which we do not have data are left white.</p>
+<p><img src="water_quality.png" width="80%" style="display: block; margin: auto;"></p>
+<p><strong>Note:</strong> Values have been transformed <em>in this table only</em> (“Value (Transformed)”) to match the units in the Drinking Water quality guidelines (“Units”). All comparisons are only upper limit exceedances.</p>
 </div>
 <div id="plots" class="section level2">
 <h2 class="hasAnchor">

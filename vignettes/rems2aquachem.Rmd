@@ -128,6 +128,31 @@ include_graphics("missing_data.png")
 include_graphics("missing_data2.png")
 ```
 
+## Water Quality Summary
+
+The Water Quality Summary tab displays information on whether specific compounds 
+exceed Drinking Water quality guidelines (guidelines from the [Data Catalogue](https://catalogue.data.gov.bc.ca/ca/dataset/85d3990a-ec0a-4436-8ebd-150de3ba0747)
+accessed via the `bcdata` package).
+
+By default, all relevant parameters are included (see the list at the top).
+Parameters can be omitted individually (clicking on a parameter and using the DELETE button)
+or can be all added or all removed (via the "Select/Unselect All" button).
+
+Parameters can also be filtered to only show those for which there are problematic
+values ("Problems only" radio button), or for which there are non-missing data ("Non-missing only" radio button).
+
+Parameters that exceed the Drinking Water Quality Limit are highlighted in red.
+Those that do not exceed the limit are highlighted in green.
+Those for which we do not have data are left white.
+
+```{r, echo = FALSE, out.width = "80%"}
+include_graphics("water_quality.png")
+```
+
+**Note:** Values have been transformed *in this table only* ("Value (Transformed)")
+to match the units in the Drinking Water quality guidelines ("Units").
+All comparisons are only upper limit exceedances. 
+
 ## Plots
 
 Plots can be previewed by clicking on the **Plots** tab.
