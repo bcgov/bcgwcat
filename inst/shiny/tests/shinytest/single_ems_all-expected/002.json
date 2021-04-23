@@ -18,7 +18,8 @@
       5,
       6,
       7,
-      8
+      8,
+      9
     ],
     "data_rows_current": [
       1,
@@ -28,7 +29,8 @@
       5,
       6,
       7,
-      8
+      8,
+      9
     ],
     "data_rows_selected": null,
     "data_search": "",
@@ -42,10 +44,12 @@
     "get_data": 1,
     "ids_to_plot": "1401030",
     "legend": "TRUE",
+    "reset_params": 0,
     "sidebarCollapsed": false,
     "sidebarItemExpanded": null,
     "update_historic": 0,
-    "update_recent": 0
+    "update_recent": 0,
+    "wq_show": "all"
   },
   "output": {
     "data": {
@@ -205,7 +209,7 @@
       ]
     },
     "piperplot": {
-      "src": "[image data sha1: 53a48dbc9bc26fdb41e4bca31256a023ca88ce07]",
+      "src": "[image data sha1: 4f1ff69616be552c623e299ab59184f63938ade3]",
       "width": 550,
       "height": 500,
       "alt": "Plot object",
@@ -240,19 +244,19 @@
       }
     },
     "rems_status_historic": {
-      "html": "<div class=\"small-box bg-green\">\n  <div class=\"inner\">\n    <h3>Up-to-date<\/h3>\n    <p>Historic EMS Data (last updated: 0 days ago)<\/p>\n  <\/div>\n<\/div>",
+      "html": "<div class=\"small-box bg-blue\">\n  <div class=\"inner\">\n    <h3>Out-of-date<\/h3>\n    <p>Historic EMS Data (last updated: 8 days ago)<\/p>\n  <\/div>\n<\/div>",
       "deps": [
 
       ]
     },
     "rems_status_recent": {
-      "html": "<div class=\"small-box bg-green\">\n  <div class=\"inner\">\n    <h3>Up-to-date<\/h3>\n    <p>Recent EMS Data (last updated: 2021-02-08)<\/p>\n  <\/div>\n<\/div>",
+      "html": "<div class=\"small-box bg-green\">\n  <div class=\"inner\">\n    <h3>Up-to-date<\/h3>\n    <p>Recent EMS Data (last updated: 2021-04-23)<\/p>\n  <\/div>\n<\/div>",
       "deps": [
 
       ]
     },
     "stiff": {
-      "src": "[image data sha1: 6ce80ace84c86c327549435437b21a9423097c10]",
+      "src": "[image data sha1: 8aa74e698a821454add53ae9ae5ff24105c1fd5d]",
       "width": 313,
       "height": 350,
       "alt": "Plot object",
@@ -263,7 +267,7 @@
             "row": 1,
             "col": 1,
             "panel_vars": {
-
+              "panelvar1": "1401030"
             },
             "log": {
               "x": null,
@@ -287,14 +291,16 @@
             },
             "mapping": {
               "group": "SampleID",
+              "fill": "ems_id",
               "x": "value",
-              "y": "sample"
+              "y": "sample",
+              "panelvar1": "ems_id"
             },
             "range": {
               "left": 53.4109589041096,
-              "right": 307.520547945205,
+              "right": 227.843287671233,
               "bottom": 316.849315068493,
-              "top": 5.47945205479452
+              "top": 23.2465753424658
             }
           }
         ],

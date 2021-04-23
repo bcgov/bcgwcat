@@ -10,8 +10,67 @@
     ],
     "data_columns_selected": null,
     "data_omit": "TRUE",
-    "data_rows_all": null,
-    "data_rows_current": null,
+    "data_rows_all": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      23,
+      24,
+      25,
+      26,
+      27,
+      28,
+      29,
+      30,
+      31,
+      32,
+      33,
+      34,
+      35,
+      36,
+      37
+    ],
+    "data_rows_current": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20
+    ],
     "data_rows_selected": null,
     "data_search": "",
     "data_show": "rel",
@@ -24,10 +83,12 @@
     "get_data": 1,
     "ids_to_plot": "1401057",
     "legend": "TRUE",
+    "reset_params": 0,
     "sidebarCollapsed": false,
     "sidebarItemExpanded": null,
     "update_historic": 0,
-    "update_recent": 0
+    "update_recent": 0,
+    "wq_show": "all"
   },
   "output": {
     "data": {
@@ -187,13 +248,13 @@
       ]
     },
     "rems_status_historic": {
-      "html": "<div class=\"small-box bg-green\">\n  <div class=\"inner\">\n    <h3>Up-to-date<\/h3>\n    <p>Historic EMS Data (last updated: 0 days ago)<\/p>\n  <\/div>\n<\/div>",
+      "html": "<div class=\"small-box bg-blue\">\n  <div class=\"inner\">\n    <h3>Out-of-date<\/h3>\n    <p>Historic EMS Data (last updated: 8 days ago)<\/p>\n  <\/div>\n<\/div>",
       "deps": [
 
       ]
     },
     "rems_status_recent": {
-      "html": "<div class=\"small-box bg-green\">\n  <div class=\"inner\">\n    <h3>Up-to-date<\/h3>\n    <p>Recent EMS Data (last updated: 2021-02-08)<\/p>\n  <\/div>\n<\/div>",
+      "html": "<div class=\"small-box bg-green\">\n  <div class=\"inner\">\n    <h3>Up-to-date<\/h3>\n    <p>Recent EMS Data (last updated: 2021-04-23)<\/p>\n  <\/div>\n<\/div>",
       "deps": [
 
       ]

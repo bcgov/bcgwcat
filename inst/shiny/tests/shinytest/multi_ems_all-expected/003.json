@@ -35,10 +35,7 @@
       7,
       8,
       9,
-      10,
-      11,
-      12,
-      13
+      10
     ],
     "data_rows_selected": null,
     "data_search": "",
@@ -55,10 +52,12 @@
       "1401377"
     ],
     "legend": "TRUE",
+    "reset_params": 0,
     "sidebarCollapsed": false,
     "sidebarItemExpanded": null,
     "update_historic": 0,
-    "update_recent": 0
+    "update_recent": 0,
+    "wq_show": "all"
   },
   "output": {
     "data": {
@@ -218,26 +217,147 @@
       ]
     },
     "piperplot": {
-      "message": "Can only specify one ems_id at a time",
-      "call": "NULL",
-      "type": null
+      "src": "[image data sha1: 194aca1d05551ba2f20d9ecc305ad89f2808b423]",
+      "width": 550,
+      "height": 500,
+      "alt": "Plot object",
+      "coordmap": {
+        "panels": [
+          {
+            "domain": {
+              "left": -1,
+              "right": 1,
+              "bottom": -1,
+              "top": 1
+            },
+            "range": {
+              "left": 69.64,
+              "right": 480.36,
+              "bottom": 425.56,
+              "top": 14.84
+            },
+            "log": {
+              "x": null,
+              "y": null
+            },
+            "mapping": {
+
+            }
+          }
+        ],
+        "dims": {
+          "width": 550,
+          "height": 500
+        }
+      }
     },
     "rems_status_historic": {
-      "html": "<div class=\"small-box bg-green\">\n  <div class=\"inner\">\n    <h3>Up-to-date<\/h3>\n    <p>Historic EMS Data (last updated: 0 days ago)<\/p>\n  <\/div>\n<\/div>",
+      "html": "<div class=\"small-box bg-blue\">\n  <div class=\"inner\">\n    <h3>Out-of-date<\/h3>\n    <p>Historic EMS Data (last updated: 8 days ago)<\/p>\n  <\/div>\n<\/div>",
       "deps": [
 
       ]
     },
     "rems_status_recent": {
-      "html": "<div class=\"small-box bg-green\">\n  <div class=\"inner\">\n    <h3>Up-to-date<\/h3>\n    <p>Recent EMS Data (last updated: 2021-02-08)<\/p>\n  <\/div>\n<\/div>",
+      "html": "<div class=\"small-box bg-green\">\n  <div class=\"inner\">\n    <h3>Up-to-date<\/h3>\n    <p>Recent EMS Data (last updated: 2021-04-23)<\/p>\n  <\/div>\n<\/div>",
       "deps": [
 
       ]
     },
     "stiff": {
-      "message": "Can only specify one ems_id at a time",
-      "call": "NULL",
-      "type": null
+      "src": "[image data sha1: 3a93140cac200c495dec62440a7c3787c60093c4]",
+      "width": 313,
+      "height": 350,
+      "alt": "Plot object",
+      "coordmap": {
+        "panels": [
+          {
+            "panel": 1,
+            "row": 1,
+            "col": 1,
+            "panel_vars": {
+              "panelvar1": "1401030"
+            },
+            "log": {
+              "x": null,
+              "y": null
+            },
+            "domain": {
+              "left": -7.62971,
+              "right": 7.62971,
+              "bottom": 0.4,
+              "top": 6.6,
+              "discrete_limits": {
+                "y": [
+                  "1401030-7 0",
+                  "1401030-7 1",
+                  "1401030-7 2",
+                  "1401030-8 0",
+                  "1401030-8 1",
+                  "1401030-8 2"
+                ]
+              }
+            },
+            "mapping": {
+              "group": "SampleID",
+              "fill": "ems_id",
+              "x": "value",
+              "y": "sample",
+              "panelvar1": "ems_id"
+            },
+            "range": {
+              "left": 53.4109589041096,
+              "right": 113.921643835616,
+              "bottom": 316.849315068493,
+              "top": 23.2465753424658
+            }
+          },
+          {
+            "panel": 2,
+            "row": 1,
+            "col": 2,
+            "panel_vars": {
+              "panelvar1": "1401377"
+            },
+            "log": {
+              "x": null,
+              "y": null
+            },
+            "domain": {
+              "left": -7.62971,
+              "right": 7.62971,
+              "bottom": 0.4,
+              "top": 6.6,
+              "discrete_limits": {
+                "y": [
+                  "1401377-4 0",
+                  "1401377-4 1",
+                  "1401377-4 2",
+                  "1401377-5 0",
+                  "1401377-5 1",
+                  "1401377-5 2"
+                ]
+              }
+            },
+            "mapping": {
+              "group": "SampleID",
+              "fill": "ems_id",
+              "x": "value",
+              "y": "sample",
+              "panelvar1": "ems_id"
+            },
+            "range": {
+              "left": 167.332602739726,
+              "right": 227.843287671233,
+              "bottom": 316.849315068493,
+              "top": 23.2465753424658
+            }
+          }
+        ],
+        "dims": {
+          "width": 313,
+          "height": 350
+        }
+      }
     }
   },
   "export": {
