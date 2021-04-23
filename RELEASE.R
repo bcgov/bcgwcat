@@ -16,13 +16,20 @@
 
 # Check version
 
+
+# Run tests - Compare snapshots - BUILD PACKAGE FIRST
+devtools::test()
+testthat::snapshot_review()
+shinytest::snapshotCompare("inst/shiny/")
+
+shinytest::testApp("./inst/shiny", interactive = TRUE) # Shiny tests only
+
+# Check
 devtools::check()
 
 # Render README.Rmd
 rmarkdown::render("README.Rmd")
 unlink("README.html")
-# Updated screenshots
-
 
 # Update website
 pkgdown::build_site()
