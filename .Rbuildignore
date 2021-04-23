@@ -8,3 +8,4 @@ CONTRIBUTING.md
 ^RELEASE\.R$
 ^docs$
 ^DEVTESTS\.R$
+^COMPLIANCE.yaml$

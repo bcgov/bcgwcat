@@ -101,10 +101,11 @@ body <- dashboardBody(
            # Water Quality Tab -------------------------------------------------------
            tabPanel("Water Quality Summary",
                     fluidRow(box(width = 2,
-                                 radioButtons("wq_show", strong("Samples to include:"),
-                                              choices = list("All" = "all",
-                                                             "Problems only" = "problems",
-                                                             "Non-missing only" = "no_missing"))),
+                                 radioButtons(
+                                   "wq_show", strong("Samples to include:"),
+                                   choices = list("All" = "all",
+                                                  "Problems only" = "problems",
+                                                  "Non-missing only" = "no_missing"))),
                              box(width = 10, uiOutput("data_params"),
                                  actionButton("reset_params", "Select/Unselect All"))),
                     fluidRow(DT::DTOutput("data_wq"))),

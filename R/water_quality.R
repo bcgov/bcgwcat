@@ -9,14 +9,14 @@
 water_quality <- function(d) {
   d %>%
     units_remove() %>%
-    dplyr::select(StationID, SampleID, Sample_Date,
+    dplyr::select("StationID", "SampleID", "Sample_Date",
                   dplyr::any_of(wq_std$aqua_code)) %>%
-    tidyr::pivot_longer(cols = c(-StationID, -SampleID, -Sample_Date),
+    tidyr::pivot_longer(cols = c(-.data$StationID, -.data$SampleID, -.data$Sample_Date),
                         names_to = "aqua_code") %>%
-    dplyr::left_join(dplyr::select(wq_std, -uniqueid, -variable, -component, -ems_code),
+    dplyr::left_join(dplyr::select(wq_std, -"uniqueid", -"variable", -"component", -"ems_code"),
                      by = "aqua_code") %>%
-    dplyr::left_join(dplyr::select(params, aqua_code, aqua_unit), by = "aqua_code") %>%
-    dplyr::mutate(value2 = purrr::pmap_dbl(list(value, aqua_unit, units),
+    dplyr::left_join(dplyr::select(params, "aqua_code", "aqua_unit"), by = "aqua_code") %>%
+    dplyr::mutate(value2 = purrr::pmap_dbl(list(.data$value, .data$aqua_unit, .data$units),
                                            ~ units_convert(..1, ..2, ..3)),
-                  quality_problem = dplyr::if_else(value2 > limit, TRUE, FALSE))
+                  quality_problem = dplyr::if_else(.data$value2 > .data$limit, TRUE, FALSE))
 }

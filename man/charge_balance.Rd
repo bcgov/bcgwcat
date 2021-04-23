@@ -8,8 +8,6 @@ charge_balance(d)
 }
 \arguments{
 \item{d}{AquaChem formatted dataset}
-
-\item{return}{Return "all" columns or only "relevant" columns?}
 }
 \value{
 Data frame

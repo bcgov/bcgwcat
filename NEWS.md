@@ -1,3 +1,7 @@
+# rems2aquachem 0.4.0
+* Added water quality table
+* Convert units correctly
+
 # rems2aquachem 0.3.1
 
 * Migrated to bcgov repositories

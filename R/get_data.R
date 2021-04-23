@@ -293,10 +293,9 @@ ac_format <- function(d) {
                                               NA_character_, .data$UNIT))
 
   # Convert units to those used in AquaChem
-  d <- d %>%
-    dplyr::mutate(aqua_unit = dplyr::if_else(is.na(aqua_unit), UNIT, aqua_unit),
-                  RESULT2 = purrr::pmap_dbl(list(RESULT, UNIT, aqua_unit),
-                                            ~units_convert(..1, ..2, ..3)))
+  d <- dplyr::mutate(d, RESULT2 = purrr::pmap_dbl(
+    list(.data$RESULT, .data$UNIT, .data$aqua_unit),
+    ~units_convert(..1, ..2, ..3)))
 
   # Remove now unnecessary parameter columns:
   d <- dplyr::select(d,
@@ -309,13 +308,14 @@ ac_format <- function(d) {
 
   # Add sample numbers to SampleID
   ids <- d %>%
-    dplyr::select(StationID, SampleID, Sample_Date) %>%
+    dplyr::select("StationID", "SampleID", "Sample_Date") %>%
     dplyr::distinct() %>%
-    dplyr::group_by(StationID, SampleID) %>%
-    dplyr::mutate(SampleID = paste0(.data$SampleID, "-", 1:dplyr::n_distinct(Sample_Date)))
+    dplyr::group_by(.data$StationID, .data$SampleID) %>%
+    dplyr::mutate(SampleID = paste0(.data$SampleID, "-",
+                                    1:dplyr::n_distinct(.data$Sample_Date)))
 
   d <- d %>%
-    dplyr::select(-SampleID) %>%
+    dplyr::select(-"SampleID") %>%
     dplyr::left_join(ids, by = c("StationID", "Sample_Date")) %>%
     dplyr::arrange(.data$StationID)
 
@@ -331,7 +331,8 @@ ac_units <- function(d) {
   units <- d %>%
     dplyr::select("aqua_code", "aqua_unit") %>%
     dplyr::distinct() %>%
-    dplyr::bind_rows(params[params$type == "meta", c("aqua_code", "aqua_unit")], .) %>%
+    dplyr::bind_rows(params[params$type == "meta",
+                            c("aqua_code", "aqua_unit")], .) %>%
     dplyr::mutate(aqua_unit = replace(.data$aqua_unit,
                                       is.na(.data$aqua_unit), "")) %>%
     dplyr::filter(!is.na(.data$aqua_code))
@@ -339,13 +340,16 @@ ac_units <- function(d) {
   # Transform to wide format
   d <- d %>%
     dplyr::select(-"UNIT", -"RESULT", -"aqua_unit") %>%
-    tidyr::spread(.data$aqua_code, .data$RESULT2) %>%
+    tidyr::pivot_wider(names_from = .data$aqua_code,
+                       values_from = .data$RESULT2) %>%
     dplyr::select(tidyselect::all_of(params$aqua_code[params$type == "meta"]),
-                  dplyr::everything())
+                  dplyr::everything()) %>%
+    dplyr::arrange(.data$StationID, .data$SampleID, .data$Sample_Date)
 
   # Spread and Order units by column names in d
   units <- units %>%
-    tidyr::spread(.data$aqua_code, .data$aqua_unit) %>%
+    tidyr::pivot_wider(names_from = .data$aqua_code,
+                       values_from = .data$aqua_unit) %>%
     dplyr::select(tidyselect::all_of(names(d))) %>%
     dplyr::mutate(cations = "", anions = "", charge_balance = "%")
 

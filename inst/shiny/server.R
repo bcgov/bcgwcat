@@ -222,10 +222,12 @@ server <- function(input, output) {
     d <- d[-1,]
 
     if(input$data_show == "rel"){
-      d <- d[, c("StationID", "SampleID", "Sample_Date",
-                 "Ca", "Mg", "Na", "Cl", "HCO3", "SO4",
-                 "Ca_meq", "Mg_meq", "Na_meq", "Cl_meq", "HCO3_meq", "SO4_meq",
-                 "cations", "anions", "charge_balance")]
+      d <- dplyr::select(d,
+                         dplyr::all_of(c("StationID", "SampleID", "Sample_Date",
+                                         "Ca", "Mg", "Na", "Cl", "HCO3", "SO4",
+                                         "Ca_meq", "Mg_meq", "Na_meq", "Cl_meq",
+                                         "HCO3_meq", "SO4_meq",
+                                         "cations", "anions", "charge_balance")))
 
     }
     d <- dplyr::select(d, "StationID", "SampleID", "Sample_Date", "cations",
@@ -282,6 +284,11 @@ server <- function(input, output) {
   output$stiff <- renderPlot({
     req(data_plot(), input$ids_to_plot)
     validate(need(nrow(data_plot()) > 1, message = plot_msg))
+    params <- data_plot() %>%
+      dplyr::filter(!is.na(.data$Ca_meq), !is.na(.data$Mg_meq),
+                    !is.na(.data$Na_meq), !is.na(.data$HCO3_meq),
+                    !is.na(.data$SO4_meq), !is.na(.data$Cl_meq))
+    validate(need(nrow(params) > 1, message = "Missing too many data to plot"))
     stiff_plot(data_plot(), ems_id = input$ids_to_plot, legend = as.logical(input$legend))
   })
 

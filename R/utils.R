@@ -1,11 +1,11 @@
 units_remove <- function(d) {
 
-  num <- dplyr::filter(params, data_type == "numeric", !is.na(aqua_code)) %>%
-    dplyr::pull(aqua_code)
+  num <- dplyr::filter(params, .data$data_type == "numeric", !is.na(.data$aqua_code)) %>%
+    dplyr::pull(.data$aqua_code)
   num <- c(num, "Ca_meq", "Mg_meq", "Na_meq", "K_meq", "Cl_meq",
            "HCO3_meq", "SO4_meq")
-  date <- dplyr::filter(params, data_type == "date", !is.na(aqua_code)) %>%
-    dplyr::pull(aqua_code)
+  date <- dplyr::filter(params, .data$data_type == "date", !is.na(.data$aqua_code)) %>%
+    dplyr::pull(.data$aqua_code)
 
   d %>%
     dplyr::slice(-1) %>%
@@ -61,7 +61,6 @@ meq <- function(d, format = "long") {
 #' Calculate charge balance
 #'
 #' @param d AquaChem formatted dataset
-#' @param return Return "all" columns or only "relevant" columns?
 #'
 #' @return Data frame
 #'
@@ -178,6 +177,8 @@ stiff_plot <- function(d, ems_id = NULL, colour = TRUE, legend = TRUE) {
     dplyr::mutate(sample = factor(paste(.data$SampleID, .data$y)),
                   n = sum(!is.na(.data$value))) %>%
     dplyr::filter(.data$n == 6)
+
+  if(nrow(stiff) == 0) stop("Not enough non-NA data to plot", call. = FALSE)
 
   if(colour) fill <- "ems_id" else fill <- NULL
   ggplot2::ggplot(stiff, ggplot2::aes_string(x = "value", y = "sample",
