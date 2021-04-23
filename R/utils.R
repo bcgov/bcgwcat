@@ -23,20 +23,23 @@ units_convert <- function(x, from, to) {
 meq <- function(d, format = "long") {
 
   if(format == "long") {
-    # Values all in mg/L which is the standard reported by EMS and used by
-    # AquaChem for these elements
+    # Values all in mg/L (RESULT) which is the standard reported by EMS and used by
+    # smwrBase for these elements
    d2 <- d %>%
-     dplyr::filter(aqua_code %in% c("Ca", "Mg", "Na", "K", "Cl", "HCO3", "SO4")) %>%
-     dplyr::mutate(type = dplyr::case_when(aqua_code == "Ca" ~ "calcium",
-                                           aqua_code == "Mg" ~ "magnesium",
-                                           aqua_code == "Na" ~ "sodium",
-                                           aqua_code == "K" ~ "potassium",
-                                           aqua_code == "Cl" ~ "chloride",
-                                           aqua_code == "HCO3" ~ "bicarb",
-                                           aqua_code == "SO4" ~ "sulfate"),
-                   RESULT = purrr::map2_dbl(RESULT, type, ~smwrBase::conc2meq(.x, .y)),
-                   aqua_code = paste0(aqua_code, "_meq"),
-                   UNIT = "meq") %>%
+     dplyr::filter(.data$aqua_code %in% c("Ca", "Mg", "Na", "K", "Cl", "HCO3", "SO4")) %>%
+     dplyr::mutate(type = dplyr::case_when(.data$aqua_code == "Ca" ~ "calcium",
+                                           .data$aqua_code == "Mg" ~ "magnesium",
+                                           .data$aqua_code == "Na" ~ "sodium",
+                                           .data$aqua_code == "K" ~ "potassium",
+                                           .data$aqua_code == "Cl" ~ "chloride",
+                                           .data$aqua_code == "HCO3" ~ "bicarb",
+                                           .data$aqua_code == "SO4" ~ "sulfate"),
+                   RESULT = purrr::map2_dbl(.data$RESULT, .data$type,
+                                            ~smwrBase::conc2meq(.x, .y)),
+                   RESULT2 = .data$RESULT,
+                   aqua_code = paste0(.data$aqua_code, "_meq"),
+                   UNIT = "meq",
+                   aqua_unit = "meq") %>%
      dplyr::select(-"type")
    d <- dplyr::bind_rows(d, d2)
   }

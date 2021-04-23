@@ -235,6 +235,8 @@ ac_format <- function(d) {
     dplyr::select("rems_name", "aqua_code")
 
   params_ac <- dplyr::filter(params, .data$type == "param", !is.na(.data$aqua_code)) %>%
+    dplyr::mutate(aqua_unit = dplyr::if_else(is.na(.data$aqua_unit),
+                                             .data$rems_unit, .data$aqua_unit)) %>%
     dplyr::select("rems_code", "aqua_code", "aqua_unit")
 
   # Rename the meta data in rems to correspond to AquaChem
@@ -248,7 +250,7 @@ ac_format <- function(d) {
   # Add AquaChem parameter names
   d <- d %>%
     dplyr::mutate(rems_code = .data$PARAMETER_CODE) %>%
-    dplyr::left_join(params_ac, by = "rems_code") %>%
+    dplyr::left_join(dplyr::select(params_ac, -"aqua_unit"), by = "rems_code") %>%
     # Replace parameter name with rems name if doesn't exist in AquaChem
     # Replace all spaces and periods with _
     dplyr::mutate(aqua_code = dplyr::if_else(is.na(.data$aqua_code),
@@ -257,6 +259,14 @@ ac_format <- function(d) {
                   aqua_code = stringr::str_replace_all(
                     .data$aqua_code, c(" " = "_", "\\." = "_")))
 
+  # Add in missing parameters and fill with NA
+  d <- tidyr::complete(d, tidyr::nesting(
+    !!!rlang::syms(c("SampleID", "Sample_Date", "Coord_Lat", "Project",
+                     "Coord_Long", "Watertype"))),
+    aqua_code = params_ac$aqua_code)
+
+  # Add in AquaChem units
+  d <- dplyr::left_join(d, dplyr::select(params_ac, -"rems_code"), by = "aqua_code")
 
   # Add StationID
   d <- d %>%
