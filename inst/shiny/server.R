@@ -159,7 +159,9 @@ server <- function(input, output) {
       all(len) & all(sym)},
       message = paste0("Invalid EMS ID(s): ",
                        paste0(ems_ids()[!nchar(ems_ids()) == 7 |
-                                          !stringr::str_detect(ems_ids(), "^[a-zA-Z0-9]*$")],
+                                          !stringr::str_detect(
+                                            ems_ids(),
+                                            "^[a-zA-Z0-9]*$")],
                               collapse = ", "), "")))
 
     validate(need(
@@ -178,7 +180,8 @@ server <- function(input, output) {
     ), silent = TRUE)
 
     if(any(class(r) == "try-error")) r <- NULL
-    shinyjs::html(id = "messages", html = "EMS data received - Go to Results Tab to explore",
+    shinyjs::html(id = "messages",
+                  html = "EMS data received - Go to Results Tab to explore",
                    add = TRUE)
 
     r
@@ -203,7 +206,8 @@ server <- function(input, output) {
 
     data_ac() %>%
       water_quality() %>%
-      dplyr::left_join(dplyr::select(rems2aquachem:::params, rems_name, aqua_code),
+      dplyr::left_join(dplyr::select(rems2aquachem:::params, rems_name,
+                                     aqua_code),
                        by = "aqua_code") %>%
       dplyr::select(StationID, SampleID, Sample_Date, aqua_code,
                     param = rems_name, value_transformed = value2, limit, units,
@@ -242,8 +246,9 @@ server <- function(input, output) {
                                   "SO4_meq", "HCO3_meq", "cations",
                                   "anions", "charge_balance")) %>%
       DT::formatStyle("charge_balance",
-                      backgroundColor = DT::styleInterval(cuts = c(-10, 10),
-                                                          values = c("#f8d7da", "#d4edda", "#f8d7da")))
+                      backgroundColor = DT::styleInterval(
+                        cuts = c(-10, 10),
+                        values = c("#f8d7da", "#d4edda", "#f8d7da")))
   })
 
 
@@ -265,14 +270,18 @@ server <- function(input, output) {
                     Parameter = param,
                     `Value (Transformed)` = value_transformed,
                     `Water Quality Limit (Upper)` = limit) %>%
-      dplyr::rename_with(~tools::toTitleCase(stringr::str_replace_all(., "_", " "))) %>%
+      dplyr::rename_with(~tools::toTitleCase(
+        stringr::str_replace_all(., "_", " "))) %>%
       DT::datatable(options = list(pageLength = 20, scrollX = TRUE,
-                                   columnDefs = list(list(visible = FALSE, targets = q_col - 1))),
+                                   columnDefs = list(
+                                     list(visible = FALSE,
+                                          targets = q_col - 1))),
                     rownames = FALSE) %>%
       DT::formatRound(columns = "Value (Transformed)") %>%
       DT::formatStyle(columns = 1:ncol(d), valueColumns = "Quality Problem",
-                      backgroundColor = DT::styleEqual(levels = c(TRUE, FALSE, NA),
-                                                       values = c("#f8d7da", "#d4edda", "white")))
+                      backgroundColor = DT::styleEqual(
+                        levels = c(TRUE, FALSE, NA),
+                        values = c("#f8d7da", "#d4edda", "white")))
   })
 
 
@@ -341,7 +350,8 @@ server <- function(input, output) {
         dplyr::summarize(start = n[1]+1, end = dplyr::last(n)+1,
                          colour = NA)
 
-      suppressWarnings(c$colour[2:nrow(c)] <- c("#ac8fb4", "#a9b3cc", "#9dcecc", "#b8e7ba",
+      suppressWarnings(c$colour[2:nrow(c)] <- c("#ac8fb4", "#a9b3cc",
+                                                "#9dcecc", "#b8e7ba",
                                                 "#fef391"))
 
       wb <- openxlsx::createWorkbook()
