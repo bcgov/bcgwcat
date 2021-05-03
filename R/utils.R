@@ -175,7 +175,8 @@ stiff_plot <- function(d, ems_id = NULL, colour = TRUE, legend = TRUE) {
     dplyr::arrange(.data$SampleID, .data$element) %>%
     dplyr::group_by(.data$SampleID) %>%
     dplyr::mutate(sample = factor(paste(.data$SampleID, .data$y)),
-                  n = sum(!is.na(.data$value))) %>%
+                  n = sum(!is.na(.data$value)),
+                  element = stringr::str_remove(element, "_meq")) %>%
     dplyr::filter(.data$n == 6)
 
   if(nrow(stiff) == 0) stop("Not enough non-NA data to plot", call. = FALSE)
@@ -187,6 +188,8 @@ stiff_plot <- function(d, ems_id = NULL, colour = TRUE, legend = TRUE) {
     ggplot2::theme(axis.title.y = ggplot2::element_blank()) +
     ggplot2::geom_polygon(colour = "black", show.legend = legend) +
     ggplot2::geom_vline(xintercept = 0) +
+    ggrepel::geom_label_repel(ggplot2::aes(label = element), fill = "white",
+                              min.segment.length = 0) +
     ggplot2::scale_y_discrete(labels = function(x) stringr::str_remove(x, " [0-9]{1}$"),
                               breaks = function(x) x[seq(2, by = 3, along.with = x)]) +
     ggplot2::scale_x_continuous(limits = function(x) c(-max(abs(x)), max(abs(x)))) +
