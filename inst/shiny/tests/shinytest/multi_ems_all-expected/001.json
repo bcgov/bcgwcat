@@ -63,7 +63,7 @@
     "data": {
       "x": {
         "filter": "none",
-        "container": "<table class=\"display\">\n  <thead>\n    <tr>\n      <th>StationID\n<\/th>\n      <th>SampleID\n<\/th>\n      <th>Sample_Date\n<\/th>\n      <th>cations\n<\/th>\n      <th>anions\n<\/th>\n      <th>charge_balance\n%<\/th>\n      <th>Ca\nmg/L<\/th>\n      <th>Mg\nmg/L<\/th>\n      <th>Na\nmg/L<\/th>\n      <th>Cl\nmg/L<\/th>\n      <th>HCO3\nmg/L<\/th>\n      <th>SO4\nmg/L<\/th>\n      <th>Ca_meq\nmeq<\/th>\n      <th>Mg_meq\nmeq<\/th>\n      <th>Na_meq\nmeq<\/th>\n      <th>Cl_meq\nmeq<\/th>\n      <th>HCO3_meq\nmeq<\/th>\n      <th>SO4_meq\nmeq<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>",
+        "container": "<table class=\"display\">\n  <thead>\n    <tr>\n      <th>StationID\n<\/th>\n      <th>SampleID\n<\/th>\n      <th>Sample_Date\n<\/th>\n      <th>cation_sum\nmeq/L<\/th>\n      <th>anion_sum\nmeq/L<\/th>\n      <th>charge_balance\n%<\/th>\n      <th>Ca\nmg/L<\/th>\n      <th>Mg\nmg/L<\/th>\n      <th>Na\nmg/L<\/th>\n      <th>Cl\nmg/L<\/th>\n      <th>HCO3\nmg/L<\/th>\n      <th>SO4\nmg/L<\/th>\n      <th>Ca_meq\nmeq<\/th>\n      <th>Mg_meq\nmeq<\/th>\n      <th>Na_meq\nmeq<\/th>\n      <th>Cl_meq\nmeq<\/th>\n      <th>HCO3_meq\nmeq<\/th>\n      <th>SO4_meq\nmeq<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>",
         "options": {
           "pageLength": 20,
           "scrollX": true,
@@ -217,13 +217,13 @@
       ]
     },
     "rems_status_historic": {
-      "html": "<div class=\"small-box bg-blue\">\n  <div class=\"inner\">\n    <h3>Out-of-date<\/h3>\n    <p>Historic EMS Data (last updated: 8 days ago)<\/p>\n  <\/div>\n<\/div>",
+      "html": "<div class=\"small-box bg-blue\">\n  <div class=\"inner\">\n    <h3>Out-of-date<\/h3>\n    <p>Historic EMS Data (last updated: 18 days ago)<\/p>\n  <\/div>\n<\/div>",
       "deps": [
 
       ]
     },
     "rems_status_recent": {
-      "html": "<div class=\"small-box bg-green\">\n  <div class=\"inner\">\n    <h3>Up-to-date<\/h3>\n    <p>Recent EMS Data (last updated: 2021-04-23)<\/p>\n  <\/div>\n<\/div>",
+      "html": "<div class=\"small-box bg-green\">\n  <div class=\"inner\">\n    <h3>Up-to-date<\/h3>\n    <p>Recent EMS Data (last updated: 2021-05-03)<\/p>\n  <\/div>\n<\/div>",
       "deps": [
 
       ]
