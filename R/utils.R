@@ -176,7 +176,7 @@ stiff_plot <- function(d, ems_id = NULL, colour = TRUE, legend = TRUE) {
     dplyr::group_by(.data$SampleID) %>%
     dplyr::mutate(sample = factor(paste(.data$SampleID, .data$y)),
                   n = sum(!is.na(.data$value)),
-                  element = stringr::str_remove(element, "_meq")) %>%
+                  element = stringr::str_remove(.data$element, "_meq")) %>%
     dplyr::filter(.data$n == 6)
 
   if(nrow(stiff) == 0) stop("Not enough non-NA data to plot", call. = FALSE)
