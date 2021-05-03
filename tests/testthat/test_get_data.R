@@ -20,4 +20,5 @@ test_that("general returned data", {
 
   expect_snapshot_value(r2, style = "json2")
 
+  unlink(list.files(pattern = "aquachem_[0-9]{4}-[0-9]{2}-[0-9]{2}.csv"))
 })
