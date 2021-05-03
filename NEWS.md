@@ -1,3 +1,7 @@
+# rems2aquachem 0.4.1
+* Fixed bug where cation/anion not showing up
+* Added labels to stiff plots
+
 # rems2aquachem 0.4.0
 * Added water quality table
 * Convert units correctly
