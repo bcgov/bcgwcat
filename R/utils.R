@@ -22,7 +22,7 @@ units_convert <- function(x, from, to) {
 
 meq <- function(d, format = "long") {
 
-  meq_params <- dplyr::filter(params, !is.na(smwr_code)) %>%
+  meq_params <- dplyr::filter(params, !is.na(.data$smwr_code)) %>%
     dplyr::select("aqua_code", "smwr_code")
 
   if(format == "long") {
@@ -106,9 +106,9 @@ charge_balance <- function(d) {
         (10^(-.data$pH_lab)) * 1000,
       charge_balance2 = 100 * ((.data$cation_sum2 - .data$anion_sum2) /
                                 (.data$cation_sum2 + .data$anion_sum2)),
-    anion_sum2 = round(anion_sum2, 2),
-    cation_sum2 = round(cation_sum2, 2),
-    charge_balance2 = round(charge_balance2))
+    anion_sum2 = round(.data$anion_sum2, 2),
+    cation_sum2 = round(.data$cation_sum2, 2),
+    charge_balance2 = round(.data$charge_balance2))
 
 }
 
@@ -226,7 +226,7 @@ stiff_plot <- function(d, ems_id = NULL, colour = TRUE, legend = TRUE) {
     ggplot2::theme(axis.title.y = ggplot2::element_blank()) +
     ggplot2::geom_polygon(colour = "black", show.legend = legend) +
     ggplot2::geom_vline(xintercept = 0) +
-    ggrepel::geom_label_repel(ggplot2::aes(label = element), fill = "white",
+    ggrepel::geom_label_repel(ggplot2::aes_string(label = "element"), fill = "white",
                               min.segment.length = 0) +
     ggplot2::scale_y_discrete(labels = function(x) stringr::str_remove(x, " [0-9]{1}$"),
                               breaks = function(x) x[seq(2, by = 3, along.with = x)]) +

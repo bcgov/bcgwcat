@@ -35,3 +35,6 @@ unlink("README.html")
 pkgdown::build_site()
 
 # Push to GitHub!
+
+## Going up a version? Create signed release on github
+usethis::use_github_release()
