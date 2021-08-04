@@ -102,44 +102,37 @@ Downloads, converts and saves to csv
 library(rems2aquachem)
 r <- rems_to_aquachem(ems_ids = c("1401030", "1401377", "E292373"))
 #> Checking for locally stored historical data...
-#> Last download was 9 days ago
+#> Last download was 112 days ago
 #> If you would like to update historical data, run 'rems::download_historic_data()'
 #> Checking for locally stored recent data...
 #> Fetching data from cache...
 r
-#> # A tibble: 16 x 170
-#>    Sample_Date  SampleID   Coord_Lat Project   Coord_Long StationID Watertype  Analysis_Date shortWatertype Comment
-#>    <chr>        <chr>      <chr>     <chr>     <chr>      <chr>     <chr>      <chr>         <chr>          <chr>  
-#>  1 ""           ""         °         ""        °          ""        ""         ""            ""             ""     
-#>  2 "1987-07-07" "1401030-… 49.2064   "BACKGRO… -119.8228  "075"     "Fresh Wa…  <NA>          <NA>           <NA>  
-#>  3 "1991-08-07" "1401030-… 49.2064   "BACKGRO… -119.8228  "075"     "Fresh Wa…  <NA>          <NA>           <NA>  
-#>  4 "1994-06-08" "1401030-… 49.2064   "BACKGRO… -119.8228  "075"     "Fresh Wa…  <NA>          <NA>           <NA>  
-#>  5 "2001-09-09" "1401030-… 49.2064   "BACKGRO… -119.8228  "075"     "Fresh Wa…  <NA>          <NA>           <NA>  
-#>  6 "2009-11-11" "1401030-… 49.2064   "BACKGRO… -119.8228  "075"     "Fresh Wa…  <NA>          <NA>           <NA>  
-#>  7 "2010-08-09" "1401030-… 49.2064   "BACKGRO… -119.8228  "075"     "Fresh Wa…  <NA>          <NA>           <NA>  
-#>  8 "2016-11-02" "1401030-… 49.2064   "BACKGRO… -119.8228  "075"     "Fresh Wa…  <NA>          <NA>           <NA>  
-#>  9 "2018-06-14" "1401030-… 49.2064   "BACKGRO… -119.8228  "075"     "Ground W…  <NA>          <NA>           <NA>  
-#> 10 "1987-07-07" "1401377-… 49.175    "BACKGRO… -119.7353  "203"     "Fresh Wa…  <NA>          <NA>           <NA>  
-#> 11 "1989-10-11" "1401377-… 49.175    "BACKGRO… -119.7353  "203"     "Fresh Wa…  <NA>          <NA>           <NA>  
-#> 12 "1994-03-24" "1401377-… 49.175    "BACKGRO… -119.7353  "203"     "Fresh Wa…  <NA>          <NA>           <NA>  
-#> 13 "2016-11-02" "1401377-… 49.175    "BACKGRO… -119.7353  "203"     "Fresh Wa…  <NA>          <NA>           <NA>  
-#> 14 "2020-06-29" "1401377-… 49.175    "BACKGRO… -119.7353  "203"     "Ground W…  <NA>          <NA>           <NA>  
-#> 15 "2015-03-06" "E292373-… 49.364604 "GROUNDW… -124.6141… "426"     "Fresh Wa…  <NA>          <NA>           <NA>  
-#> 16 "2017-10-11" "E292373-… 49.364604 "GROUNDW… -124.6141… "426"     "Fresh Wa…  <NA>          <NA>           <NA>  
-#> # … with 160 more variables: Reference <chr>, Quality_control <chr>, Duplicate_ID <chr>, Labcode <chr>,
-#> #   Location <chr>, Geology <chr>, X <chr>, Y <chr>, Elevation <chr>, Well_Depth <chr>, Screen_Top <chr>,
-#> #   Screen_Mid <chr>, Screen_Bottom <chr>, Gradient <chr>, Station_Comment <chr>, Sample_Depth <chr>, Temp <chr>,
-#> #   14C <chr>, 18O <chr>, 2H <chr>, Ag_diss <chr>, Ag_tot <chr>, Al_diss <chr>, Al_tot <chr>, anion_sum <chr>,
-#> #   As_diss <chr>, As_tot <chr>, B <chr>, B_tot <chr>, Ba <chr>, Ba_tot <chr>, Benzene <chr>, Br <chr>, Ca <chr>,
-#> #   Ca_tot <chr>, cation_sum <chr>, Cd_diss <chr>, Cd_tot <chr>, charge_balance <chr>, Cl <chr>, CN_diss <chr>,
-#> #   CN_tot <chr>, Co_diss <chr>, Co_tot <chr>, CO3 <chr>, Cond <chr>, Cond_field <chr>, Cr_diss <chr>,
-#> #   Cr_III_diss <chr>, Cr_tot <chr>, Cr_VI_diss <chr>, Cu_diss <chr>, Cu_tot <chr>, Density <chr>, DO <chr>,
-#> #   Eh <chr>, Ethylbenzene <chr>, F <chr>, Fe_diss <chr>, Fe_II_diss <chr>, Fe_III_diss <chr>, Fe_tot <chr>,
-#> #   HCO3 <chr>, Hg_diss <chr>, Hg_tot <chr>, K <chr>, K_tot <chr>, Li <chr>, Li_tot <chr>, Meas_Alk <chr>,
-#> #   Meas_Hardness <chr>, Mg <chr>, Mg_tot <chr>, Mn_diss <chr>, Mn_tot <chr>, Mo_diss <chr>, Mo_tot <chr>,
-#> #   Na <chr>, Na_tot <chr>, NH4 <chr>, Ni_diss <chr>, Ni_tot <chr>, NO2 <chr>, NO3 <chr>, Pb_diss <chr>,
-#> #   Pb_tot <chr>, PCE <chr>, pH_field <chr>, pH_lab <chr>, Sb_diss <chr>, Sb_tot <chr>, Se_diss <chr>,
-#> #   Se_tot <chr>, Si <chr>, Si_tot <chr>, SO4 <chr>, Sr <chr>, Sr_tot <chr>, TCE <chr>, Tl_diss <chr>, …
+#> # A tibble: 16 × 177
+#>    Sample_Date  SampleID    Coord_Lat Project       Coord_Long StationID Watertype Analysis_Date shortWatertype
+#>    <chr>        <chr>       <chr>     <chr>         <chr>      <chr>     <chr>     <chr>         <chr>         
+#>  1 ""           ""          °         ""            °          ""        ""        ""            ""            
+#>  2 "1987-07-07" "1401030-1" 49.2064   "BACKGROUND"  -119.8228  "075"     "Fresh W…  <NA>          <NA>         
+#>  3 "1991-08-07" "1401030-2" 49.2064   "BACKGROUND"  -119.8228  "075"     "Fresh W…  <NA>          <NA>         
+#>  4 "1994-06-08" "1401030-3" 49.2064   "BACKGROUND"  -119.8228  "075"     "Fresh W…  <NA>          <NA>         
+#>  5 "2001-09-09" "1401030-4" 49.2064   "BACKGROUND"  -119.8228  "075"     "Fresh W…  <NA>          <NA>         
+#>  6 "2009-11-11" "1401030-5" 49.2064   "BACKGROUND"  -119.8228  "075"     "Fresh W…  <NA>          <NA>         
+#>  7 "2010-08-09" "1401030-6" 49.2064   "BACKGROUND"  -119.8228  "075"     "Fresh W…  <NA>          <NA>         
+#>  8 "2016-11-02" "1401030-7" 49.2064   "BACKGROUND"  -119.8228  "075"     "Fresh W…  <NA>          <NA>         
+#>  9 "2018-06-14" "1401030-8" 49.2064   "BACKGROUND"  -119.8228  "075"     "Ground …  <NA>          <NA>         
+#> 10 "1987-07-07" "1401377-1" 49.175    "BACKGROUND"  -119.7353  "203"     "Fresh W…  <NA>          <NA>         
+#> 11 "1989-10-11" "1401377-2" 49.175    "BACKGROUND"  -119.7353  "203"     "Fresh W…  <NA>          <NA>         
+#> 12 "1994-03-24" "1401377-3" 49.175    "BACKGROUND"  -119.7353  "203"     "Fresh W…  <NA>          <NA>         
+#> 13 "2016-11-02" "1401377-4" 49.175    "BACKGROUND"  -119.7353  "203"     "Fresh W…  <NA>          <NA>         
+#> 14 "2020-06-29" "1401377-5" 49.175    "BACKGROUND"  -119.7353  "203"     "Ground …  <NA>          <NA>         
+#> 15 "2015-03-06" "E292373-1" 49.364604 "GROUNDWATER" -124.6141… "426"     "Fresh W…  <NA>          <NA>         
+#> 16 "2017-10-11" "E292373-2" 49.364604 "GROUNDWATER" -124.6141… "426"     "Fresh W…  <NA>          <NA>         
+#> # … with 168 more variables: Comment <chr>, Reference <chr>, Quality_control <chr>, Duplicate_ID <chr>,
+#> #   Labcode <chr>, Location <chr>, Geology <chr>, X <chr>, Y <chr>, Elevation <chr>, Well_Depth <chr>,
+#> #   Screen_Top <chr>, Screen_Mid <chr>, Screen_Bottom <chr>, Gradient <chr>, Station_Comment <chr>,
+#> #   Sample_Depth <chr>, Temp <chr>, 14C <chr>, 18O <chr>, 2H <chr>, Ag_diss <chr>, Ag_tot <chr>,
+#> #   Al_diss <chr>, Al_tot <chr>, anion_sum <chr>, As_diss <chr>, As_tot <chr>, B <chr>, B_tot <chr>,
+#> #   Ba <chr>, Ba_tot <chr>, Benzene <chr>, Br <chr>, Ca <chr>, Ca_tot <chr>, cation_sum <chr>,
+#> #   Cd_diss <chr>, Cd_tot <chr>, charge_balance <chr>, Cl <chr>, CN_diss <chr>, CN_tot <chr>, …
 ```
 
 Create plots
