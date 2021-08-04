@@ -1,9 +1,9 @@
 units_remove <- function(d) {
 
-  num <- dplyr::filter(params, .data$data_type == "numeric", !is.na(.data$aqua_code)) %>%
+  num <- params %>%
+    dplyr::filter(.data$data_type == "numeric", !is.na(.data$aqua_code)) %>%
     dplyr::pull(.data$aqua_code)
-  num <- c(num, "Ca_meq", "Mg_meq", "Na_meq", "K_meq", "Cl_meq",
-           "HCO3_meq", "SO4_meq")
+  num <- c(num, stringr::str_subset(names(d), "_meq"))
   date <- dplyr::filter(params, .data$data_type == "date", !is.na(.data$aqua_code)) %>%
     dplyr::pull(.data$aqua_code)
 
@@ -22,37 +22,32 @@ units_convert <- function(x, from, to) {
 
 meq <- function(d, format = "long") {
 
+  meq_params <- dplyr::filter(params, !is.na(smwr_code)) %>%
+    dplyr::select("aqua_code", "smwr_code")
+
   if(format == "long") {
     # Values all in mg/L (RESULT) which is the standard reported by EMS and used by
     # smwrBase for these elements
-   d2 <- d %>%
-     dplyr::filter(.data$aqua_code %in% c("Ca", "Mg", "Na", "K", "Cl", "HCO3", "SO4")) %>%
-     dplyr::mutate(type = dplyr::case_when(.data$aqua_code == "Ca" ~ "calcium",
-                                           .data$aqua_code == "Mg" ~ "magnesium",
-                                           .data$aqua_code == "Na" ~ "sodium",
-                                           .data$aqua_code == "K" ~ "potassium",
-                                           .data$aqua_code == "Cl" ~ "chloride",
-                                           .data$aqua_code == "HCO3" ~ "bicarb",
-                                           .data$aqua_code == "SO4" ~ "sulfate"),
-                   RESULT = purrr::map2_dbl(.data$RESULT, .data$type,
-                                            ~smwrBase::conc2meq(.x, .y)),
-                   RESULT2 = .data$RESULT,
-                   aqua_code = paste0(.data$aqua_code, "_meq"),
-                   UNIT = "meq",
-                   aqua_unit = "meq") %>%
-     dplyr::select(-"type")
-   d <- dplyr::bind_rows(d, d2)
+
+    d2 <- dplyr::left_join(meq_params, d, by = "aqua_code") %>%
+      dplyr::mutate(RESULT = purrr::map2_dbl(.data$RESULT, .data$smwr_code,
+                                             ~smwrBase::conc2meq(.x, .y)),
+                    RESULT2 = .data$RESULT,
+                    aqua_code = paste0(.data$aqua_code, "_meq"),
+                    UNIT = "meq",
+                    aqua_unit = "meq") %>%
+      dplyr::select(-"smwr_code")
+    d <- dplyr::bind_rows(d, d2)
   }
 
   if(format == "wide") {
-    d <- dplyr::mutate(d,
-                       Ca_meq = smwrBase::conc2meq(.data$Ca, "calcium"),
-                       Mg_meq = smwrBase::conc2meq(.data$Mg, "magnesium"),
-                       Na_meq = smwrBase::conc2meq(.data$Na, "sodium"),
-                       K_meq = smwrBase::conc2meq(.data$K, "potassium"),
-                       Cl_meq = smwrBase::conc2meq(.data$Cl, "chloride"),
-                       HCO3_meq = smwrBase::conc2meq(.data$HCO3, "bicarb"),
-                       SO4_meq = smwrBase::conc2meq(.data$SO4, "sulfate"))
+    d <- d %>%
+      dplyr::mutate(
+        dplyr::across(dplyr::any_of(meq_params$aqua_code),
+                      ~ smwrBase::conc2meq(
+                        .x,
+                        meq_params$smwr_code[meq_params$aqua_code == .x]),
+                      .names = "{.col}_meq"))
   }
   d
 }
@@ -62,17 +57,60 @@ meq <- function(d, format = "long") {
 #'
 #' @param d AquaChem formatted dataset
 #'
+#' From ALS Global (AquaChem code)
+#'
+#' anion sum = p01/35.45 + p02/48.03 + p03/19 + p04/14.01 + p05/14.01 + p06/50.04
+#'
+#' - P01 = chloride          (Cl)
+#' - P02 = sulfate           (SO4)
+#' - P03 = fluoride          (F)
+#' - P04 = nitrate as N      (NO3)
+#' - P05 = nitrite as N      (NO2)
+#' - P06 = alkalinity total  (Meas_Alk)
+#'
+#' cation sum = p01/20.04 + p02/12.16 + p03/22.99 + p04/39.10 + p05/8.99 +
+#'              p06/31.77 + p07/27.9 + p08/27.47 + p09/32.70 + p10/14.01 +
+#'              func_pow((10),(-1*p11))*1000
+#'
+#' - P01 = calcium    (Ca)      [dissolved]
+#' - P02 = magnesium  (Mg)      [dissolved]
+#' - P03 = sodium     (Na)      [dissolved]
+#' - P04 = potassium  (K)       [dissolved]
+#' - P05 = aluminum   (Al_diss) [dissolved]
+#' - P06 = copper     (Cu_diss) [dissolved]
+#' - P07 = iron       (Fe_diss) [dissolved]
+#' - P08 = manganese  (Mn_diss) [dissolved]
+#' - P09 = zinc       (Zn_diss) [dissolved]
+#' - P10 = ammonia    (NH4)     [dissolved]
+#' - P11 = pH         (pH_lab)
+#'
+#' Charge balance = 100 x (Cation Sum - Anion sum) / (Cation Sum + Anion Sum)
+#'
+#' For ALS, the values are converted to MEQ in the equation.
+#'
+#' For charge_balance() some are preconverted `_meq` some are converted in the
+#' equations.
+#'
 #' @return Data frame
 #'
 #'
 charge_balance <- function(d) {
-  d %>%
-    dplyr::mutate(cations = .data$Ca_meq + .data$Mg_meq + .data$Na_meq + .data$K_meq,
-                  anions = .data$Cl_meq + .data$HCO3_meq + .data$SO4_meq,
-                  charge_balance = ((.data$cations - abs(.data$anions)) /
-                                      (.data$cations + abs(.data$anions))) * 100)
-}
 
+  d %>%
+    dplyr::mutate(
+      anion_sum2 = .data$Cl_meq + .data$SO4_meq + .data$F_meq + .data$NO3_meq +
+        .data$NO2_meq + .data$Meas_Alk/50.04,
+      cation_sum2 = .data$Ca_meq + .data$Mg_meq + .data$Na_meq + .data$K_meq +
+        .data$Al_diss_meq + .data$Cu_diss/31.77 + .data$Fe_diss_meq +
+        .data$Mn_diss_meq + .data$Zn_diss/32.695 + .data$NH4/14.01 +
+        (10^(-.data$pH_lab)) * 1000,
+      charge_balance2 = 100 * ((.data$cation_sum2 - .data$anion_sum2) /
+                                (.data$cation_sum2 + .data$anion_sum2)),
+    anion_sum2 = round(anion_sum2, 2),
+    cation_sum2 = round(cation_sum2, 2),
+    charge_balance2 = round(charge_balance2))
+
+}
 
 #' Create Piper plot
 #'

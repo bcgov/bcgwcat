@@ -33,14 +33,24 @@ sidebar <- dashboardSidebar(
                  start = "1900-01-01", end = "2099-01-01",
                  min = "1900-01-01", max = "2099-01-01"),
 
-  # Select data to show
-  radioButtons("data_show", strong("Data to preview"),
-               choices = list("Relevant Columns" = "rel", "All Columns" = "all")),
-
   # Get Data
   actionButton("get_data", "Get and convert EMS data"),
 
   hr(),
+
+  h4("Preview options"),
+
+  # Select data to show
+  radioButtons("data_show", strong("Data to preview"),
+               choices = list("Relevant Columns" = "rel", "All Columns" = "all")),
+
+  # Charge balance to use
+  radioButtons("data_charge_balance", strong("Charge balance to use"),
+               choices = list("EMS calculation" = "charge_balance",
+                              "rems2aquachem calculation" = "charge_balance2")),
+
+  hr(),
+
 
   # Plot options
   h4("Plot options"),
@@ -52,7 +62,7 @@ sidebar <- dashboardSidebar(
 
   # Help
   hr(),
-  h4(a(icon("question"), "Help", href = "https://bcgov.ca/rems2aquachem/",
+  h4(a(icon("question"), "Help", href = "https://bcgov.github.io/rems2aquachem/",
        target = "_blank"))
 )
 
@@ -95,6 +105,10 @@ body <- dashboardBody(
            tabPanel("Results",
                     shinyjs::disabled(downloadButton("download_csv_data", "Download to CSV")),
                     shinyjs::disabled(downloadButton("download_excel_data", "Download to Excel")),
+                    fluidRow(
+                      box(h4("Charge balances"),
+                          "`charge_balance`, `cation_sum` and `anion_sum` are values provided by EMS,",
+                          "whereas `charge_balance2`, `cation_sum2` and `anion_sum2` are values calculated locally by the rems2aquachem R package, based on details from ALS Global. As they are qualitatively but not quantitatively the same, we provide both so users can chose which they prefer", width = 12)),
                     DT::DTOutput("data")),
 
 

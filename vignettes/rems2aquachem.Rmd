@@ -89,14 +89,15 @@ include_graphics("dates.png")
 You can choose which columns to preview by selecting either "Relevant Columns" (default) or "All Columns". Relevant columns only show metadata, cations, anions and charge balance. **ALL data is downloaded, this only affects the preview**.
 
 ```{r, echo = FALSE, out.width = "40%"}
-include_graphics("data_preview.png")
+include_graphics("data_preview2.png")
 ```
 
 The results of your ID, date and data filtering will be available under the **Results** tab. 
 
 You can scroll and sort through the data to ensure you have the data you wanted.
 
-The `charge_balance` values will be highlighted in green (value ranges from -10% to 10%) or red (values < -10% or > 10%) to indicate possibly problematic samples
+The `charge_balance` values will be highlighted in green (value ranges from -10% to 10%) or red (values < -10% or > 10%) to indicate possibly problematic samples.
+You can chose whether to highlight EMS-calculated charge balances or rems2aquachem-calculated balances by selecting the appropriate option under "Charge Balance to use".
 
 
 > **Note** This may take a few minutes, depending on the amount of data you have requested.
