@@ -231,12 +231,15 @@ rems_to_aquachem <- function(ems_ids, date_range = NULL, save = TRUE,
 
 ac_format <- function(d) {
 
-  meta_ac <- dplyr::filter(params, .data$type == "meta", !is.na(.data$aqua_code)) %>%
+  meta_ac <- params %>%
+    dplyr::filter(.data$type == "meta", !is.na(.data$aqua_code)) %>%
     dplyr::select("rems_name", "aqua_code")
 
-  params_ac <- dplyr::filter(params, .data$type == "param", !is.na(.data$aqua_code)) %>%
+  params_ac <- params %>%
+    dplyr::filter(.data$type == "param", !is.na(.data$aqua_code)) %>%
     dplyr::mutate(aqua_unit = dplyr::if_else(is.na(.data$aqua_unit),
-                                             .data$rems_unit, .data$aqua_unit)) %>%
+                                             .data$rems_unit,
+                                             .data$aqua_unit)) %>%
     dplyr::select("rems_code", "aqua_code", "aqua_unit")
 
   # Rename the meta data in rems to correspond to AquaChem
@@ -288,9 +291,9 @@ ac_format <- function(d) {
     # Filter out all but first observations
     dplyr::filter(.data$keep == TRUE)
 
-  # Remove Ph units
+  # Fix Ph units
   d <- dplyr::mutate(d, UNIT = dplyr::if_else(.data$UNIT == "pH units",
-                                              NA_character_, .data$UNIT))
+                                              "pH", .data$UNIT))
 
   # Convert units to those used in AquaChem
   d <- dplyr::mutate(d, RESULT2 = purrr::pmap_dbl(
