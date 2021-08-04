@@ -15,7 +15,7 @@
 params <- readr::read_csv("data-raw/params_list.csv") %>%
   dplyr::mutate(water_quality = tidyr::replace_na(water_quality, TRUE),
                 # Add missing leading zeros
-                rems_code = dplyr::if_else(stringr::str_detect(rems_code, "^[0-9]{3}$"),
+                rems_code = dplyr::if_else(stringr::str_detect(rems_code, "^[0-9]{1,3}$"),
                                            stringr::str_pad(rems_code, width = 4, pad = "0"),
                                            rems_code))
 
