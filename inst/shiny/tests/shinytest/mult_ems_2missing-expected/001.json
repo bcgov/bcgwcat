@@ -2,6 +2,7 @@
   "input": {
     "box": "Results",
     "check_status": 0,
+    "data_charge_balance": "charge_balance",
     "data_omit": "TRUE",
     "data_show": "rel",
     "date_range": [
@@ -33,13 +34,13 @@
       ]
     },
     "rems_status_historic": {
-      "html": "<div class=\"small-box bg-blue\">\n  <div class=\"inner\">\n    <h3>Out-of-date<\/h3>\n    <p>Historic EMS Data (last updated: 18 days ago)<\/p>\n  <\/div>\n<\/div>",
+      "html": "<div class=\"small-box bg-blue\">\n  <div class=\"inner\">\n    <h3>Out-of-date<\/h3>\n    <p>Historic EMS Data (last updated: 111 days ago)<\/p>\n  <\/div>\n<\/div>",
       "deps": [
 
       ]
     },
     "rems_status_recent": {
-      "html": "<div class=\"small-box bg-green\">\n  <div class=\"inner\">\n    <h3>Up-to-date<\/h3>\n    <p>Recent EMS Data (last updated: 2021-05-03)<\/p>\n  <\/div>\n<\/div>",
+      "html": "<div class=\"small-box bg-green\">\n  <div class=\"inner\">\n    <h3>Up-to-date<\/h3>\n    <p>Recent EMS Data (last updated: 2021-08-04)<\/p>\n  <\/div>\n<\/div>",
       "deps": [
 
       ]
