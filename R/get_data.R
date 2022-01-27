@@ -69,7 +69,8 @@ get_rems <- function(ems_ids, date_range, interactive) {
   if(recent) {
     message("Checking for locally stored recent data...")
     d <- rems::get_ems_data(which = "2yr", ask = interactive) %>%
-      dplyr::select("EMS_ID", "COLLECTION_START", "LOCATION_PURPOSE", "SAMPLE_STATE",
+      dplyr::select("EMS_ID", "COLLECTION_START", "LOCATION_PURPOSE",
+                    "SAMPLE_STATE",
                     "LATITUDE", "LONGITUDE", "PARAMETER", "PARAMETER_CODE",
                     "ANALYTICAL_METHOD", "RESULT", "UNIT") %>%
       dplyr::filter(.data$EMS_ID %in% ems_ids) %>%
