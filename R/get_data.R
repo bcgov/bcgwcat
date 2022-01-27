@@ -62,8 +62,6 @@ get_rems <- function(ems_ids, date_range, interactive) {
                     "PARAMETER_CODE", "ANALYTICAL_METHOD", "RESULT", "UNIT") %>%
       dplyr::filter(.data$EMS_ID %in% ems_ids) %>%
       dplyr::collect() %>%
-      dplyr::mutate(COLLECTION_START =
-                      rems::ems_posix_numeric(.data$COLLECTION_START)) %>%
       dplyr::arrange(.data$COLLECTION_START)
     rems::disconnect_historic_db(con)
   } else h <- data.frame()
