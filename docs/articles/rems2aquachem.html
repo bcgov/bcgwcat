@@ -19,6 +19,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -31,18 +33,12 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rems2aquachem</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.4.3</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-<li>
-  <a href="../index.html">
-    <span class="fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
 <li>
   <a href="../articles/rems2aquachem.html">Get started</a>
 </li>
@@ -63,7 +59,7 @@
 
       
 
-      </header><script src="rems2aquachem_files/header-attrs-2.9/header-attrs.js"></script><div class="row">
+      </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Shiny GUI Walkthrough</h1>
@@ -76,27 +72,27 @@
 
     
     
-<div id="opening-the-gui" class="section level2">
-<h2 class="hasAnchor">
-<a href="#opening-the-gui" class="anchor"></a>Opening the GUI</h2>
+<div class="section level2">
+<h2 id="opening-the-gui">Opening the GUI<a class="anchor" aria-label="anchor" href="#opening-the-gui"></a>
+</h2>
 <p>In the R console type the following, hiting enter after each line. This will launch the Shiny App.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">rems2aquachem</span><span class="op">)</span>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">rems2aquachem</span><span class="op">)</span>
 <span class="fu"><a href="../reference/ac_gui.html">ac_gui</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 </div>
-<div id="updating-data" class="section level2">
-<h2 class="hasAnchor">
-<a href="#updating-data" class="anchor"></a>Updating Data</h2>
+<div class="section level2">
+<h2 id="updating-data">Updating Data<a class="anchor" aria-label="anchor" href="#updating-data"></a>
+</h2>
 <p>The first time you launch the Shiny App your data sources will likely be out of date.</p>
-<p><img src="out-of-date.png" width="80%" style="display: block; margin: auto;"></p>
+<p><img src="../../../BC%20Government/rems2aquachem/articles/out-of-date.png" width="80%" style="display: block; margin: auto;"></p>
 <ol style="list-style-type: decimal">
 <li>Click on <strong>Update recent data (2yr)</strong> to download the <code>rems</code> recent dataset. You will see a progress message in the lower right corner. If you look at the R console, you will see the progress bar advance.</li>
 </ol>
-<p><img src="update_progress_console.png" width="80%" style="display: block; margin: auto;"></p>
+<p><img src="../../../BC%20Government/rems2aquachem/articles/update_progress_console.png" width="80%" style="display: block; margin: auto;"></p>
 <ol start="2" style="list-style-type: decimal">
 <li>Next, click on <strong>Update historic data</strong> to download the <code>rems</code> historic dataset. As above, you will see a progress message in the lower right corner and if you look at the R console, you will see the progress bar advance.</li>
 </ol>
-<p><img src="out-of-date2.png" width="80%" style="display: block; margin: auto;"></p>
+<p><img src="../../../BC%20Government/rems2aquachem/articles/out-of-date2.png" width="80%" style="display: block; margin: auto;"></p>
 <blockquote>
 <p><strong>Note</strong></p>
 <ul>
@@ -107,88 +103,88 @@
 </ul>
 </blockquote>
 </div>
-<div id="selecting-data" class="section level2">
-<h2 class="hasAnchor">
-<a href="#selecting-data" class="anchor"></a>Selecting data</h2>
+<div class="section level2">
+<h2 id="selecting-data">Selecting data<a class="anchor" aria-label="anchor" href="#selecting-data"></a>
+</h2>
 <p><strong>EMS IDs</strong></p>
 <p>In order to download EMS data, you’ll need to know the EMS IDs for the sites in question. These are Alpha-Numeric with 7 digits, e.g., 1401030, 1401377, E292373</p>
-<p><img src="ems_ids.png" width="40%" style="display: block; margin: auto;"></p>
+<p><img src="../../../BC%20Government/rems2aquachem/articles/ems_ids.png" width="40%" style="display: block; margin: auto;"></p>
 <p>Type the EMS IDs into the the “EMS IDs” field. For multiple IDs, separate them by commas. They can be plain, or surrounded by quotes (")</p>
-<p><img src="ems_ids2.png" width="40%" style="display: block; margin: auto;"></p>
+<p><img src="../../../BC%20Government/rems2aquachem/articles/ems_ids2.png" width="40%" style="display: block; margin: auto;"></p>
 <p><strong>Dates</strong></p>
 <p>If you want the full date range, simply leave the range as is and click on <strong>“Get and convert EMS data”</strong></p>
 <p>If you want a particular date range, select the first and last dates you wish to include (this applies to the complete date range). Click on <strong>“Get and convert EMS data”</strong>.</p>
-<p><img src="dates.png" width="40%" style="display: block; margin: auto;"></p>
-<div id="previewing-data" class="section level3">
-<h3 class="hasAnchor">
-<a href="#previewing-data" class="anchor"></a>Previewing data</h3>
+<p><img src="../../../BC%20Government/rems2aquachem/articles/dates.png" width="40%" style="display: block; margin: auto;"></p>
+<div class="section level3">
+<h3 id="previewing-data">Previewing data<a class="anchor" aria-label="anchor" href="#previewing-data"></a>
+</h3>
 <p>You can choose which columns to preview by selecting either “Relevant Columns” (default) or “All Columns”. Relevant columns only show metadata, cations, anions and charge balance. <strong>ALL data is downloaded, this only affects the preview</strong>.</p>
-<p><img src="data_preview2.png" width="40%" style="display: block; margin: auto;"></p>
+<p><img src="../../../BC%20Government/rems2aquachem/articles/data_preview2.png" width="40%" style="display: block; margin: auto;"></p>
 <p>The results of your ID, date and data filtering will be available under the <strong>Results</strong> tab.</p>
 <p>You can scroll and sort through the data to ensure you have the data you wanted.</p>
 <p>The <code>charge_balance</code> values will be highlighted in green (value ranges from -10% to 10%) or red (values &lt; -10% or &gt; 10%) to indicate possibly problematic samples. You can chose whether to highlight EMS-calculated charge balances or rems2aquachem-calculated balances by selecting the appropriate option under “Charge Balance to use”.</p>
 <blockquote>
 <p><strong>Note</strong> This may take a few minutes, depending on the amount of data you have requested.</p>
 </blockquote>
-<p><img src="results.png" width="100%" style="display: block; margin: auto;"></p>
+<p><img src="../../../BC%20Government/rems2aquachem/articles/results.png" width="100%" style="display: block; margin: auto;"></p>
 </div>
 </div>
-<div id="downloading-data" class="section level2">
-<h2 class="hasAnchor">
-<a href="#downloading-data" class="anchor"></a>Downloading data</h2>
+<div class="section level2">
+<h2 id="downloading-data">Downloading data<a class="anchor" aria-label="anchor" href="#downloading-data"></a>
+</h2>
 <p>If you are satisfied with the data, click on “Download to CSV” to download a comma-separate file (.csv) or click on “Download to Excel” to download a colour-coded Excel file of the data (.xlsx).</p>
-<p><img src="results2.png" width="100%" style="display: block; margin: auto;"></p>
+<p><img src="../../../BC%20Government/rems2aquachem/articles/results2.png" width="100%" style="display: block; margin: auto;"></p>
 </div>
-<div id="missing-data" class="section level2">
-<h2 class="hasAnchor">
-<a href="#missing-data" class="anchor"></a>Missing data</h2>
+<div class="section level2">
+<h2 id="missing-data">Missing data<a class="anchor" aria-label="anchor" href="#missing-data"></a>
+</h2>
 <p>Not all EMS stations have data for all dates, or even any data at all. Be sure to check the “Data Messages” window on the <strong>REM Status</strong> tab for status messages regarding any missing data.</p>
-<p><img src="missing_data.png" width="80%" style="display: block; margin: auto;"></p>
-<p><img src="missing_data2.png" width="80%" style="display: block; margin: auto;"></p>
+<p><img src="../../../BC%20Government/rems2aquachem/articles/missing_data.png" width="80%" style="display: block; margin: auto;"></p>
+<p><img src="../../../BC%20Government/rems2aquachem/articles/missing_data2.png" width="80%" style="display: block; margin: auto;"></p>
 </div>
-<div id="water-quality-summary" class="section level2">
-<h2 class="hasAnchor">
-<a href="#water-quality-summary" class="anchor"></a>Water Quality Summary</h2>
-<p>The Water Quality Summary tab displays information on whether specific compounds exceed Drinking Water quality guidelines (guidelines from the <a href="https://catalogue.data.gov.bc.ca/ca/dataset/85d3990a-ec0a-4436-8ebd-150de3ba0747">Data Catalogue</a> accessed via the <code>bcdata</code> package).</p>
+<div class="section level2">
+<h2 id="water-quality-summary">Water Quality Summary<a class="anchor" aria-label="anchor" href="#water-quality-summary"></a>
+</h2>
+<p>The Water Quality Summary tab displays information on whether specific compounds exceed Drinking Water quality guidelines (guidelines from the <a href="https://catalogue.data.gov.bc.ca/ca/dataset/85d3990a-ec0a-4436-8ebd-150de3ba0747" class="external-link">Data Catalogue</a> accessed via the <code>bcdata</code> package).</p>
 <p>By default, all relevant parameters are included (see the list at the top). Parameters can be omitted individually (clicking on a parameter and using the DELETE button) or can be all added or all removed (via the “Select/Unselect All” button).</p>
 <p>Parameters can also be filtered to only show those for which there are problematic values (“Problems only” radio button), or for which there are non-missing data (“Non-missing only” radio button).</p>
 <p>Parameters that exceed the Drinking Water Quality Limit are highlighted in red. Those that do not exceed the limit are highlighted in green. Those for which we do not have data are left white.</p>
-<p><img src="water_quality.png" width="80%" style="display: block; margin: auto;"></p>
+<p><img src="../../../BC%20Government/rems2aquachem/articles/water_quality.png" width="80%" style="display: block; margin: auto;"></p>
 <p><strong>Note:</strong> Values have been transformed <em>in this table only</em> (“Value (Transformed)”) to match the units in the Drinking Water quality guidelines (“Units”). All comparisons are only upper limit exceedances.</p>
 </div>
-<div id="plots" class="section level2">
-<h2 class="hasAnchor">
-<a href="#plots" class="anchor"></a>Plots</h2>
+<div class="section level2">
+<h2 id="plots">Plots<a class="anchor" aria-label="anchor" href="#plots"></a>
+</h2>
 <p>Plots can be previewed by clicking on the <strong>Plots</strong> tab.</p>
 <p>From the drop-down menu on the left, select the EMS ID of the site you wish to view. To download <strong>ALL</strong> plots (i.e. not just the ones you can see), click on the “Download All Plots” button. This will zip the individual plots and ask you where to save the file.</p>
 <p>If you wish, you can change the plot settings on the left hand side by including questionable data (<strong>Omit ‘bad’ charge balances?</strong>; where the charge balance is &gt; 10 or &lt; -10) or omitting sample legends on the piper plot (<strong>Piper plot legend</strong>).</p>
-<p><img src="plots.png" width="80%" style="display: block; margin: auto;"></p>
+<p><img src="../../../BC%20Government/rems2aquachem/articles/plots.png" width="80%" style="display: block; margin: auto;"></p>
 </div>
-<div id="faq" class="section level2">
-<h2 class="hasAnchor">
-<a href="#faq" class="anchor"></a>FAQ</h2>
+<div class="section level2">
+<h2 id="faq">FAQ<a class="anchor" aria-label="anchor" href="#faq"></a>
+</h2>
 <ol style="list-style-type: decimal">
 <li><p>When in doubt, restart RStudio</p></li>
 <li><p>If you run into errors right at the start, try updating your packages:</p></li>
 </ol>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/update_packages.html">update_packages</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/update_packages.html" class="external-link">update_packages</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <ol start="3" style="list-style-type: decimal">
 <li>Remember that the output is optimized for AquaChem, not necessarily for other data analyses (i.e. the second row of the data frame is for units, which wouldn’t work in R)</li>
 </ol>
-<pre><code># Copyright 2021 Province of British Columbia
-# 
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at 
-# 
-# http://www.apache.org/licenses/LICENSE-2.0
-# 
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.</code></pre>
+<pre><code><span class="co"># Copyright 2021 Province of British Columbia</span>
+<span class="co"># </span>
+<span class="co"># Licensed under the Apache License, Version 2.0 (the "License");</span>
+<span class="co"># you may not use this file except in compliance with the License.</span>
+<span class="co"># You may obtain a copy of the License at </span>
+<span class="co"># </span>
+<span class="co"># http://www.apache.org/licenses/LICENSE-2.0</span>
+<span class="co"># </span>
+<span class="co"># Unless required by applicable law or agreed to in writing, software</span>
+<span class="co"># distributed under the License is distributed on an "AS IS" BASIS,</span>
+<span class="co"># WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span>
+<span class="co"># See the License for the specific language governing permissions and</span>
+<span class="co"># limitations under the License.</span></code></pre>
 </div>
   </div>
 
@@ -203,11 +199,13 @@
 
 
       <footer><div class="copyright">
-  <p>Developed by Steffi LaZerte.</p>
+  <p></p>
+<p>Developed by Steffi LaZerte.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
 </div>
 
       </footer>
@@ -215,6 +213,8 @@
 
   
 
+
+  
 
   </body>
 </html>
