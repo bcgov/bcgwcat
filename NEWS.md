@@ -1,3 +1,6 @@
+# rems2aquachem 0.4.3
+* update rems and fix code accordingly
+
 # rems2aquachem 0.4.2
 * Added custom charge balance calculations (`anion_sum2`, `cation_sum2`, `charge_balance2`) 
 and the option to choose between EMS charge balances and the one calculated here in the Shiny app

@@ -43,7 +43,7 @@ get_rems <- function(ems_ids, date_range, interactive) {
   }
 
 
-  # Get the historic data from ems
+  # Get historical data --------------
   if(hist) {
     if(interactive) {
       message("Checking for locally stored historical data...")
@@ -63,9 +63,11 @@ get_rems <- function(ems_ids, date_range, interactive) {
       dplyr::filter(.data$EMS_ID %in% ems_ids) %>%
       dplyr::collect() %>%
       dplyr::arrange(.data$COLLECTION_START)
+
     rems::disconnect_historic_db(con)
   } else h <- data.frame()
 
+  # Get recent data -------------------
   if(recent) {
     message("Checking for locally stored recent data...")
     d <- rems::get_ems_data(which = "2yr", ask = interactive) %>%
@@ -77,8 +79,10 @@ get_rems <- function(ems_ids, date_range, interactive) {
       dplyr::arrange(.data$COLLECTION_START)
   } else d <- data.frame()
 
-  d <- dplyr::bind_rows(h, d) %>%
-    dplyr::distinct()
+  if(nrow(h) > 0 && nrow(d) > 0) {
+    d <- dplyr::bind_rows(h, d) %>%
+      dplyr::distinct()
+  } else if(nrow(h) > 0) d <- h
 
   if(!is.null(date_range)) {
     d <- d %>%
