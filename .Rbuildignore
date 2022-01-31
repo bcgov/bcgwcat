@@ -9,3 +9,6 @@ CONTRIBUTING.md
 ^docs$
 ^DEVTESTS\.R$
 ^COMPLIANCE.yaml$
+^_pkgdown\.yml$
+^pkgdown$
+^\.github$

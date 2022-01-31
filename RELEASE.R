@@ -33,6 +33,7 @@ unlink("README.html")
 
 # Update website
 pkgdown::build_site()
+pkgdown::build_article("rems2aquachem")
 
 # Push to GitHub!
 
