@@ -38,7 +38,6 @@ The first time you launch the Shiny App your data sources will likely be out of 
 ```{r, echo = FALSE, out.width = "80%"}
 include_graphics("figures/out-of-date.png")
 ```
-<img src="figures/out-of-date.png">
 
 1. Click on **Update recent data (2yr)** to download the `rems` recent dataset. You will see a progress message in the lower right corner. If you look at the R console, you will see the progress bar advance.
 
