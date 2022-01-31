@@ -1,0 +1,10 @@
+pandoc: 2.7.3
+pkgdown: 2.0.2
+pkgdown_sha: ~
+articles:
+  rems2aquachem: rems2aquachem.html
+last_built: 2022-01-31T00:48Z
+urls:
+  reference: https://bcgov.github.io/rems2aquachem/reference
+  article: https://bcgov.github.io/rems2aquachem/articles
+
