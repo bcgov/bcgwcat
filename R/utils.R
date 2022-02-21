@@ -1,3 +1,26 @@
+#' Remove units
+#'
+#' The main `rems_to_aquachem()` function downloads EMS data and formats it for
+#' use in the external program, AquaChem. However, occasionally you may wish
+#' to work with this formatted EMS data in R. This function removes the extra
+#' 'units' row and then converts the columns to make the data useable in R.
+#'
+#' @param d Data frame output from `rems_to_aquachem()`
+#'
+#' @return Data frame
+#' @export
+#'
+#' @examples
+#'
+#' \dontrun{
+#' # Get and format one well for use in aquachem
+#' r <- rems_to_aquachem(ems_ids = "E289551", save = FALSE)
+#'
+#' # Remove units and convert columns to appropriate formats for use in R
+#' r <- units_remove(r)
+#'
+#' }
+#'
 units_remove <- function(d) {
 
   num <- params %>%
@@ -100,15 +123,20 @@ charge_balance <- function(d) {
     dplyr::mutate(
       anion_sum2 = .data$Cl_meq + .data$SO4_meq + .data$F_meq + .data$NO3_meq +
         .data$NO2_meq + .data$Meas_Alk/50.04,
+
       cation_sum2 = .data$Ca_meq + .data$Mg_meq + .data$Na_meq + .data$K_meq +
         .data$Al_diss_meq + .data$Cu_diss/31.77 + .data$Fe_diss_meq +
         .data$Mn_diss_meq + .data$Zn_diss/32.695 + .data$NH4/14.01 +
         (10^(-.data$pH_lab)) * 1000,
+
       charge_balance2 = 100 * ((.data$cation_sum2 - .data$anion_sum2) /
-                                (.data$cation_sum2 + .data$anion_sum2)),
-    anion_sum2 = round(.data$anion_sum2, 2),
-    cation_sum2 = round(.data$cation_sum2, 2),
-    charge_balance2 = round(.data$charge_balance2))
+                                 (.data$cation_sum2 + .data$anion_sum2)),
+
+      anion_sum2 = round(.data$anion_sum2, 2),
+      cation_sum2 = round(.data$cation_sum2, 2),
+      charge_balance2 = round(.data$charge_balance2))
+
+}
 
 }
 

@@ -223,7 +223,7 @@ rems_to_aquachem <- function(ems_ids, date_range = NULL, save = TRUE,
   d <- ac_format(d)
   d <- ac_units(d)
 
-  # Save data to disk, specfying NA values
+  # Save data to disk, specifying NA values
   if(save) {
     # Get output location
     out_file <- file.path(out_folder, out_file)
