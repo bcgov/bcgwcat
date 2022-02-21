@@ -37,6 +37,33 @@ test_that("meq() and charge_balance()", {
   expect_equal(cb$cation_sum2, 0.92, tolerance = 0.000001)
 })
 
+test_that("water_type", {
+  expect_silent(p <- rems_to_aquachem(c("E298873", "E292373"),
+                                      save = FALSE, interactive = FALSE,
+                                      date_range = c("2015-01-01", "2016-12-31")) %>%
+                  units_remove())
+  expect_true(all(c("Ca_p", "Mg_p", "Na_p", "K_p",
+                    "Cl_p", "HCO3_p", "SO4_p") %in% names(p)))
+
+  m <- dplyr::select(p, "Ca_meq", "Mg_meq", "Na_meq", "K_meq", "Cl_meq",
+                 "HCO3_meq", "SO4_meq") %>%
+    as.matrix()
+  m / rowSums(m)
+
+  expect_equal(dplyr::select(p, dplyr::ends_with("_p")),
+               dplyr::tibble(
+                 Cl_p = c(NA_real_, 0.188, 0.139, 0.098),
+                 SO4_p = c(NA_real_, 0.036, 0.040, 0.042),
+                 HCO3_p = c(NA_real_, 0.262, 0.298, 0.329),
+                 Ca_p = c(NA_real_, 0.284, 0.293, 0.297),
+                 Mg_p = c(NA_real_, 0.076, 0.077, 0.087),
+                 Na_p = c(NA_real_, 0.135, 0.133, 0.124),
+                 K_p = c(NA_real_, 0.019, 0.021, 0.022)))
+
+  expect_equal(p$water_type,
+               c(NA_character_, "Ca-Na-HCO3-Cl", "Ca-Na-HCO3-Cl", "Ca-Na-HCO3"))
+})
+
 
 test_that("plots", {
   set.seed(1111)

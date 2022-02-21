@@ -1,3 +1,6 @@
+# rems2aquachem dev
+* Add calculations for water type
+
 # rems2aquachem 0.4.3
 * update rems and fix code accordingly
 

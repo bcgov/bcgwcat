@@ -26,7 +26,7 @@ units_remove <- function(d) {
   num <- params %>%
     dplyr::filter(.data$data_type == "numeric", !is.na(.data$aqua_code)) %>%
     dplyr::pull(.data$aqua_code)
-  num <- c(num, stringr::str_subset(names(d), "_meq"))
+  num <- c(num, stringr::str_subset(names(d), "(_meq)|(_p)"))
   date <- dplyr::filter(params, .data$data_type == "date", !is.na(.data$aqua_code)) %>%
     dplyr::pull(.data$aqua_code)
 
@@ -138,6 +138,42 @@ charge_balance <- function(d) {
 
 }
 
+water_type <- function(d) {
+
+  d_new <- d %>%
+    dplyr::mutate(
+
+      total = .data$Cl_meq + .data$SO4_meq + .data$HCO3_meq +     # Anions
+        .data$Ca_meq + .data$Mg_meq + .data$Na_meq + .data$K_meq, # Cations
+
+      # Anion proportions
+      Cl_p = .data$Cl_meq / .data$total,
+      SO4_p = .data$SO4_meq / .data$total,
+      HCO3_p = .data$HCO3_meq / .data$total,
+
+      # Cation proportions
+      Ca_p = .data$Ca_meq / .data$total,
+      Mg_p = .data$Mg_meq / .data$total,
+      Na_p = .data$Na_meq / .data$total,
+      K_p = .data$K_meq / .data$total) %>%
+    dplyr::mutate(dplyr::across(dplyr::ends_with("_p"), ~round(., 3))) %>%
+    dplyr::select(-"total")
+
+
+  d_wt <- d_new %>%
+    dplyr::select("StationID", "SampleID", "Sample_Date",
+                  dplyr::ends_with("_p")) %>%
+    tidyr::pivot_longer(cols = dplyr::ends_with("_p"), names_to = "element",
+                        values_to = "prop") %>%
+    dplyr::filter(prop >= 0.1) %>%
+    dplyr::mutate(type = dplyr::if_else(element %in% c("Cl_p", "HCO3_p", "SO4_p"),
+                                 "anion", "cation")) %>%
+    dplyr::group_by(.data$StationID, .data$SampleID, .data$Sample_Date) %>%
+    dplyr::arrange(dplyr::desc(type), dplyr::desc(prop), .by_group = TRUE) %>%
+    dplyr::summarize(water_type = paste0(stringr::str_remove(element, "_p"),
+                                      collapse = "-"))
+
+  dplyr::left_join(d_new, d_wt, by = c("StationID", "SampleID", "Sample_Date"))
 }
 
 #' Create Piper plot

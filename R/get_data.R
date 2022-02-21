@@ -352,16 +352,23 @@ ac_units <- function(d) {
                   dplyr::everything()) %>%
     dplyr::arrange(.data$StationID, .data$SampleID, .data$Sample_Date)
 
-  # Calculate charge balances
-  d <- charge_balance(d)
+  # Calculate charge balances and water type
+
+  d <- d %>%
+    charge_balance() %>%
+    water_type()
 
   # Spread and Order units by column names in d
+  add <- data.frame(aqua_code = names(d)[!names(d) %in% units$aqua_code],
+                    aqua_unit = "")
+
   units <- units %>%
+    dplyr::bind_rows(add) %>%
     tidyr::pivot_wider(names_from = .data$aqua_code,
                        values_from = .data$aqua_unit) %>%
-    dplyr::mutate(cation_sum = "", anion_sum = "",
-                  cation_sum2 = "", anion_sum2 = "",
-                  charge_balance = "%", charge_balance2 = "%") %>%
+    dplyr::mutate(charge_balance = "%", charge_balance2 = "%") %>%
+    dplyr::mutate(dplyr::across(dplyr::ends_with("_p"), ~"%")) %>%
+    # Check that there are no missing
     dplyr::select(tidyselect::all_of(names(d)))
 
   # Add units to d
