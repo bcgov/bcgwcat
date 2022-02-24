@@ -23,17 +23,23 @@
 #'
 units_remove <- function(d) {
 
-  num <- params %>%
-    dplyr::filter(.data$data_type == "numeric", !is.na(.data$aqua_code)) %>%
-    dplyr::pull(.data$aqua_code)
-  num <- c(num, stringr::str_subset(names(d), "(_meq)|(_p)"))
-  date <- dplyr::filter(params, .data$data_type == "date", !is.na(.data$aqua_code)) %>%
-    dplyr::pull(.data$aqua_code)
+  if(all(sapply(d[1, ], is.character))) {
 
-  d %>%
-    dplyr::slice(-1) %>%
-    dplyr::mutate(dplyr::across(dplyr::any_of(num), as.numeric)) %>%
-    dplyr::mutate(dplyr::across(dplyr::any_of(date), lubridate::as_date))
+    num <- params %>%
+      dplyr::filter(.data$data_type == "numeric", !is.na(.data$aqua_code)) %>%
+      dplyr::pull(.data$aqua_code)
+    num <- c(num, stringr::str_subset(names(d), "(_meq)|(_p)|(charge_balance)"))
+
+    date <- params %>%
+      dplyr::filter(.data$data_type == "date", !is.na(.data$aqua_code)) %>%
+      dplyr::pull(.data$aqua_code)
+
+    d <- d %>%
+      dplyr::slice(-1) %>%
+      dplyr::mutate(dplyr::across(dplyr::any_of(num), as.numeric)) %>%
+      dplyr::mutate(dplyr::across(dplyr::any_of(date), lubridate::as_date))
+  }
+  d
 }
 
 units_convert <- function(x, from, to) {
