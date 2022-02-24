@@ -188,19 +188,6 @@ server <- function(input, output) {
   })
 
 
-  # Data - Plot -------------------------------------------------------------
-  data_plot <- reactive({
-    req(data_ac())
-    if(input$data_omit) {
-
-      dplyr::bind_rows(
-        data_ac()[1,],
-        dplyr::filter(data_ac()[-1,],
-                      abs(as.numeric(.data[[input$data_charge_balance]])) < 10))
-    } else data_ac()
-  })
-
-
   # Data - Water Quality ----------------------------------------------------
   data_wq <- reactive({
     validate(need(class(data_ac()) != "try-error",
@@ -300,22 +287,26 @@ server <- function(input, output) {
 
 # Plots -------------------------------------------------------------
   plot_msg <- "No data to plot\n\nPick a different set of EMS IDs or allow samples with 'bad charge balances' (see left-hand panel)"
+
   output$stiff <- renderPlot({
-    req(data_plot(), input$ids_to_plot)
-    validate(need(nrow(data_plot()) > 1, message = plot_msg))
-    params <- data_plot() %>%
+    req(data_ac(), input$ids_to_plot)
+    validate(need(nrow(data_ac()) > 1, message = plot_msg))
+    params <- data_ac() %>%
       dplyr::filter(!is.na(.data$Ca_meq), !is.na(.data$Mg_meq),
                     !is.na(.data$Na_meq), !is.na(.data$HCO3_meq),
                     !is.na(.data$SO4_meq), !is.na(.data$Cl_meq))
     validate(need(nrow(params) > 1, message = "Missing too many data to plot"))
-    stiff_plot(data_plot(), ems_id = input$ids_to_plot, legend = as.logical(input$legend))
+    stiff_plot(data_ac(), ems_id = input$ids_to_plot, legend = as.logical(input$legend))
   })
 
   output$piperplot <- renderPlot({
-    req(data_plot(), input$ids_to_plot)
-    validate(need(nrow(data_plot()) > 1, message = plot_msg))
-    piper_plot(data_plot(), ems_id = input$ids_to_plot, point_size = 0.15,
-               legend = input$legend)
+    req(data_ac(), input$ids_to_plot, input$data_omit)
+    validate(need(nrow(data_ac()) > 1, message = plot_msg))
+    p <- piper_plot(data_ac(), ems_id = input$ids_to_plot,
+                    valid = as.logical(input$data_omit),
+                    point_size = 0.15, legend = input$legend)
+    validate(need(!is.null(p), message = plot_msg))
+    p
   }, width = 550, height = 500)
 
 
@@ -389,10 +380,10 @@ server <- function(input, output) {
       paste0("plots_", Sys.Date(), ".zip")
     },
     content = function(fname) {
-      req(input$ids_to_plot)
-      validate(need(nrow(data_plot()) > 1, message = "No plots to download"))
+      req(input$ids_to_plot, input$data_omit)
+      validate(need(nrow(data_ac()) > 1, message = "No plots to download"))
       tempdir <- tempdir()
-      d <- data_plot()
+      d <- data_ac()
       nm <- glue::glue_collapse(input$ids_to_plot, sep = "_")
 
       ratio <- 2 / length(input$ids_to_plot)
@@ -405,6 +396,7 @@ server <- function(input, output) {
 
       png(f[2], width = 2250, height = 2250, res = 300)
       piper_plot(d, ems_id = input$ids_to_plot,
+                 valid = as.logical(input$data_omit),
                  point_size = 0.2, legend = input$legend)
       dev.off()
 
