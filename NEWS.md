@@ -1,5 +1,7 @@
 # rems2aquachem dev
 * Add calculations for water type
+* Tweak piper plots data validity
+* Add minor elements
 
 # rems2aquachem 0.4.3
 * update rems and fix code accordingly

@@ -8,7 +8,6 @@
     "data_cells_selected": [
 
     ],
-    "data_charge_balance": "charge_balance",
     "data_columns_selected": null,
     "data_omit": "TRUE",
     "data_rows_all": [
@@ -23,7 +22,7 @@
     "data_search": "",
     "data_show": "rel",
     "data_state": {
-      "time": 1643322323417,
+      "time": 1645741051684,
       "start": 0,
       "length": 20,
       "order": [
@@ -247,7 +246,7 @@
       "x": {
         "filter": "none",
         "vertical": false,
-        "container": "<table class=\"display\">\n  <thead>\n    <tr>\n      <th>StationID\n<\/th>\n      <th>SampleID\n<\/th>\n      <th>Sample_Date\n<\/th>\n      <th>cation_sum\n<\/th>\n      <th>anion_sum\n<\/th>\n      <th>charge_balance\n%<\/th>\n      <th>cation_sum2\n<\/th>\n      <th>anion_sum2\n<\/th>\n      <th>charge_balance2\n%<\/th>\n      <th>Ca\nmg/L<\/th>\n      <th>Mg\nmg/L<\/th>\n      <th>Na\nmg/L<\/th>\n      <th>Cl\nmg/L<\/th>\n      <th>HCO3\nmg/L<\/th>\n      <th>SO4\nmg/L<\/th>\n      <th>Ca_meq\nmeq<\/th>\n      <th>Mg_meq\nmeq<\/th>\n      <th>Na_meq\nmeq<\/th>\n      <th>Cl_meq\nmeq<\/th>\n      <th>HCO3_meq\nmeq<\/th>\n      <th>SO4_meq\nmeq<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>",
+        "container": "<table class=\"display\">\n  <thead>\n    <tr>\n      <th>StationID\n<\/th>\n      <th>SampleID\n<\/th>\n      <th>Sample_Date\n<\/th>\n      <th>cation_sum\nmeq/L<\/th>\n      <th>anion_sum\nmeq/L<\/th>\n      <th>charge_balance\n%<\/th>\n      <th>cation_sum2\n<\/th>\n      <th>anion_sum2\n<\/th>\n      <th>charge_balance2\n%<\/th>\n      <th>Ca\nmg/L<\/th>\n      <th>Mg\nmg/L<\/th>\n      <th>Na\nmg/L<\/th>\n      <th>Cl\nmg/L<\/th>\n      <th>HCO3\nmg/L<\/th>\n      <th>SO4\nmg/L<\/th>\n      <th>Ca_meq\nmeq<\/th>\n      <th>Mg_meq\nmeq<\/th>\n      <th>Na_meq\nmeq<\/th>\n      <th>Cl_meq\nmeq<\/th>\n      <th>HCO3_meq\nmeq<\/th>\n      <th>SO4_meq\nmeq<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>",
         "options": {
           "pageLength": 20,
           "scrollX": true,
@@ -313,7 +312,7 @@
               "render": "function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatRound(data, 2, 3, \",\", \".\");\n  }"
             }
           ],
-          "rowCallback": "function(row, data, displayNum, displayIndex, dataIndex) {\nvar value=data[5]; $(this.api().cell(row, 5).node()).css({'background-color':isNaN(parseFloat(value)) ? '' : value <= -10 ? \"#f8d7da\" : value <= 10 ? \"#d4edda\" : \"#f8d7da\"});\n}",
+          "rowCallback": "function(row, data, displayNum, displayIndex, dataIndex) {\nvar value=data[5]; $(this.api().cell(row, 5).node()).css({'background-color':isNaN(parseFloat(value)) ? '' : value <= -10 ? \"#f8d7da\" : value <= 10 ? \"#d4edda\" : \"#f8d7da\"});\nvar value=data[8]; $(this.api().cell(row, 8).node()).css({'background-color':isNaN(parseFloat(value)) ? '' : value <= -10 ? \"#f8d7da\" : value <= 10 ? \"#d4edda\" : \"#f8d7da\"});\n}",
           "ajax": {
             "type": "POST",
             "data": "function(d) {\nd.search.caseInsensitive = true;\nd.search.smart = true;\nd.escape = true;\nvar encodeAmp = function(x) { x.value = x.value.replace(/&/g, \"%26\"); }\nencodeAmp(d.search);\n$.each(d.columns, function(i, v) {encodeAmp(v.search);});\n}"
@@ -424,19 +423,19 @@
       ]
     },
     "rems_status_historic": {
-      "html": "<div class=\"small-box bg-green\">\n  <div class=\"inner\">\n    <h3>Up-to-date<\/h3>\n    <p>Historic EMS Data (last updated: 0 days ago)<\/p>\n  <\/div>\n<\/div>",
+      "html": "<div class=\"small-box bg-blue\">\n  <div class=\"inner\">\n    <h3>Out-of-date<\/h3>\n    <p>Historic EMS Data (last updated: 2 days ago)<\/p>\n  <\/div>\n<\/div>",
       "deps": [
 
       ]
     },
     "rems_status_recent": {
-      "html": "<div class=\"small-box bg-green\">\n  <div class=\"inner\">\n    <h3>Up-to-date<\/h3>\n    <p>Recent EMS Data (last updated: 2022-01-27)<\/p>\n  <\/div>\n<\/div>",
+      "html": "<div class=\"small-box bg-green\">\n  <div class=\"inner\">\n    <h3>Up-to-date<\/h3>\n    <p>Recent EMS Data (last updated: 2022-02-24)<\/p>\n  <\/div>\n<\/div>",
       "deps": [
 
       ]
     },
     "stiff": {
-      "message": "No data to plot\n\nPick a different set of EMS IDs or allow samples with 'bad charge balances' (see left-hand panel)",
+      "message": "Missing too many data to plot",
       "call": "NULL",
       "type": [
         "shiny.silent.error",

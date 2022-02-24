@@ -98,8 +98,8 @@ The results of your ID, date and data filtering will be available under the **Re
 
 You can scroll and sort through the data to ensure you have the data you wanted.
 
-The `charge_balance` values will be highlighted in green (value ranges from -10% to 10%) or red (values < -10% or > 10%) to indicate possibly problematic samples.
-You can chose whether to highlight EMS-calculated charge balances or rems2aquachem-calculated balances by selecting the appropriate option under "Charge Balance to use".
+The `charge_balance` and `charge_balance2` values will be highlighted in green (value ranges from -10% to 10%) or red (values < -10% or > 10%) to indicate possibly problematic samples.
+`charge_balance` represents the EMS-calculated charge balances or and `charge_balance2` the rems2aquachem-calculated balances.
 
 
 > **Note** This may take a few minutes, depending on the amount of data you have requested.
