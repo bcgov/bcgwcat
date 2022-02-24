@@ -242,7 +242,7 @@ server <- function(input, output) {
                                   "anion_sum", "charge_balance",
                                   "cation_sum2", "anion_sum2",
                                   "charge_balance2")) %>%
-      DT::formatStyle(input$data_charge_balance,
+      DT::formatStyle(columns = c("charge_balance", "charge_balance2"),
                       backgroundColor = DT::styleInterval(
                         cuts = c(-10, 10),
                         values = c("#f8d7da", "#d4edda", "#f8d7da")))

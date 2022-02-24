@@ -44,11 +44,6 @@ sidebar <- dashboardSidebar(
   radioButtons("data_show", strong("Data to preview"),
                choices = list("Relevant Columns" = "rel", "All Columns" = "all")),
 
-  # Charge balance to use
-  radioButtons("data_charge_balance", strong("Charge balance to use"),
-               choices = list("EMS calculation" = "charge_balance",
-                              "rems2aquachem calculation" = "charge_balance2")),
-
   hr(),
 
 
@@ -108,7 +103,7 @@ body <- dashboardBody(
                     fluidRow(
                       box(h4("Charge balances"),
                           "`charge_balance`, `cation_sum` and `anion_sum` are values provided by EMS,",
-                          "whereas `charge_balance2`, `cation_sum2` and `anion_sum2` are values calculated locally by the rems2aquachem R package, based on details from ALS Global. As they are qualitatively but not quantitatively the same, we provide both so users can chose which they prefer", width = 12)),
+                          "whereas `charge_balance2`, `cation_sum2` and `anion_sum2` are values calculated locally by the rems2aquachem R package, based on details from ALS Global. As they are qualitatively but not quantitatively the same, we provide both so users can chose which they prefer. Note that plots use both (i.e. both must be valid or missing, or, if one is missing, the other must be valid", width = 12)),
                     DT::DTOutput("data")),
 
 
