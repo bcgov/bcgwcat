@@ -184,17 +184,22 @@ water_type <- function(d) {
 
 #' Create Piper plot
 #'
-#' @param d  AquaChem formatted dataset
-#' @param ems_id Ids to plot if dataset includes more than one
-#' @param point_size Point size
-#' @param colour Whether to add colour by ems_id
-#' @param legend Whether to show the legend
+#' @param d  Data frame. AquaChem formatted dataset
+#' @param ems_id Character. Ids to plot if dataset includes more than one
+#' @param point_size Numeric. Point size
+#' @param colour Logical. Whether to add colour by ems_id
+#' @param legend Logical. Whether to show the legend
+#' @param valid Logical. Keep only valid data (charge balances <=10)
+#' @param complete Logical. Omit samples with missing values
+#' @param plot_data Logical. Whether to return plot data rather than a plot
 #'
 #' @export
 
-piper_plot <- function(d, ems_id = NULL, point_size = 0.1,
-                       colour = TRUE, legend = TRUE) {
-  d <- d[-1, ] %>%
+piper_plot <- function(d, ems_id = NULL, point_size = 0.1, colour = TRUE,
+                       legend = TRUE, valid = TRUE, complete = TRUE,
+                       plot_data = FALSE) {
+  d <- d %>%
+    units_remove() %>%
     dplyr::mutate(ems_id = stringr::str_extract(.data$SampleID, "^[0-9A-Z]+"))
 
   if(!is.null(ems_id)) {
@@ -208,34 +213,72 @@ piper_plot <- function(d, ems_id = NULL, point_size = 0.1,
          "OR 'colour = TRUE'", call. = FALSE)
   }
 
-  d <- dplyr::select(d, c("ems_id", "Ca_meq", "Mg_meq", "Na_meq",
-                          "Cl_meq", "HCO3_meq", "SO4_meq")) %>%
-    dplyr::mutate(dplyr::across(-"ems_id", as.numeric))
+  d <- dplyr::select(d, c("ems_id", dplyr::contains("charge_balance"),
+                          "Ca_meq", "Mg_meq",    # X and Y Cations
+                          "Na_meq", "K_meq",     # Z Cations
+                          "Cl_meq",              # X Anions
+                          "HCO3_meq", "CO3_meq", # Y Anions
+                          "SO4_meq")) %>%        # Z Anions
+    dplyr::mutate(
+      Na_meq_plus = .data$Na_meq + .data$K_meq,
+      #Cl_meq_plus = .data$Cl_meq + .data$F_meq + .data$NO2_meq + .data$NO3_meq,
+      HCO3_meq_plus = .data$HCO3_meq + .data$CO3_meq)
 
-  if(colour) {
-    col <- list(name = unique(d$ems_id),
-                color = viridisLite::viridis(n = length(unique(d$ems_id)), end = 0.8),
-                size = point_size)
-  } else {
-    col <- list()
+  if(valid) {
+    d <- dplyr::filter(
+      d,
+      # Keep: If either missing but the other good (<=10)
+      #       Or if both present, and both good
+      (is.na(.data$charge_balance) & abs(.data$charge_balance2) <= 10) |
+        (abs(.data$charge_balance) <= 10 & is.na(.data$charge_balance2)) |
+        (abs(.data$charge_balance) <= 10 & abs(.data$charge_balance2) <= 10))
   }
 
-  pp <- with(d, smwrGraphs::piperPlot(
-    Ca_meq, Mg_meq, Na_meq,
-    Cl_meq, HCO3_meq, SO4_meq,
-    x.zAn.title = "Cl + SO4",
-    x.yCat.title = "Ca + Mg",
-    zCat.title = "Na + K",
-    #xAn.title = "Cl",
-    xAn.title = "Cl- + F- + NO2- + NO3-",
-    yAn.title = "HCO3 + CO3",
-    zAn.title = "SO4",
-    xCat.title = "Ca",
-    yCat.title = "Mg",
-    units.title = "",
-    Plot = col))
+  if(complete) {
+    d <- tidyr::drop_na(d, .data$Ca_meq, .data$Mg_meq, .data$Na_meq_plus,
+                        .data$Cl_meq, .data$HCO3_meq_plus, .data$SO4_meq)
+  } else {
+    d <- dplyr::mutate(d, dplyr::across(.cols = c(
+      -"ems_id", -"charge_balance", -"charge_balance2"),
+      ~tidyr::replace_na(., 0)))
+  }
 
-  if(legend) smwrGraphs::addExplanation(pp, title = "EMS ID", where = "ul", box.off = FALSE)
+  if(nrow(d) == 0) {
+    message("Not enough good quality data for this EMS ID")
+    return(invisible())
+  }
+
+  if(!plot_data){
+    if(colour) {
+      col <- list(name = unique(d$ems_id),
+                  color = viridisLite::viridis(n = length(unique(d$ems_id)), end = 0.8),
+                  size = point_size)
+    } else {
+      col <- list()
+    }
+
+    pp <- with(d, smwrGraphs::piperPlot(
+      xCat = Ca_meq, yCat = Mg_meq, zCat = Na_meq_plus,
+      xAn = Cl_meq, yAn = HCO3_meq_plus, zAn = SO4_meq,
+
+      xCat.title = "Ca",
+      yCat.title = "Mg",
+      zCat.title = "Na + K",
+
+      xAn.title = "Cl",
+      yAn.title = "HCO3 + CO3",
+      zAn.title = "SO4",
+
+      x.yCat.title = "Ca + Mg",
+      x.zAn.title = "Cl + SO4",
+
+      units.title = "",
+      Plot = col))
+
+    if(legend) smwrGraphs::addExplanation(pp, title = "EMS ID", where = "ul", box.off = FALSE)
+  } else {
+    d
+  }
 }
 
 #' Create Stiff plot

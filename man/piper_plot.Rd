@@ -4,18 +4,33 @@
 \alias{piper_plot}
 \title{Create Piper plot}
 \usage{
-piper_plot(d, ems_id = NULL, point_size = 0.1, colour = TRUE, legend = TRUE)
+piper_plot(
+  d,
+  ems_id = NULL,
+  point_size = 0.1,
+  colour = TRUE,
+  legend = TRUE,
+  valid = TRUE,
+  complete = TRUE,
+  plot_data = FALSE
+)
 }
 \arguments{
-\item{d}{AquaChem formatted dataset}
+\item{d}{Data frame. AquaChem formatted dataset}
 
-\item{ems_id}{Ids to plot if dataset includes more than one}
+\item{ems_id}{Character. Ids to plot if dataset includes more than one}
 
-\item{point_size}{Point size}
+\item{point_size}{Numeric. Point size}
 
-\item{colour}{Whether to add colour by ems_id}
+\item{colour}{Logical. Whether to add colour by ems_id}
 
-\item{legend}{Whether to show the legend}
+\item{legend}{Logical. Whether to show the legend}
+
+\item{valid}{Logical. Keep only valid data (charge balances <=10)}
+
+\item{complete}{Logical. Omit samples with missing values}
+
+\item{plot_data}{Logical. Whether to return plot data rather than a plot}
 }
 \description{
 Create Piper plot
