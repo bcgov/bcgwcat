@@ -11,7 +11,6 @@ piper_plot(
   colour = TRUE,
   legend = TRUE,
   valid = TRUE,
-  complete = TRUE,
   plot_data = FALSE
 )
 }
@@ -27,8 +26,6 @@ piper_plot(
 \item{legend}{Logical. Whether to show the legend}
 
 \item{valid}{Logical. Keep only valid data (charge balances <=10)}
-
-\item{complete}{Logical. Omit samples with missing values}
 
 \item{plot_data}{Logical. Whether to return plot data rather than a plot}
 }

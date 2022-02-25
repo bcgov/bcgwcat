@@ -218,14 +218,12 @@ water_type <- function(d) {
 #' @param colour Logical. Whether to add colour by ems_id
 #' @param legend Logical. Whether to show the legend
 #' @param valid Logical. Keep only valid data (charge balances <=10)
-#' @param complete Logical. Omit samples with missing values
 #' @param plot_data Logical. Whether to return plot data rather than a plot
 #'
 #' @export
 
 piper_plot <- function(d, ems_id = NULL, point_size = 0.1, colour = TRUE,
-                       legend = TRUE, valid = TRUE, complete = TRUE,
-                       plot_data = FALSE) {
+                       legend = TRUE, valid = TRUE, plot_data = FALSE) {
   d <- d %>%
     units_remove() %>%
     dplyr::mutate(ems_id = stringr::str_extract(.data$SampleID, "^[0-9A-Z]+"))
@@ -247,10 +245,22 @@ piper_plot <- function(d, ems_id = NULL, point_size = 0.1, colour = TRUE,
                           "Cl_meq",              # X Anions
                           "HCO3_meq", "CO3_meq", # Y Anions
                           "SO4_meq")) %>%        # Z Anions
+    dplyr::rowwise() %>%
     dplyr::mutate(
-      Na_meq_plus = .data$Na_meq + .data$K_meq,
-      #Cl_meq_plus = .data$Cl_meq + .data$F_meq + .data$NO2_meq + .data$NO3_meq,
-      HCO3_meq_plus = .data$HCO3_meq + .data$CO3_meq)
+
+      # Add together, ignore missing, but if both missing, NA
+      Na_meq_plus = dplyr::if_else(
+        is.na(.data$Na_meq) & is.na(.data$K_meq),
+        NA_real_,
+        sum(.data$Na_meq, .data$K_meq, na.rm = TRUE)),
+
+      # Add together, ignore missing, but if both missing, NA
+      HCO3_meq_plus = dplyr::if_else(
+        is.na(.data$HCO3_meq) & is.na(.data$CO3_meq),
+        NA_real_,
+        sum(.data$HCO3_meq, .data$CO3_meq, na.rm = TRUE))) %>%
+
+    dplyr::ungroup()
 
   if(valid) {
     d <- dplyr::filter(
@@ -260,15 +270,6 @@ piper_plot <- function(d, ems_id = NULL, point_size = 0.1, colour = TRUE,
       (is.na(.data$charge_balance) & abs(.data$charge_balance2) <= 10) |
         (abs(.data$charge_balance) <= 10 & is.na(.data$charge_balance2)) |
         (abs(.data$charge_balance) <= 10 & abs(.data$charge_balance2) <= 10))
-  }
-
-  if(complete) {
-    d <- tidyr::drop_na(d, .data$Ca_meq, .data$Mg_meq, .data$Na_meq_plus,
-                        .data$Cl_meq, .data$HCO3_meq_plus, .data$SO4_meq)
-  } else {
-    d <- dplyr::mutate(d, dplyr::across(.cols = c(
-      -"ems_id", -"charge_balance", -"charge_balance2"),
-      ~tidyr::replace_na(., 0)))
   }
 
   if(nrow(d) == 0) {
@@ -303,7 +304,8 @@ piper_plot <- function(d, ems_id = NULL, point_size = 0.1, colour = TRUE,
       units.title = "",
       Plot = col))
 
-    if(legend) smwrGraphs::addExplanation(pp, title = "EMS ID", where = "ul", box.off = FALSE)
+    if(legend) smwrGraphs::addExplanation(pp, title = "EMS ID",
+                                          where = "ul", box.off = FALSE)
   } else {
     d
   }
