@@ -80,7 +80,9 @@
 <p>Charge balance = 100 x (Cation Sum - Anion sum) / (Cation Sum + Anion Sum)</p>
 <p>For ALS, the values are converted to MEQ in the equation.</p>
 <p>For charge_balance() some are preconverted `_meq` some are converted in the
-equations.</p></dd>
+equations.</p>
+<p>Missing values are ignored. However, if all values for cations or anions
+are missing the charge balance is `NA`.</p></dd>
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
