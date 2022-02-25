@@ -28,7 +28,8 @@ units_remove <- function(d) {
     num <- params %>%
       dplyr::filter(.data$data_type == "numeric", !is.na(.data$aqua_code)) %>%
       dplyr::pull(.data$aqua_code)
-    num <- c(num, stringr::str_subset(names(d), "(_meq)|(_p)|(charge_balance)"))
+    num <- c(num, stringr::str_subset(
+      names(d), "(_meq)|(_p)|(charge_balance)|(anion)|(cation)"))
 
     date <- params %>%
       dplyr::filter(.data$data_type == "date", !is.na(.data$aqua_code)) %>%
