@@ -22,7 +22,7 @@
     "data_search": "",
     "data_show": "rel",
     "data_state": {
-      "time": 1645741051684,
+      "time": 1645827755241,
       "start": 0,
       "length": 20,
       "order": [
@@ -423,13 +423,13 @@
       ]
     },
     "rems_status_historic": {
-      "html": "<div class=\"small-box bg-blue\">\n  <div class=\"inner\">\n    <h3>Out-of-date<\/h3>\n    <p>Historic EMS Data (last updated: 2 days ago)<\/p>\n  <\/div>\n<\/div>",
+      "html": "<div class=\"small-box bg-blue\">\n  <div class=\"inner\">\n    <h3>Out-of-date<\/h3>\n    <p>Historic EMS Data (last updated: 3 days ago)<\/p>\n  <\/div>\n<\/div>",
       "deps": [
 
       ]
     },
     "rems_status_recent": {
-      "html": "<div class=\"small-box bg-green\">\n  <div class=\"inner\">\n    <h3>Up-to-date<\/h3>\n    <p>Recent EMS Data (last updated: 2022-02-24)<\/p>\n  <\/div>\n<\/div>",
+      "html": "<div class=\"small-box bg-green\">\n  <div class=\"inner\">\n    <h3>Up-to-date<\/h3>\n    <p>Recent EMS Data (last updated: 2022-02-25)<\/p>\n  <\/div>\n<\/div>",
       "deps": [
 
       ]

@@ -893,17 +893,17 @@
         {
           "type": "character",
           "attributes": {},
-          "value": ["", null, null, null, "1.73", "1.78", "2.28", "9.74", "9.1", null, null, null, "6.44", "6.24", "1.4", "1.37"]
+          "value": ["", "1.2", "1.75", "2.21", "1.73", "1.78", "2.28", "9.74", "9.1", "2.25", "2.58", "2.38", "6.44", "6.24", "1.4", "1.37"]
         },
         {
           "type": "character",
           "attributes": {},
-          "value": ["", "1.83", null, null, "2.57", null, "2.14", "9.68", null, "2.97", null, null, "6.48", null, "1.73", "1.36"]
+          "value": ["", "1.83", "0.57", "0", "2.57", "0", "2.14", "9.68", "10.02", "2.97", "0.86", "2.03", "6.48", "5.82", "1.73", "1.36"]
         },
         {
           "type": "character",
           "attributes": {},
-          "value": ["%", null, null, null, "20", null, "-3", "0", null, null, null, null, "0", null, "10", "0"]
+          "value": ["%", "21", "-51", "-100", "20", "-100", "-3", "0", "5", "14", "-50", "-8", "0", "-3", "10", "0"]
         },
         {
           "type": "character",
@@ -1703,17 +1703,17 @@
         {
           "type": "character",
           "attributes": {},
-          "value": ["", null]
+          "value": ["", "1.75"]
         },
         {
           "type": "character",
           "attributes": {},
-          "value": ["", null]
+          "value": ["", "0.57"]
         },
         {
           "type": "character",
           "attributes": {},
-          "value": ["%", null]
+          "value": ["%", "-51"]
         },
         {
           "type": "character",

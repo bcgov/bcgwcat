@@ -31,7 +31,9 @@ test_that("meq() and charge_balance()", {
                  K_meq = 0.0353004,
                  Na_meq = 0.22446,
                  SO4_meq = 0.0599616))
-  expect_silent(cb <- charge_balance(p))
+
+  expect_silent(cb <- charge_balance(dplyr::select(p, -charge_balance, -charge_balance2,
+                                                   -anion_sum2, -cation_sum2)))
   expect_equal(cb$charge_balance2, 2, tolerance = 0.000001)
   expect_equal(cb$anion_sum2, 0.89, tolerance = 0.000001)
   expect_equal(cb$cation_sum2, 0.92, tolerance = 0.000001)
