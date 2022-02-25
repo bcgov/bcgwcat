@@ -41,7 +41,10 @@ Charge balance = 100 x (Cation Sum - Anion sum) / (Cation Sum + Anion Sum)
 For ALS, the values are converted to MEQ in the equation.
 
 For charge_balance() some are preconverted `_meq` some are converted in the
-equations.}
+equations.
+
+Missing values are ignored. However, if all values for cations or anions
+are missing the charge balance is `NA`.}
 }
 \value{
 Data frame

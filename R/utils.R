@@ -121,27 +121,54 @@ meq <- function(d, format = "long") {
 #' For charge_balance() some are preconverted `_meq` some are converted in the
 #' equations.
 #'
+#' Missing values are ignored. However, if all values for cations or anions
+#' are missing the charge balance is `NA`.
+#'
 #' @return Data frame
 #'
 #'
 charge_balance <- function(d) {
 
   d %>%
+    dplyr::mutate(Meas_Alk_meq = .data$Meas_Alk/50.04,
+                  Cu_diss_meq = .data$Cu_diss/31.77,
+                  Zn_diss_meq = .data$Zn_diss/32.695,
+                  NH4_meq = .data$NH4/14.01,
+                  pH_lab_meq = (10^(-.data$pH_lab)) * 1000) %>%
+    dplyr::select("Sample_Date", "SampleID", "StationID",
+
+                  #anions
+                  "Cl_meq", "SO4_meq", "F_meq", "NO3_meq",
+                  "NO2_meq", "Meas_Alk_meq",
+
+                  #cations
+                  "Ca_meq", "Mg_meq", "Na_meq", "K_meq",
+                  "Al_diss_meq", "Cu_diss_meq", "Fe_diss_meq",
+                  "Mn_diss_meq", "Zn_diss_meq", "NH4_meq",
+                  "pH_lab_meq") %>%
+
+    tidyr::pivot_longer(cols = dplyr::ends_with("_meq"),
+                        names_to = "ion", values_to = "value") %>%
+    dplyr::mutate(type = dplyr::if_else(
+      ion %in% c("Cl_meq", "SO4_meq", "F_meq", "NO3_meq", "NO2_meq", "Meas_Alk_meq"),
+      "anion", "cation")) %>%
+    dplyr::group_by(.data$Sample_Date, .data$SampleID, .data$StationID, .data$type) %>%
+    dplyr::summarize(
+      sum2 = sum(value, na.rm = TRUE),
+      sum2 = dplyr::if_else(all(is.na(value)), NA_real_, sum2), .groups = "drop") %>%
+    dplyr::mutate(type = paste0(type, "_sum2")) %>%
+    tidyr::pivot_wider(names_from = type, values_from = sum2) %>%
     dplyr::mutate(
-      anion_sum2 = .data$Cl_meq + .data$SO4_meq + .data$F_meq + .data$NO3_meq +
-        .data$NO2_meq + .data$Meas_Alk/50.04,
-
-      cation_sum2 = .data$Ca_meq + .data$Mg_meq + .data$Na_meq + .data$K_meq +
-        .data$Al_diss_meq + .data$Cu_diss/31.77 + .data$Fe_diss_meq +
-        .data$Mn_diss_meq + .data$Zn_diss/32.695 + .data$NH4/14.01 +
-        (10^(-.data$pH_lab)) * 1000,
-
       charge_balance2 = 100 * ((.data$cation_sum2 - .data$anion_sum2) /
                                  (.data$cation_sum2 + .data$anion_sum2)),
 
       anion_sum2 = round(.data$anion_sum2, 2),
       cation_sum2 = round(.data$cation_sum2, 2),
-      charge_balance2 = round(.data$charge_balance2))
+      charge_balance2 = round(.data$charge_balance2)) %>%
+    dplyr::left_join(
+      dplyr::select(d, -dplyr::any_of(c("charge_balance2", "anion_balance2",
+                                        "cation_balance2"))),
+      ., by = c("Sample_Date", "SampleID", "StationID"))
 
 }
 
