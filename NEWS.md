@@ -2,6 +2,7 @@
 * Add calculations for water type
 * Tweak piper plots data validity
 * Add minor elements
+* Charge balances can include missing values
 
 # rems2aquachem 0.4.3
 * update rems and fix code accordingly
