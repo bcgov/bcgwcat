@@ -164,7 +164,7 @@ charge_balance <- function(d) {
 
       anion_sum2 = round(.data$anion_sum2, 2),
       cation_sum2 = round(.data$cation_sum2, 2),
-      charge_balance2 = round(.data$charge_balance2)) %>%
+      charge_balance2 = round(.data$charge_balance2, 1)) %>%
     dplyr::left_join(
       dplyr::select(d, -dplyr::any_of(c("charge_balance2", "anion_balance2",
                                         "cation_balance2"))),
