@@ -37,7 +37,6 @@ Imports:
     viridisLite (>= 0.3.0)
 Remotes: 
     bcgov/rems,
-    USGS-R/smwrBase,
     USGS-R/smwrGraphs
 Suggests: 
     roxygen2,
