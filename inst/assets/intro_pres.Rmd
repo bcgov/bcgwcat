@@ -23,7 +23,7 @@ output:
 ### Also
 - Preview data
 - Stiff plots
-- Piper plots (from USGS packages `smwrBase` and `smwrGraphs`)
+- Piper plots (from USGS package `smwrGraphs`)
 
 ### How
 - R command-line **or** 

@@ -12,3 +12,4 @@ CONTRIBUTING.md
 ^_pkgdown\.yml$
 ^pkgdown$
 ^\.github$
+misc

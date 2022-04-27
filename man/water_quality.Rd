@@ -7,7 +7,7 @@
 water_quality(d)
 }
 \arguments{
-\item{d}{EMS data formated for AquaChem as returned by `rems_to_aquachem()`}
+\item{d}{EMS data formated for AquaChem as returned by \code{rems_to_aquachem()}}
 }
 \value{
 Tibble of sites, samples, parameters, water quality limits and problems.

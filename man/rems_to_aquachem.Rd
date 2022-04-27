@@ -34,8 +34,8 @@ Outputs an Excel and a CSV file in the format to import into AquaChem.
 Fetch and convert data from rems to AquaChem format
 }
 \details{
-**`out_folder`**
-  This is how you tell the function where to store the aquachem data.
+\strong{\code{out_folder}}
+This is how you tell the function where to store the aquachem data.
 }
 \examples{
 \dontrun{

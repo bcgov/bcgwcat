@@ -1,8 +1,11 @@
-# rems2aquachem dev
+# rems2aquachem 0.4.4
 * Add calculations for water type
 * Tweak piper plots data validity
+* Stiff plots only use valid data
 * Add minor elements
 * Charge balances can include missing values (rounded to 1 decimal)
+* Charge balances, anion sums and cation sums are recalculated completely
+* Update authors
 
 # rems2aquachem 0.4.3
 * update rems and fix code accordingly

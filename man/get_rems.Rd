@@ -13,12 +13,12 @@ get_rems(ems_ids, date_range, interactive)
 (YYYY-MM-DD)}
 
 \item{interactive}{Logical. Whether or not to allow interactive queries by
-the `rems` package.}
+the \code{rems} package.}
 }
 \value{
 data frame
 }
 \description{
-Use [rems::rems-package()] to download data and then filter it.
+Use \code{\link[rems:rems-package]{rems::rems-package()}} to download data and then filter it.
 }
 \keyword{internal}

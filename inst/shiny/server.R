@@ -14,7 +14,6 @@
 
 library(shinyjs)
 library(rems2aquachem)
-library(patchwork)
 library(rems)
 
 server <- function(input, output) {

@@ -3,7 +3,7 @@
 #' The main `rems_to_aquachem()` function downloads EMS data and formats it for
 #' use in the external program, AquaChem. However, occasionally you may wish
 #' to work with this formatted EMS data in R. This function removes the extra
-#' 'units' row and then converts the columns to make the data useable in R.
+#' 'units' row and then converts the columns to make the data usable in R.
 #'
 #' @param d Data frame output from `rems_to_aquachem()`
 #'
@@ -13,7 +13,7 @@
 #' @examples
 #'
 #' \dontrun{
-#' # Get and format one well for use in aquachem
+#' # Get and format one well for use in AquaChem
 #' r <- rems_to_aquachem(ems_ids = "E289551", save = FALSE)
 #'
 #' # Remove units and convert columns to appropriate formats for use in R
@@ -194,13 +194,16 @@ water_type <- function(d) {
                   dplyr::ends_with("_p")) %>%
     tidyr::pivot_longer(cols = dplyr::ends_with("_p"), names_to = "element",
                         values_to = "prop") %>%
-    dplyr::filter(prop >= 0.1) %>%
-    dplyr::mutate(type = dplyr::if_else(element %in% c("Cl_p", "HCO3_p", "SO4_p"),
+    dplyr::filter(.data$prop >= 0.1) %>%
+    dplyr::mutate(type = dplyr::if_else(.data$element %in%
+                                          c("Cl_p", "HCO3_p", "SO4_p"),
                                  "anion", "cation")) %>%
     dplyr::group_by(.data$StationID, .data$SampleID, .data$Sample_Date) %>%
-    dplyr::arrange(dplyr::desc(type), dplyr::desc(prop), .by_group = TRUE) %>%
-    dplyr::summarize(water_type = paste0(stringr::str_remove(element, "_p"),
-                                      collapse = "-"))
+    dplyr::arrange(dplyr::desc(.data$type), dplyr::desc(.data$prop),
+                   .by_group = TRUE) %>%
+    dplyr::summarize(water_type =
+                       paste0(stringr::str_remove(.data$element, "_p"),
+                              collapse = "-"))
 
   dplyr::left_join(d_new, d_wt, by = c("StationID", "SampleID", "Sample_Date"))
 }

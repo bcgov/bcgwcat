@@ -2,20 +2,20 @@
 % Please edit documentation in R/get_data.R
 \name{check_present}
 \alias{check_present}
-\title{Check for data in `rems`}
+\title{Check for data in \code{rems}}
 \usage{
 check_present(d, ems_ids, type = "all")
 }
 \arguments{
-\item{d}{Data frame. Filtered output from [get_rems()].}
+\item{d}{Data frame. Filtered output from \code{\link[=get_rems]{get_rems()}}.}
 
 \item{ems_ids}{Character vector. EMS IDs}
 
 \item{type}{Character. Either "all" (all data) or "date" (date-filtered data)}
 }
 \value{
-Character vector of EMS IDs that __were__ in the data (omitting ones
-  that were not found).
+Character vector of EMS IDs that \strong{were} in the data (omitting ones
+that were not found).
 }
 \description{
 Returns a message regarding whether the data requested was actually found.

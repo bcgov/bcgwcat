@@ -346,7 +346,7 @@ ac_units <- function(d) {
     dplyr::select(-"UNIT", -"RESULT", -"aqua_unit") %>%
     tidyr::pivot_wider(names_from = .data$aqua_code,
                        values_from = .data$RESULT2) %>%
-    dplyr::select(tidyselect::all_of(params$aqua_code[params$type == "meta"]),
+    dplyr::select(dplyr::all_of(params$aqua_code[params$type == "meta"]),
                   dplyr::everything()) %>%
     dplyr::arrange(.data$StationID, .data$SampleID, .data$Sample_Date)
 
@@ -367,18 +367,17 @@ ac_units <- function(d) {
     dplyr::mutate(charge_balance = "%", charge_balance2 = "%") %>%
     dplyr::mutate(dplyr::across(dplyr::ends_with("_p"), ~"%")) %>%
     # Check that there are no missing
-    dplyr::select(tidyselect::all_of(names(d)))
+    dplyr::select(dplyr::all_of(names(d)))
 
   # Add units to d
   d <- d %>%
     dplyr::mutate_all(.funs = as.character) %>%
     dplyr::bind_rows(units, .)
 
-  # Arrange column order as in AquaChem template (unknown colums to end)
+  # Arrange column order as in AquaChem template (unknown columns to end)
   cols <- params$aqua_code[params$type == "meta" & params$aqua_code %in% names(d)]
-  d <- dplyr::select(d, tidyselect::all_of(cols), dplyr::everything())
 
-  d
+  dplyr::select(d, dplyr::all_of(cols), dplyr::everything())
 }
 
 

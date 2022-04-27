@@ -28,7 +28,8 @@ ow <- readr::read_csv("well.csv", guess_max = 200000) %>%
   dplyr::select(ow = observation_well_number, ems_id = ems) %>%
   dplyr::filter(!is.na(ow), !is.na(ems_id))
 
-wq_std <- bcdata::bcdc_get_data("85d3990a-ec0a-4436-8ebd-150de3ba0747") %>%
+wq_std <- bcdata::bcdc_get_data(record = '85d3990a-ec0a-4436-8ebd-150de3ba0747',
+                                resource = '6f32a85b-a3d9-44c3-9a14-15175eba25b6') %>%
   dplyr::rename_all(tolower) %>%
   dplyr::filter(use == "Drinking Water", media == "Water",
                 direction == "Upper Limit",   # All upper limit anyway, but be explicit

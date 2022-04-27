@@ -7,21 +7,21 @@
 units_remove(d)
 }
 \arguments{
-\item{d}{Data frame output from `rems_to_aquachem()`}
+\item{d}{Data frame output from \code{rems_to_aquachem()}}
 }
 \value{
 Data frame
 }
 \description{
-The main `rems_to_aquachem()` function downloads EMS data and formats it for
+The main \code{rems_to_aquachem()} function downloads EMS data and formats it for
 use in the external program, AquaChem. However, occasionally you may wish
 to work with this formatted EMS data in R. This function removes the extra
-'units' row and then converts the columns to make the data useable in R.
+'units' row and then converts the columns to make the data usable in R.
 }
 \examples{
 
 \dontrun{
-# Get and format one well for use in aquachem
+# Get and format one well for use in AquaChem
 r <- rems_to_aquachem(ems_ids = "E289551", save = FALSE)
 
 # Remove units and convert columns to appropriate formats for use in R
