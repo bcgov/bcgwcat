@@ -30,6 +30,7 @@ Imports:
     shiny (>= 1.3.2),
     shinydashboard (>= 0.7.1),
     shinyjs (>= 1.0),
+    smwrBase (>= 1.1.5),
     smwrGraphs (>= 1.1.4.9000),
     stringr (>= 1.4.0),
     tidyr (>= 1.0.0),
