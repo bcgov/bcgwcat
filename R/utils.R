@@ -94,49 +94,39 @@ meq <- function(d, drop_na = FALSE) {
 
 #' Calculate charge balance
 #'
-#' @param d AquaChem formatted dataset
+#' Calculates charge balances based on ALS formula. **Note:** Original EMS
+#' charge balances, anion sums and cation sums have been **omitted**.
 #'
-#' From ALS Global (AquaChem code)
+#' Potential changes in workflows over the years have made it difficult to
+#' ascertain exactly how charge balances were calculated in older samples. This
+#' resulted in discrepancies between EMS and locally calculated charge balances.
+#' Therefore for consistency, we calculate charge balances for all samples using
+#' the ALS formula below.
 #'
-#' anion sum = p01/35.45 + p02/48.03 + p03/19 + p04/14.01 + p05/14.01 + p06/50.04
+#' One difference between this calculation and that of ALS, is that we use more
+#' significant digits when calculating MEQ.
 #'
-#' - P01 = chloride          (Cl)
-#' - P02 = sulfate           (SO4)
-#' - P03 = fluoride          (F)
-#' - P04 = nitrate as N      (NO3)
-#' - P05 = nitrite as N      (NO2)
-#' - P06 = alkalinity total  (Meas_Alk)
+#' anion sum = Cl_meq + SO4_meq + F_meq + NO3_meq + NO2_meq + Means_Alk_meq
 #'
-#' cation sum = p01/20.04 + p02/12.16 + p03/22.99 + p04/39.10 + p05/8.99 +
-#'              p06/31.77 + p07/27.9 + p08/27.47 + p09/32.70 + p10/14.01 +
-#'              func_pow((10),(-1*p11))*1000
-#'
-#' - P01 = calcium    (Ca)      [dissolved]
-#' - P02 = magnesium  (Mg)      [dissolved]
-#' - P03 = sodium     (Na)      [dissolved]
-#' - P04 = potassium  (K)       [dissolved]
-#' - P05 = aluminum   (Al_diss) [dissolved]
-#' - P06 = copper     (Cu_diss) [dissolved]
-#' - P07 = iron       (Fe_diss) [dissolved]
-#' - P08 = manganese  (Mn_diss) [dissolved]
-#' - P09 = zinc       (Zn_diss) [dissolved]
-#' - P10 = ammonia    (NH4)     [dissolved]
-#' - P11 = pH         (pH_lab)
+#' cation sum = Ca_meq + Mg_meq + Na_meq + K_meq + Al_diss_meq +
+#'              Cu_diss_meq + Fe_diss_meq + Mn_diss_meq + Zn_diss_meq + NH4_meq +
+#'              (10 ^ (-pH_lab)) * 1000
 #'
 #' Charge balance = 100 x (Cation Sum - Anion sum) / (Cation Sum + Anion Sum)
 #'
-#' For ALS, the values are converted to MEQ in the equation.
+#' Missing values are ignored (ie. generally treated as 0). However, if all
+#' values for cations or anions are missing the charge balance is `NA`.
 #'
-#' For charge_balance() some are preconverted `_meq` some are converted in the
-#' equations.
-#'
-#' Missing values are ignored. However, if all values for cations or anions
-#' are missing the charge balance is `NA`.
+#' @param d Data set formatted for AquaChem (output of `rems2aquachem()`)
 #'
 #' @return Data frame
 #'
 #'
 charge_balance <- function(d) {
+
+  message("For consistency EMS charge balances, anion sums, and cation sums ",
+          "have been replaced with recalculated values.\nSee `?charge_balance` ",
+          "for more details.")
 
   d %>%
     dplyr::mutate(pH_lab_meq = (10^(-.data$pH_lab)) * 1000) %>%
@@ -155,24 +145,24 @@ charge_balance <- function(d) {
     tidyr::pivot_longer(cols = dplyr::ends_with("_meq"),
                         names_to = "ion", values_to = "value") %>%
     dplyr::mutate(type = dplyr::if_else(
-      ion %in% c("Cl_meq", "SO4_meq", "F_meq", "NO3_meq", "NO2_meq", "Meas_Alk_meq"),
+      .data$ion %in% c("Cl_meq", "SO4_meq", "F_meq", "NO3_meq",
+                       "NO2_meq", "Meas_Alk_meq"),
       "anion", "cation")) %>%
     dplyr::group_by(.data$Sample_Date, .data$SampleID, .data$StationID, .data$type) %>%
     dplyr::summarize(
-      sum2 = sum(value, na.rm = TRUE),
-      sum2 = dplyr::if_else(all(is.na(value)), NA_real_, sum2), .groups = "drop") %>%
-    dplyr::mutate(type = paste0(type, "_sum2")) %>%
-    tidyr::pivot_wider(names_from = type, values_from = sum2) %>%
+      sum = sum(.data$value, na.rm = TRUE), # Ignore missing ions
+      sum = dplyr::if_else(all(is.na(.data$value)), NA_real_, sum), .groups = "drop") %>%
+    dplyr::mutate(type = paste0(.data$type, "_sum")) %>%
+    tidyr::pivot_wider(names_from = "type", values_from = "sum") %>%
     dplyr::mutate(
-      charge_balance2 = 100 * ((.data$cation_sum2 - .data$anion_sum2) /
-                                 (.data$cation_sum2 + .data$anion_sum2)),
+      charge_balance = 100 * ((.data$cation_sum - .data$anion_sum) /
+                                (.data$cation_sum + .data$anion_sum)),
 
-      anion_sum2 = round(.data$anion_sum2, 2),
-      cation_sum2 = round(.data$cation_sum2, 2),
-      charge_balance2 = round(.data$charge_balance2, 1)) %>%
+      anion_sum = round(.data$anion_sum, 2),
+      cation_sum = round(.data$cation_sum, 2),
+      charge_balance = round(.data$charge_balance, 1)) %>%
     dplyr::left_join(
-      dplyr::select(d, -dplyr::any_of(c("charge_balance2", "anion_balance2",
-                                        "cation_balance2"))),
+      dplyr::select(d, -dplyr::any_of(c("charge_balance", "anion_sum", "cation_sum"))),
       ., by = c("Sample_Date", "SampleID", "StationID"))
 
 }
@@ -244,7 +234,7 @@ piper_plot <- function(d, ems_id = NULL, point_size = 0.1, colour = TRUE,
          "OR 'colour = TRUE'", call. = FALSE)
   }
 
-  d <- dplyr::select(d, c("ems_id", dplyr::contains("charge_balance"),
+  d <- dplyr::select(d, c("ems_id", "charge_balance",
                           "Ca_meq", "Mg_meq",    # X and Y Cations
                           "Na_meq", "K_meq",     # Z Cations
                           "Cl_meq",              # X Anions
@@ -267,15 +257,7 @@ piper_plot <- function(d, ems_id = NULL, point_size = 0.1, colour = TRUE,
 
     dplyr::ungroup()
 
-  if(valid) {
-    d <- dplyr::filter(
-      d,
-      # Keep: If either missing but the other good (<=10)
-      #       Or if both present, and both good
-      (is.na(.data$charge_balance) & abs(.data$charge_balance2) <= 10) |
-        (abs(.data$charge_balance) <= 10 & is.na(.data$charge_balance2)) |
-        (abs(.data$charge_balance) <= 10 & abs(.data$charge_balance2) <= 10))
-  }
+  if(valid) d <- dplyr::filter(d, abs(.data$charge_balance) <= 10)
 
   if(nrow(d) == 0) {
     message("Not enough good quality data for this EMS ID")

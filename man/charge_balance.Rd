@@ -7,48 +7,33 @@
 charge_balance(d)
 }
 \arguments{
-\item{d}{AquaChem formatted dataset
-
-From ALS Global (AquaChem code)
-
-anion sum = p01/35.45 + p02/48.03 + p03/19 + p04/14.01 + p05/14.01 + p06/50.04
-
-- P01 = chloride          (Cl)
-- P02 = sulfate           (SO4)
-- P03 = fluoride          (F)
-- P04 = nitrate as N      (NO3)
-- P05 = nitrite as N      (NO2)
-- P06 = alkalinity total  (Meas_Alk)
-
-cation sum = p01/20.04 + p02/12.16 + p03/22.99 + p04/39.10 + p05/8.99 +
-             p06/31.77 + p07/27.9 + p08/27.47 + p09/32.70 + p10/14.01 +
-             func_pow((10),(-1*p11))*1000
-
-- P01 = calcium    (Ca)      [dissolved]
-- P02 = magnesium  (Mg)      [dissolved]
-- P03 = sodium     (Na)      [dissolved]
-- P04 = potassium  (K)       [dissolved]
-- P05 = aluminum   (Al_diss) [dissolved]
-- P06 = copper     (Cu_diss) [dissolved]
-- P07 = iron       (Fe_diss) [dissolved]
-- P08 = manganese  (Mn_diss) [dissolved]
-- P09 = zinc       (Zn_diss) [dissolved]
-- P10 = ammonia    (NH4)     [dissolved]
-- P11 = pH         (pH_lab)
-
-Charge balance = 100 x (Cation Sum - Anion sum) / (Cation Sum + Anion Sum)
-
-For ALS, the values are converted to MEQ in the equation.
-
-For charge_balance() some are preconverted `_meq` some are converted in the
-equations.
-
-Missing values are ignored. However, if all values for cations or anions
-are missing the charge balance is `NA`.}
+\item{d}{Data set formatted for AquaChem (output of \code{rems2aquachem()})}
 }
 \value{
 Data frame
 }
 \description{
-Calculate charge balance
+Calculates charge balances based on ALS formula. \strong{Note:} Original EMS
+charge balances, anion sums and cation sums have been \strong{omitted}.
+}
+\details{
+Potential changes in workflows over the years have made it difficult to
+ascertain exactly how charge balances were calculated in older samples. This
+resulted in discrepancies between EMS and locally calculated charge balances.
+Therefore for consistency, we calculate charge balances for all samples using
+the ALS formula below.
+
+One difference between this calculation and that of ALS, is that we use more
+significant digits when calculating MEQ.
+
+anion sum = Cl_meq + SO4_meq + F_meq + NO3_meq + NO2_meq + Means_Alk_meq
+
+cation sum = Ca_meq + Mg_meq + Na_meq + K_meq + Al_diss_meq +
+Cu_diss_meq + Fe_diss_meq + Mn_diss_meq + Zn_diss_meq + NH4_meq +
+(10 ^ (-pH_lab)) * 1000
+
+Charge balance = 100 x (Cation Sum - Anion sum) / (Cation Sum + Anion Sum)
+
+Missing values are ignored (ie. generally treated as 0). However, if all
+values for cations or anions are missing the charge balance is \code{NA}.
 }

@@ -112,11 +112,7 @@ include_graphics("figures/results.png")
 
 ## Downloading data
 
-If you are satisfied with the data, click on "Download to CSV" to download a comma-separate file (.csv) or click on "Download to Excel" to download a colour-coded Excel file of the data (.xlsx).
-
-```{r, echo = FALSE, out.width = "100%"}
-include_graphics("figures/results2.png")
-```
+If you are satisfied with the data, click on "Download to CSV" to download a comma-separate file (.csv) or click on "Download to Excel" to download a colour-coded Excel file of the data (.xlsx). Both buttons are found at the top of the "Results" tab.
 
 
 ## Missing data

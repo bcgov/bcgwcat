@@ -221,15 +221,13 @@ server <- function(input, output) {
                                          "Ca_meq", "Mg_meq", "Na_meq", "Cl_meq",
                                          "HCO3_meq", "SO4_meq",
                                          "cation_sum", "anion_sum",
-                                         "charge_balance",
-                                         "cation_sum2", "anion_sum2",
-                                         "charge_balance2")))
+                                         "charge_balance")))
 
     }
-    d <- dplyr::select(d, "StationID", "SampleID", "Sample_Date", "cation_sum",
-                       "anion_sum", "charge_balance",
-                       "cation_sum2", "anion_sum2", "charge_balance2",
-                       dplyr::everything()) %>%
+    d <- d %>%
+      dplyr::select("StationID", "SampleID", "Sample_Date",
+                    "cation_sum", "anion_sum", "charge_balance",
+                    dplyr::everything()) %>%
       dplyr::arrange("StationID", "SampleID", "Sample_Date")
 
     col_names <- paste(colnames(d), units[colnames(d)], sep = "\n")
@@ -239,10 +237,8 @@ server <- function(input, output) {
                   rownames = FALSE) %>%
       DT::formatRound(columns = c("Ca_meq", "Mg_meq", "Na_meq", "Cl_meq",
                                   "SO4_meq", "HCO3_meq", "cation_sum",
-                                  "anion_sum", "charge_balance",
-                                  "cation_sum2", "anion_sum2",
-                                  "charge_balance2")) %>%
-      DT::formatStyle(columns = c("charge_balance", "charge_balance2"),
+                                  "anion_sum", "charge_balance")) %>%
+      DT::formatStyle(columns = "charge_balance",
                       backgroundColor = DT::styleInterval(
                         cuts = c(-10, 10),
                         values = c("#f8d7da", "#d4edda", "#f8d7da")))
