@@ -6,7 +6,7 @@
         "names": {
           "type": "character",
           "attributes": {},
-          "value": ["Sample_Date", "SampleID", "Coord_Lat", "Project", "Coord_Long", "StationID", "Watertype", "Analysis_Date", "shortWatertype", "Comment", "Reference", "Quality_control", "Duplicate_ID", "Labcode", "Location", "Geology", "X", "Y", "Elevation", "Well_Depth", "Screen_Top", "Screen_Mid", "Screen_Bottom", "Gradient", "Station_Comment", "Sample_Depth", "Temp", "14C", "18O", "2H", "Ag_diss", "Ag_tot", "Al_diss", "Al_tot", "As_diss", "As_tot", "B", "B_tot", "Ba", "Ba_tot", "Benzene", "Br", "CN_diss", "CN_tot", "CO3", "Ca", "Ca_tot", "Cd_diss", "Cd_tot", "Cl", "Co_diss", "Co_tot", "Cond", "Cond_field", "Cr_III_diss", "Cr_VI_diss", "Cr_diss", "Cr_tot", "Cu_diss", "Cu_tot", "DO", "Density", "Eh", "Ethylbenzene", "F", "Fe_III_diss", "Fe_II_diss", "Fe_diss", "Fe_tot", "HCO3", "Hg_diss", "Hg_tot", "K", "K_tot", "Li", "Li_tot", "Meas_Alk", "Meas_Hardness", "Mg", "Mg_tot", "Mn_diss", "Mn_tot", "Mo_diss", "Mo_tot", "NH4", "NH4_tot", "NO2", "NO3", "Na", "Na_tot", "Ni_diss", "Ni_tot", "PCE", "Pb_diss", "Pb_tot", "SO4", "Sb_diss", "Sb_tot", "Se_diss", "Se_tot", "Si", "Si_tot", "Sr", "Sr_tot", "TCE", "TOC", "TSS", "Tl_diss", "Tl_tot", "Toluene", "Tritium", "U_diss", "U_tot", "V_diss", "V_tot", "Vinyl chloride", "Xylene", "Zn_diss", "Zn_tot", "anion_sum", "cation_sum", "charge_balance", "pH_field", "pH_lab", "Nitrate(NO3)_+_Nitrite(NO2)_Dissolved", "Nitrogen_Kjel_Tot(N)", "Phosphorus_Total_Dissolved", "Silica_Reactive_Diss", "Phosphorus_Total", "Residue:_Filterable_1_0u_(TDS)", "Alkalinity;_Phenolphthalein_(as_CaCO3)", "Titanium_Total", "Tin_Total", "Beryllium_Total", "Bismuth_Total", "Tellurium_Total", "Zirconium_Total", "Phosphorus_Ort_Dis-P", "Sulfur_Total", "Sulfur_Dissolved", "Beryllium_Dissolved", "Nitrogen_Total", "Titanium_Dissolved", "Hardness_Total_(Total)", "Tin_Dissolved", "Turbidity", "Total_Nitrogen_NO2_+_NO3", "Acidity_pH_8_3_(as_CaCO3)", "Acidity_pH_4_5_(as_CaCO3)", "Bismuth_Dissolved", "Nitrogen_Organic-Total", "Cyanide_WAD", "Zirconium_Dissolved", "Nitrogen_Organic_Total_Dissolved", "Nitrogen_Total_Dissolved", "Hydroxide_Alkalinity_(as_CaCO3)", "Nitrogen_(Kjeldahl)_Total_Dissolved", "Tellerium_Dissolved", "Carbon_Dissolved_Organic", "Al_diss_meq", "HCO3_meq", "Br_meq", "Ca_meq", "CO3_meq", "Cl_meq", "F_meq", "Fe_diss_meq", "Mg_meq", "Mn_diss_meq", "NO3_meq", "NO2_meq", "K_meq", "Na_meq", "SO4_meq", "anion_sum2", "cation_sum2", "charge_balance2", "Cl_p", "SO4_p", "HCO3_p", "Ca_p", "Mg_p", "Na_p", "K_p", "water_type"]
+          "value": ["Sample_Date", "SampleID", "Coord_Lat", "Project", "Coord_Long", "StationID", "Watertype", "Analysis_Date", "shortWatertype", "Comment", "Reference", "Quality_control", "Duplicate_ID", "Labcode", "Location", "Geology", "X", "Y", "Elevation", "Well_Depth", "Screen_Top", "Screen_Mid", "Screen_Bottom", "Gradient", "Station_Comment", "Sample_Depth", "Temp", "14C", "18O", "2H", "Ag_diss", "Ag_tot", "Al_diss", "Al_tot", "As_diss", "As_tot", "B", "B_tot", "Ba", "Ba_tot", "Benzene", "Br", "CN_diss", "CN_tot", "CO3", "Ca", "Ca_tot", "Cd_diss", "Cd_tot", "Cl", "Co_diss", "Co_tot", "Cond", "Cond_field", "Cr_III_diss", "Cr_VI_diss", "Cr_diss", "Cr_tot", "Cu_diss", "Cu_tot", "DO", "Density", "Eh", "Ethylbenzene", "F", "Fe_III_diss", "Fe_II_diss", "Fe_diss", "Fe_tot", "HCO3", "Hg_diss", "Hg_tot", "K", "K_tot", "Li", "Li_tot", "Meas_Alk", "Meas_Hardness", "Mg", "Mg_tot", "Mn_diss", "Mn_tot", "Mo_diss", "Mo_tot", "NH4", "NH4_tot", "NO2", "NO3", "Na", "Na_tot", "Ni_diss", "Ni_tot", "PCE", "Pb_diss", "Pb_tot", "SO4", "Sb_diss", "Sb_tot", "Se_diss", "Se_tot", "Si", "Si_tot", "Sr", "Sr_tot", "TCE", "TOC", "TSS", "Tl_diss", "Tl_tot", "Toluene", "Tritium", "U_diss", "U_tot", "V_diss", "V_tot", "Vinyl chloride", "Xylene", "Zn_diss", "Zn_tot", "pH_field", "pH_lab", "Nitrate(NO3)_+_Nitrite(NO2)_Dissolved", "Nitrogen_Kjel_Tot(N)", "Phosphorus_Total_Dissolved", "Silica_Reactive_Diss", "Phosphorus_Total", "Residue:_Filterable_1_0u_(TDS)", "Alkalinity;_Phenolphthalein_(as_CaCO3)", "Titanium_Total", "Tin_Total", "Beryllium_Total", "Bismuth_Total", "Tellurium_Total", "Zirconium_Total", "Phosphorus_Ort_Dis-P", "Sulfur_Total", "Sulfur_Dissolved", "Beryllium_Dissolved", "Nitrogen_Total", "Titanium_Dissolved", "Hardness_Total_(Total)", "Tin_Dissolved", "Turbidity", "Total_Nitrogen_NO2_+_NO3", "Acidity_pH_8_3_(as_CaCO3)", "Acidity_pH_4_5_(as_CaCO3)", "Bismuth_Dissolved", "Nitrogen_Organic-Total", "Cyanide_WAD", "Zirconium_Dissolved", "Nitrogen_Organic_Total_Dissolved", "Nitrogen_Total_Dissolved", "Hydroxide_Alkalinity_(as_CaCO3)", "Nitrogen_(Kjeldahl)_Total_Dissolved", "Al_diss_meq", "Ca_meq", "Cl_meq", "CO3_meq", "Cu_diss_meq", "F_meq", "Fe_diss_meq", "HCO3_meq", "K_meq", "Meas_Alk_meq", "Mg_meq", "Mn_diss_meq", "Na_meq", "NH4_meq", "NO2_meq", "NO3_meq", "SO4_meq", "Zn_diss_meq", "Tellerium_Dissolved", "Carbon_Dissolved_Organic", "anion_sum", "cation_sum", "charge_balance", "Cl_p", "SO4_p", "HCO3_p", "Ca_p", "Mg_p", "Na_p", "K_p", "water_type"]
         },
         "row.names": {
           "type": "integer",
@@ -618,21 +618,6 @@
         {
           "type": "character",
           "attributes": {},
-          "value": ["meq/L", null, null, null, null, null, null, "9.75", "9.09", null, null, null, "6.43", "6.24", null, "1.37"]
-        },
-        {
-          "type": "character",
-          "attributes": {},
-          "value": ["meq/L", null, null, null, null, null, null, "9.66", "9.97", null, null, null, "6.44", "5.78", null, "1.32"]
-        },
-        {
-          "type": "character",
-          "attributes": {},
-          "value": ["%", null, null, null, null, null, null, "-0.5", "4.6", null, null, null, "0.1", "-3.8", null, "-1.8"]
-        },
-        {
-          "type": "character",
-          "attributes": {},
           "value": ["pH", null, null, null, null, null, null, "7.5", "7.56", null, null, null, "7.67", "7.84", null, null]
         },
         {
@@ -808,7 +793,92 @@
         {
           "type": "character",
           "attributes": {},
-          "value": ["", null, null, null, null, null, null, null, null, null, null, null, null, null, null, null]
+          "value": ["meq", "0.00222379864837518", null, null, "0.00555949662093795", null, "0.000333569797256277", "0.000177903891870015", "0.000166784898628139", "0.00222379864837518", null, "0.0111189932418759", "0.000111189932418759", "0.000122308925660635", "0.000769434332337813", "0.000333569797256277"]
+        },
+        {
+          "type": "character",
+          "attributes": {},
+          "value": ["meq", "0.187135086581167", null, null, "0.229552372872898", null, "0.444632965716852", "6.68696042716702", "6.93647387594191", "0.170168172064474", null, "0.608812815010729", "3.368431558461", "2.81950197115625", "0.928190029442587", "0.788462498128649"]
+        },
+        {
+          "type": "character",
+          "attributes": {},
+          "value": ["meq", "0.0225650861704228", "0.0282063577130285", "0.0282063577130285", "0.0282063577130285", "0.0423095365695428", "0.0366682650269371", "0.220009590161622", "0.0812343102135221", "0.0366682650269371", "0.0338476292556342", "0.0282063577130285", "0.023693340478944", "0.0313090570614617", "0.0507714438834513", "0.0355400107184159"]
+        },
+        {
+          "type": "character",
+          "attributes": {},
+          "value": ["meq", null, null, null, null, "0.106650846791059", "0.0633239402821915", "0.033328389622206", "0.033328389622206", null, null, null, "0.033328389622206", "0.033328389622206", null, "0.033328389622206"]
+        },
+        {
+          "type": "character",
+          "attributes": {},
+          "value": ["meq", "0.000314732634626884", null, null, "0.000251786107701508", null, "5.35045478865704e-06", "6.29465269253769e-06", "6.60938532716457e-06", "0.000314732634626884", null, "3.14732634626884e-05", "6.29465269253769e-06", "6.29465269253769e-06", "2.17794983161804e-05", "6.29465269253769e-06"]
+        },
+        {
+          "type": "character",
+          "attributes": {},
+          "value": ["meq", "0.00526360114535961", "0.00526360114535961", "0.00526360114535961", "0.00368452080175173", "0.00368452080175173", "0.00368452080175173", "0.00526360114535961", "0.00584259727134917", "0.00526360114535961", "0.00631632137443153", "0.0094744820616473", "0.0118431025770591", "0.0151591712986357", "0.00163171635506148", "0.00121062826343271"]
+        },
+        {
+          "type": "character",
+          "attributes": {},
+          "value": ["meq", "0.0007162682424568", null, null, "0.0001790670606142", null, "3.581341212284e-05", "0.0037604082728982", "0.00619572029725132", "0.0003581341212284", null, "0.00487062404870624", "0.00433342286686364", "0.00300474527710628", "0.0018587160891754", "0.00141462977885218"]
+        },
+        {
+          "type": "character",
+          "attributes": {},
+          "value": ["meq", null, null, null, null, "1.54058204500794", "1.63891706915738", "4.55618945225753", "3.70395257629569", null, null, null, "3.39255833315578", "3.16310994347375", null, "1.07349068029809"]
+        },
+        {
+          "type": "character",
+          "attributes": {},
+          "value": ["meq", "0.066499054946123", "0.0869603026218531", null, "0.0792873347434543", null, "0.0905410209651059", "0.106654253509743", "0.114071455792196", "0.143228733730111", "0.135555765851712", null, "0.127882797973313", "0.139136484194965", "0.0340168242609014", "0.0255254064754734"]
+        },
+        {
+          "type": "character",
+          "attributes": {},
+          "value": ["meq", "1.14700325417212", "1.69852398265907", "2.01824614410078", "1.69053092862303", "1.65855871247886", "1.7784545230195", "5.55517255504966", "4.51607553036411", "2.05821141428099", "2.13814195464142", "2.05821141428099", "4.13640546365209", "3.85664857239059", "1.32285044296506", "1.30886259840199"]
+        },
+        {
+          "type": "character",
+          "attributes": {},
+          "value": ["meq", "0.48961119111294", null, null, "0.872248508537338", null, "1.07796749639992", "2.16416375231434", "2.20530754988685", "1.40711787698005", null, "1.30837276280601", "2.24645134745937", "1.84324213124871", "0.348899403414935", "0.357128162929438"]
+        },
+        {
+          "type": "character",
+          "attributes": {},
+          "value": ["meq", "0.000364046478542008", null, null, "0.00101933013991762", null, "0.00212239096989991", "0.00615238548735994", "0.00680766914873556", "0.000728092957084017", null, "0.00152899520987644", "0.0087735201328624", "0.00782699928865318", "0.00986565956848843", "0.00753576210581957"]
+        },
+        {
+          "type": "character",
+          "attributes": {},
+          "value": ["meq", "0.465424403984903", "0.487173207909431", null, "0.461074643199997", null, "0.51762153340377", "0.678562682445279", "0.713360768724524", "0.622015792241506", "0.713360768724524", null, "0.682912443230185", "0.974346415818862", "0.174860383553206", "0.140932249430943"]
+        },
+        {
+          "type": "character",
+          "attributes": {},
+          "value": ["meq", "0.000356972020533031", "0.000785338445172667", "0.000356972020533031", "0.000928127253385879", null, "0.00192764891087837", "0.000428366424639637", null, "0.00321274818479728", "0.00671107398602098", "0.0022846209314114", "0.00127082039309759", null, "0.000356972020533031", "0.00172060513896921"]
+        },
+        {
+          "type": "character",
+          "attributes": {},
+          "value": ["meq", null, "0.000356972020533031", "0.000356972020533031", "0.000356972020533031", "0.000142788808213212", "0.000142788808213212", "0.000356972020533031", "7.13944041066061e-05", null, "0.000356972020533031", "0.000356972020533031", "8.56732849279273e-05", "7.13944041066061e-05", "0.000164207129445194", "7.13944041066061e-05"]
+        },
+        {
+          "type": "character",
+          "attributes": {},
+          "value": ["meq", null, null, null, "0.000713944041066061", "0.000142788808213212", "0.000142788808213212", "0.00107091606159909", "0.000214183212319818", null, null, null, "0.000456924186282279", "0.000214183212319818", "0.000142788808213212", "0.000214183212319818"]
+        },
+        {
+          "type": "character",
+          "attributes": {},
+          "value": ["meq", "0.0208197571167135", "0.0208197571167135", "0.162394105510365", "0.0104098785583567", "0.0749511256201685", "0.458034656567696", "3.95575385217556", "4.49706753721011", "0.151984226952008", "0.403903288064241", "0.287312648210646", "2.26935352572177", "2.33181279707191", "0.0251919061112233", "0.0256083012535576"]
+        },
+        {
+          "type": "character",
+          "attributes": {},
+          "value": ["meq", "0.000305903946160905", null, null, "0.000672988681553992", null, "3.05903946160905e-06", "3.05903946160905e-05", "3.05903946160905e-05", "0.000305903946160905", null, "6.11807892321811e-05", "3.05903946160905e-05", "3.05903946160905e-05", "0.000207402875497094", "3.05903946160905e-05"]
         },
         {
           "type": "character",
@@ -818,92 +888,22 @@
         {
           "type": "character",
           "attributes": {},
-          "value": ["meq", "0.0022238", null, null, "0.0055595", null, "0.00033357", "0.000177904", "0.000166785", "0.0022238", null, "0.011119", "0.00011119", "0.000122309", "0.0007694348", "0.00033357"]
+          "value": ["", null, null, null, null, null, null, null, null, null, null, null, null, null, null, null]
         },
         {
           "type": "character",
           "attributes": {},
-          "value": ["meq", null, null, null, null, "1.54066", "1.639", "4.55642", "3.70414", null, null, null, "3.39273", "3.16327", null, "1.073545"]
+          "value": ["meq/L", "1.2", "1.75", "2.21", "1.73", "1.78", "2.28", "9.74", "9.1", "2.25", "2.58", "2.38", "6.44", "6.24", "1.4", "1.37"]
         },
         {
           "type": "character",
           "attributes": {},
-          "value": ["meq", null, null, null, "0.000626", null, null, null, null, null, null, null, null, null, null, null]
+          "value": ["meq/L", "1.21", "0.57", "0", "1.65", "0", "2.14", "9.65", "9.98", "2.35", "0.86", "1.94", "6.44", "5.79", "1.5", "1.32"]
         },
         {
           "type": "character",
           "attributes": {},
-          "value": ["meq", "0.187125", null, null, "0.22954", null, "0.444609", "6.6866", "6.9361", "0.170159", null, "0.60878", "3.36825", "2.81935", "0.92814", "0.78842"]
-        },
-        {
-          "type": "character",
-          "attributes": {},
-          "value": ["meq", null, null, null, null, "0.106656", "0.063327", "0.03333", "0.03333", null, null, null, "0.03333", "0.03333", null, "0.03333"]
-        },
-        {
-          "type": "character",
-          "attributes": {},
-          "value": ["meq", "0.022568", "0.02821", "0.02821", "0.02821", "0.042315", "0.036673", "0.220038", "0.0812448", "0.036673", "0.033852", "0.02821", "0.0236964", "0.0313131", "0.050778", "0.0355446"]
-        },
-        {
-          "type": "character",
-          "attributes": {},
-          "value": ["meq", "0.005264", "0.005264", "0.005264", "0.0036848", "0.0036848", "0.0036848", "0.005264", "0.00584304", "0.005264", "0.0063168", "0.0094752", "0.011844", "0.01516032", "0.00163184", "0.00121072"]
-        },
-        {
-          "type": "character",
-          "attributes": {},
-          "value": ["meq", "0.0007162", null, null, "0.00017905", null, "3.581e-05", "0.00376005", "0.00619513", "0.0003581", null, "0.00487016", "0.00433301", "0.003004459", "0.001858539", "0.001414495"]
-        },
-        {
-          "type": "character",
-          "attributes": {},
-          "value": ["meq", "0.4896255", null, null, "0.872274", null, "1.077999", "2.164227", "2.205372", "1.407159", null, "1.308411", "2.246517", "1.843296", "0.3489096", "0.3571386"]
-        },
-        {
-          "type": "character",
-          "attributes": {},
-          "value": ["meq", "0.000364", null, null, "0.0010192", null, "0.00212212", "0.0061516", "0.0068068", "0.000728", null, "0.0015288", "0.0087724", "0.007826", "0.0098644", "0.0075348"]
-        },
-        {
-          "type": "character",
-          "attributes": {},
-          "value": ["meq", null, null, null, "0.0007139", "0.00014278", "0.00014278", "0.00107085", "0.00021417", null, null, null, "0.000456896", "0.00021417", "0.00014278", "0.00021417"]
-        },
-        {
-          "type": "character",
-          "attributes": {},
-          "value": ["meq", null, "0.00035695", "0.00035695", "0.00035695", "0.00014278", "0.00014278", "0.00035695", "7.139e-05", null, "0.00035695", "0.00035695", "8.5668e-05", "7.139e-05", "0.000164197", "7.139e-05"]
-        },
-        {
-          "type": "character",
-          "attributes": {},
-          "value": ["meq", "0.066508", "0.086972", null, "0.079298", null, "0.0905532", "0.1066686", "0.1140868", "0.143248", "0.135574", null, "0.1279", "0.1391552", "0.0340214", "0.02552884"]
-        },
-        {
-          "type": "character",
-          "attributes": {},
-          "value": ["meq", "0.46545", "0.4872", null, "0.4611", null, "0.51765", "0.6786", "0.7134", "0.62205", "0.7134", null, "0.68295", "0.9744", "0.17487", "0.14094"]
-        },
-        {
-          "type": "character",
-          "attributes": {},
-          "value": ["meq", "0.02082", "0.02082", "0.162396", "0.01041", "0.074952", "0.45804", "3.9558", "4.49712", "0.151986", "0.403908", "0.287316", "2.26938", "2.33184", "0.0251922", "0.0256086"]
-        },
-        {
-          "type": "character",
-          "attributes": {},
-          "value": ["", "1.2", "1.75", "2.21", "1.73", "1.78", "2.28", "9.74", "9.1", "2.25", "2.58", "2.38", "6.44", "6.24", "1.4", "1.37"]
-        },
-        {
-          "type": "character",
-          "attributes": {},
-          "value": ["", "1.83", "0.57", "0", "2.57", "0", "2.14", "9.68", "10.02", "2.97", "0.86", "2.03", "6.48", "5.82", "1.73", "1.36"]
-        },
-        {
-          "type": "character",
-          "attributes": {},
-          "value": ["%", "21", "-51", "-100", "20", "-100", "-3", "0", "5", "14", "-50", "-8", "0", "-3", "10", "0"]
+          "value": ["%", "0.7", "-50.6", "-100", "-2.5", "-100", "-3.2", "-0.5", "4.6", "2.1", "-50.2", "-10.3", "0", "-3.7", "3.4", "-1.8"]
         },
         {
           "type": "character",
@@ -956,7 +956,7 @@
         "names": {
           "type": "character",
           "attributes": {},
-          "value": ["Sample_Date", "SampleID", "Coord_Lat", "Project", "Coord_Long", "StationID", "Watertype", "Analysis_Date", "shortWatertype", "Comment", "Reference", "Quality_control", "Duplicate_ID", "Labcode", "Location", "Geology", "X", "Y", "Elevation", "Well_Depth", "Screen_Top", "Screen_Mid", "Screen_Bottom", "Gradient", "Station_Comment", "Sample_Depth", "Temp", "14C", "18O", "2H", "Ag_diss", "Ag_tot", "Al_diss", "Al_tot", "As_diss", "As_tot", "B", "B_tot", "Ba", "Ba_tot", "Benzene", "Br", "CN_diss", "CN_tot", "CO3", "Ca", "Ca_tot", "Cd_diss", "Cd_tot", "Cl", "Co_diss", "Co_tot", "Cond", "Cond_field", "Cr_III_diss", "Cr_VI_diss", "Cr_diss", "Cr_tot", "Cu_diss", "Cu_tot", "DO", "Density", "Eh", "Ethylbenzene", "F", "Fe_III_diss", "Fe_II_diss", "Fe_diss", "Fe_tot", "HCO3", "Hg_diss", "Hg_tot", "K", "K_tot", "Li", "Li_tot", "Meas_Alk", "Meas_Hardness", "Mg", "Mg_tot", "Mn_diss", "Mn_tot", "Mo_diss", "Mo_tot", "NH4", "NH4_tot", "NO2", "NO3", "Na", "Na_tot", "Ni_diss", "Ni_tot", "PCE", "Pb_diss", "Pb_tot", "SO4", "Sb_diss", "Sb_tot", "Se_diss", "Se_tot", "Si", "Si_tot", "Sr", "Sr_tot", "TCE", "TOC", "TSS", "Tl_diss", "Tl_tot", "Toluene", "Tritium", "U_diss", "U_tot", "V_diss", "V_tot", "Vinyl chloride", "Xylene", "Zn_diss", "Zn_tot", "anion_sum", "cation_sum", "charge_balance", "pH_field", "pH_lab", "Residue:_Filterable_1_0u_(TDS)", "Nitrogen_Kjel_Tot(N)", "Alkalinity;_Phenolphthalein_(as_CaCO3)", "Silica_Reactive_Diss", "Phosphorus_Total_Dissolved", "Phosphorus_Total", "Nitrate(NO3)_+_Nitrite(NO2)_Dissolved", "Al_diss_meq", "HCO3_meq", "Br_meq", "Ca_meq", "CO3_meq", "Cl_meq", "F_meq", "Fe_diss_meq", "Mg_meq", "Mn_diss_meq", "NO3_meq", "NO2_meq", "K_meq", "Na_meq", "SO4_meq", "anion_sum2", "cation_sum2", "charge_balance2", "Cl_p", "SO4_p", "HCO3_p", "Ca_p", "Mg_p", "Na_p", "K_p", "water_type"]
+          "value": ["Sample_Date", "SampleID", "Coord_Lat", "Project", "Coord_Long", "StationID", "Watertype", "Analysis_Date", "shortWatertype", "Comment", "Reference", "Quality_control", "Duplicate_ID", "Labcode", "Location", "Geology", "X", "Y", "Elevation", "Well_Depth", "Screen_Top", "Screen_Mid", "Screen_Bottom", "Gradient", "Station_Comment", "Sample_Depth", "Temp", "14C", "18O", "2H", "Ag_diss", "Ag_tot", "Al_diss", "Al_tot", "As_diss", "As_tot", "B", "B_tot", "Ba", "Ba_tot", "Benzene", "Br", "CN_diss", "CN_tot", "CO3", "Ca", "Ca_tot", "Cd_diss", "Cd_tot", "Cl", "Co_diss", "Co_tot", "Cond", "Cond_field", "Cr_III_diss", "Cr_VI_diss", "Cr_diss", "Cr_tot", "Cu_diss", "Cu_tot", "DO", "Density", "Eh", "Ethylbenzene", "F", "Fe_III_diss", "Fe_II_diss", "Fe_diss", "Fe_tot", "HCO3", "Hg_diss", "Hg_tot", "K", "K_tot", "Li", "Li_tot", "Meas_Alk", "Meas_Hardness", "Mg", "Mg_tot", "Mn_diss", "Mn_tot", "Mo_diss", "Mo_tot", "NH4", "NH4_tot", "NO2", "NO3", "Na", "Na_tot", "Ni_diss", "Ni_tot", "PCE", "Pb_diss", "Pb_tot", "SO4", "Sb_diss", "Sb_tot", "Se_diss", "Se_tot", "Si", "Si_tot", "Sr", "Sr_tot", "TCE", "TOC", "TSS", "Tl_diss", "Tl_tot", "Toluene", "Tritium", "U_diss", "U_tot", "V_diss", "V_tot", "Vinyl chloride", "Xylene", "Zn_diss", "Zn_tot", "pH_field", "pH_lab", "Residue:_Filterable_1_0u_(TDS)", "Nitrogen_Kjel_Tot(N)", "Alkalinity;_Phenolphthalein_(as_CaCO3)", "Silica_Reactive_Diss", "Phosphorus_Total_Dissolved", "Phosphorus_Total", "Nitrate(NO3)_+_Nitrite(NO2)_Dissolved", "Al_diss_meq", "Ca_meq", "Cl_meq", "CO3_meq", "Cu_diss_meq", "F_meq", "Fe_diss_meq", "HCO3_meq", "K_meq", "Meas_Alk_meq", "Mg_meq", "Mn_diss_meq", "Na_meq", "NH4_meq", "NO2_meq", "NO3_meq", "SO4_meq", "Zn_diss_meq", "anion_sum", "cation_sum", "charge_balance", "Cl_p", "SO4_p", "HCO3_p", "Ca_p", "Mg_p", "Na_p", "K_p", "water_type"]
         },
         "row.names": {
           "type": "integer",
@@ -1568,21 +1568,6 @@
         {
           "type": "character",
           "attributes": {},
-          "value": ["meq/L", null]
-        },
-        {
-          "type": "character",
-          "attributes": {},
-          "value": ["meq/L", null]
-        },
-        {
-          "type": "character",
-          "attributes": {},
-          "value": ["%", null]
-        },
-        {
-          "type": "character",
-          "attributes": {},
           "value": ["pH", null]
         },
         {
@@ -1638,7 +1623,7 @@
         {
           "type": "character",
           "attributes": {},
-          "value": ["meq", null]
+          "value": ["meq", "0.0282063577130285"]
         },
         {
           "type": "character",
@@ -1653,12 +1638,7 @@
         {
           "type": "character",
           "attributes": {},
-          "value": ["meq", "0.02821"]
-        },
-        {
-          "type": "character",
-          "attributes": {},
-          "value": ["meq", "0.005264"]
+          "value": ["meq", "0.00526360114535961"]
         },
         {
           "type": "character",
@@ -1673,7 +1653,12 @@
         {
           "type": "character",
           "attributes": {},
-          "value": ["meq", null]
+          "value": ["meq", "0.0869603026218531"]
+        },
+        {
+          "type": "character",
+          "attributes": {},
+          "value": ["meq", "1.69852398265907"]
         },
         {
           "type": "character",
@@ -1683,37 +1668,52 @@
         {
           "type": "character",
           "attributes": {},
-          "value": ["meq", "0.00035695"]
+          "value": ["meq", null]
         },
         {
           "type": "character",
           "attributes": {},
-          "value": ["meq", "0.086972"]
+          "value": ["meq", "0.487173207909431"]
         },
         {
           "type": "character",
           "attributes": {},
-          "value": ["meq", "0.4872"]
+          "value": ["meq", "0.000785338445172667"]
         },
         {
           "type": "character",
           "attributes": {},
-          "value": ["meq", "0.02082"]
+          "value": ["meq", "0.000356972020533031"]
         },
         {
           "type": "character",
           "attributes": {},
-          "value": ["", "1.75"]
+          "value": ["meq", null]
         },
         {
           "type": "character",
           "attributes": {},
-          "value": ["", "0.57"]
+          "value": ["meq", "0.0208197571167135"]
         },
         {
           "type": "character",
           "attributes": {},
-          "value": ["%", "-51"]
+          "value": ["meq", null]
+        },
+        {
+          "type": "character",
+          "attributes": {},
+          "value": ["meq/L", "1.75"]
+        },
+        {
+          "type": "character",
+          "attributes": {},
+          "value": ["meq/L", "0.57"]
+        },
+        {
+          "type": "character",
+          "attributes": {},
+          "value": ["%", "-50.6"]
         },
         {
           "type": "character",
