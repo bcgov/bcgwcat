@@ -4,7 +4,7 @@
 \alias{stiff_plot}
 \title{Create Stiff plot}
 \usage{
-stiff_plot(d, ems_id = NULL, colour = TRUE, legend = TRUE)
+stiff_plot(d, ems_id = NULL, colour = TRUE, legend = TRUE, valid = TRUE)
 }
 \arguments{
 \item{d}{AquaChem formatted dataset}
@@ -14,6 +14,8 @@ stiff_plot(d, ems_id = NULL, colour = TRUE, legend = TRUE)
 \item{colour}{Whether to add colour by ems_id}
 
 \item{legend}{Whether to show the legend}
+
+\item{valid}{Logical. Keep only valid data (charge balances <=10)}
 }
 \description{
 Create Stiff plot

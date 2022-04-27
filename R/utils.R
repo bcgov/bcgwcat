@@ -307,12 +307,16 @@ piper_plot <- function(d, ems_id = NULL, point_size = 0.1, colour = TRUE,
 #' @param ems_id Ids to plot if dataset includes more than one
 #' @param colour Whether to add colour by ems_id
 #' @param legend Whether to show the legend
+#' @param valid Logical. Keep only valid data (charge balances <=10)
 #'
 #' @export
 
-stiff_plot <- function(d, ems_id = NULL, colour = TRUE, legend = TRUE) {
+stiff_plot <- function(d, ems_id = NULL, colour = TRUE, legend = TRUE,
+                       valid = TRUE) {
 
-  d <- d[-1, ] %>%
+
+  d <- d %>%
+    units_remove() %>%
     dplyr::mutate(ems_id = stringr::str_extract(.data$SampleID, "^[0-9A-Z]+"))
 
   if(!is.null(ems_id)) {
@@ -326,9 +330,11 @@ stiff_plot <- function(d, ems_id = NULL, colour = TRUE, legend = TRUE) {
          "OR 'colour = TRUE'" , call. = FALSE)
   }
 
+  if(valid) d <- dplyr::filter(d, abs(.data$charge_balance) <= 10)
+
+
   stiff <- dplyr::select(d, c("ems_id", "SampleID", "Ca_meq", "Mg_meq", "Na_meq",
                               "Cl_meq", "HCO3_meq", "SO4_meq")) %>%
-    dplyr::mutate(dplyr::across(c(-"ems_id", -"SampleID"), as.numeric)) %>%
     tidyr::pivot_longer(cols = c("Ca_meq", "Mg_meq", "Na_meq",
                                  "Cl_meq", "HCO3_meq", "SO4_meq"),
                         names_to = "element", values_to = "value") %>%

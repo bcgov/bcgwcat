@@ -119,13 +119,16 @@ server <- function(input, output) {
   })
 
   # EMS IDs - Plots
-  output$data_ids <- renderUI({
+  data_ids <- reactive({
     req(data_ac())
-    d <- data_ac()
-    ids <- unique(stringr::str_extract(d$SampleID[-1], "^[0-9A-Z]+"))
+    unique(stringr::str_extract(data_ac()$SampleID[-1], "^[0-9A-Z]+"))
+  })
+
+  output$data_ids <- renderUI({
+    req(data_ids())
     selectInput("ids_to_plot",
                 "EMS IDs to plot (click to add or click/DELETE to remove)",
-                ids, multiple = TRUE, selected = ids)
+                data_ids(), multiple = TRUE, selected = data_ids())
   })
 
   # Parameters - Water Quality Summary
@@ -284,18 +287,22 @@ server <- function(input, output) {
   plot_msg <- "No data to plot\n\nPick a different set of EMS IDs or allow samples with 'bad charge balances' (see left-hand panel)"
 
   output$stiff <- renderPlot({
-    req(data_ac(), input$ids_to_plot)
+    req(data_ac(), input$ids_to_plot, input$ids_to_plot %in% data_ids(),
+        input$data_omit)
     validate(need(nrow(data_ac()) > 1, message = plot_msg))
     params <- data_ac() %>%
       dplyr::filter(!is.na(.data$Ca_meq), !is.na(.data$Mg_meq),
                     !is.na(.data$Na_meq), !is.na(.data$HCO3_meq),
                     !is.na(.data$SO4_meq), !is.na(.data$Cl_meq))
     validate(need(nrow(params) > 1, message = "Missing too many data to plot"))
-    stiff_plot(data_ac(), ems_id = input$ids_to_plot, legend = as.logical(input$legend))
+    stiff_plot(data_ac(), ems_id = input$ids_to_plot,
+               legend = as.logical(input$legend),
+               valid = as.logical(input$data_omit))
   })
 
   output$piperplot <- renderPlot({
-    req(data_ac(), input$ids_to_plot, input$data_omit)
+    req(data_ac(), input$ids_to_plot, input$ids_to_plot %in% data_ids(),
+        input$data_omit)
     validate(need(nrow(data_ac()) > 1, message = plot_msg))
     p <- piper_plot(data_ac(), ems_id = input$ids_to_plot,
                     valid = as.logical(input$data_omit),
