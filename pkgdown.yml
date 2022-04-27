@@ -1,9 +1,9 @@
 pandoc: 2.7.3
-pkgdown: 2.0.2
+pkgdown: 2.0.3
 pkgdown_sha: ~
 articles:
   rems2aquachem: rems2aquachem.html
-last_built: 2022-04-13T20:47Z
+last_built: 2022-04-27T19:56Z
 urls:
   reference: https://bcgov.github.io/rems2aquachem/reference
   article: https://bcgov.github.io/rems2aquachem/articles
