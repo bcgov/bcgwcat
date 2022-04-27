@@ -49,3 +49,38 @@ usethis::use_data(params, ow, wq_std, internal = TRUE, overwrite = TRUE)
 
 unlink("gwells.zip")
 unlink("well.csv")
+
+
+# MEQ Conversions ------------------------------------
+# Atomic mass values from https://en.wikipedia.org/wiki/List_of_elements_by_atomic_properties
+
+meq_conversion <- dplyr::tribble(
+  ~param,     ~mass,         ~valency_state,
+  # Anions
+  "Cl",       35.453,                 1,
+  "SO4",      32.065 + 4*(15.9994),   2,
+  "F",        18.9984032,             1,
+  "NO3",      14.0067,                1,           # as N
+  "NO2",      14.0067,                1,           # as N
+  "Meas_Alk", 40.078 + 12.0107 + 3*(15.9994), 2,   # as CaCO3
+  "HCO3",     1.007 + 12.0107 + 3*(15.9994),  1,
+  "CO3",      12.0107 + 3*(15.9994),          2,
+
+  # Cations
+  "Ca",       40.078,                 2,
+  "Mg",       24.3050,                2,
+  "Na",       22.98976928,            1,
+  "K",        39.0983,                1,
+  "Al_diss",   8.993615,              1,
+  "Cu_diss",  63.546,                 2,
+  "Fe_diss",  55.845,                 2,
+  "Mn_diss",  54.938045,              2,
+  "Zn_diss",  65.38,                  2,
+  "NH4",      14.0067,                1,           # as N
+  ) %>%
+  dplyr::mutate(conversion = round(mass / valency_state, 5)) %>%
+  dplyr::arrange(param)
+
+usethis::use_data(meq_conversion, internal = FALSE, overwrite = TRUE)
+
+

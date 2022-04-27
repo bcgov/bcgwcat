@@ -282,6 +282,9 @@ ac_format <- function(d) {
                                       is.na(.data$StationID),
                                       .data$SampleID[is.na(.data$StationID)]))
 
+  # Calculate MEQ
+  d <- dplyr::bind_rows(d, meq(d))
+
   # Find multiple measures
   # (i.e. same location, same date, same parameter, but different method)
   d <- d %>%
@@ -320,15 +323,10 @@ ac_format <- function(d) {
     dplyr::mutate(SampleID = paste0(.data$SampleID, "-",
                                     1:dplyr::n_distinct(.data$Sample_Date)))
 
-  d <- d %>%
+  d %>%
     dplyr::select(-"SampleID") %>%
     dplyr::left_join(ids, by = c("StationID", "Sample_Date")) %>%
     dplyr::arrange(.data$StationID)
-
-  # Calculate MEQ
-  d <- meq(d)
-
-  d
 }
 
 ac_units <- function(d) {

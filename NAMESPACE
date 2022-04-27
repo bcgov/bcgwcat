@@ -2,6 +2,7 @@
 
 export("%>%")
 export(ac_gui)
+export(meq)
 export(piper_plot)
 export(rems_to_aquachem)
 export(stiff_plot)

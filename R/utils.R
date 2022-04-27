@@ -46,39 +46,48 @@ units_remove <- function(d) {
 units_convert <- function(x, from, to) {
   dplyr::case_when(from == "mg/L" & to == "ug/L" ~ x * 1000,
                    from == "ug/L" & to == "mg/L" ~ x / 1000,
-                   from == to | (is.na(from) & is.na(to)) ~ x,
+                   from == to | (is.na(from) & is.na(to)) | from == "meq" ~ x,
                    TRUE ~ NA_real_)
 }
 
-meq <- function(d, format = "long") {
+#' Calculate MEQ values
+#'
+#' Calculates MEQ values for 'long' data in mg/L. Expects columns:
+#' "aqua_code" and "RESULT", where "aqua_code" is the parameter type
+#' (e.g., "Zn_diss") and RESULT is the numeric concentration in mg/L.
+#'
+#' For conversion details see the included data frame, `meq_conversion`.
+#'
+#' Also see `?meq_conversion` for a description of the data.
+#'
+#' MEQs are calculated by dividing the parameter concentration in mg/L by the
+#' conversion factor.
+#'
+#' **Note: This is an internal function, exported for clarity in calculations**
+#'
+#' @param d Data frame. Long data containing parameters and results
+#' @param drop_na Logical. Whether to omit missing parameters
+#'
+#' @examples
+#'
+#' d <- data.frame(aqua_code = c("Cl", "HCO3"), RESULT = c(5.7, 38.3))
+#' d
+#' meq(d, drop_na = TRUE)
+#' meq(d)
+#'
+#'
+#' @export
 
-  meq_params <- dplyr::filter(params, !is.na(.data$smwr_code)) %>%
-    dplyr::select("aqua_code", "smwr_code")
-
-  if(format == "long") {
-    # Values all in mg/L (RESULT) which is the standard reported by EMS and used by
-    # smwrBase for these elements
-
-    d2 <- dplyr::left_join(meq_params, d, by = "aqua_code") %>%
-      dplyr::mutate(RESULT = purrr::map2_dbl(.data$RESULT, .data$smwr_code,
-                                             ~smwrBase::conc2meq(.x, .y)),
-                    RESULT2 = .data$RESULT,
-                    aqua_code = paste0(.data$aqua_code, "_meq"),
-                    UNIT = "meq",
-                    aqua_unit = "meq") %>%
-      dplyr::select(-"smwr_code")
-    d <- dplyr::bind_rows(d, d2)
-  }
-
-  if(format == "wide") {
-    d <- d %>%
-      dplyr::mutate(
-        dplyr::across(dplyr::any_of(meq_params$aqua_code),
-                      ~ smwrBase::conc2meq(
-                        .x,
-                        meq_params$smwr_code[meq_params$aqua_code == .x]),
-                      .names = "{.col}_meq"))
-  }
+meq <- function(d, drop_na = FALSE) {
+  # Values all in mg/L (RESULT) which is the standard reported by EMS
+  d <- dplyr::select(meq_conversion, "aqua_code" = "param", "conversion") %>%
+    dplyr::left_join(d, by = "aqua_code") %>%
+    dplyr::mutate(RESULT = .data$RESULT / .data$conversion,
+                  aqua_code = paste0(.data$aqua_code, "_meq"),
+                  UNIT = "meq",
+                  aqua_unit = "meq") %>%
+    dplyr::select(-"conversion")
+  if(drop_na) d <- tidyr::drop_na(d)
   d
 }
 
@@ -130,11 +139,7 @@ meq <- function(d, format = "long") {
 charge_balance <- function(d) {
 
   d %>%
-    dplyr::mutate(Meas_Alk_meq = .data$Meas_Alk/50.04,
-                  Cu_diss_meq = .data$Cu_diss/31.77,
-                  Zn_diss_meq = .data$Zn_diss/32.695,
-                  NH4_meq = .data$NH4/14.01,
-                  pH_lab_meq = (10^(-.data$pH_lab)) * 1000) %>%
+    dplyr::mutate(pH_lab_meq = (10^(-.data$pH_lab)) * 1000) %>%
     dplyr::select("Sample_Date", "SampleID", "StationID",
 
                   #anions
