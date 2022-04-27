@@ -30,14 +30,14 @@ get_rems <- function(ems_ids, date_range, interactive) {
 
   ems_ids <- as.character(ems_ids)
 
-  # Only get data which is required
+  # Only get data which is required (with a buffer in case data is out of date)
   hist <- TRUE
   recent <- TRUE
   if(!is.null(date_range)) {
-    if(min(as.Date(date_range)) >= (Sys.Date() - lubridate::years(4))) {
+    if(min(as.Date(date_range)) >= (Sys.Date() - lubridate::years(1))) {
       hist <- FALSE
     }
-    if(max(as.Date(date_range)) <= (Sys.Date() - lubridate::years(4))) {
+    if(max(as.Date(date_range)) <= (Sys.Date() - lubridate::years(1))) {
       recent <- FALSE
     }
   }
