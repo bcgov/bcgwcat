@@ -90,7 +90,7 @@ server <- function(input, output) {
     if(dt == -Inf) dt <- "never" else dt <- as.character(lubridate::as_date(dt))
     valueBox(value = if(!rems_status_recent()) "Out-of-date" else "Up-to-date",
              subtitle = paste0("Recent EMS Data (last updated: ", dt, ")"),
-             color = if(!rems_status_recent()) "red" else "green"
+             color = if(!rems_status_recent()) "orange" else "green"
     )
   })
 
@@ -101,7 +101,7 @@ server <- function(input, output) {
     if(dt == Inf) dt <- "never" else dt <- paste0(dt, " days ago")
     valueBox(value = if(!rems_status_historic()) "Out-of-date" else "Up-to-date",
              subtitle = paste0("Historic EMS Data (last updated: ", dt, ")"),
-             color = if(!rems_status_historic()) "blue" else "green"
+             color = if(!rems_status_historic()) "orange" else "green"
     )
   })
 

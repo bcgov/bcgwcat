@@ -21,12 +21,14 @@
 #'   (YYYY-MM-DD)
 #' @param interactive Logical. Whether or not to allow interactive queries by
 #'   the `rems` package.
+#' @param dont_update Logical. Whether or not to avoid updating EMS if
+#'   `interactive` is FALSE
 #'
 #' @return data frame
 #'
 #' @keywords internal
 
-get_rems <- function(ems_ids, date_range, interactive) {
+get_rems <- function(ems_ids, date_range, interactive, dont_update) {
 
   ems_ids <- as.character(ems_ids)
 
@@ -70,7 +72,8 @@ get_rems <- function(ems_ids, date_range, interactive) {
   # Get recent data -------------------
   if(recent) {
     message("Checking for locally stored recent data...")
-    d <- rems::get_ems_data(which = "2yr", ask = interactive) %>%
+    d <- rems::get_ems_data(which = "2yr", ask = interactive,
+                            dont_update = dont_update) %>%
       dplyr::select("EMS_ID", "COLLECTION_START", "LOCATION_PURPOSE",
                     "SAMPLE_STATE",
                     "LATITUDE", "LONGITUDE", "PARAMETER", "PARAMETER_CODE",
@@ -149,6 +152,8 @@ check_present <- function(d, ems_ids, type = "all") {
 #' @param out_file Character. What to call data file for AquaChem. Default is
 #'   aquachem_DATE.csv
 #' @param interactive Logical. Whether or not to ask when caching data.
+#' @param dont_update Logical. Whether or not to avoid updating EMS if
+#'   `interactive` is FALSE
 #'
 #' @return Outputs an Excel and a CSV file in the format to import into AquaChem.
 #'
@@ -198,7 +203,7 @@ check_present <- function(d, ems_ids, type = "all") {
 #' @export
 rems_to_aquachem <- function(ems_ids, date_range = NULL, save = TRUE,
                              out_folder = "./", out_file = NULL,
-                             interactive = TRUE) {
+                             interactive = TRUE, dont_update = TRUE) {
 
   if(is.null(out_file)) out_file <- paste0("aquachem_", Sys.Date(), ".csv")
 
@@ -216,7 +221,7 @@ rems_to_aquachem <- function(ems_ids, date_range = NULL, save = TRUE,
   # - Columns in params_list.csv (internal params)
   # - Parameter columns
   d <- get_rems(ems_ids = ems_ids, date_range = date_range,
-                interactive = interactive)
+                interactive = interactive, dont_update = dont_update)
 
   if(nrow(d) == 0) return(data.frame())
 

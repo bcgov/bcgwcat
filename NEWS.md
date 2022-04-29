@@ -6,6 +6,7 @@
 * Charge balances can include missing values (rounded to 1 decimal)
 * Charge balances, anion sums and cation sums are recalculated completely
 * Update authors
+* Don't force users to update 2yr data in Shiny app
 
 # rems2aquachem 0.4.3
 * update rems and fix code accordingly

@@ -78,21 +78,31 @@ body <- dashboardBody(
     tabBox(title = NULL, width = 12, id = "box",
 
            # REMS Status Tab ----------------------------------------------------------
-           tabPanel("REMS Status",
-                    fluidRow(
-                      box(width = 12,
-                          h3("Status of REMS data"),
-                          valueBoxOutput("rems_status_historic", width = 4),
-                          valueBoxOutput("rems_status_recent", width = 4),
-                          actionButton("check_status", "Check status"), br(),
-                          actionButton("update_recent", "Update recent data (2yr)"), br(),
-                          actionButton("update_historic", "Update historic data")),
-                      box("Historical data is now being updated daily. ",
-                          "However this is such a large download you may not want to update it everyday.",
-                          width = 4),
-                      box("Recent EMS Data will need to be updated when ever it is out of date.",
-                          width = 4)),
-                    fluidRow(
+           tabPanel(
+             "REMS Status",
+             fluidRow(
+               box(
+                 width = 12,
+                 h3("Status of REMS data"),
+                 column(
+                   width = 4,
+                   valueBoxOutput("rems_status_historic", width = 12),
+                   box(width = 12,
+                       "Historical data is now being updated daily. ",
+                       "However this is such a large download you may not want to update it everyday."),
+                 ),
+                 column(
+                   width = 4,
+                   valueBoxOutput("rems_status_recent", width = 12),
+                   box(width = 12, "Consider updating recent EMS Data if it is out of date.")
+                 ),
+                 column(
+                   width = 4,
+                   actionButton("check_status", "Check status"), br(),
+                   actionButton("update_recent", "Update recent data (2yr)"), br(),
+                   actionButton("update_historic", "Update historic data"))
+                 )),
+               fluidRow(
                       box(h3("Data Messages"), width = 12,
                           verbatimTextOutput("messages", placeholder = TRUE)))),
 

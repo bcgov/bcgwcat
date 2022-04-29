@@ -4,7 +4,7 @@
 \alias{get_rems}
 \title{Fetch data from rems}
 \usage{
-get_rems(ems_ids, date_range, interactive)
+get_rems(ems_ids, date_range, interactive, dont_update)
 }
 \arguments{
 \item{ems_ids}{Character vector. EMS IDs to filter by.}
@@ -14,6 +14,9 @@ get_rems(ems_ids, date_range, interactive)
 
 \item{interactive}{Logical. Whether or not to allow interactive queries by
 the \code{rems} package.}
+
+\item{dont_update}{Logical. Whether or not to avoid updating EMS if
+\code{interactive} is FALSE}
 }
 \value{
 data frame

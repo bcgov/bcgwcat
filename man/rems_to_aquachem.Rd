@@ -10,7 +10,8 @@ rems_to_aquachem(
   save = TRUE,
   out_folder = "./",
   out_file = NULL,
-  interactive = TRUE
+  interactive = TRUE,
+  dont_update = TRUE
 )
 }
 \arguments{
@@ -26,6 +27,9 @@ rems_to_aquachem(
 aquachem_DATE.csv}
 
 \item{interactive}{Logical. Whether or not to ask when caching data.}
+
+\item{dont_update}{Logical. Whether or not to avoid updating EMS if
+\code{interactive} is FALSE}
 }
 \value{
 Outputs an Excel and a CSV file in the format to import into AquaChem.
