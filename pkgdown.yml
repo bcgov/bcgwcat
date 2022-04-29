@@ -3,7 +3,7 @@ pkgdown: 2.0.3
 pkgdown_sha: ~
 articles:
   rems2aquachem: rems2aquachem.html
-last_built: 2022-04-29T18:23Z
+last_built: 2022-04-29T18:30Z
 urls:
   reference: https://bcgov.github.io/rems2aquachem/reference
   article: https://bcgov.github.io/rems2aquachem/articles
