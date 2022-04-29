@@ -48,7 +48,7 @@
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">get_rems</span><span class="op">(</span><span class="va">ems_ids</span>, <span class="va">date_range</span>, <span class="va">interactive</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">get_rems</span><span class="op">(</span><span class="va">ems_ids</span>, <span class="va">date_range</span>, <span class="va">interactive</span>, <span class="va">dont_update</span><span class="op">)</span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -61,6 +61,9 @@
 <dt>interactive</dt>
 <dd><p>Logical. Whether or not to allow interactive queries by
 the <code>rems</code> package.</p></dd>
+<dt>dont_update</dt>
+<dd><p>Logical. Whether or not to avoid updating EMS if
+<code>interactive</code> is FALSE</p></dd>
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
