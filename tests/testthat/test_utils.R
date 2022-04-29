@@ -79,6 +79,32 @@ test_that("is_valid", {
 
 # water type ---------------------------------------------------------
 test_that("water_type", {
+
+  d <- data.frame(Sample_Date = "2022-01-01", SampleID = "999990-01", StationID = 000,
+                  Cl_meq = 0.0226, SO4_meq = 0.0208, HCO3_meq = 1.54,
+                  Ca_meq = 0.187, Mg_meq = 0.490, Na_meq = 0.465, K_meq = 0.0665,
+                  charge_balance = 0.5)
+
+  expect_silent(d <- water_type(d))
+  expect_equal(d$water_type, "Mg-Na-HCO3")
+
+  d <- data.frame(SampleID = "999990-01", StationID = 000,
+                  Cl_meq = 0.0226, SO4_meq = 0.0208, HCO3_meq = 1.54,
+                  Ca_meq = 0.187, Mg_meq = 0.490, Na_meq = 0.465, K_meq = 0.0665,
+                  charge_balance = 0.5)
+
+  expect_error(d <- water_type(d), "Missing required columns")
+
+
+  d <- data.frame(Sample_Date = "2022-01-01", SampleID = "999990-01", StationID = 000,
+                  Cl_meq = NA, SO4_meq = 0.0208, HCO3_meq = NA,
+                  Ca_meq = 0.187, Mg_meq = 0.490, Na_meq = 0.465, K_meq = 0.0665,
+                  charge_balance = 0.5)
+
+  expect_silent(d <- water_type(d))
+  expect_equal(d$water_type, "Mg-Na-Ca")
+
+
   expect_message(p <- rems_to_aquachem(c("E298873", "E292373"),
                                       save = FALSE, interactive = FALSE,
                                       date_range = c("2015-01-01", "2016-12-31")) %>%

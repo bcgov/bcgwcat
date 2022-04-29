@@ -172,7 +172,38 @@ is_valid <- function(charge_balance) {
   abs(charge_balance) <= 10
 }
 
+#' Calculate water type
+#'
+#' Water type based on anions Cl, SO4, HCO3 and cations Ca, Mg, Na and K. Elements
+#' are ranked by proportion MEQ, all greater than 10% are listed in descending
+#' order of presence, cations first. Water type is only calculated for samples
+#' with valid charge balances. Missing ions are ignored (i.e. treated as 0).
+#'
+#' @param d Data frame. Must contain columns `Sample_Date`, `SampleID`,
+#'   `StationID`, `Cl_meq`, `SO4_meq`, `HCO3_meq`, `Ca_meq`, `Mg_meq`, `Na_meq`,
+#'   `K_meq`, and `charge_balance`.
+#'
+#' @return Data frame with added column `water_type`.
+#'
+#' @examples
+#'
+#' d <- data.frame(Sample_Date = "2022-01-01", SampleID = "999990-01", StationID = 000,
+#'                 Cl_meq = 0.0226, SO4_meq = 0.0208, HCO3_meq = 1.54,
+#'                 Ca_meq = 0.187, Mg_meq = 0.490, Na_meq = 0.465, K_meq = 0.0665,
+#'                 charge_balance = 0.5)
+#'
+#' d <- water_type(d)
+#' d
+#'
+#' @export
+
 water_type <- function(d) {
+
+  if(!all(
+    c("Sample_Date", "SampleID", "StationID", "Cl_meq", "SO4_meq",
+      "HCO3_meq", "Ca_meq", "Mg_meq", "Na_meq", "K_meq", "charge_balance") %in%
+    names(d))) stop("Missing required columns. See ?water_type for details",
+                    call. = FALSE)
 
   wt <- d %>%
     # Only calculate water_type where valid charge_balance
