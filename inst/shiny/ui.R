@@ -138,7 +138,7 @@ body <- dashboardBody(
                                  "Note that downloaded plots may not have the same dimensions as the preview plots"),
                              box(title = "Stiff Plot", width = NULL,
                                  plotOutput("stiff", width = "100%", height = "350px"),
-                                 strong("Note that plots only include complete samples"))
+                                 strong("Note that stiff plots only include complete samples"))
                       ),
                       column(width = 6,
                              box(title = "Piper Plot", width = NULL, height = "525px",

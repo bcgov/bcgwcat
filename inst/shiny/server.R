@@ -166,9 +166,10 @@ server <- function(input, output) {
                                             "^[a-zA-Z0-9]*$")],
                               collapse = ", "), "")))
 
-    validate(need(
-      rems_status_recent(),
-      message = "Recent REMS data is out of date, please update it"))
+    shinyjs::html(id = "messages",
+                  html = "Looking for data...\n",
+                  add = TRUE)
+
 
     r <- try(withCallingHandlers(
       rems_to_aquachem(ems_ids = ems_ids(), date_range = input$date_range,
@@ -242,7 +243,7 @@ server <- function(input, output) {
                                   "anion_sum", "charge_balance")) %>%
       DT::formatStyle(columns = "charge_balance",
                       backgroundColor = DT::styleInterval(
-                        cuts = c(-10, 10),
+                        cuts = c(-10.0001, 10),
                         values = c("#f8d7da", "#d4edda", "#f8d7da")))
   })
 

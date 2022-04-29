@@ -298,8 +298,10 @@ piper_plot <- function(d, ems_id = NULL, point_size = 0.1, colour = TRUE,
       units.title = "",
       Plot = col))
 
-    if(legend) smwrGraphs::addExplanation(pp, title = "EMS ID",
-                                          where = "ul", box.off = FALSE)
+    if(legend) {
+      smwrGraphs::addExplanation(pp, title = "EMS ID",
+                                 where = "ul", box.off = FALSE)
+    } else pp
   } else {
     d
   }
