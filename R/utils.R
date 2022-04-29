@@ -167,45 +167,49 @@ charge_balance <- function(d) {
 
 }
 
+
+is_valid <- function(charge_balance) {
+  abs(charge_balance) <= 10
+}
+
 water_type <- function(d) {
 
-  d_new <- d %>%
-    dplyr::mutate(
+  wt <- d %>%
+    # Only calculate water_type where valid charge_balance
+    dplyr::filter(is_valid(charge_balance))
 
-      total = .data$Cl_meq + .data$SO4_meq + .data$HCO3_meq +     # Anions
-        .data$Ca_meq + .data$Mg_meq + .data$Na_meq + .data$K_meq, # Cations
+  if(nrow(wt) > 0) {
+    wt <- wt %>%
+      dplyr::select("Sample_Date", "SampleID", "StationID",
 
-      # Anion proportions
-      Cl_p = .data$Cl_meq / .data$total,
-      SO4_p = .data$SO4_meq / .data$total,
-      HCO3_p = .data$HCO3_meq / .data$total,
+                    #anions
+                    "Cl_meq", "SO4_meq", "HCO3_meq",
 
-      # Cation proportions
-      Ca_p = .data$Ca_meq / .data$total,
-      Mg_p = .data$Mg_meq / .data$total,
-      Na_p = .data$Na_meq / .data$total,
-      K_p = .data$K_meq / .data$total) %>%
-    dplyr::mutate(dplyr::across(dplyr::ends_with("_p"), ~round(., 3))) %>%
-    dplyr::select(-"total")
+                    #cations
+                    "Ca_meq", "Mg_meq", "Na_meq", "K_meq") %>%
 
-
-  d_wt <- d_new %>%
-    dplyr::select("StationID", "SampleID", "Sample_Date",
-                  dplyr::ends_with("_p")) %>%
-    tidyr::pivot_longer(cols = dplyr::ends_with("_p"), names_to = "element",
-                        values_to = "prop") %>%
-    dplyr::filter(.data$prop >= 0.1) %>%
-    dplyr::mutate(type = dplyr::if_else(.data$element %in%
-                                          c("Cl_p", "HCO3_p", "SO4_p"),
-                                 "anion", "cation")) %>%
-    dplyr::group_by(.data$StationID, .data$SampleID, .data$Sample_Date) %>%
-    dplyr::arrange(dplyr::desc(.data$type), dplyr::desc(.data$prop),
-                   .by_group = TRUE) %>%
-    dplyr::summarize(water_type =
-                       paste0(stringr::str_remove(.data$element, "_p"),
-                              collapse = "-"))
-
-  dplyr::left_join(d_new, d_wt, by = c("StationID", "SampleID", "Sample_Date"))
+      tidyr::pivot_longer(cols = dplyr::ends_with("_meq"),
+                          names_to = "ion", values_to = "value") %>%
+      dplyr::group_by(.data$Sample_Date, .data$SampleID, .data$StationID) %>%
+      dplyr::mutate(
+        type = dplyr::if_else(.data$ion %in% c("Cl_meq", "SO4_meq", "HCO3_meq"),
+                              "anion", "cation"),
+        total = sum(.data$value, na.rm = TRUE), # Ignore missing ions
+        total = dplyr::if_else(all(is.na(.data$value)), NA_real_, unique(.data$total)),
+        prop = round(.data$value / .data$total, 3)
+      ) %>%
+      dplyr::filter(.data$prop >= 0.1) %>%
+      dplyr::arrange(dplyr::desc(.data$type), dplyr::desc(.data$prop),
+                     .by_group = TRUE) %>%
+      dplyr::summarize(water_type = paste0(stringr::str_remove(.data$ion, "_meq"),
+                                           collapse = "-"), .groups = "drop") %>%
+      dplyr::select(.data$Sample_Date, .data$SampleID, .data$StationID,
+                    .data$water_type) %>%
+      dplyr::left_join(d, ., by = c("StationID", "SampleID", "Sample_Date"))
+  } else {
+    wt <- dplyr::mutate(d, water_type = NA_character_)
+  }
+  wt
 }
 
 #' Create Piper plot
@@ -260,7 +264,7 @@ piper_plot <- function(d, ems_id = NULL, point_size = 0.1, colour = TRUE,
 
     dplyr::ungroup()
 
-  if(valid) d <- dplyr::filter(d, abs(.data$charge_balance) <= 10)
+  if(valid) d <- dplyr::filter(d, is_valid(charge_balance))
 
   if(nrow(d) == 0) {
     message("Not enough good quality data for this EMS ID")
@@ -330,7 +334,7 @@ stiff_plot <- function(d, ems_id = NULL, colour = TRUE, legend = TRUE,
          "OR 'colour = TRUE'" , call. = FALSE)
   }
 
-  if(valid) d <- dplyr::filter(d, abs(.data$charge_balance) <= 10)
+  if(valid) d <- dplyr::filter(d, is_valid(charge_balance))
 
 
   stiff <- dplyr::select(d, c("ems_id", "SampleID", "Ca_meq", "Mg_meq", "Na_meq",

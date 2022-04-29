@@ -223,7 +223,7 @@ server <- function(input, output) {
                                          "Ca_meq", "Mg_meq", "Na_meq", "Cl_meq",
                                          "HCO3_meq", "SO4_meq",
                                          "cation_sum", "anion_sum",
-                                         "charge_balance")))
+                                         "charge_balance", "water_type")))
 
     }
     d <- d %>%
