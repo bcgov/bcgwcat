@@ -65,8 +65,16 @@
 <div class="page-header"><h1 id="rems2aquachem">
 <code>rems2aquachem</code><a class="anchor" aria-label="anchor" href="#rems2aquachem"></a>
 </h1></div>
-<!-- badges: start --><!-- [![Travis build status](https://travis-ci.org/bcgov/rems2aquachem.svg?branch=master)](https://travis-ci.org/bcgov/rems2aquachem) --><!-- badges: end --><p>The goal of <code>rems2aquachem</code> is to provide a quick and painless way of converting EMS data into a format compatible with AquaChem.</p>
-<p>Data is first downloaded with BC Govs <a href="http://github.com/bcgov/rems" class="external-link"><code>rems</code></a> package, then formatted for use by AquaChem.</p>
+<!-- badges: start --><!-- [![Travis build status](https://travis-ci.org/bcgov/rems2aquachem.svg?branch=master)](https://travis-ci.org/bcgov/rems2aquachem) --><!-- badges: end --><p>The goal of <code>rems2aquachem</code> is to provide easy access to EMS data as well as tools specific to those working with groundwater such as:</p>
+<ul>
+<li>General Shiny GUI</li>
+<li>Converting data to a format for importing into AquaChem</li>
+<li>Providing new charge balance calculations</li>
+<li>Calculating water types</li>
+<li>Scoring water quality</li>
+<li>Piperplots and Stiff plots</li>
+</ul>
+<p>Data is first downloaded with BC Govs <a href="http://github.com/bcgov/rems" class="external-link"><code>rems</code></a> package, then formatted for use by AquaChem and the other tools provided</p>
 <div class="section level2">
 <h2 id="installation-steps">Installation steps<a class="anchor" aria-label="anchor" href="#installation-steps"></a>
 </h2>
@@ -137,33 +145,35 @@
 <span class="va">r</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/rems_to_aquachem.html">rems_to_aquachem</a></span><span class="op">(</span>ems_ids <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"1401030"</span>, <span class="st">"1401377"</span>, <span class="st">"E292373"</span><span class="op">)</span>, interactive <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
 <span class="co">#&gt; Checking for locally stored recent data...</span>
 <span class="co">#&gt; Fetching data from cache...</span>
+<span class="co">#&gt; For consistency EMS charge balances, anion sums, and cation sums have been replaced with recalculated values.</span>
+<span class="co">#&gt; See `?charge_balance` for more details.</span>
 <span class="va">r</span>
-<span class="co">#&gt; # A tibble: 16 × 177</span>
-<span class="co">#&gt;    Sample_Date  SampleID    Coord_Lat Project   Coord_Long StationID Watertype  Analysis_Date</span>
-<span class="co">#&gt;    &lt;chr&gt;        &lt;chr&gt;       &lt;chr&gt;     &lt;chr&gt;     &lt;chr&gt;      &lt;chr&gt;     &lt;chr&gt;      &lt;chr&gt;        </span>
-<span class="co">#&gt;  1 ""           ""          °         ""        °          ""        ""         ""           </span>
-<span class="co">#&gt;  2 "1987-07-07" "1401030-1" 49.2064   "BACKGRO… -119.8228  "075"     "Fresh Wa…  &lt;NA&gt;        </span>
-<span class="co">#&gt;  3 "1991-08-07" "1401030-2" 49.2064   "BACKGRO… -119.8228  "075"     "Fresh Wa…  &lt;NA&gt;        </span>
-<span class="co">#&gt;  4 "1994-06-08" "1401030-3" 49.2064   "BACKGRO… -119.8228  "075"     "Fresh Wa…  &lt;NA&gt;        </span>
-<span class="co">#&gt;  5 "2001-09-09" "1401030-4" 49.2064   "BACKGRO… -119.8228  "075"     "Fresh Wa…  &lt;NA&gt;        </span>
-<span class="co">#&gt;  6 "2009-11-11" "1401030-5" 49.2064   "BACKGRO… -119.8228  "075"     "Fresh Wa…  &lt;NA&gt;        </span>
-<span class="co">#&gt;  7 "2010-08-09" "1401030-6" 49.2064   "BACKGRO… -119.8228  "075"     "Fresh Wa…  &lt;NA&gt;        </span>
-<span class="co">#&gt;  8 "2016-11-02" "1401030-7" 49.2064   "BACKGRO… -119.8228  "075"     "Fresh Wa…  &lt;NA&gt;        </span>
-<span class="co">#&gt;  9 "2018-06-14" "1401030-8" 49.2064   "BACKGRO… -119.8228  "075"     "Ground W…  &lt;NA&gt;        </span>
-<span class="co">#&gt; 10 "1987-07-07" "1401377-1" 49.175    "BACKGRO… -119.7353  "203"     "Fresh Wa…  &lt;NA&gt;        </span>
-<span class="co">#&gt; 11 "1989-10-11" "1401377-2" 49.175    "BACKGRO… -119.7353  "203"     "Fresh Wa…  &lt;NA&gt;        </span>
-<span class="co">#&gt; 12 "1994-03-24" "1401377-3" 49.175    "BACKGRO… -119.7353  "203"     "Fresh Wa…  &lt;NA&gt;        </span>
-<span class="co">#&gt; 13 "2016-11-02" "1401377-4" 49.175    "BACKGRO… -119.7353  "203"     "Fresh Wa…  &lt;NA&gt;        </span>
-<span class="co">#&gt; 14 "2020-06-29" "1401377-5" 49.175    "BACKGRO… -119.7353  "203"     "Ground W…  &lt;NA&gt;        </span>
-<span class="co">#&gt; 15 "2015-03-06" "E292373-1" 49.364604 "GROUNDW… -124.6141… "426"     "Fresh Wa…  &lt;NA&gt;        </span>
-<span class="co">#&gt; 16 "2017-10-11" "E292373-2" 49.364604 "GROUNDW… -124.6141… "426"     "Fresh Wa…  &lt;NA&gt;        </span>
-<span class="co">#&gt; # … with 169 more variables: shortWatertype &lt;chr&gt;, Comment &lt;chr&gt;, Reference &lt;chr&gt;,</span>
-<span class="co">#&gt; #   Quality_control &lt;chr&gt;, Duplicate_ID &lt;chr&gt;, Labcode &lt;chr&gt;, Location &lt;chr&gt;, Geology &lt;chr&gt;,</span>
-<span class="co">#&gt; #   X &lt;chr&gt;, Y &lt;chr&gt;, Elevation &lt;chr&gt;, Well_Depth &lt;chr&gt;, Screen_Top &lt;chr&gt;, Screen_Mid &lt;chr&gt;,</span>
-<span class="co">#&gt; #   Screen_Bottom &lt;chr&gt;, Gradient &lt;chr&gt;, Station_Comment &lt;chr&gt;, Sample_Depth &lt;chr&gt;,</span>
-<span class="co">#&gt; #   Temp &lt;chr&gt;, 14C &lt;chr&gt;, 18O &lt;chr&gt;, 2H &lt;chr&gt;, Ag_diss &lt;chr&gt;, Ag_tot &lt;chr&gt;, Al_diss &lt;chr&gt;,</span>
-<span class="co">#&gt; #   Al_tot &lt;chr&gt;, anion_sum &lt;chr&gt;, As_diss &lt;chr&gt;, As_tot &lt;chr&gt;, B &lt;chr&gt;, B_tot &lt;chr&gt;,</span>
-<span class="co">#&gt; #   Ba &lt;chr&gt;, Ba_tot &lt;chr&gt;, Benzene &lt;chr&gt;, Br &lt;chr&gt;, Ca &lt;chr&gt;, Ca_tot &lt;chr&gt;, …</span></code></pre></div>
+<span class="co">#&gt; # A tibble: 16 × 178</span>
+<span class="co">#&gt;    Sample_Date  SampleID    Coord_Lat Project     Coord_Long StationID Watertype</span>
+<span class="co">#&gt;    &lt;chr&gt;        &lt;chr&gt;       &lt;chr&gt;     &lt;chr&gt;       &lt;chr&gt;      &lt;chr&gt;     &lt;chr&gt;    </span>
+<span class="co">#&gt;  1 ""           ""          °         ""          °          ""        ""       </span>
+<span class="co">#&gt;  2 "1987-07-07" "1401030-1" 49.2064   "BACKGROUN… -119.8228  "075"     "Fresh W…</span>
+<span class="co">#&gt;  3 "1991-08-07" "1401030-2" 49.2064   "BACKGROUN… -119.8228  "075"     "Fresh W…</span>
+<span class="co">#&gt;  4 "1994-06-08" "1401030-3" 49.2064   "BACKGROUN… -119.8228  "075"     "Fresh W…</span>
+<span class="co">#&gt;  5 "2001-09-09" "1401030-4" 49.2064   "BACKGROUN… -119.8228  "075"     "Fresh W…</span>
+<span class="co">#&gt;  6 "2009-11-11" "1401030-5" 49.2064   "BACKGROUN… -119.8228  "075"     "Fresh W…</span>
+<span class="co">#&gt;  7 "2010-08-09" "1401030-6" 49.2064   "BACKGROUN… -119.8228  "075"     "Fresh W…</span>
+<span class="co">#&gt;  8 "2016-11-02" "1401030-7" 49.2064   "BACKGROUN… -119.8228  "075"     "Fresh W…</span>
+<span class="co">#&gt;  9 "2018-06-14" "1401030-8" 49.2064   "BACKGROUN… -119.8228  "075"     "Ground …</span>
+<span class="co">#&gt; 10 "1987-07-07" "1401377-1" 49.175    "BACKGROUN… -119.7353  "203"     "Fresh W…</span>
+<span class="co">#&gt; 11 "1989-10-11" "1401377-2" 49.175    "BACKGROUN… -119.7353  "203"     "Fresh W…</span>
+<span class="co">#&gt; 12 "1994-03-24" "1401377-3" 49.175    "BACKGROUN… -119.7353  "203"     "Fresh W…</span>
+<span class="co">#&gt; 13 "2016-11-02" "1401377-4" 49.175    "BACKGROUN… -119.7353  "203"     "Fresh W…</span>
+<span class="co">#&gt; 14 "2020-06-29" "1401377-5" 49.175    "BACKGROUN… -119.7353  "203"     "Ground …</span>
+<span class="co">#&gt; 15 "2015-03-06" "E292373-1" 49.364604 "GROUNDWAT… -124.6141… "426"     "Fresh W…</span>
+<span class="co">#&gt; 16 "2017-10-11" "E292373-2" 49.364604 "GROUNDWAT… -124.6141… "426"     "Fresh W…</span>
+<span class="co">#&gt; # … with 171 more variables: Analysis_Date &lt;chr&gt;, shortWatertype &lt;chr&gt;,</span>
+<span class="co">#&gt; #   Comment &lt;chr&gt;, Reference &lt;chr&gt;, Quality_control &lt;chr&gt;, Duplicate_ID &lt;chr&gt;,</span>
+<span class="co">#&gt; #   Labcode &lt;chr&gt;, Location &lt;chr&gt;, Geology &lt;chr&gt;, X &lt;chr&gt;, Y &lt;chr&gt;,</span>
+<span class="co">#&gt; #   Elevation &lt;chr&gt;, Well_Depth &lt;chr&gt;, Screen_Top &lt;chr&gt;, Screen_Mid &lt;chr&gt;,</span>
+<span class="co">#&gt; #   Screen_Bottom &lt;chr&gt;, Gradient &lt;chr&gt;, Station_Comment &lt;chr&gt;,</span>
+<span class="co">#&gt; #   Sample_Depth &lt;chr&gt;, Temp &lt;chr&gt;, `14C` &lt;chr&gt;, `18O` &lt;chr&gt;, `2H` &lt;chr&gt;,</span>
+<span class="co">#&gt; #   Ag_diss &lt;chr&gt;, Ag_tot &lt;chr&gt;, Al_diss &lt;chr&gt;, Al_tot &lt;chr&gt;, As_diss &lt;chr&gt;, …</span></code></pre></div>
 <p>Create plots</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="reference/piper_plot.html">piper_plot</a></span><span class="op">(</span><span class="va">r</span>, ems_id <span class="op">=</span> <span class="st">"1401030"</span><span class="op">)</span></code></pre></div>
