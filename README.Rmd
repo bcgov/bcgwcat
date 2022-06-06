@@ -20,11 +20,19 @@ knitr::opts_chunk$set(
 <!-- [![Travis build status](https://travis-ci.org/bcgov/rems2aquachem.svg?branch=master)](https://travis-ci.org/bcgov/rems2aquachem) -->
 <!-- badges: end -->
 
-The goal of `rems2aquachem` is to provide a quick and painless way of converting 
-EMS data into a format compatible with AquaChem.
+The goal of `rems2aquachem` is to provide easy access to EMS data as well as
+tools specific to those working with groundwater such as:
+
+- General Shiny GUI
+- Converting data to a format for importing into AquaChem
+- Providing new charge balance calculations
+- Calculating water types
+- Scoring water quality
+- Piperplots and Stiff plots
+
 
 Data is first downloaded with BC Govs [`rems`](http://github.com/bcgov/rems) 
-package, then formatted for use by AquaChem.
+package, then formatted for use by AquaChem and the other tools provided
 
 ## Installation steps
 

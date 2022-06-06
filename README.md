@@ -9,12 +9,19 @@
 <!-- [![Travis build status](https://travis-ci.org/bcgov/rems2aquachem.svg?branch=master)](https://travis-ci.org/bcgov/rems2aquachem) -->
 <!-- badges: end -->
 
-The goal of `rems2aquachem` is to provide a quick and painless way of
-converting EMS data into a format compatible with AquaChem.
+The goal of `rems2aquachem` is to provide easy access to EMS data as
+well as tools specific to those working with groundwater such as:
+
+-   General Shiny GUI
+-   Converting data to a format for importing into AquaChem
+-   Providing new charge balance calculations
+-   Calculating water types
+-   Scoring water quality
+-   Piperplots and Stiff plots
 
 Data is first downloaded with BC Govs
 [`rems`](http://github.com/bcgov/rems) package, then formatted for use
-by AquaChem.
+by AquaChem and the other tools provided
 
 ## Installation steps
 
@@ -50,7 +57,7 @@ by AquaChem.
     >     C:\_USER(windows) or \~/Library/Application Support (mac) and
     >     delete the “rems” folder
     >
-    > 3.  Re-install `rems` remotes::install\_github(“bcgov/rems”) and
+    > 3.  Re-install `rems` remotes::install_github(“bcgov/rems”) and
     >     then try again
 
 6.  **Install `rems2aquachem`** In the console type the following and
@@ -103,33 +110,35 @@ library(rems2aquachem)
 r <- rems_to_aquachem(ems_ids = c("1401030", "1401377", "E292373"), interactive = FALSE)
 #> Checking for locally stored recent data...
 #> Fetching data from cache...
+#> For consistency EMS charge balances, anion sums, and cation sums have been replaced with recalculated values.
+#> See `?charge_balance` for more details.
 r
-#> # A tibble: 16 × 177
-#>    Sample_Date  SampleID    Coord_Lat Project   Coord_Long StationID Watertype  Analysis_Date
-#>    <chr>        <chr>       <chr>     <chr>     <chr>      <chr>     <chr>      <chr>        
-#>  1 ""           ""          °         ""        °          ""        ""         ""           
-#>  2 "1987-07-07" "1401030-1" 49.2064   "BACKGRO… -119.8228  "075"     "Fresh Wa…  <NA>        
-#>  3 "1991-08-07" "1401030-2" 49.2064   "BACKGRO… -119.8228  "075"     "Fresh Wa…  <NA>        
-#>  4 "1994-06-08" "1401030-3" 49.2064   "BACKGRO… -119.8228  "075"     "Fresh Wa…  <NA>        
-#>  5 "2001-09-09" "1401030-4" 49.2064   "BACKGRO… -119.8228  "075"     "Fresh Wa…  <NA>        
-#>  6 "2009-11-11" "1401030-5" 49.2064   "BACKGRO… -119.8228  "075"     "Fresh Wa…  <NA>        
-#>  7 "2010-08-09" "1401030-6" 49.2064   "BACKGRO… -119.8228  "075"     "Fresh Wa…  <NA>        
-#>  8 "2016-11-02" "1401030-7" 49.2064   "BACKGRO… -119.8228  "075"     "Fresh Wa…  <NA>        
-#>  9 "2018-06-14" "1401030-8" 49.2064   "BACKGRO… -119.8228  "075"     "Ground W…  <NA>        
-#> 10 "1987-07-07" "1401377-1" 49.175    "BACKGRO… -119.7353  "203"     "Fresh Wa…  <NA>        
-#> 11 "1989-10-11" "1401377-2" 49.175    "BACKGRO… -119.7353  "203"     "Fresh Wa…  <NA>        
-#> 12 "1994-03-24" "1401377-3" 49.175    "BACKGRO… -119.7353  "203"     "Fresh Wa…  <NA>        
-#> 13 "2016-11-02" "1401377-4" 49.175    "BACKGRO… -119.7353  "203"     "Fresh Wa…  <NA>        
-#> 14 "2020-06-29" "1401377-5" 49.175    "BACKGRO… -119.7353  "203"     "Ground W…  <NA>        
-#> 15 "2015-03-06" "E292373-1" 49.364604 "GROUNDW… -124.6141… "426"     "Fresh Wa…  <NA>        
-#> 16 "2017-10-11" "E292373-2" 49.364604 "GROUNDW… -124.6141… "426"     "Fresh Wa…  <NA>        
-#> # … with 169 more variables: shortWatertype <chr>, Comment <chr>, Reference <chr>,
-#> #   Quality_control <chr>, Duplicate_ID <chr>, Labcode <chr>, Location <chr>, Geology <chr>,
-#> #   X <chr>, Y <chr>, Elevation <chr>, Well_Depth <chr>, Screen_Top <chr>, Screen_Mid <chr>,
-#> #   Screen_Bottom <chr>, Gradient <chr>, Station_Comment <chr>, Sample_Depth <chr>,
-#> #   Temp <chr>, 14C <chr>, 18O <chr>, 2H <chr>, Ag_diss <chr>, Ag_tot <chr>, Al_diss <chr>,
-#> #   Al_tot <chr>, anion_sum <chr>, As_diss <chr>, As_tot <chr>, B <chr>, B_tot <chr>,
-#> #   Ba <chr>, Ba_tot <chr>, Benzene <chr>, Br <chr>, Ca <chr>, Ca_tot <chr>, …
+#> # A tibble: 16 × 178
+#>    Sample_Date  SampleID    Coord_Lat Project     Coord_Long StationID Watertype
+#>    <chr>        <chr>       <chr>     <chr>       <chr>      <chr>     <chr>    
+#>  1 ""           ""          °         ""          °          ""        ""       
+#>  2 "1987-07-07" "1401030-1" 49.2064   "BACKGROUN… -119.8228  "075"     "Fresh W…
+#>  3 "1991-08-07" "1401030-2" 49.2064   "BACKGROUN… -119.8228  "075"     "Fresh W…
+#>  4 "1994-06-08" "1401030-3" 49.2064   "BACKGROUN… -119.8228  "075"     "Fresh W…
+#>  5 "2001-09-09" "1401030-4" 49.2064   "BACKGROUN… -119.8228  "075"     "Fresh W…
+#>  6 "2009-11-11" "1401030-5" 49.2064   "BACKGROUN… -119.8228  "075"     "Fresh W…
+#>  7 "2010-08-09" "1401030-6" 49.2064   "BACKGROUN… -119.8228  "075"     "Fresh W…
+#>  8 "2016-11-02" "1401030-7" 49.2064   "BACKGROUN… -119.8228  "075"     "Fresh W…
+#>  9 "2018-06-14" "1401030-8" 49.2064   "BACKGROUN… -119.8228  "075"     "Ground …
+#> 10 "1987-07-07" "1401377-1" 49.175    "BACKGROUN… -119.7353  "203"     "Fresh W…
+#> 11 "1989-10-11" "1401377-2" 49.175    "BACKGROUN… -119.7353  "203"     "Fresh W…
+#> 12 "1994-03-24" "1401377-3" 49.175    "BACKGROUN… -119.7353  "203"     "Fresh W…
+#> 13 "2016-11-02" "1401377-4" 49.175    "BACKGROUN… -119.7353  "203"     "Fresh W…
+#> 14 "2020-06-29" "1401377-5" 49.175    "BACKGROUN… -119.7353  "203"     "Ground …
+#> 15 "2015-03-06" "E292373-1" 49.364604 "GROUNDWAT… -124.6141… "426"     "Fresh W…
+#> 16 "2017-10-11" "E292373-2" 49.364604 "GROUNDWAT… -124.6141… "426"     "Fresh W…
+#> # … with 171 more variables: Analysis_Date <chr>, shortWatertype <chr>,
+#> #   Comment <chr>, Reference <chr>, Quality_control <chr>, Duplicate_ID <chr>,
+#> #   Labcode <chr>, Location <chr>, Geology <chr>, X <chr>, Y <chr>,
+#> #   Elevation <chr>, Well_Depth <chr>, Screen_Top <chr>, Screen_Mid <chr>,
+#> #   Screen_Bottom <chr>, Gradient <chr>, Station_Comment <chr>,
+#> #   Sample_Depth <chr>, Temp <chr>, `14C` <chr>, `18O` <chr>, `2H` <chr>,
+#> #   Ag_diss <chr>, Ag_tot <chr>, Al_diss <chr>, Al_tot <chr>, As_diss <chr>, …
 ```
 
 Create plots
