@@ -51,12 +51,15 @@
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">piper_plot</span><span class="op">(</span></span>
 <span>  <span class="va">d</span>,</span>
 <span>  ems_id <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  point_size <span class="op">=</span> <span class="fl">0.1</span>,</span>
-<span>  colour <span class="op">=</span> <span class="st">"ems_id"</span>,</span>
+<span>  group <span class="op">=</span> <span class="st">"ems_id"</span>,</span>
 <span>  legend <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  legend_position <span class="op">=</span> <span class="st">"topleft"</span>,</span>
 <span>  valid <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  plot_data <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span>  legend_position <span class="op">=</span> <span class="st">"ul"</span></span>
+<span>  point_colour <span class="op">=</span> <span class="st">"viridis"</span>,</span>
+<span>  point_size <span class="op">=</span> <span class="fl">0.1</span>,</span>
+<span>  point_filled <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  point_shape <span class="op">=</span> <span class="st">"circle"</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -70,16 +73,18 @@
 <dd><p>Character. Ids to plot if dataset includes more than one</p></dd>
 
 
-<dt>point_size</dt>
-<dd><p>Numeric. Point size</p></dd>
-
-
-<dt>colour</dt>
-<dd><p>Character. Which column colour points by.</p></dd>
+<dt>group</dt>
+<dd><p>Character. Column by which to group data for colour, shape,
+filled and size.</p></dd>
 
 
 <dt>legend</dt>
 <dd><p>Logical. Whether to show the legend</p></dd>
+
+
+<dt>legend_position</dt>
+<dd><p>Character. Location of legend. Must be one of
+"topleft", "topright", etc. (see ?legend for more options)</p></dd>
 
 
 <dt>valid</dt>
@@ -90,10 +95,28 @@
 <dd><p>Logical. Whether to return plot data rather than a plot</p></dd>
 
 
-<dt>legend_position</dt>
-<dd><p>Character. Location of legend. Must be one of "ul",
-"ur", "ll", "lr", "cl", "cr", "uc", "lc", or "cc" for "upper left", "upper
-right", etc.</p></dd>
+<dt>point_colour</dt>
+<dd><p>Character. Colour or colours by which to colour points.
+Either a single value (applied to all), or a vector of values the same
+length as the number of <code>groups</code>. Can also be "viridis", which will use the
+viridis colour scale.</p></dd>
+
+
+<dt>point_size</dt>
+<dd><p>Numeric. Point size. Either a single value (applied to
+all), or a vector of values the same length as the number of <code>groups</code>.</p></dd>
+
+
+<dt>point_filled</dt>
+<dd><p>Logical. Whether to fill point shapes or not. Either a
+single value (applied to all), or a vector of values the same length as the
+number of <code>groups</code>.</p></dd>
+
+
+<dt>point_shape</dt>
+<dd><p>Character. Shape of points to use. Valid options are
+"circle", "square" or "triangle". Either a single value (applied to all),
+or a vector of values the same length as the number of <code>groups</code>.</p></dd>
 
 </dl></div>
 
