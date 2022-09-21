@@ -395,7 +395,7 @@ piper_plot <- function(d, ems_id = NULL, group = "ems_id",
                           "uptri", TRUE, 17,
                           "circle", FALSE, 1,
                           "square", FALSE, 0,
-                          "uptri", FALSE, 3)
+                          "uptri", FALSE, 2)
       pch <- dplyr::inner_join(data.frame(shape = point_shape,
                                          filled = point_filled),
                                pts, by = c("shape", "filled")) %>%
