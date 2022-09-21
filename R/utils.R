@@ -250,8 +250,9 @@ water_type <- function(d) {
 #' @param group Character. Column by which to group data for colour, shape,
 #'   filled and size.
 #' @param legend Logical. Whether to show the legend
-#' @param legend_position Character. Location of legend. Must be one of
-#'   "topleft", "topright", etc. (see ?legend for more options)
+#' @param legend_position Character or Numeric.. Location of legend. Must be one
+#'   of "topleft", "topright", etc. (see ?legend for more options), OR a vector
+#'   of two numeric values x, and y to specify an exact position.
 #' @param valid Logical. Keep only valid data (charge balances <=10)
 #' @param plot_data Logical. Whether to return plot data rather than a plot
 #' @param point_size Numeric. Point size. Either a single value (applied to
@@ -399,7 +400,15 @@ piper_plot <- function(d, ems_id = NULL, group = "ems_id",
                                          filled = point_filled),
                                pts, by = c("shape", "filled")) %>%
         dplyr::pull(.data$pch)
-      legend(x = legend_position,
+
+      if(length(legend_position) == 2 && is.numeric(legend_position)) {
+        x <- legend_position[1]
+        y <- legend_position[2]
+      } else {
+        x <- legend_position[1]
+        y <- NULL}
+
+      legend(x = x, y = y,
              legend = g_labs, border = "white",
              bty = "n", pch = pch, col = point_colour,
              pt.cex = point_size + 1.1, cex = 0.9, xpd = TRUE)

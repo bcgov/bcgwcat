@@ -28,8 +28,9 @@ filled and size.}
 
 \item{legend}{Logical. Whether to show the legend}
 
-\item{legend_position}{Character. Location of legend. Must be one of
-"topleft", "topright", etc. (see ?legend for more options)}
+\item{legend_position}{Character or Numeric.. Location of legend. Must be one
+of "topleft", "topright", etc. (see ?legend for more options), OR a vector
+of two numeric values x, and y to specify an exact position.}
 
 \item{valid}{Logical. Keep only valid data (charge balances <=10)}
 
