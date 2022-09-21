@@ -1,5 +1,7 @@
 # rems2aquachem 0.4.4.9000
-* `piper_plot()` `colour` argument now specifies which column to colour by
+* `piper_plot()` can distinguish points by different `group`s. `point_colour`,
+  `point_filled`, `point_size` and `point_shape` are now arguments which can 
+  specify group-level or overall styling of points. 
 * `piper_plot()` has a new `legend_position` argument to move the legend
 
 # rems2aquachem 0.4.4

@@ -247,36 +247,52 @@ water_type <- function(d) {
 #'
 #' @param d  Data frame. AquaChem formatted dataset
 #' @param ems_id Character. Ids to plot if dataset includes more than one
-#' @param point_size Numeric. Point size
-#' @param colour Character. Which column colour points by.
+#' @param group Character. Column by which to group data for colour, shape,
+#'   filled and size.
 #' @param legend Logical. Whether to show the legend
+#' @param legend_position Character. Location of legend. Must be one of
+#'   "topleft", "topright", etc. (see ?legend for more options)
 #' @param valid Logical. Keep only valid data (charge balances <=10)
 #' @param plot_data Logical. Whether to return plot data rather than a plot
-#' @param legend_position Character. Location of legend. Must be one of "ul",
-#'   "ur", "ll", "lr", "cl", "cr", "uc", "lc", or "cc" for "upper left", "upper
-#'   right", etc.
+#' @param point_size Numeric. Point size. Either a single value (applied to
+#'   all), or a vector of values the same length as the number of `groups`.
+#' @param point_colour Character. Colour or colours by which to colour points.
+#'   Either a single value (applied to all), or a vector of values the same
+#'   length as the number of `groups`. Can also be "viridis", which will use the
+#'   viridis colour scale.
+#' @param point_filled Logical. Whether to fill point shapes or not. Either a
+#'   single value (applied to all), or a vector of values the same length as the
+#'   number of `groups`.
+#' @param point_shape Character. Shape of points to use. Valid options are
+#'   "circle", "square" or "triangle". Either a single value (applied to all),
+#'   or a vector of values the same length as the number of `groups`.
 #'
 #' @export
 
-piper_plot <- function(d, ems_id = NULL, point_size = 0.1, colour = "ems_id",
-                       legend = TRUE, valid = TRUE, plot_data = FALSE,
-                       legend_position = "ul") {
+piper_plot <- function(d, ems_id = NULL, group = "ems_id",
+                       legend = TRUE, legend_position = "topleft",
+                       valid = TRUE, plot_data = FALSE,
+                       point_colour = "viridis",
+                       point_size = 0.1,
+                       point_filled = TRUE,
+                       point_shape = "circle") {
   d <- d %>%
     units_remove() %>%
     dplyr::mutate(ems_id = stringr::str_extract(.data$SampleID, "^[0-9A-Z]+"))
 
-  if(!is.null(colour) & !colour %in% names(d)) {
-    stop("'colour' must be a column in the data", call. = FALSE)
+  if(!is.null(group) & !group %in% names(d)) {
+    stop("'group' must be a column in the data", call. = FALSE)
   }
 
-  if(is.null(colour)) colour_col <- "ems_id" else colour_col <- colour
+  if(is.null(group)) group <- "ems_id"
+
   d <- dplyr::select(d, c("ems_id", "charge_balance",
                           "Ca_meq", "Mg_meq",    # X and Y Cations
                           "Na_meq", "K_meq",     # Z Cations
                           "Cl_meq",              # X Anions
                           "HCO3_meq", "CO3_meq", # Y Anions
                           "SO4_meq",             # Z Anions
-                          .env$colour_col)) %>%
+                          .env$group)) %>%
     dplyr::rowwise() %>%
     dplyr::mutate(
 
@@ -302,16 +318,102 @@ piper_plot <- function(d, ems_id = NULL, point_size = 0.1, colour = "ems_id",
   }
 
   if(!plot_data){
-    if(!is.null(colour)) {
-      col <- list(name = unique(d[[colour_col]]),
-                  color = viridisLite::viridis(
-                    n = length(unique(d[[colour_col]])), end = 0.8),
-                  size = point_size)
-    } else {
-      col <- list()
+    g_labs <- unique(d[[group]])
+    g <- length(g_labs)
+
+    if(g < 1) stop("Not enough groups in 'groups'", call. = FALSE)
+
+    if(!is.null(point_colour)) {
+      if(length(point_colour) == 1) {
+        if(point_colour == "viridis") {
+          point_colour <- viridisLite::viridis(n = g, end = 0.8)
+        } else point_colour <- point_colour
+      } else if(length(point_colour) != g) {
+        stop("The number of `point_colour` doesn't match the number of ",
+             "categories in 'group'", call. = FALSE)
+      }
+    } else point_colour <- rep("black", g)
+
+    if(!is.null(point_shape)) {
+      point_shape[point_shape == "triangle"] <- "uptri"
+
+      if(length(point_shape) == 1) {
+        point_shape <- rep(point_shape, g)
+      } else if(length(point_shape) != g) {
+        stop("The number of `point_shape` doesn't match the number of ",
+             "categories in 'group'", call. = FALSE)
+      }
     }
 
-    pp <- with(d, smwrGraphs::piperPlot(
+    if(!is.null(point_filled)) {
+      if(length(point_filled) == 1) {
+        point_filled <- rep(point_filled, g)
+      } else if(length(point_filled) != g) {
+        stop("The number of `point_filled` doesn't match the number of ",
+             "categories in 'group'", call. = FALSE)
+      }
+    }
+
+    if(!is.null(point_size)) {
+      if(length(point_size) == 1) {
+        point_size <- rep(point_size, g)
+      } else if(length(point_size) != g) {
+        stop("The number of `point_size` doesn't match the number of ",
+             "categories in 'group'", call. = FALSE)
+      }
+    }
+
+    i <- 1
+    opts <- list(name = g_labs[i],
+                 color = point_colour[i],
+                 symbol = point_shape[i],
+                 size = point_size[i],
+                 filled = point_filled[i])
+    p <- piper_plot_single(
+      data = dplyr::filter(d, .data[[group]] == g_labs[i]),
+      plot = p, n = i, opts = opts)
+
+    if(g > 1) {
+      for(i in 2:g) {
+        opts <- list(name = g_labs[i],
+                     color = point_colour[i],
+                     symbol = point_shape[i],
+                     size = point_size[i],
+                     filled = point_filled[i])
+        piper_plot_single(
+          data = dplyr::filter(d, .data[[group]] == g_labs[i]),
+          plot = p, n = i, opts = opts)
+      }
+    }
+
+
+    if(legend) {
+      pts <- dplyr::tribble(~shape, ~filled, ~pch,
+                          "circle", TRUE, 19,
+                          "square", TRUE, 15,
+                          "uptri", TRUE, 17,
+                          "circle", FALSE, 1,
+                          "square", FALSE, 0,
+                          "uptri", FALSE, 3)
+      pch <- dplyr::inner_join(data.frame(shape = point_shape,
+                                         filled = point_filled),
+                               pts, by = c("shape", "filled")) %>%
+        dplyr::pull(.data$pch)
+      legend(x = legend_position,
+             legend = g_labs, border = "white",
+             bty = "n", pch = pch, col = point_colour,
+             pt.cex = point_size + 1.1, cex = 0.9, xpd = TRUE)
+    } else p
+  } else {
+    d
+  }
+}
+
+
+piper_plot_single <- function(data, plot = NULL, n = 1, opts) {
+
+  if(n == 1) {
+    pp <- with(data, smwrGraphs::piperPlot(
       xCat = Ca_meq, yCat = Mg_meq, zCat = Na_meq_plus,
       xAn = Cl_meq, yAn = HCO3_meq_plus, zAn = SO4_meq,
 
@@ -327,17 +429,17 @@ piper_plot <- function(d, ems_id = NULL, point_size = 0.1, colour = "ems_id",
       x.zAn.title = "Cl + SO4",
 
       units.title = "",
-      Plot = col))
-
-    if(legend) {
-      smwrGraphs::addExplanation(pp, title = "",
-                                 where = legend_position,
-                                 box.off = FALSE)
-    } else pp
+      Plot = opts))
   } else {
-    d
+    pp <- with(data, smwrGraphs::addPiper(
+      xCat = Ca_meq, yCat = Mg_meq, zCat = Na_meq_plus,
+      xAn = Cl_meq, yAn = HCO3_meq_plus, zAn = SO4_meq,
+      Plot = opts, current = plot))
   }
+
+  pp
 }
+
 
 #' Create Stiff plot
 #'
