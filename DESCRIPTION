@@ -1,7 +1,7 @@
 Package: rems2aquachem
 Type: Package
 Title: Download from rems and export data in format for AquaChem
-Version: 0.4.4
+Version: 0.4.4.9000
 Authors@R: c(person("Steffi", "LaZerte", email = "steffi@steffi.ca",
   role = c("aut", "cre")), 
   person("Andarge", "Baye", email = "Andarge.Baye@gov.bc.ca", role = "aut"),
@@ -15,7 +15,7 @@ LazyData: true
 Depends:
   R (>= 3.3.0)
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.1.2
+RoxygenNote: 7.2.0
 Imports: 
     dplyr (>= 1.0.0),
     DT (>= 0.5),

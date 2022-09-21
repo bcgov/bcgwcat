@@ -8,10 +8,11 @@ piper_plot(
   d,
   ems_id = NULL,
   point_size = 0.1,
-  colour = TRUE,
+  colour = "ems_id",
   legend = TRUE,
   valid = TRUE,
-  plot_data = FALSE
+  plot_data = FALSE,
+  legend_position = "ul"
 )
 }
 \arguments{
@@ -21,13 +22,17 @@ piper_plot(
 
 \item{point_size}{Numeric. Point size}
 
-\item{colour}{Logical. Whether to add colour by ems_id}
+\item{colour}{Character. Which column colour points by.}
 
 \item{legend}{Logical. Whether to show the legend}
 
 \item{valid}{Logical. Keep only valid data (charge balances <=10)}
 
 \item{plot_data}{Logical. Whether to return plot data rather than a plot}
+
+\item{legend_position}{Character. Location of legend. Must be one of "ul",
+"ur", "ll", "lr", "cl", "cr", "uc", "lc", or "cc" for "upper left", "upper
+right", etc.}
 }
 \description{
 Create Piper plot

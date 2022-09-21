@@ -1,3 +1,7 @@
+# rems2aquachem 0.4.4.9000
+* `piper_plot()` `colour` argument now specifies which column to colour by
+* `piper_plot()` has a new `legend_position` argument to move the legend
+
 # rems2aquachem 0.4.4
 * Add calculations for water type
 * Tweak piper plots data validity

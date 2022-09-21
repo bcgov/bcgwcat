@@ -248,36 +248,35 @@ water_type <- function(d) {
 #' @param d  Data frame. AquaChem formatted dataset
 #' @param ems_id Character. Ids to plot if dataset includes more than one
 #' @param point_size Numeric. Point size
-#' @param colour Logical. Whether to add colour by ems_id
+#' @param colour Character. Which column colour points by.
 #' @param legend Logical. Whether to show the legend
 #' @param valid Logical. Keep only valid data (charge balances <=10)
 #' @param plot_data Logical. Whether to return plot data rather than a plot
+#' @param legend_position Character. Location of legend. Must be one of "ul",
+#'   "ur", "ll", "lr", "cl", "cr", "uc", "lc", or "cc" for "upper left", "upper
+#'   right", etc.
 #'
 #' @export
 
-piper_plot <- function(d, ems_id = NULL, point_size = 0.1, colour = TRUE,
-                       legend = TRUE, valid = TRUE, plot_data = FALSE) {
+piper_plot <- function(d, ems_id = NULL, point_size = 0.1, colour = "ems_id",
+                       legend = TRUE, valid = TRUE, plot_data = FALSE,
+                       legend_position = "ul") {
   d <- d %>%
     units_remove() %>%
     dplyr::mutate(ems_id = stringr::str_extract(.data$SampleID, "^[0-9A-Z]+"))
 
-  if(!is.null(ems_id)) {
-    if(length(ems_id) > 1 & !colour) {
-      stop("Can only specify one ems_id at a time unless 'colour = TRUE'",
-           call. = FALSE)
-    }
-    d <- dplyr::filter(d, .data$ems_id %in% !!ems_id)
-  } else if(length(unique(d$ems_id)) > 1 & !colour) {
-    stop("With more than one ems_id included in data, need to specify which id ",
-         "OR 'colour = TRUE'", call. = FALSE)
+  if(!is.null(colour) & !colour %in% names(d)) {
+    stop("'colour' must be a column in the data", call. = FALSE)
   }
 
+  if(is.null(colour)) colour_col <- "ems_id" else colour_col <- colour
   d <- dplyr::select(d, c("ems_id", "charge_balance",
                           "Ca_meq", "Mg_meq",    # X and Y Cations
                           "Na_meq", "K_meq",     # Z Cations
                           "Cl_meq",              # X Anions
                           "HCO3_meq", "CO3_meq", # Y Anions
-                          "SO4_meq")) %>%        # Z Anions
+                          "SO4_meq",             # Z Anions
+                          .env$colour_col)) %>%
     dplyr::rowwise() %>%
     dplyr::mutate(
 
@@ -303,9 +302,10 @@ piper_plot <- function(d, ems_id = NULL, point_size = 0.1, colour = TRUE,
   }
 
   if(!plot_data){
-    if(colour) {
-      col <- list(name = unique(d$ems_id),
-                  color = viridisLite::viridis(n = length(unique(d$ems_id)), end = 0.8),
+    if(!is.null(colour)) {
+      col <- list(name = unique(d[[colour_col]]),
+                  color = viridisLite::viridis(
+                    n = length(unique(d[[colour_col]])), end = 0.8),
                   size = point_size)
     } else {
       col <- list()
@@ -330,8 +330,9 @@ piper_plot <- function(d, ems_id = NULL, point_size = 0.1, colour = TRUE,
       Plot = col))
 
     if(legend) {
-      smwrGraphs::addExplanation(pp, title = "EMS ID",
-                                 where = "ul", box.off = FALSE)
+      smwrGraphs::addExplanation(pp, title = "",
+                                 where = legend_position,
+                                 box.off = FALSE)
     } else pp
   } else {
     d
