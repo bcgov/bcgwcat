@@ -57,30 +57,30 @@ Let's take a quick look... lots of data!
 ```r
 r
 #> # A tibble: 15 × 178
-#>    Sample_Date SampleID Coord_Lat Project Coord_Long StationID Watertype Analysis_Date shortWatertype Comment
-#>    <date>      <chr>        <dbl> <chr>        <dbl> <chr>     <chr>     <date>        <chr>          <chr>  
-#>  1 1987-07-07  1401030…      49.2 BACKGR…      -120. 075       Fresh Wa… NA            <NA>           <NA>   
-#>  2 1991-08-07  1401030…      49.2 BACKGR…      -120. 075       Fresh Wa… NA            <NA>           <NA>   
-#>  3 1994-06-08  1401030…      49.2 BACKGR…      -120. 075       Fresh Wa… NA            <NA>           <NA>   
-#>  4 2001-09-09  1401030…      49.2 BACKGR…      -120. 075       Fresh Wa… NA            <NA>           <NA>   
-#>  5 2009-11-11  1401030…      49.2 BACKGR…      -120. 075       Fresh Wa… NA            <NA>           <NA>   
-#>  6 2010-08-09  1401030…      49.2 BACKGR…      -120. 075       Fresh Wa… NA            <NA>           <NA>   
-#>  7 2016-11-02  1401030…      49.2 BACKGR…      -120. 075       Fresh Wa… NA            <NA>           <NA>   
-#>  8 2018-06-14  1401030…      49.2 BACKGR…      -120. 075       Ground W… NA            <NA>           <NA>   
-#>  9 1987-07-07  1401377…      49.2 BACKGR…      -120. 203       Fresh Wa… NA            <NA>           <NA>   
-#> 10 1989-10-11  1401377…      49.2 BACKGR…      -120. 203       Fresh Wa… NA            <NA>           <NA>   
-#> 11 1994-03-24  1401377…      49.2 BACKGR…      -120. 203       Fresh Wa… NA            <NA>           <NA>   
-#> 12 2016-11-02  1401377…      49.2 BACKGR…      -120. 203       Fresh Wa… NA            <NA>           <NA>   
-#> 13 2020-06-29  1401377…      49.2 BACKGR…      -120. 203       Ground W… NA            <NA>           <NA>   
-#> 14 2015-03-06  E292373…      49.4 GROUND…      -125. 426       Fresh Wa… NA            <NA>           <NA>   
-#> 15 2017-10-11  E292373…      49.4 GROUND…      -125. 426       Fresh Wa… NA            <NA>           <NA>   
-#> # … with 168 more variables: Reference <chr>, Quality_control <chr>, Duplicate_ID <chr>, Labcode <chr>,
-#> #   Location <dbl>, Geology <chr>, X <dbl>, Y <dbl>, Elevation <dbl>, Well_Depth <dbl>, Screen_Top <dbl>,
-#> #   Screen_Mid <dbl>, Screen_Bottom <dbl>, Gradient <chr>, Station_Comment <chr>, Sample_Depth <dbl>,
-#> #   Temp <dbl>, `14C` <dbl>, `18O` <dbl>, `2H` <dbl>, Ag_diss <dbl>, Ag_tot <dbl>, Al_diss <dbl>,
-#> #   Al_tot <dbl>, As_diss <dbl>, As_tot <dbl>, B <dbl>, B_tot <dbl>, Ba <dbl>, Ba_tot <dbl>, Benzene <dbl>,
-#> #   Br <dbl>, Ca <dbl>, Ca_tot <dbl>, Cd_diss <dbl>, Cd_tot <dbl>, Cl <dbl>, CN_diss <dbl>, CN_tot <dbl>,
-#> #   Co_diss <dbl>, Co_tot <dbl>, CO3 <dbl>, Cond <dbl>, Cond_field <dbl>, Cr_diss <dbl>, …
+#>    Sample_Date SampleID  Coord_Lat Project     Coord_Long StationID Watertype    Analysis_Date
+#>    <date>      <chr>         <dbl> <chr>            <dbl> <chr>     <chr>        <date>       
+#>  1 1987-07-07  1401030-1      49.2 BACKGROUND       -120. 075       Fresh Water  NA           
+#>  2 1991-08-07  1401030-2      49.2 BACKGROUND       -120. 075       Fresh Water  NA           
+#>  3 1994-06-08  1401030-3      49.2 BACKGROUND       -120. 075       Fresh Water  NA           
+#>  4 2001-09-09  1401030-4      49.2 BACKGROUND       -120. 075       Fresh Water  NA           
+#>  5 2009-11-11  1401030-5      49.2 BACKGROUND       -120. 075       Fresh Water  NA           
+#>  6 2010-08-09  1401030-6      49.2 BACKGROUND       -120. 075       Fresh Water  NA           
+#>  7 2016-11-02  1401030-7      49.2 BACKGROUND       -120. 075       Fresh Water  NA           
+#>  8 2018-06-14  1401030-8      49.2 BACKGROUND       -120. 075       Ground Water NA           
+#>  9 1987-07-07  1401377-1      49.2 BACKGROUND       -120. 203       Fresh Water  NA           
+#> 10 1989-10-11  1401377-2      49.2 BACKGROUND       -120. 203       Fresh Water  NA           
+#> 11 1994-03-24  1401377-3      49.2 BACKGROUND       -120. 203       Fresh Water  NA           
+#> 12 2016-11-02  1401377-4      49.2 BACKGROUND       -120. 203       Fresh Water  NA           
+#> 13 2020-06-29  1401377-5      49.2 BACKGROUND       -120. 203       Ground Water NA           
+#> 14 2015-03-06  E292373-1      49.4 GROUNDWATER      -125. 426       Fresh Water  NA           
+#> 15 2017-10-11  E292373-2      49.4 GROUNDWATER      -125. 426       Fresh Water  NA           
+#> # … with 170 more variables: shortWatertype <chr>, Comment <chr>, Reference <chr>,
+#> #   Quality_control <chr>, Duplicate_ID <chr>, Labcode <chr>, Location <dbl>, Geology <chr>,
+#> #   X <dbl>, Y <dbl>, Elevation <dbl>, Well_Depth <dbl>, Screen_Top <dbl>, Screen_Mid <dbl>,
+#> #   Screen_Bottom <dbl>, Gradient <chr>, Station_Comment <chr>, Sample_Depth <dbl>,
+#> #   Temp <dbl>, `14C` <dbl>, `18O` <dbl>, `2H` <dbl>, Ag_diss <dbl>, Ag_tot <dbl>,
+#> #   Al_diss <dbl>, Al_tot <dbl>, As_diss <dbl>, As_tot <dbl>, B <dbl>, B_tot <dbl>, Ba <dbl>,
+#> #   Ba_tot <dbl>, Benzene <dbl>, Br <dbl>, Ca <dbl>, Ca_tot <dbl>, Cd_diss <dbl>, …
 ```
 
 By default, the piper plot creates a plot with points coloured by EMS ID.
@@ -185,7 +185,7 @@ piper_plot(d = r, group = "Year_cat",
            point_colour = c("#21908C90", "#44015490", "#9AD93C90"), 
            point_shape = c("square", "triangle", "circle"), 
            point_size = 0.2, 
-           legend_position = c(-1.2, 0.5),
+           legend_position = c(0.6, 0.5),
            legend_title = "Year")
 ```
 
