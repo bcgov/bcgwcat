@@ -182,10 +182,13 @@ server <- function(input, output) {
       }
     ), silent = TRUE)
 
-    if(any(class(r) == "try-error")) r <- NULL
-    shinyjs::html(id = "messages",
-                  html = "EMS data received - Go to Results Tab to explore",
-                   add = TRUE)
+    if(inherits(r, "try-error")) {
+      r <- data.frame()
+    } else {
+      shinyjs::html(id = "messages",
+                    html = "EMS data received - Go to Results Tab to explore",
+                    add = TRUE)
+    }
 
     r
   })
@@ -193,8 +196,7 @@ server <- function(input, output) {
 
   # Data - Water Quality ----------------------------------------------------
   data_wq <- reactive({
-    validate(need(class(data_ac()) != "try-error",
-                  message = data_ac()[1]))
+    req(nrow(data_ac()) > 0)
 
     data_ac() %>%
       water_quality() %>%
@@ -209,8 +211,7 @@ server <- function(input, output) {
 
   # Data Output - Results -----------------------------------------------------
   output$data <- DT::renderDT({
-    validate(need(class(data_ac()) != "try-error",
-                  message = data_ac()[1]))
+    validate(need(nrow(data_ac()) > 0, "No data to display"))
     req(input$data_show)
 
     d <- data_ac()
@@ -250,6 +251,7 @@ server <- function(input, output) {
 
   # Data Output - Water Quality -------------------------------------------------
   output$data_wq <- DT::renderDT({
+    validate(need(nrow(data_ac()) > 0, "No data to display"))
     req(data_wq(), input$wq_show, input$params_to_show)
 
     d <- data_wq() %>%
@@ -285,30 +287,38 @@ server <- function(input, output) {
 
 
 # Plots -------------------------------------------------------------
-  plot_msg <- "No data to plot\n\nPick a different set of EMS IDs or allow samples with 'bad charge balances' (see left-hand panel)"
-
   output$stiff <- renderPlot({
+    validate(need(nrow(data_ac()) > 0, "No data to plot"))
     req(data_ac(), input$ids_to_plot, input$ids_to_plot %in% data_ids(),
         input$data_omit)
-    validate(need(nrow(data_ac()) > 1, message = plot_msg))
+
     params <- data_ac() %>%
       dplyr::filter(!is.na(.data$Ca_meq), !is.na(.data$Mg_meq),
                     !is.na(.data$Na_meq), !is.na(.data$HCO3_meq),
                     !is.na(.data$SO4_meq), !is.na(.data$Cl_meq))
+
     validate(need(nrow(params) > 1, message = "Missing too many data to plot"))
-    stiff_plot(data_ac(), ems_id = input$ids_to_plot,
-               legend = as.logical(input$legend),
-               valid = as.logical(input$data_omit))
+
+    p <- stiff_plot(data_ac(), ems_id = input$ids_to_plot,
+                    legend = as.logical(input$legend),
+                    valid = as.logical(input$data_omit))
+
+    validate(need(!is.null(p), message = "Missing too many data to plot"))
+
+    p
   })
 
   output$piperplot <- renderPlot({
+    validate(need(nrow(data_ac()) > 0, "No data to plot"))
     req(data_ac(), input$ids_to_plot, input$ids_to_plot %in% data_ids(),
         input$data_omit)
-    validate(need(nrow(data_ac()) > 1, message = plot_msg))
+
     p <- piper_plot(data_ac(), ems_id = input$ids_to_plot,
                     valid = as.logical(input$data_omit),
                     point_size = 0.15, legend = input$legend)
-    validate(need(!is.null(p), message = plot_msg))
+
+    validate(need(!is.null(p), message = "Missing too many data to plot"))
+
     p
   }, width = 550, height = 500)
 

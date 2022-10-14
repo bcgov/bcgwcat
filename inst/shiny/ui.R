@@ -113,7 +113,9 @@ body <- dashboardBody(
                     fluidRow(
                       box(h4("Charge balances"),
                           "`charge_balance`, `cation_sum` and `anion_sum` are values calculated locally by the rems2aquachem R package, based on calculation details from ALS Global. Potential changes in workflows over the years have made it difficult to ascertain exactly how charge balances were calculated in older samples. This resulted in discrepancies between EMS and locally calculated charge balances. Therefore for consistency, we re-calculate charge balances for all samples using the formula provided by ALS (see About Tab for details).", width = 12)),
-                    DT::DTOutput("data")),
+                    fluidRow(
+                      box(width = 12, height = "100px", DT::DTOutput("data"))
+                    )),
 
 
            # Water Quality Tab -------------------------------------------------------
@@ -126,7 +128,8 @@ body <- dashboardBody(
                                                   "Non-missing only" = "no_missing"))),
                              box(width = 10, uiOutput("data_params"),
                                  actionButton("reset_params", "Select/Unselect All"))),
-                    fluidRow(DT::DTOutput("data_wq"))),
+                    fluidRow(box(width = 12, height = "100px", DT::DTOutput("data_wq")))
+                    ),
 
            # Plots Tab ---------------------------------------------------------------
            tabPanel("Plots",
