@@ -1,0 +1,146 @@
+---
+title: "Custom piperplots"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Custom piperplots}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  dpi = 200,
+  fig.align = "center",
+  fig.path = "vignettes/piper-"
+)
+```
+
+rems2aquachem has a function for creating piper plots based on functions from the 
+USGS package smwrGraphs. 
+With `piper_plot()` we can create custom piper plots using data
+from EMS but with the option to add grouping variables from other data sets. 
+
+This vignette will walk you through how to create custom piper plots using the 
+`piper_plot()` function in R.
+
+> Note: Currently you can only customize your piper plots in R (not via the
+Shiny app). 
+
+Let's get started!
+
+First we'll load the packages we want to use
+
+```{r setup}
+#| message = FALSE
+library(rems2aquachem)  # To download EMS data and create piper plots
+library(dplyr)          # To manipulate our data
+library(lubridate)      # To manipulate dates
+knitr::opts_chunk$set(fig.width = 8, fig.asp = 1)
+```
+
+
+Now let's get our data by downloading from EMS (using the rems
+package under the hood). Because `rems_to_aquachem()` is generally used for 
+exporting data to AquaChem, we use the `save = FALSE` argument to avoid saving 
+to disk, and then use the `units_remove()` function to remove the units normally stored
+in the first row of AquaChem data.
+
+```{r}
+r <- rems_to_aquachem(ems_ids = c("1401030", "1401377", "E292373"), save = FALSE)
+r <- units_remove(r)
+```
+
+Let's take a quick look... lots of data!
+```{r}
+r
+```
+
+By default, the piper plot creates a plot with points coloured by EMS ID.
+
+```{r}
+piper_plot(d = r)
+```
+
+We can override this by specifying the `group` argument ourselves. In this
+case, let's create a column `Year` and colour points that.
+
+
+```{r}
+r <- mutate(r, Year = year(Sample_Date))
+
+piper_plot(d = r, group = "Year")
+```
+
+We can also customize the appearance of the points. 
+
+First let's create some year categories to group by. We'll also turn this variable
+into a factor (category) and specify the order of the levels so our legend is
+in the correct order.
+
+```{r}
+r <- mutate(r, 
+            Year_cat = case_when(Year < 2010 ~ "Pre 2010s",
+                                 Year >= 2010 & Year <= 2015 ~ "2010-2015",
+                                 Year > 2015 ~ ">2015"),
+            Year_cat = factor(Year_cat, 
+                              levels = c("Pre 2010s", "2010-2015", ">2015")))
+```
+
+Note that we need to match the number of groups to the number of colours, 
+shapes, etc. or supply only one value. For example, here we want all the points
+to be large and open, so we specify `point_size = 0.2` and `point_filled = FALSE`.
+
+```{r}
+piper_plot(d = r, group = "Year_cat",
+           point_colour = c("#21908C", "#440154", "#9AD93C"), 
+           point_shape = c("square", "triangle", "circle"), 
+           point_filled = FALSE, point_size = 0.2)
+
+```
+
+Hmm, those points are a bit tough to see
+
+```{r}
+piper_plot(d = r, group = "Year_cat",
+           point_colour = c("#21908C", "#440154", "#9AD93C"), 
+           point_shape = c("square", "triangle", "circle"), 
+           point_filled = TRUE, point_size = 0.2)
+```
+
+Perhaps with a bit of transparency? We can add this by adding two digits to the
+end of our colour codes. `"#21908C"` -> `"#21908C90`" adds a touch of transparency.
+(We can also omit `point_filled = TRUE` as points are filled by default.)
+
+```{r}
+piper_plot(d = r, group = "Year_cat",
+           point_colour = c("#21908C90", "#44015490", "#9AD93C90"), 
+           point_shape = c("square", "triangle", "circle"), 
+           point_size = 0.2)
+```
+
+Finally we can adjust the legend position and title
+```{r}
+piper_plot(d = r, group = "Year_cat",
+           point_colour = c("#21908C90", "#44015490", "#9AD93C90"), 
+           point_shape = c("square", "triangle", "circle"), 
+           point_size = 0.2, 
+           legend_position = "topright",
+           legend_title = "Year")
+```
+
+We can put the legend anywhere we want. Think about the plot area as running
+from -1 to 1 from left to right (x) and -1 to 1 from top to bottom (y). 
+We then specify the (x,y) coordinates that we want. You can even go out of the 
+plotting area by specifying numbers out of the -1 to 1 range.
+
+```{r}
+piper_plot(d = r, group = "Year_cat",
+           point_colour = c("#21908C90", "#44015490", "#9AD93C90"), 
+           point_shape = c("square", "triangle", "circle"), 
+           point_size = 0.2, 
+           legend_position = c(-1.5, 1),
+           legend_title = "Year")
+```
+

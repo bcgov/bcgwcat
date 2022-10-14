@@ -34,6 +34,7 @@ unlink("README.html")
 # Update website
 pkgdown::build_site()
 pkgdown::build_article("rems2aquachem")
+pkgdown::build_article("piperplots")
 
 # Push to GitHub!
 

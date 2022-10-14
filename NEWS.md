@@ -5,6 +5,7 @@
 * `piper_plot()` has a new `legend_position` argument to move the legend, and
   `legend_title` argument to change the title
 * Data for piper plots is sorted before plotting to ensure correct legend order
+* New vignette for piper plots
 * `dont_update` works for interactive sessions as well
 
 # rems2aquachem 0.4.4
