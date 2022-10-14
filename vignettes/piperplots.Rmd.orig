@@ -12,6 +12,7 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
   dpi = 200,
+  out.width = "80%",
   fig.align = "center",
   fig.path = "vignettes/piper-"
 )
