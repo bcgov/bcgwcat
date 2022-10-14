@@ -7,6 +7,8 @@
 * Data for piper plots is sorted before plotting to ensure correct legend order
 * New vignette for piper plots
 * `dont_update` works for interactive sessions as well
+* Prettier display in Shiny app when no data returned
+* Better handling of missing data by plotting functions
 
 # rems2aquachem 0.4.4
 * Add calculations for water type

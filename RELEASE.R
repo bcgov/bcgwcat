@@ -20,23 +20,26 @@
 # Run tests - Compare snapshots - BUILD PACKAGE FIRST
 devtools::test()
 testthat::snapshot_review()
-shinytest::snapshotCompare("inst/shiny/")
-
-shinytest::testApp("./inst/shiny", interactive = TRUE) # Shiny tests only
+testthat::snapshot_review(path = "inst/shiny/tests/testthat")
 
 # Check
 devtools::check()
 
 # Render README.Rmd
-rmarkdown::render("README.Rmd")
-unlink("README.html")
+devtools::build_readme()
 
-# Update website
-pkgdown::build_site()
-pkgdown::build_article("rems2aquachem")
-pkgdown::build_article("piperplots")
+# Precompile vignettes
+source("vignettes/_precompile.R")
 
 # Push to GitHub!
 
 ## Going up a version? Create signed release on github
 usethis::use_github_release()
+
+# Testing ----------------------------------------
+pkgdown::build_site()
+pkgdown::build_article("rems2aquachem")
+pkgdown::build_article("piperplots")
+
+
+

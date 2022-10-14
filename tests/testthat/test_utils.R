@@ -2,7 +2,7 @@
 save_plot <- function(code, width = 400, height = 400) {
   path <- tempfile(fileext = ".png")
   png(path, width = width, height = height)
-  print(code)
+  capture.output(print(code))
   dev.off()
 
   path
@@ -120,7 +120,8 @@ test_that("plots", {
   set.seed(1111)
   expect_message(p <- rems_to_aquachem("E298873", save = FALSE, interactive = FALSE,
                                        date_range = c("2014-01-01", "2014-12-31")),
-                 "For consistency")
+                 "For consistency") %>%
+    suppressMessages()
 
   path <- save_plot(stiff_plot(p))
   expect_snapshot_file(path, name = "stiff1.png")
@@ -128,4 +129,42 @@ test_that("plots", {
   path <- save_plot(piper_plot(p))
   expect_snapshot_file(path, name = "piper1.png")
 
+})
+
+test_that("plots customized", {
+  suppressMessages({
+    r <- rems_to_aquachem(ems_ids = c("1401030", "1401377", "E292373"),
+                          save = FALSE) %>%
+      units_remove() %>%
+      dplyr::mutate(Year = lubridate::year(Sample_Date)) %>%
+      dplyr::mutate(Year_cat = dplyr::case_when(Year < 2010 ~ "Pre 2010s",
+                                                Year >= 2010 & Year <= 2015 ~ "2010-2015",
+                                                Year > 2015 ~ ">2015"),
+                    Year_cat = factor(Year_cat,
+                                      levels = c("Pre 2010s", "2010-2015", ">2015")))
+  })
+
+  path <- piper_plot(d = r, group = "Year_cat",
+                     point_colour = c("#21908C90", "#44015490", "#9AD93C90"),
+                     point_shape = c("square", "triangle", "circle"),
+                     point_size = 0.2,
+                     legend_position = c(-1.5, 1),
+                     legend_title = "Year") %>%
+  save_plot()
+  expect_snapshot_file(path, name = "piper2.png")
+
+})
+
+test_that("plot messages", {
+  set.seed(1111)
+  expect_message(p <- rems_to_aquachem(c("1401030", "1401377"),
+                                       save = FALSE,
+                                       date_range = c("1991-01-01", "1992-01-01")),
+                 "For consistency") %>%
+    suppressMessages()
+
+  expect_message(piper_plot(p), "Not enough good quality data")
+  expect_message(stiff_plot(p), "Not enough good quality data")
+  expect_message(stiff_plot(p, valid = FALSE), "Not enough data")
+  expect_silent(piper_plot(p, valid = FALSE, plot_data = TRUE))
 })

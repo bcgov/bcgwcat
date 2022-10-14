@@ -42,10 +42,10 @@ Remotes:
     USGS-R/smwrGraphs
 Suggests: 
     roxygen2,
-    shinytest,
     testthat (>= 2.1.0),
     knitr,
-    rmarkdown
+    rmarkdown,
+    shinytest2
 VignetteBuilder: knitr
 Config/testthat/edition: 3
 URL: https://bcgov.github.io/rems2aquachem
