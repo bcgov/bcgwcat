@@ -24,6 +24,12 @@
 <li class="nav-item">
   <a class="nav-link" href="../reference/index.html">Reference</a>
 </li>
+<li class="nav-item dropdown">
+  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
+  <div class="dropdown-menu" aria-labelledby="dropdown-articles">
+    <a class="dropdown-item" href="../articles/piperplots.html">Custom piperplots</a>
+  </div>
+</li>
 <li class="active nav-item">
   <a class="nav-link" href="../news/index.html">Changelog</a>
 </li>
@@ -42,11 +48,15 @@
     </div>
 
     <div class="section level2">
-<h2 class="pkg-version" data-toc-text="0.4.4.9000" id="rems2aquachem-0449000">rems2aquachem 0.4.4.9000<a class="anchor" aria-label="anchor" href="#rems2aquachem-0449000"></a></h2>
+<h2 class="pkg-version" data-toc-text="0.5.0" id="rems2aquachem-050">rems2aquachem 0.5.0<a class="anchor" aria-label="anchor" href="#rems2aquachem-050"></a></h2>
 <ul><li>
 <code><a href="../reference/piper_plot.html">piper_plot()</a></code> can distinguish points by different <code>group</code>s. <code>point_colour</code>, <code>point_filled</code>, <code>point_size</code> and <code>point_shape</code> are now arguments which can specify group-level or overall styling of points.</li>
 <li>
-<code><a href="../reference/piper_plot.html">piper_plot()</a></code> has a new <code>legend_position</code> argument to move the legend</li>
+<code><a href="../reference/piper_plot.html">piper_plot()</a></code> has a new <code>legend_position</code> argument to move the legend, and <code>legend_title</code> argument to change the title</li>
+<li>Data for piper plots is sorted before plotting to ensure correct legend order</li>
+<li>New vignette for piper plots</li>
+<li>
+<code>dont_update</code> works for interactive sessions as well</li>
 </ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.4.4" id="rems2aquachem-044">rems2aquachem 0.4.4<a class="anchor" aria-label="anchor" href="#rems2aquachem-044"></a></h2>
