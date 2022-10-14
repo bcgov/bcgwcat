@@ -26,7 +26,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">rems2aquachem</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.4.4.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.5.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -102,30 +102,30 @@
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">r</span></span>
 <span><span class="co">#&gt; # A tibble: 15 × 178</span></span>
-<span><span class="co">#&gt;    Sample_Date SampleID  Coord_Lat Project     Coord_Long StationID Watertype Analysis_Date shortWatertype Comment</span></span>
-<span><span class="co">#&gt;    &lt;date&gt;      &lt;chr&gt;         &lt;dbl&gt; &lt;chr&gt;            &lt;dbl&gt; &lt;chr&gt;     &lt;chr&gt;     &lt;date&gt;        &lt;chr&gt;          &lt;chr&gt;  </span></span>
-<span><span class="co">#&gt;  1 1987-07-07  1401030-1      49.2 BACKGROUND       -120. 075       Fresh Wa… NA            &lt;NA&gt;           &lt;NA&gt;   </span></span>
-<span><span class="co">#&gt;  2 1991-08-07  1401030-2      49.2 BACKGROUND       -120. 075       Fresh Wa… NA            &lt;NA&gt;           &lt;NA&gt;   </span></span>
-<span><span class="co">#&gt;  3 1994-06-08  1401030-3      49.2 BACKGROUND       -120. 075       Fresh Wa… NA            &lt;NA&gt;           &lt;NA&gt;   </span></span>
-<span><span class="co">#&gt;  4 2001-09-09  1401030-4      49.2 BACKGROUND       -120. 075       Fresh Wa… NA            &lt;NA&gt;           &lt;NA&gt;   </span></span>
-<span><span class="co">#&gt;  5 2009-11-11  1401030-5      49.2 BACKGROUND       -120. 075       Fresh Wa… NA            &lt;NA&gt;           &lt;NA&gt;   </span></span>
-<span><span class="co">#&gt;  6 2010-08-09  1401030-6      49.2 BACKGROUND       -120. 075       Fresh Wa… NA            &lt;NA&gt;           &lt;NA&gt;   </span></span>
-<span><span class="co">#&gt;  7 2016-11-02  1401030-7      49.2 BACKGROUND       -120. 075       Fresh Wa… NA            &lt;NA&gt;           &lt;NA&gt;   </span></span>
-<span><span class="co">#&gt;  8 2018-06-14  1401030-8      49.2 BACKGROUND       -120. 075       Ground W… NA            &lt;NA&gt;           &lt;NA&gt;   </span></span>
-<span><span class="co">#&gt;  9 1987-07-07  1401377-1      49.2 BACKGROUND       -120. 203       Fresh Wa… NA            &lt;NA&gt;           &lt;NA&gt;   </span></span>
-<span><span class="co">#&gt; 10 1989-10-11  1401377-2      49.2 BACKGROUND       -120. 203       Fresh Wa… NA            &lt;NA&gt;           &lt;NA&gt;   </span></span>
-<span><span class="co">#&gt; 11 1994-03-24  1401377-3      49.2 BACKGROUND       -120. 203       Fresh Wa… NA            &lt;NA&gt;           &lt;NA&gt;   </span></span>
-<span><span class="co">#&gt; 12 2016-11-02  1401377-4      49.2 BACKGROUND       -120. 203       Fresh Wa… NA            &lt;NA&gt;           &lt;NA&gt;   </span></span>
-<span><span class="co">#&gt; 13 2020-06-29  1401377-5      49.2 BACKGROUND       -120. 203       Ground W… NA            &lt;NA&gt;           &lt;NA&gt;   </span></span>
-<span><span class="co">#&gt; 14 2015-03-06  E292373-1      49.4 GROUNDWATER      -125. 426       Fresh Wa… NA            &lt;NA&gt;           &lt;NA&gt;   </span></span>
-<span><span class="co">#&gt; 15 2017-10-11  E292373-2      49.4 GROUNDWATER      -125. 426       Fresh Wa… NA            &lt;NA&gt;           &lt;NA&gt;   </span></span>
+<span><span class="co">#&gt;    Sample_Date SampleID Coord_Lat Project Coord_Long StationID Watertype Analysis_Date shortWatertype Comment</span></span>
+<span><span class="co">#&gt;    &lt;date&gt;      &lt;chr&gt;        &lt;dbl&gt; &lt;chr&gt;        &lt;dbl&gt; &lt;chr&gt;     &lt;chr&gt;     &lt;date&gt;        &lt;chr&gt;          &lt;chr&gt;  </span></span>
+<span><span class="co">#&gt;  1 1987-07-07  1401030…      49.2 BACKGR…      -120. 075       Fresh Wa… NA            &lt;NA&gt;           &lt;NA&gt;   </span></span>
+<span><span class="co">#&gt;  2 1991-08-07  1401030…      49.2 BACKGR…      -120. 075       Fresh Wa… NA            &lt;NA&gt;           &lt;NA&gt;   </span></span>
+<span><span class="co">#&gt;  3 1994-06-08  1401030…      49.2 BACKGR…      -120. 075       Fresh Wa… NA            &lt;NA&gt;           &lt;NA&gt;   </span></span>
+<span><span class="co">#&gt;  4 2001-09-09  1401030…      49.2 BACKGR…      -120. 075       Fresh Wa… NA            &lt;NA&gt;           &lt;NA&gt;   </span></span>
+<span><span class="co">#&gt;  5 2009-11-11  1401030…      49.2 BACKGR…      -120. 075       Fresh Wa… NA            &lt;NA&gt;           &lt;NA&gt;   </span></span>
+<span><span class="co">#&gt;  6 2010-08-09  1401030…      49.2 BACKGR…      -120. 075       Fresh Wa… NA            &lt;NA&gt;           &lt;NA&gt;   </span></span>
+<span><span class="co">#&gt;  7 2016-11-02  1401030…      49.2 BACKGR…      -120. 075       Fresh Wa… NA            &lt;NA&gt;           &lt;NA&gt;   </span></span>
+<span><span class="co">#&gt;  8 2018-06-14  1401030…      49.2 BACKGR…      -120. 075       Ground W… NA            &lt;NA&gt;           &lt;NA&gt;   </span></span>
+<span><span class="co">#&gt;  9 1987-07-07  1401377…      49.2 BACKGR…      -120. 203       Fresh Wa… NA            &lt;NA&gt;           &lt;NA&gt;   </span></span>
+<span><span class="co">#&gt; 10 1989-10-11  1401377…      49.2 BACKGR…      -120. 203       Fresh Wa… NA            &lt;NA&gt;           &lt;NA&gt;   </span></span>
+<span><span class="co">#&gt; 11 1994-03-24  1401377…      49.2 BACKGR…      -120. 203       Fresh Wa… NA            &lt;NA&gt;           &lt;NA&gt;   </span></span>
+<span><span class="co">#&gt; 12 2016-11-02  1401377…      49.2 BACKGR…      -120. 203       Fresh Wa… NA            &lt;NA&gt;           &lt;NA&gt;   </span></span>
+<span><span class="co">#&gt; 13 2020-06-29  1401377…      49.2 BACKGR…      -120. 203       Ground W… NA            &lt;NA&gt;           &lt;NA&gt;   </span></span>
+<span><span class="co">#&gt; 14 2015-03-06  E292373…      49.4 GROUND…      -125. 426       Fresh Wa… NA            &lt;NA&gt;           &lt;NA&gt;   </span></span>
+<span><span class="co">#&gt; 15 2017-10-11  E292373…      49.4 GROUND…      -125. 426       Fresh Wa… NA            &lt;NA&gt;           &lt;NA&gt;   </span></span>
 <span><span class="co">#&gt; # … with 168 more variables: Reference &lt;chr&gt;, Quality_control &lt;chr&gt;, Duplicate_ID &lt;chr&gt;, Labcode &lt;chr&gt;,</span></span>
 <span><span class="co">#&gt; #   Location &lt;dbl&gt;, Geology &lt;chr&gt;, X &lt;dbl&gt;, Y &lt;dbl&gt;, Elevation &lt;dbl&gt;, Well_Depth &lt;dbl&gt;, Screen_Top &lt;dbl&gt;,</span></span>
-<span><span class="co">#&gt; #   Screen_Mid &lt;dbl&gt;, Screen_Bottom &lt;dbl&gt;, Gradient &lt;chr&gt;, Station_Comment &lt;chr&gt;, Sample_Depth &lt;dbl&gt;, Temp &lt;dbl&gt;,</span></span>
-<span><span class="co">#&gt; #   `14C` &lt;dbl&gt;, `18O` &lt;dbl&gt;, `2H` &lt;dbl&gt;, Ag_diss &lt;dbl&gt;, Ag_tot &lt;dbl&gt;, Al_diss &lt;dbl&gt;, Al_tot &lt;dbl&gt;,</span></span>
-<span><span class="co">#&gt; #   As_diss &lt;dbl&gt;, As_tot &lt;dbl&gt;, B &lt;dbl&gt;, B_tot &lt;dbl&gt;, Ba &lt;dbl&gt;, Ba_tot &lt;dbl&gt;, Benzene &lt;dbl&gt;, Br &lt;dbl&gt;, Ca &lt;dbl&gt;,</span></span>
-<span><span class="co">#&gt; #   Ca_tot &lt;dbl&gt;, Cd_diss &lt;dbl&gt;, Cd_tot &lt;dbl&gt;, Cl &lt;dbl&gt;, CN_diss &lt;dbl&gt;, CN_tot &lt;dbl&gt;, Co_diss &lt;dbl&gt;,</span></span>
-<span><span class="co">#&gt; #   Co_tot &lt;dbl&gt;, CO3 &lt;dbl&gt;, Cond &lt;dbl&gt;, Cond_field &lt;dbl&gt;, Cr_diss &lt;dbl&gt;, Cr_III_diss &lt;dbl&gt;, Cr_tot &lt;dbl&gt;, …</span></span></code></pre></div>
+<span><span class="co">#&gt; #   Screen_Mid &lt;dbl&gt;, Screen_Bottom &lt;dbl&gt;, Gradient &lt;chr&gt;, Station_Comment &lt;chr&gt;, Sample_Depth &lt;dbl&gt;,</span></span>
+<span><span class="co">#&gt; #   Temp &lt;dbl&gt;, `14C` &lt;dbl&gt;, `18O` &lt;dbl&gt;, `2H` &lt;dbl&gt;, Ag_diss &lt;dbl&gt;, Ag_tot &lt;dbl&gt;, Al_diss &lt;dbl&gt;,</span></span>
+<span><span class="co">#&gt; #   Al_tot &lt;dbl&gt;, As_diss &lt;dbl&gt;, As_tot &lt;dbl&gt;, B &lt;dbl&gt;, B_tot &lt;dbl&gt;, Ba &lt;dbl&gt;, Ba_tot &lt;dbl&gt;, Benzene &lt;dbl&gt;,</span></span>
+<span><span class="co">#&gt; #   Br &lt;dbl&gt;, Ca &lt;dbl&gt;, Ca_tot &lt;dbl&gt;, Cd_diss &lt;dbl&gt;, Cd_tot &lt;dbl&gt;, Cl &lt;dbl&gt;, CN_diss &lt;dbl&gt;, CN_tot &lt;dbl&gt;,</span></span>
+<span><span class="co">#&gt; #   Co_diss &lt;dbl&gt;, Co_tot &lt;dbl&gt;, CO3 &lt;dbl&gt;, Cond &lt;dbl&gt;, Cond_field &lt;dbl&gt;, Cr_diss &lt;dbl&gt;, …</span></span></code></pre></div>
 <p>By default, the piper plot creates a plot with points coloured by EMS ID.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/piper_plot.html">piper_plot</a></span><span class="op">(</span>d <span class="op">=</span> <span class="va">r</span><span class="op">)</span></span></code></pre></div>
@@ -181,7 +181,7 @@
 <span>           point_colour <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"#21908C90"</span>, <span class="st">"#44015490"</span>, <span class="st">"#9AD93C90"</span><span class="op">)</span>, </span>
 <span>           point_shape <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"square"</span>, <span class="st">"triangle"</span>, <span class="st">"circle"</span><span class="op">)</span>, </span>
 <span>           point_size <span class="op">=</span> <span class="fl">0.2</span>, </span>
-<span>           legend_position <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1.5</span>, <span class="fl">1</span><span class="op">)</span>,</span>
+<span>           legend_position <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1.2</span>, <span class="fl">1</span><span class="op">)</span>,</span>
 <span>           legend_title <span class="op">=</span> <span class="st">"Year"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="piper-unnamed-chunk-11-1.png" alt="plot of chunk unnamed-chunk-11" width="80%" style="display: block; margin: auto;"></p>
   </main>
