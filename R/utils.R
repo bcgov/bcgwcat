@@ -253,6 +253,7 @@ water_type <- function(d) {
 #' @param legend_position Character or Numeric.. Location of legend. Must be one
 #'   of "topleft", "topright", etc. (see ?legend for more options), OR a vector
 #'   of two numeric values x, and y to specify an exact position.
+#' @param legend_title Character. Title of legend. Defaults to `group`.
 #' @param valid Logical. Keep only valid data (charge balances <=10)
 #' @param plot_data Logical. Whether to return plot data rather than a plot
 #' @param point_size Numeric. Point size. Either a single value (applied to
@@ -315,10 +316,18 @@ piper_plot <- function(d, ems_id = NULL, group = "ems_id",
 
     dplyr::ungroup()
 
+  # Keep only valid data if specified
   if(valid) d <- dplyr::filter(d, is_valid(charge_balance))
 
+  # Remove completely empty rows
+  d <- d %>%
+    dplyr::rowwise() %>%
+    dplyr::mutate(na = sum(!is.na(dplyr::c_across(
+      cols = c(-"ems_id", -"charge_balance", -.env$group))))) %>%
+    dplyr::filter(.data$na > 0)
+
   if(nrow(d) == 0) {
-    message("Not enough good quality data for this EMS ID")
+    message("Not enough ", dplyr::if_else(valid, "good quality ", ""), "data for this EMS ID")
     return(invisible())
   }
 
@@ -485,11 +494,26 @@ stiff_plot <- function(d, ems_id = NULL, colour = TRUE, legend = TRUE,
          "OR 'colour = TRUE'" , call. = FALSE)
   }
 
+  d <- dplyr::select(d, c("ems_id", "SampleID", "charge_balance",
+                          "Ca_meq", "Mg_meq", "Na_meq",
+                          "Cl_meq", "HCO3_meq", "SO4_meq"))
+
+  # Keep only valid data if specified
   if(valid) d <- dplyr::filter(d, is_valid(charge_balance))
 
+  # Remove rows with any NAs
+  d <- d %>%
+    dplyr::rowwise() %>%
+    dplyr::mutate(na = sum(is.na(dplyr::c_across(
+      cols = c(-"ems_id", -"SampleID", -"charge_balance"))))) %>%
+    dplyr::filter(.data$na == 0)
 
-  stiff <- dplyr::select(d, c("ems_id", "SampleID", "Ca_meq", "Mg_meq", "Na_meq",
-                              "Cl_meq", "HCO3_meq", "SO4_meq")) %>%
+  if(nrow(d) == 0) {
+    message("Not enough ", dplyr::if_else(valid, "good quality ", ""), "data for this EMS ID")
+    return(invisible())
+  }
+
+  stiff <- d %>%
     tidyr::pivot_longer(cols = c("Ca_meq", "Mg_meq", "Na_meq",
                                  "Cl_meq", "HCO3_meq", "SO4_meq"),
                         names_to = "element", values_to = "value") %>%
@@ -510,8 +534,6 @@ stiff_plot <- function(d, ems_id = NULL, colour = TRUE, legend = TRUE,
                   n = sum(!is.na(.data$value)),
                   element = stringr::str_remove(.data$element, "_meq")) %>%
     dplyr::filter(.data$n == 6)
-
-  if(nrow(stiff) == 0) stop("Not enough non-NA data to plot", call. = FALSE)
 
   if(colour) fill <- "ems_id" else fill <- NULL
   ggplot2::ggplot(stiff, ggplot2::aes_string(x = "value", y = "sample",

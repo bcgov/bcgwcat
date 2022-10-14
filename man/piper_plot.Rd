@@ -33,6 +33,8 @@ filled and size.}
 of "topleft", "topright", etc. (see ?legend for more options), OR a vector
 of two numeric values x, and y to specify an exact position.}
 
+\item{legend_title}{Character. Title of legend. Defaults to \code{group}.}
+
 \item{valid}{Logical. Keep only valid data (charge balances <=10)}
 
 \item{plot_data}{Logical. Whether to return plot data rather than a plot}
