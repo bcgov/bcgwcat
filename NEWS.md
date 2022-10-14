@@ -1,8 +1,11 @@
-# rems2aquachem 0.4.4.9000
+# rems2aquachem 0.5.0
 * `piper_plot()` can distinguish points by different `group`s. `point_colour`,
   `point_filled`, `point_size` and `point_shape` are now arguments which can 
   specify group-level or overall styling of points. 
-* `piper_plot()` has a new `legend_position` argument to move the legend
+* `piper_plot()` has a new `legend_position` argument to move the legend, and
+  `legend_title` argument to change the title
+* Data for piper plots is sorted before plotting to ensure correct legend order
+* `dont_update` works for interactive sessions as well
 
 # rems2aquachem 0.4.4
 * Add calculations for water type

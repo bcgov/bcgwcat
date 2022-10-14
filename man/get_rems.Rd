@@ -15,8 +15,7 @@ get_rems(ems_ids, date_range, interactive, dont_update)
 \item{interactive}{Logical. Whether or not to allow interactive queries by
 the \code{rems} package.}
 
-\item{dont_update}{Logical. Whether or not to avoid updating EMS if
-\code{interactive} is FALSE}
+\item{dont_update}{Logical. Whether or not to avoid updating the EMS database}
 }
 \value{
 data frame

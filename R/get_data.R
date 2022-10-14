@@ -21,8 +21,7 @@
 #'   (YYYY-MM-DD)
 #' @param interactive Logical. Whether or not to allow interactive queries by
 #'   the `rems` package.
-#' @param dont_update Logical. Whether or not to avoid updating EMS if
-#'   `interactive` is FALSE
+#' @param dont_update Logical. Whether or not to avoid updating the EMS database
 #'
 #' @return data frame
 #'

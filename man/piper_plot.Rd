@@ -10,6 +10,7 @@ piper_plot(
   group = "ems_id",
   legend = TRUE,
   legend_position = "topleft",
+  legend_title = group,
   valid = TRUE,
   plot_data = FALSE,
   point_colour = "viridis",

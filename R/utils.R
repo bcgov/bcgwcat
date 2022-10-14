@@ -272,6 +272,7 @@ water_type <- function(d) {
 
 piper_plot <- function(d, ems_id = NULL, group = "ems_id",
                        legend = TRUE, legend_position = "topleft",
+                       legend_title = group,
                        valid = TRUE, plot_data = FALSE,
                        point_colour = "viridis",
                        point_size = 0.1,
@@ -287,13 +288,16 @@ piper_plot <- function(d, ems_id = NULL, group = "ems_id",
 
   if(is.null(group)) group <- "ems_id"
 
-  d <- dplyr::select(d, c("ems_id", "charge_balance",
-                          "Ca_meq", "Mg_meq",    # X and Y Cations
-                          "Na_meq", "K_meq",     # Z Cations
-                          "Cl_meq",              # X Anions
-                          "HCO3_meq", "CO3_meq", # Y Anions
-                          "SO4_meq",             # Z Anions
-                          .env$group)) %>%
+  d <- d %>%
+    dplyr::arrange(.data[[group]], .data$Sample_Date) %>%
+    dplyr::select(c("ems_id", "charge_balance",
+                    "Ca_meq", "Mg_meq",    # X and Y Cations
+                    "Na_meq", "K_meq",     # Z Cations
+                    "Cl_meq",              # X Anions
+                    "HCO3_meq", "CO3_meq", # Y Anions
+                    "SO4_meq",             # Z Anions
+                    .env$group)) %>%       # Grouping variable
+
     dplyr::rowwise() %>%
     dplyr::mutate(
 
@@ -406,11 +410,13 @@ piper_plot <- function(d, ems_id = NULL, group = "ems_id",
         y <- legend_position[2]
       } else {
         x <- legend_position[1]
-        y <- NULL}
+        y <- NULL
+      }
 
-      legend(x = x, y = y,
+      legend(x = x, y = y, title = legend_title,
              legend = g_labs, border = "white",
              bty = "n", pch = pch, col = point_colour,
+             title.font = 2,
              pt.cex = point_size + 1.1, cex = 0.9, xpd = TRUE)
     } else p
   } else {
