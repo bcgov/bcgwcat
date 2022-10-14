@@ -141,7 +141,7 @@ piper_plot(d = r, group = "Year_cat",
            point_colour = c("#21908C90", "#44015490", "#9AD93C90"), 
            point_shape = c("square", "triangle", "circle"), 
            point_size = 0.2, 
-           legend_position = c(-1.5, 1),
+           legend_position = c(-1.2, 1),
            legend_title = "Year")
 ```
 

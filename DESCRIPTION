@@ -1,7 +1,7 @@
 Package: rems2aquachem
 Type: Package
 Title: Download from rems and export data in format for AquaChem
-Version: 0.4.4.9000
+Version: 0.5.0
 Authors@R: c(person("Steffi", "LaZerte", email = "steffi@steffi.ca",
   role = c("aut", "cre")), 
   person("Andarge", "Baye", email = "Andarge.Baye@gov.bc.ca", role = "aut"),
