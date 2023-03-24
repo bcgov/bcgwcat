@@ -16,7 +16,6 @@ water_quality <- function(d) {
     dplyr::left_join(dplyr::select(wq_std, -"uniqueid", -"variable", -"component", -"ems_code"),
                      by = "aqua_code") %>%
     dplyr::left_join(dplyr::select(params, "aqua_code", "aqua_unit"), by = "aqua_code") %>%
-    dplyr::mutate(value2 = purrr::pmap_dbl(list(.data$value, .data$aqua_unit, .data$units),
-                                           ~ units_convert(..1, ..2, ..3)),
+    dplyr::mutate(value2 = units_convert(.data$value, .data$aqua_unit, .data$units),
                   quality_problem = dplyr::if_else(.data$value2 > .data$limit, TRUE, FALSE))
 }

@@ -306,9 +306,9 @@ ac_format <- function(d) {
                                               "pH", .data$UNIT))
 
   # Convert units to those used in AquaChem
-  d <- dplyr::mutate(d, RESULT2 = purrr::pmap_dbl(
-    list(.data$RESULT, .data$UNIT, .data$aqua_unit),
-    ~units_convert(..1, ..2, ..3)))
+  # - Missing units belong to parameters omitted in the end
+  d <- dplyr::mutate(
+    d, RESULT2 = units_convert(.data$RESULT, .data$UNIT, .data$aqua_unit))
 
   # Remove now unnecessary parameter columns:
   d <- dplyr::select(d,
