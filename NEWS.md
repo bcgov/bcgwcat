@@ -1,3 +1,7 @@
+# rems2aquachem 0.5.1
+* Speed increases
+* Use dplyr v1.1.0
+
 # rems2aquachem 0.5.0
 * `piper_plot()` can distinguish points by different `group`s. `point_colour`,
   `point_filled`, `point_size` and `point_shape` are now arguments which can 
