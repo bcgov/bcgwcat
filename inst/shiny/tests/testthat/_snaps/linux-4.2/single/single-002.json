@@ -658,9 +658,9 @@
         },
         {
           "name": "dt-core",
-          "version": "1.11.3",
+          "version": "1.12.1",
           "src": {
-            "href": "dt-core-1.11.3"
+            "href": "dt-core-1.12.1"
           },
           "meta": null,
           "script": "js/jquery.dataTables.min.js",
@@ -806,9 +806,9 @@
         },
         {
           "name": "dt-core",
-          "version": "1.11.3",
+          "version": "1.12.1",
           "src": {
-            "href": "dt-core-1.11.3"
+            "href": "dt-core-1.12.1"
           },
           "meta": null,
           "script": "js/jquery.dataTables.min.js",
@@ -837,13 +837,13 @@
       ]
     },
     "rems_status_historic": {
-      "html": "<div class=\"small-box bg-orange\">\n  <div class=\"inner\">\n    <h3>Out-of-date<\/h3>\n    <p>Historic EMS Data (last updated: 1 days ago)<\/p>\n  <\/div>\n<\/div>",
+      "html": "<div class=\"small-box bg-orange\">\n  <div class=\"inner\">\n    <h3>Out-of-date<\/h3>\n    <p>Historic EMS Data (last updated: 0 days ago)<\/p>\n  <\/div>\n<\/div>",
       "deps": [
 
       ]
     },
     "rems_status_recent": {
-      "html": "<div class=\"small-box bg-orange\">\n  <div class=\"inner\">\n    <h3>Out-of-date<\/h3>\n    <p>Recent EMS Data (last updated: 2022-10-13)<\/p>\n  <\/div>\n<\/div>",
+      "html": "<div class=\"small-box bg-orange\">\n  <div class=\"inner\">\n    <h3>Out-of-date<\/h3>\n    <p>Recent EMS Data (last updated: 2023-03-23)<\/p>\n  <\/div>\n<\/div>",
       "deps": [
 
       ]
