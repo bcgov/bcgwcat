@@ -258,9 +258,11 @@ ac_format <- function(d) {
   d <- dplyr::mutate(d, Sample_Date = as.Date(.data$Sample_Date))
 
   # Add AquaChem parameter names
+
   d <- d %>%
     dplyr::mutate(rems_code = .data$PARAMETER_CODE) %>%
-    dplyr::left_join(dplyr::select(params_ac, -"aqua_unit"), by = "rems_code") %>%
+    dplyr::left_join(dplyr::select(params_ac, -"aqua_unit"),
+                     by = "rems_code", multiple = "all") %>%
     # Replace parameter name with rems name if doesn't exist in AquaChem
     # Replace all spaces and periods with _
     dplyr::mutate(aqua_code = dplyr::if_else(is.na(.data$aqua_code),
@@ -276,12 +278,13 @@ ac_format <- function(d) {
     aqua_code = params_ac$aqua_code)
 
   # Add in AquaChem units
-  d <- dplyr::left_join(d, dplyr::select(params_ac, -"rems_code"), by = "aqua_code")
+  d <- dplyr::left_join(d, dplyr::select(params_ac, -"rems_code"),
+                        by = "aqua_code", multiple = "all")
 
   # Add StationID
   d <- d %>%
     dplyr::left_join(dplyr::select(ow, "StationID" = "ow", "SampleID" = "ems_id"),
-                     by = "SampleID") %>%
+                     by = "SampleID", multiple = "all") %>%
     dplyr::mutate(StationID = replace(.data$StationID,
                                       is.na(.data$StationID),
                                       .data$SampleID[is.na(.data$StationID)]))
@@ -329,7 +332,8 @@ ac_format <- function(d) {
 
   d %>%
     dplyr::select(-"SampleID") %>%
-    dplyr::left_join(ids, by = c("StationID", "Sample_Date")) %>%
+    dplyr::left_join(ids, by = c("StationID", "Sample_Date"),
+                     multiple = "all") %>%
     dplyr::arrange(.data$StationID)
 }
 
@@ -348,8 +352,8 @@ ac_units <- function(d) {
   # Transform to wide format
   d <- d %>%
     dplyr::select(-"UNIT", -"RESULT", -"aqua_unit") %>%
-    tidyr::pivot_wider(names_from = .data$aqua_code,
-                       values_from = .data$RESULT2) %>%
+    tidyr::pivot_wider(names_from = "aqua_code",
+                       values_from = "RESULT2") %>%
     dplyr::select(dplyr::all_of(params$aqua_code[params$type == "meta"]),
                   dplyr::everything()) %>%
     dplyr::arrange(.data$StationID, .data$SampleID, .data$Sample_Date)
@@ -366,8 +370,8 @@ ac_units <- function(d) {
 
   units <- units %>%
     dplyr::bind_rows(add) %>%
-    tidyr::pivot_wider(names_from = .data$aqua_code,
-                       values_from = .data$aqua_unit) %>%
+    tidyr::pivot_wider(names_from = "aqua_code",
+                       values_from = "aqua_unit") %>%
     dplyr::mutate(charge_balance = "%", charge_balance2 = "%") %>%
     dplyr::mutate(dplyr::across(dplyr::ends_with("_p"), ~"%")) %>%
     # Check that there are no missing

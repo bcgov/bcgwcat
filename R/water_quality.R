@@ -11,7 +11,7 @@ water_quality <- function(d) {
     units_remove() %>%
     dplyr::select("StationID", "SampleID", "Sample_Date",
                   dplyr::any_of(wq_std$aqua_code)) %>%
-    tidyr::pivot_longer(cols = c(-.data$StationID, -.data$SampleID, -.data$Sample_Date),
+    tidyr::pivot_longer(cols = c(-"StationID", -"SampleID", -"Sample_Date"),
                         names_to = "aqua_code") %>%
     dplyr::left_join(dplyr::select(wq_std, -"uniqueid", -"variable", -"component", -"ems_code"),
                      by = "aqua_code") %>%

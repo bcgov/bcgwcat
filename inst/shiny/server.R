@@ -203,10 +203,10 @@ server <- function(input, output) {
       dplyr::left_join(dplyr::select(rems2aquachem:::params, rems_name,
                                      aqua_code),
                        by = "aqua_code") %>%
-      dplyr::select(StationID, SampleID, Sample_Date, aqua_code,
-                    param = rems_name, value_transformed = value2, limit, units,
-                    quality_problem) %>%
-      dplyr::arrange(StationID, SampleID, Sample_Date, param)
+      dplyr::select("StationID", "SampleID", "Sample_Date", "aqua_code",
+                    "param" = "rems_name", "value_transformed" = "value2",
+                    "limit", "units", "quality_problem") %>%
+      dplyr::arrange(.data$StationID, .data$SampleID, .data$Sample_Date, .data$param)
   })
 
   # Data Output - Results -----------------------------------------------------
@@ -232,7 +232,7 @@ server <- function(input, output) {
       dplyr::select("StationID", "SampleID", "Sample_Date",
                     "cation_sum", "anion_sum", "charge_balance",
                     dplyr::everything()) %>%
-      dplyr::arrange("StationID", "SampleID", "Sample_Date")
+      dplyr::arrange(.data$StationID, .data$SampleID, .data$Sample_Date)
 
     col_names <- paste(colnames(d), units[colnames(d)], sep = "\n")
 

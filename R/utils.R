@@ -81,7 +81,7 @@ units_convert <- function(x, from, to) {
 meq <- function(d, drop_na = FALSE) {
   # Values all in mg/L (RESULT) which is the standard reported by EMS
   d <- dplyr::select(meq_conversion, "aqua_code" = "param", "conversion") %>%
-    dplyr::left_join(d, by = "aqua_code") %>%
+    dplyr::left_join(d, by = "aqua_code", multiple = "all") %>%
     dplyr::mutate(RESULT = .data$RESULT / .data$conversion,
                   aqua_code = paste0(.data$aqua_code, "_meq"),
                   UNIT = "meq",
@@ -234,8 +234,7 @@ water_type <- function(d) {
                      .by_group = TRUE) %>%
       dplyr::summarize(water_type = paste0(stringr::str_remove(.data$ion, "_meq"),
                                            collapse = "-"), .groups = "drop") %>%
-      dplyr::select(.data$Sample_Date, .data$SampleID, .data$StationID,
-                    .data$water_type) %>%
+      dplyr::select("Sample_Date", "SampleID", "StationID", "water_type") %>%
       dplyr::left_join(d, ., by = c("StationID", "SampleID", "Sample_Date"))
   } else {
     wt <- dplyr::mutate(d, water_type = NA_character_)
@@ -536,13 +535,13 @@ stiff_plot <- function(d, ems_id = NULL, colour = TRUE, legend = TRUE,
     dplyr::filter(.data$n == 6)
 
   if(colour) fill <- "ems_id" else fill <- NULL
-  ggplot2::ggplot(stiff, ggplot2::aes_string(x = "value", y = "sample",
-                                                  group = "SampleID", fill = fill)) +
+  ggplot2::ggplot(stiff, ggplot2::aes(x = .data$value, y = .data$sample,
+                                      group = .data$SampleID, fill = .data[[fill]])) +
     ggplot2::theme_classic() +
     ggplot2::theme(axis.title.y = ggplot2::element_blank()) +
     ggplot2::geom_polygon(colour = "black", show.legend = legend) +
     ggplot2::geom_vline(xintercept = 0) +
-    ggrepel::geom_label_repel(ggplot2::aes_string(label = "element"), fill = "white",
+    ggrepel::geom_label_repel(ggplot2::aes(label = .data$element), fill = "white",
                               min.segment.length = 0) +
     ggplot2::scale_y_discrete(labels = function(x) stringr::str_remove(x, " [0-9]{1}$"),
                               breaks = function(x) x[seq(2, by = 3, along.with = x)]) +
