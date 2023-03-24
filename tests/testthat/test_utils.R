@@ -65,9 +65,9 @@ test_that("meq() and charge_balance()", {
   expect_equal(dplyr::select(cb, "anion_sum", "cation_sum", "charge_balance"),
                dplyr::select(p, "anion_sum", "cation_sum", "charge_balance"))
 
-  expect_equal(cb$charge_balance, c(-1.4, -3.8, -11.7))
-  expect_equal(cb$anion_sum, c(6.25, 6.61, 5.97))
-  expect_equal(cb$cation_sum, c(6.08, 6.13, 4.72))
+  expect_equal(cb$charge_balance, c(-1.4, -3.8))
+  expect_equal(cb$anion_sum, c(6.25, 6.61))
+  expect_equal(cb$cation_sum, c(6.08, 6.13))
 })
 
 test_that("is_valid", {
