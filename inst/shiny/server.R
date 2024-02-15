@@ -111,6 +111,7 @@ server <- function(input, output, session) {
     updateTabItems(session, "box", "Details")
   }) |>
     bindEvent(input$link_details1, input$link_details2, input$link_details3,
+              input$link_details4,
               ignoreInit = TRUE)
 
   # Inputs and Values -------------------------------------------------------

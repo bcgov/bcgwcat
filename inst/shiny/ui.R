@@ -29,7 +29,11 @@ sidebar <- dashboardSidebar(
 
   h4("Data options"),
   # Select EMS IDs
-  textInput(inputId = "ems_ids", label = strong("EMS IDs (Comma-separated)")),
+  textInput(inputId = "ems_ids",
+            label = strong(
+              "EMS IDs (Comma-separated)",
+              actionLink("link_details4", label = icon("question"),
+                         style = "display:inline;margin:0"))),
 
   # Select date range
   dateRangeInput("date_range", strong("Date range"),
@@ -60,7 +64,7 @@ sidebar <- dashboardSidebar(
 
   # Help
   hr(),
-  h4(a(icon("question"), "Help", href = "https://bcgov.github.io/bcgwcat/",
+  h4(a(icon("question"), "Help", href = "https://bcgov.github.io/bcgwcat/articles/bcgwcat.html",
        target = "_blank"))
 )
 
@@ -190,6 +194,16 @@ body <- dashboardBody(
            tabPanel(
              "Details",
              fluidRow(
+
+               ## EMS IDs --------------
+               box(
+                 title = "EMS IDs", width = 12,
+                 p("In order to download water chemistry data from the EMS database, ",
+                   "you'll need to supply", em("public"), "EMS IDs, in the format of '1401030' or 'E292373'.",
+                   "Because this app works with the publically available EMS data base, only public data",
+                   "can be accessed. However, if you have private data you are able to mark as public,",
+                   "it will then be accessible here")
+               ),
 
                ## Charge Balances --------------
                box(
