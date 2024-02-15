@@ -3,6 +3,7 @@
   * Update docs etc. in light of this
 * Added more details to Shiny app explaining private vs. public EMS data, 
   water quality guidelines and parameter/unit changes
+* Fixed water quality summary to exclude Nitrate and Nitrate limits when measured as N (not applicable here)
 
 # rems2aquachem 0.5.1
 * Speed increases

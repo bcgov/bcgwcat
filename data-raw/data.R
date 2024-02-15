@@ -46,6 +46,18 @@ wq_std <- bcdata::bcdc_get_data(record = '85d3990a-ec0a-4436-8ebd-150de3ba0747',
                    by = c("ems_code" = "rems_code")) %>%
   dplyr::mutate(limit = as.numeric(limit))
 
+
+# Fix
+wq_std <- dplyr::filter(wq_std,
+                        !(variable == "Nitrite" & limitnotes == "Reported as N."),
+                        !(variable == "Nitrate" & limitnotes == "Reported as N."))
+
+# Find any remaining duplicates
+wq_std %>%
+  dplyr::mutate(n = dplyr::n(), .by = "ems_code") %>%
+  dplyr::filter(n > 1)
+
+
 usethis::use_data(params, ow, wq_std, internal = TRUE, overwrite = TRUE)
 
 unlink("gwells.zip")
