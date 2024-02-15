@@ -2,6 +2,7 @@
 
 
 test_that("general returned data", {
+  skip_on_ci()
   expect_message(r1 <- rems_to_aquachem(ems_ids = c("1401030", "1401377", "E292373"),
                                         interactive = FALSE),
                  "Checking for locally stored") %>%

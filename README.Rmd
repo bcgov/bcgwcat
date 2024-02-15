@@ -22,15 +22,12 @@ The goal of `bcgwcat` is to provide easy access to EMS data as well as
 tools specific to those working with groundwater through R functions but
 also through a **Shiny user-interface**. This tool can help with:
 
+- Downloading EMS data via the [`rems`](http://github.com/bcgov/rems) package
+- Calculating charge balances
+- Calculating water types
 - Converting data to a format for importing into AquaChem
-- Providing new charge balance calculations
-- Calculating water types (code only)
 - Providing water quality summaries
 - Piperplots and Stiff plots
-
-
-Data is first downloaded with BC Govs [`rems`](http://github.com/bcgov/rems) 
-package, then formatted for use by AquaChem and the other tools provided
 
 ## Quick Start
 

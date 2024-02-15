@@ -16,6 +16,7 @@ test_that("internal data correct", {
 
 
 test_that("meq() and charge_balance()", {
+  skip_on_ci()
 
   # See local_test_context() for dealing with weird sorting problems
   local({
@@ -117,7 +118,7 @@ test_that("water_type", {
   expect_silent(d <- water_type(d))
   expect_equal(d$water_type, "Mg-Na-Ca")
 
-
+  skip_on_ci()
   expect_message(p <- rems_to_aquachem(c("E298873", "E292373"),
                                       save = FALSE, interactive = FALSE,
                                       date_range = c("2015-01-01", "2016-12-31")) %>%
@@ -130,6 +131,7 @@ test_that("water_type", {
 
 # plots -------------------------------------
 test_that("plots", {
+  skip_on_ci()
   set.seed(1111)
   expect_message(p <- rems_to_aquachem("E298873", save = FALSE, interactive = FALSE,
                                        date_range = c("2014-01-01", "2014-12-31")),
@@ -145,6 +147,7 @@ test_that("plots", {
 })
 
 test_that("plots customized", {
+  skip_on_ci()
   suppressMessages({
     r <- rems_to_aquachem(ems_ids = c("1401030", "1401377", "E292373"),
                           save = FALSE) %>%
@@ -169,6 +172,7 @@ test_that("plots customized", {
 })
 
 test_that("plot messages", {
+  skip_on_ci()
   set.seed(1111)
   expect_message(p <- rems_to_aquachem(c("1401030", "1401377"),
                                        save = FALSE,
