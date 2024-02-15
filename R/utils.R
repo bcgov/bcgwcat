@@ -117,7 +117,7 @@ meq <- function(d, drop_na = FALSE) {
 #' Missing values are ignored (ie. generally treated as 0). However, if all
 #' values for cations or anions are missing the charge balance is `NA`.
 #'
-#' @param d Data set formatted for AquaChem (output of `rems2aquachem()`)
+#' @param d Data set formatted for AquaChem (output of `rems_to_aquachem()`)
 #'
 #' @return Data frame
 #'

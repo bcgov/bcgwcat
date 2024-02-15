@@ -7,7 +7,7 @@
 charge_balance(d)
 }
 \arguments{
-\item{d}{Data set formatted for AquaChem (output of \code{rems2aquachem()})}
+\item{d}{Data set formatted for AquaChem (output of \code{rems_to_aquachem()})}
 }
 \value{
 Data frame

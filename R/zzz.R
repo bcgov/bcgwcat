@@ -12,8 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-.onLoad <- function(libname = find.package("rems2aquachem"), pkgname = "rems2aquachem"){
-  options(rems2aquachem.shinydir = ".")
+.onLoad <- function(libname = find.package("bcgwcat"), pkgname = "bcgwcat"){
+  options(bcgwcat.shinydir = ".")
 
   # CRAN Note avoidance
   if(getRversion() >= "2.15.1")

@@ -1,4 +1,4 @@
 library(testthat)
-library(rems2aquachem)
+library(bcgwcat)
 
-test_check("rems2aquachem")
+test_check("bcgwcat")

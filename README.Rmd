@@ -14,13 +14,9 @@ knitr::opts_chunk$set(
   out.width = "100%"
 )
 ```
-# `rems2aquachem`
+# `bcgwcat`
 
-<!-- badges: start -->
-<!-- [![Travis build status](https://travis-ci.org/bcgov/rems2aquachem.svg?branch=master)](https://travis-ci.org/bcgov/rems2aquachem) -->
-<!-- badges: end -->
-
-The goal of `rems2aquachem` is to provide easy access to EMS data as well as
+The goal of `bcgwcat` is to provide easy access to EMS data as well as
 tools specific to those working with groundwater such as:
 
 - General Shiny GUI
@@ -70,11 +66,11 @@ package, then formatted for use by AquaChem and the other tools provided
     >    then try again
 
      
-6. **Install `rems2aquachem`** In the console type the following and hit enter 
+6. **Install `bcgwcat`** In the console type the following and hit enter 
 (be sure to install all updates if prompted!)
   
     ```{r, eval = FALSE}
-    remotes::install_github("bcgov/rems2aquachem")
+    remotes::install_github("bcgov/bcgwcat")
     ```
 
 If you run into errors right at the start, consider updating your packages.
@@ -84,14 +80,14 @@ remotes::update_packages()
 ```
 
   
-## Using `rems2aquachem`
+## Using `bcgwcat`
 
 ### Shiny GUI
 
-1. In RStudio, first load the `rems2aquachem` package (this must be done every time)
+1. In RStudio, first load the `bcgwcat` package (this must be done every time)
 
     ```{r}
-    library(rems2aquachem)
+    library(bcgwcat)
     ```
 
 2. Next, launch the shiny GUI. 
@@ -99,22 +95,22 @@ remotes::update_packages()
     Type the following in the console and hit enter
 
     ```{r eval = FALSE}
-    ac_gui()
+    bcgwcat_app()
     ```
     
-**See the [tutorial](https://bcgov.github.io/rems2aquachem/articles/rems2aquachem.html) for a more in-depth look at the GUI**
+**See the [tutorial](https://bcgov.github.io/bcgwcat/articles/bcgwcat.html) for a more in-depth look at the GUI**
 
-![Screenshot](https://raw.githubusercontent.com/bcgov/rems2aquachem/master/inst/assets/up-to-date.png)
+![Screenshot](figures/up-to-date.png)
 
 
 ### R command line
 
-For advanced users, `rems2aquachem` can be used directly from R.
+For advanced users, `bcgwcat` can be used directly from R.
 
 Downloads, converts and saves to csv
  
 ```{r example}
-library(rems2aquachem)
+library(bcgwcat)
 r <- rems_to_aquachem(ems_ids = c("1401030", "1401377", "E292373"))
 r
 ```
@@ -136,11 +132,11 @@ stiff_plot(r, ems_id = "1401030")
 
 ## Vignette/Tutorials
 
-See the [`rems2aquachem` website](https://bcgov.github.io/rems2aquachem)
+See the [`bcgwcat` website](https://bcgov.github.io/bcgwcat)
 
 ## License
 
-Copyright 2021 Province of British Columbia
+Copyright 2024 Province of British Columbia
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.

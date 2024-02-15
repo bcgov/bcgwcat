@@ -18,6 +18,7 @@
 
 
 # Run tests - Compare snapshots - BUILD PACKAGE FIRST
+devtools::test(filter = "gw_app")
 devtools::test()
 testthat::snapshot_review()
 testthat::snapshot_review(path = "inst/shiny/tests/testthat")
@@ -38,7 +39,7 @@ usethis::use_github_release()
 
 # Testing ----------------------------------------
 pkgdown::build_site()
-pkgdown::build_article("rems2aquachem")
+pkgdown::build_article("bcgwcat")
 pkgdown::build_article("piperplots")
 
 

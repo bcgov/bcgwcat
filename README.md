@@ -3,14 +3,10 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# `rems2aquachem`
+# `bcgwcat`
 
-<!-- badges: start -->
-<!-- [![Travis build status](https://travis-ci.org/bcgov/rems2aquachem.svg?branch=master)](https://travis-ci.org/bcgov/rems2aquachem) -->
-<!-- badges: end -->
-
-The goal of `rems2aquachem` is to provide easy access to EMS data as
-well as tools specific to those working with groundwater such as:
+The goal of `bcgwcat` is to provide easy access to EMS data as well as
+tools specific to those working with groundwater such as:
 
 - General Shiny GUI
 - Converting data to a format for importing into AquaChem
@@ -54,17 +50,17 @@ by AquaChem and the other tools provided
     >     name.
     >
     > 2.  Remove the `rems` cache - Delete the cache folders by going to
-    >     C:\_USER(windows) or \~/Library/Application Support (mac) and
+    >     C:\_USER(windows) or ~/Library/Application Support (mac) and
     >     delete the “rems” folder
     >
     > 3.  Re-install `rems` remotes::install_github(“bcgov/rems”) and
     >     then try again
 
-6.  **Install `rems2aquachem`** In the console type the following and
-    hit enter (be sure to install all updates if prompted!)
+6.  **Install `bcgwcat`** In the console type the following and hit
+    enter (be sure to install all updates if prompted!)
 
     ``` r
-    remotes::install_github("bcgov/rems2aquachem")
+    remotes::install_github("bcgov/bcgwcat")
     ```
 
 If you run into errors right at the start, consider updating your
@@ -74,15 +70,15 @@ packages.
 remotes::update_packages()
 ```
 
-## Using `rems2aquachem`
+## Using `bcgwcat`
 
 ### Shiny GUI
 
-1.  In RStudio, first load the `rems2aquachem` package (this must be
-    done every time)
+1.  In RStudio, first load the `bcgwcat` package (this must be done
+    every time)
 
     ``` r
-    library(rems2aquachem)
+    library(bcgwcat)
     ```
 
 2.  Next, launch the shiny GUI.
@@ -90,26 +86,29 @@ remotes::update_packages()
     Type the following in the console and hit enter
 
     ``` r
-    ac_gui()
+    bcgwcat_app()
     ```
 
 **See the
-[tutorial](https://bcgov.github.io/rems2aquachem/articles/rems2aquachem.html)
-for a more in-depth look at the GUI**
+[tutorial](https://bcgov.github.io/bcgwcat/articles/bcgwcat.html) for a
+more in-depth look at the GUI**
 
-![Screenshot](https://raw.githubusercontent.com/bcgov/rems2aquachem/master/inst/assets/up-to-date.png)
+<figure>
+<img src="figures/up-to-date.png" alt="Screenshot" />
+<figcaption aria-hidden="true">Screenshot</figcaption>
+</figure>
 
 ### R command line
 
-For advanced users, `rems2aquachem` can be used directly from R.
+For advanced users, `bcgwcat` can be used directly from R.
 
 Downloads, converts and saves to csv
 
 ``` r
-library(rems2aquachem)
+library(bcgwcat)
 r <- rems_to_aquachem(ems_ids = c("1401030", "1401377", "E292373"))
 #> Checking for locally stored historical data...
-#> Last download was 2 days ago
+#> Last download was 72 days ago
 #> If you would like to update historical data, run 'rems::download_historic_data()'
 #> Checking for locally stored recent data...
 #> Fetching data from cache...
@@ -135,7 +134,7 @@ r
 #> 14 "2020-06-29" "1401377-5" 49.175    "BACKGROUN… -119.7353  "203"     "Ground …
 #> 15 "2015-03-06" "E292373-1" 49.364604 "GROUNDWAT… -124.6141… "426"     "Fresh W…
 #> 16 "2017-10-11" "E292373-2" 49.364604 "GROUNDWAT… -124.6141… "426"     "Fresh W…
-#> # … with 171 more variables: Analysis_Date <chr>, shortWatertype <chr>,
+#> # ℹ 171 more variables: Analysis_Date <chr>, shortWatertype <chr>,
 #> #   Comment <chr>, Reference <chr>, Quality_control <chr>, Duplicate_ID <chr>,
 #> #   Labcode <chr>, Location <chr>, Geology <chr>, X <chr>, Y <chr>,
 #> #   Elevation <chr>, Well_Depth <chr>, Screen_Top <chr>, Screen_Mid <chr>,
@@ -160,11 +159,11 @@ stiff_plot(r, ems_id = "1401030")
 
 ## Vignette/Tutorials
 
-See the [`rems2aquachem` website](https://bcgov.github.io/rems2aquachem)
+See the [`bcgwcat` website](https://bcgov.github.io/bcgwcat)
 
 ## License
 
-Copyright 2021 Province of British Columbia
+Copyright 2024 Province of British Columbia
 
 Licensed under the Apache License, Version 2.0 (the “License”); you may
 not use this file except in compliance with the License. You may obtain

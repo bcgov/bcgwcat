@@ -1,5 +1,5 @@
 ---
-title: "Introducing `rems2aquachem`"
+title: "Introducing `bcgwcat`"
 author: "Steffi LaZerte"
 date: "`r Sys.Date()`"
 output:
@@ -14,7 +14,7 @@ output:
       ratio: "16:9"
 ---
 
-# What does rems2aquachem do?
+# What does bcgwcat do?
 
 ### Main tasks
 - Download EMS data using `rems` package
@@ -33,5 +33,5 @@ output:
 
 .center[
 ### Website
-**https://bcgov.github.io/rems2aquachem**
+**https://bcgov.github.io/bcgwcat**
 ]

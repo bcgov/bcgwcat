@@ -18,12 +18,15 @@ library(shinyjs)
 
 styles <- "h4 {margin-left: 5px;}"
 
-header <- dashboardHeader(title = "REMS to AquaChem")
+header <- dashboardHeader(title = "BC GWCAT")
 
 
 # Sidebar -----------------------------------------------------------------
 sidebar <- dashboardSidebar(
   tags$head(tags$style(HTML(styles))),
+
+  tags$h4("BC Groundwater Chemistry Analysis Tool", style = "padding:20px; padding-top:0; text-align:center;"),
+
   h4("Data options"),
   # Select EMS IDs
   textInput(inputId = "ems_ids", label = strong("EMS IDs (Comma-separated)")),
@@ -57,7 +60,7 @@ sidebar <- dashboardSidebar(
 
   # Help
   hr(),
-  h4(a(icon("question"), "Help", href = "https://bcgov.github.io/rems2aquachem/",
+  h4(a(icon("question"), "Help", href = "https://bcgov.github.io/bcgwcat/",
        target = "_blank"))
 )
 
@@ -77,13 +80,13 @@ body <- dashboardBody(
   fluidRow(
     tabBox(title = NULL, width = 12, id = "box",
 
-           # REMS Status Tab ----------------------------------------------------------
+           # Data Status Tab ----------------------------------------------------------
            tabPanel(
-             "REMS Status",
+             "Data Status",
              fluidRow(
                box(
                  width = 12,
-                 h3("Status of REMS data"),
+                 h3("Status of local EMS data"),
                  column(
                    width = 4,
                    valueBoxOutput("rems_status_historic", width = 12),
@@ -106,80 +109,163 @@ body <- dashboardBody(
                       box(h3("Data Messages"), width = 12,
                           verbatimTextOutput("messages", placeholder = TRUE)))),
 
-           # Results Tab -------------------------------------------------------------
-           tabPanel("Results",
-                    shinyjs::disabled(downloadButton("download_csv_data", "Download to CSV")),
-                    shinyjs::disabled(downloadButton("download_excel_data", "Download to Excel")),
-                    fluidRow(
-                      box(h4("Charge balances"),
-                          "`charge_balance`, `cation_sum` and `anion_sum` are values calculated locally by the rems2aquachem R package, based on calculation details from ALS Global. Potential changes in workflows over the years have made it difficult to ascertain exactly how charge balances were calculated in older samples. This resulted in discrepancies between EMS and locally calculated charge balances. Therefore for consistency, we re-calculate charge balances for all samples using the formula provided by ALS (see About Tab for details).", width = 12)),
-                    fluidRow(
-                      box(width = 12, height = "100px", DT::DTOutput("data"))
-                    )),
+           # Preview/Export Tab -------------------------------------------------------------
+           tabPanel(
+             "Preview/Export",
+
+             box(
+               width = 12,
+               p("Here we have the selected EMS Data prepared for export, formatted for use in AquaChem."),
+               tags$ul(
+                 tags$li("Charge balances are highlighted as acceptable",
+                         "(absolute value < 10; ",
+                         span("green", style = "background-color:#d4edda", .noWS = "after"), ")",
+                         "or not (absolute value > 10; ",
+                         span("red", style = "background-color:#f8d7da", .noWS = "after"), ").",
+                         "Please see ", actionLink("link_details1", "Details Tab"),
+                         "for a note on how Charge Balances differ from those in the EMS data base."),
+                 tags$li("Parameter names, ", em("and occasionally units,"),
+                         "are different from those in the EMS data base.",
+                         "Please see ", actionLink("link_details2", "Details Tab"), "for how they correspond.")
+               ),
+               shinyjs::disabled(downloadButton("download_csv_data", "Download to CSV")),
+               shinyjs::disabled(downloadButton("download_excel_data", "Download to Excel")),
+             ),
+
+             fluidRow(
+               box(width = 12, height = "100px", DT::DTOutput("data"))
+             )),
 
 
            # Water Quality Tab -------------------------------------------------------
-           tabPanel("Water Quality Summary",
-                    fluidRow(box(width = 2,
-                                 radioButtons(
-                                   "wq_show", strong("Samples to include:"),
-                                   choices = list("All" = "all",
-                                                  "Problems only" = "problems",
-                                                  "Non-missing only" = "no_missing"))),
-                             box(width = 10, uiOutput("data_params"),
-                                 actionButton("reset_params", "Select/Unselect All"))),
-                    fluidRow(box(width = 12, height = "100px", DT::DTOutput("data_wq")))
-                    ),
+           tabPanel(
+             "Water Quality Summary",
+             fluidRow(
+               box(
+                 width = 2,
+                 radioButtons(
+                   "wq_show", strong("Samples to include:"),
+                   choices = list("All" = "all",
+                                  "Problems only" = "problems",
+                                  "Non-missing only" = "no_missing"))),
+               box(
+                 width = 10,
+                 uiOutput("data_params"),
+                 actionButton("reset_params", "Select/Unselect All"),
+                 p("Summarized Water Quality based to the 'Upper Limits' ",
+                 "of the 'Maximum Acceptable Concentration' for 'Drinking Water'.",
+                 "See", actionLink("link_details3", "Details Tab"), "for more specifics.",
+                 style = "padding-top:20px"))),
+             fluidRow(box(width = 12, height = "100px", DT::DTOutput("data_wq")))
+           ),
 
            # Plots Tab ---------------------------------------------------------------
-           tabPanel("Plots",
-                    fluidRow(
-                      column(width = 6,
-                             box(width = NULL,
-                                 downloadButton(outputId = "download_plots", label = "Download All Plots"),
-                                 br(),
-                                 "Note that downloaded plots may not have the same dimensions as the preview plots"),
-                             box(title = "Stiff Plot", width = NULL,
-                                 plotOutput("stiff", width = "100%", height = "350px"),
-                                 strong("Note that stiff plots only include complete samples"))
-                      ),
-                      column(width = 6,
-                             box(title = "Piper Plot", width = NULL, height = "525px",
-                                 plotOutput("piperplot"))
-                      ))
+           tabPanel(
+             "Plots",
+             fluidRow(
+               column(
+                 width = 6,
+                 box(
+                   width = NULL,
+                   downloadButton(outputId = "download_plots", label = "Download All Plots"),
+                   p(),
+                   p("Note that downloaded plots may not have the same dimensions as the preview plots"),
+                   p("You can also Right-click on a plot and choose to save the image directly.",
+                     "This will ensure the same dimensions and 'zoom' level as the display.")
+                   ),
+                 box(
+                   title = "Stiff Plot", width = NULL,
+                   plotOutput("stiff", width = "100%", height = "350px"),
+                   strong("Note that stiff plots only include complete samples"))
+               ),
+               column(
+                 width = 6,
+                 box(
+                   title = "Piper Plot", width = NULL, height = "525px",
+                   plotOutput("piperplot"))
+               ))
            ),
+
+           # Details Tab -------------------------------------------------------------
+           tabPanel(
+             "Details",
+             fluidRow(
+
+               ## Charge Balances --------------
+               box(
+                 title = "Charge Balances", width = 12,
+                 p("In the data, values `charge_balance`, `cation_sum` and `anion_sum` are calculated locally ",
+                   "by the bcgwcat R package, based on calculation details from ALS Global. ",
+                   "Potential changes in workflows over the years have made it difficult to ascertain exactly",
+                   "how charge balances were calculated in older samples. This resulted in",
+                   "discrepancies between EMS and locally calculated charge balances. Therefore",
+                   "for consistency, we calculate charge balances for all samples using the ALS",
+                   "formula below."),
+
+                 p("One difference between this calculation and that of ALS, is that we use more",
+                   "significant digits when calculating MEQ."),
+                 p("anion sum = Cl_meq + SO4_meq + F_meq + NO3_meq + NO2_meq + Means_Alk_meq"),
+
+                 p("cation sum = Ca_meq + Mg_meq + Na_meq + K_meq + Al_diss_meq +",
+                   "Cu_diss_meq + Fe_diss_meq + Mn_diss_meq + Zn_diss_meq + NH4_meq +",
+                   "(10 ^ (-pH_lab)) * 1000"),
+
+                 p("Charge balance = 100 x (Cation Sum - Anion sum) / (Cation Sum + Anion Sum)"),
+
+                 p("Missing values are ignored (ie. generally treated as 0). However, if all",
+                   "values for cations or anions are missing the charge balance is NA.")
+               ),
+
+               ## Water Quality --------------
+               box(
+                 title = "Water Quality", width = 12,
+
+                 p("Water Quality is summarized by whether parameters exceed '",
+                   strong("Upper Limits", .noWS = "outside"), "' of the '",
+                   strong("Maximum Acceptable Concentration", .noWS = "outside"),
+                   "' for '", strong("Drinking Water", .noWS = "outside"), "' based on the",
+                   a("Water Quality Guidelines of B.C.",
+                     href = "https://catalogue.data.gov.bc.ca/dataset/85d3990a-ec0a-4436-8ebd-150de3ba0747",
+                     target = "blank"),
+                   "downloaded via the bcdata package.")
+               ),
+
+               ## Param Names --------------
+               box(
+                 title = "Parameter Names", width = 12,
+
+                 p("The parameter names presented in the Preview/Export tab are modified from the EMS data",
+                   "to match required parameter names for AquaChem."),
+                 p("Here is the list of parameters used by this App and how the names compare between ",
+                   "the incoming EMS data and the data prepared for export"),
+
+                 DT::DTOutput("parameters")
+               )
+
+
+             ), footer = HTML("<br>")),
 
            # About Tab ---------------------------------------------------------------
            tabPanel(
              "About",
              fluidRow(
-               box(title = "About this Shiny App", width = 12,
-                   p("This Shiny App collects EMS data from BCGOV using the",
-                     a('rems', href = "https://github.com/bcgov/rems", target = "_blank"),
-                     "package. ",
-                     "Data is filtered to the EMS IDs and the Date Range ",
-                     "specificied and is then formated for easy input into AquaChem."),
-                   p("Data can be downloaded as either csv or a colour-coded xlsx."),
-                   p("Piper plots and stiff diagrams can be viewed and downloaded as png.")),
-               box(title = "About charge balances", width = 12,
-                   p("Potential changes in workflows over the years have made it difficult to ascertain exactly",
-                     "how charge balances were calculated in older samples. This resulted in",
-                     "discrepancies between EMS and locally calculated charge balances. Therefore",
-                     "for consistency, we calculate charge balances for all samples using the ALS",
-                     "formula below."),
-
-                   p("One difference between this calculation and that of ALS, is that we use more",
-                     "significant digits when calculating MEQ."),
-                   p("anion sum = Cl_meq + SO4_meq + F_meq + NO3_meq + NO2_meq + Means_Alk_meq"),
-
-                   p("cation sum = Ca_meq + Mg_meq + Na_meq + K_meq + Al_diss_meq +",
-                     "Cu_diss_meq + Fe_diss_meq + Mn_diss_meq + Zn_diss_meq + NH4_meq +",
-                     "(10 ^ (-pH_lab)) * 1000"),
-
-                   p("Charge balance = 100 x (Cation Sum - Anion sum) / (Cation Sum + Anion Sum)"),
-
-                   p("Missing values are ignored (ie. generally treated as 0). However, if all",
-                     "values for cations or anions are missing the charge balance is NA."))
+               box(
+                 title = "About this Shiny App", width = 12,
+                 p("This app allows functions the R package bcgwcat (BC Groundwater Chemistry Analysis Tools)",
+                   "to be used in a simpler, and interactive format."),
+                 p("BC Government Environmental Monitoring System (EMS) data is retrieved using the",
+                   a('rems', href = "https://github.com/bcgov/rems", target = "_blank"),
+                   "package and filtered. ",
+                   "Data is filtered to the EMS IDs and the Date Range specified",
+                   "and can then be exported for use in AquaChem, or",
+                   "water quality summaries can be viewed, ",
+                   "or piper and stiff plots can be created."),
+                 p("Data can be downloaded for AquaChem as either csv or a colour-coded xlsx."),
+                 p("Piper plots and stiff diagrams can be viewed and downloaded as png."),
+                 p("Piper plots are created via the ",
+                   a("smwrGraphs", href = "https://code.usgs.gov/water/analysis-tools/smwrGraphs"),
+                   "package developed by Dave Lorenz and Laura DeCicco in the USGS")
+               )
 
                ), footer = HTML("<br>"))
            )))

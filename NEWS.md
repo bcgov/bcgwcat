@@ -1,3 +1,7 @@
+# bcgwcat 0.6.0
+* Rename to bcgwcat to reflect change in scope
+  * Update docs etc. in light of this
+
 # rems2aquachem 0.5.1
 * Speed increases
 * Use dplyr v1.1.0

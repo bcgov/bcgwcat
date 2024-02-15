@@ -1,21 +1,22 @@
-Package: rems2aquachem
+Package: bcgwcat
 Type: Package
-Title: Download from rems and export data in format for AquaChem
+Title: BC Groundwater Chemistry Analysis Tool
 Version: 0.5.1
 Authors@R: c(person("Steffi", "LaZerte", email = "steffi@steffi.ca",
   role = c("aut", "cre")), 
   person("Andarge", "Baye", email = "Andarge.Baye@gov.bc.ca", role = "aut"),
   person("Province of British Columbia", role = "cph"))
-Description: Use bcgov package 'rems' to download data for specific EMS ids. 
-    Convert data to format for easy importing into AquaChem. ShinyApp included 
-    to provide user-friendly GUI.
+Description: Set of tools for working with groundwater chemstry data from the 
+    BC Government Environmental Monitoring System (EMS). Download EMS data via 
+    the rems package and a) export for use in AquaChem, b) view water
+    quality summaries, c) create piper and stiff plots. 
 License: file LICENSE
 Encoding: UTF-8
 LazyData: true
 Depends:
   R (>= 3.3.0)
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.2.1
+RoxygenNote: 7.2.3
 Imports: 
     dplyr (>= 1.1.0),
     DT (>= 0.5),
@@ -48,4 +49,4 @@ Suggests:
     shinytest2
 VignetteBuilder: knitr
 Config/testthat/edition: 3
-URL: https://bcgov.github.io/rems2aquachem
+URL: https://bcgov.github.io/bcgwcat

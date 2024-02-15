@@ -13,10 +13,10 @@
 # limitations under the License.
 
 library(shinyjs)
-library(rems2aquachem)
+library(bcgwcat)
 library(rems)
 
-server <- function(input, output) {
+server <- function(input, output, session) {
 
   status <- reactiveValues(check_rems_recent = TRUE,
                            check_rems_historic = TRUE)
@@ -106,6 +106,12 @@ server <- function(input, output) {
   })
 
 
+  # Linking ---------------------------------
+  observe({
+    updateTabItems(session, "box", "Details")
+  }) |>
+    bindEvent(input$link_details1, input$link_details2, input$link_details3,
+              ignoreInit = TRUE)
 
   # Inputs and Values -------------------------------------------------------
 
@@ -186,7 +192,7 @@ server <- function(input, output) {
       r <- data.frame()
     } else {
       shinyjs::html(id = "messages",
-                    html = "EMS data received - Go to Results Tab to explore",
+                    html = "EMS data received - Go to the Preview/Export Tab to explore",
                     add = TRUE)
     }
 
@@ -200,12 +206,12 @@ server <- function(input, output) {
 
     data_ac() %>%
       water_quality() %>%
-      dplyr::left_join(dplyr::select(rems2aquachem:::params, rems_name,
+      dplyr::left_join(dplyr::select(bcgwcat:::params, rems_name,
                                      aqua_code),
                        by = "aqua_code") %>%
       dplyr::select("StationID", "SampleID", "Sample_Date", "aqua_code",
                     "param" = "rems_name", "value_transformed" = "value2",
-                    "limit", "units", "quality_problem") %>%
+                    "limit", "limitnotes", "units", "quality_problem") %>%
       dplyr::arrange(.data$StationID, .data$SampleID, .data$Sample_Date, .data$param)
   })
 
@@ -267,7 +273,8 @@ server <- function(input, output) {
       dplyr::rename(`AquaChem Code` = aqua_code,
                     Parameter = param,
                     `Value (Transformed)` = value_transformed,
-                    `Water Quality Limit (Upper)` = limit) %>%
+                    `Water Quality Limit (Upper)` = limit,
+                    `Limit Notes` = limitnotes) %>%
       dplyr::rename_with(~tools::toTitleCase(
         stringr::str_replace_all(., "_", " "))) %>%
       DT::datatable(options = list(pageLength = 20, scrollX = TRUE,
@@ -416,5 +423,23 @@ server <- function(input, output) {
       zip(zipfile = fname, files = f, flags = "-j")
     }, contentType = "application/zip"
   )
+
+
+  # Parameter table ----------------------------------------------------------
+  output$parameters <- DT::renderDT({
+    params %>%
+      dplyr::select(-"smwr_code", -"type", -"data_type") %>%
+      dplyr::rename_with(.fn = ~{
+        .x %>%
+          stringr::str_replace("water_quality", "water_quality_available") %>%
+          stringr::str_replace("aqua", "AquaChem") %>%
+          stringr::str_replace_all("rems", "EMS") %>%
+          stringr::str_replace_all("_", " ") %>%
+          tools::toTitleCase()
+      }) %>%
+      DT::datatable(options = list(pageLength = 20, scrollX = TRUE),
+                    rownames = FALSE)
+
+  })
 
 }
