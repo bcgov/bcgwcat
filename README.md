@@ -3,23 +3,31 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# `bcgwcat`
+# `bcgwcat` - Groundwater Chemistry Analysis Tool
 
 The goal of `bcgwcat` is to provide easy access to EMS data as well as
-tools specific to those working with groundwater such as:
+tools specific to those working with groundwater through R functions but
+also through a **Shiny user-interface**. This tool can help with:
 
-- General Shiny GUI
 - Converting data to a format for importing into AquaChem
 - Providing new charge balance calculations
-- Calculating water types
-- Scoring water quality
+- Calculating water types (code only)
+- Providing water quality summaries
 - Piperplots and Stiff plots
 
 Data is first downloaded with BC Govs
 [`rems`](http://github.com/bcgov/rems) package, then formatted for use
 by AquaChem and the other tools provided
 
-## Installation steps
+## Quick Start
+
+- Install [**R**](https://cloud.r-project.org/) and
+  [**RStudio**](https://rstudio.com/)
+- Install remotes - `install.packages("remotes")`
+- Install bcgwcat - `remotes::install_github("bcgov/bcgwcat")`
+- Launch the Shiny App - `gw_app()`
+
+## Installing
 
 1.  [**Update RStudio**](https://rstudio.com/) (if it’s been a while)
 
@@ -27,8 +35,7 @@ by AquaChem and the other tools provided
 
 3.  **Open RStudio**
 
-4.  **Install `remotes`** In the console type the following and hit
-    enter
+4.  **Install remotes** In the console type the following and hit enter
 
     ``` r
     install.packages("remotes")
@@ -50,10 +57,11 @@ by AquaChem and the other tools provided
     >     name.
     >
     > 2.  Remove the `rems` cache - Delete the cache folders by going to
-    >     C:\_USER(windows) or ~/Library/Application Support (mac) and
-    >     delete the “rems” folder
+    >     `C:\Users\YOUR_USER\AppData\Local` (windows) or
+    >     `~/Library/Application Support (mac)` and delete the “rems”
+    >     folder
     >
-    > 3.  Re-install `rems` remotes::install_github(“bcgov/rems”) and
+    > 3.  Re-install rems `remotes::install_github("bcgov/rems")` and
     >     then try again
 
 6.  **Install `bcgwcat`** In the console type the following and hit
@@ -108,7 +116,7 @@ Downloads, converts and saves to csv
 library(bcgwcat)
 r <- rems_to_aquachem(ems_ids = c("1401030", "1401377", "E292373"))
 #> Checking for locally stored historical data...
-#> Last download was 72 days ago
+#> Last download was 1 days ago
 #> If you would like to update historical data, run 'rems::download_historic_data()'
 #> Checking for locally stored recent data...
 #> Fetching data from cache...

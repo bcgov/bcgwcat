@@ -2,3 +2,13 @@ url: https://bcgov.github.io/bcgwcat
 template:
   bootstrap: 5
 
+reference:
+- title: Shiny User-Interface
+  desc: Function for launching the user-interface
+  contents:
+  - has_concept("shiny_app")
+
+- title: General function reference
+  desc: Functions available for coding from the R console
+  contents:
+  - lacks_concepts("shiny_app")

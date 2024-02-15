@@ -20,6 +20,8 @@
 #' @examples
 #' \dontrun{gw_app()}
 #'
+#' @concept shiny_app
+#'
 #' @export
 gw_app <- function() {
 
