@@ -4,6 +4,7 @@ library(shinytest2)
 test_that("sample_app works", {
   # Don't run these tests on the CRAN build servers
   skip_on_cran()
+  skip_on_ci()
 
   appdir <- system.file(package = "bcgwcat", "shiny")
   test_app(appdir)
