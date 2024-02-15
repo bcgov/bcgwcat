@@ -6,10 +6,11 @@ test_that("{shinytest2} recording: basic", {
                        height = 948, width = 1551)
 
   app$set_inputs(ems_ids = "\"1401030\", \"1401377\", \"E292373\"")
-
   app$click("get_data")
+  app$wait_for_idle(500)
+  app$expect_screenshot()
 
-  app$set_inputs(box = "Results", wait_ = FALSE)
+  app$set_inputs(box = "Preview/Export", wait_ = FALSE)
   tbl <- app$wait_for_idle(duration = 500)
   app$expect_values()
 
@@ -20,6 +21,10 @@ test_that("{shinytest2} recording: basic", {
   app$set_inputs(box = "Plots")
   plot <- app$wait_for_value(output = "stiff", ignore = list(NULL))
   plot <- app$wait_for_value(output = "piperplot", ignore = list(NULL))
+  app$expect_screenshot()
+
+  app$set_inputs(box = "Details")
+  app$wait_for_idle(500)
   app$expect_screenshot()
 
   app$set_inputs(box = "About")

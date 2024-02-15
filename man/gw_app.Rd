@@ -2,12 +2,13 @@
 % Please edit documentation in R/shiny_gui.R
 \name{gw_app}
 \alias{gw_app}
-\title{Launch web app}
+\title{Launch Shiny app}
 \usage{
 gw_app()
 }
 \description{
-Shiny app to launch an interactive interface for getting and formatting data.
+Interactive interface for filtering and formatting data, summarizing water
+quality and creating piper and stiff plots.
 }
 \examples{
 \dontrun{gw_app()}
