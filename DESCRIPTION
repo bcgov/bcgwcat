@@ -49,4 +49,4 @@ Suggests:
     shinytest2
 VignetteBuilder: knitr
 Config/testthat/edition: 3
-URL: https://bcgov.github.io/bcgwcat
+URL: https://bcgov.github.io/bcgwcat/
