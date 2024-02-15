@@ -1,78 +1,78 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://bcgov.github.io/rems2aquachem/404.html</loc>
+    <loc>https://bcgov.github.io/bcgwcat/404.html</loc>
   </url>
   <url>
-    <loc>https://bcgov.github.io/rems2aquachem/CODE_OF_CONDUCT.html</loc>
+    <loc>https://bcgov.github.io/bcgwcat/CODE_OF_CONDUCT.html</loc>
   </url>
   <url>
-    <loc>https://bcgov.github.io/rems2aquachem/CONTRIBUTING.html</loc>
+    <loc>https://bcgov.github.io/bcgwcat/CONTRIBUTING.html</loc>
   </url>
   <url>
-    <loc>https://bcgov.github.io/rems2aquachem/LICENSE-text.html</loc>
+    <loc>https://bcgov.github.io/bcgwcat/LICENSE-text.html</loc>
   </url>
   <url>
-    <loc>https://bcgov.github.io/rems2aquachem/articles/index.html</loc>
+    <loc>https://bcgov.github.io/bcgwcat/articles/bcgwcat.html</loc>
   </url>
   <url>
-    <loc>https://bcgov.github.io/rems2aquachem/articles/piperplots.html</loc>
+    <loc>https://bcgov.github.io/bcgwcat/articles/index.html</loc>
   </url>
   <url>
-    <loc>https://bcgov.github.io/rems2aquachem/articles/rems2aquachem.html</loc>
+    <loc>https://bcgov.github.io/bcgwcat/articles/piperplots.html</loc>
   </url>
   <url>
-    <loc>https://bcgov.github.io/rems2aquachem/authors.html</loc>
+    <loc>https://bcgov.github.io/bcgwcat/authors.html</loc>
   </url>
   <url>
-    <loc>https://bcgov.github.io/rems2aquachem/index.html</loc>
+    <loc>https://bcgov.github.io/bcgwcat/index.html</loc>
   </url>
   <url>
-    <loc>https://bcgov.github.io/rems2aquachem/news/index.html</loc>
+    <loc>https://bcgov.github.io/bcgwcat/news/index.html</loc>
   </url>
   <url>
-    <loc>https://bcgov.github.io/rems2aquachem/reference/ac_gui.html</loc>
+    <loc>https://bcgov.github.io/bcgwcat/reference/charge_balance.html</loc>
   </url>
   <url>
-    <loc>https://bcgov.github.io/rems2aquachem/reference/charge_balance.html</loc>
+    <loc>https://bcgov.github.io/bcgwcat/reference/check_present.html</loc>
   </url>
   <url>
-    <loc>https://bcgov.github.io/rems2aquachem/reference/check_present.html</loc>
+    <loc>https://bcgov.github.io/bcgwcat/reference/get_rems.html</loc>
   </url>
   <url>
-    <loc>https://bcgov.github.io/rems2aquachem/reference/get_rems.html</loc>
+    <loc>https://bcgov.github.io/bcgwcat/reference/gw_app.html</loc>
   </url>
   <url>
-    <loc>https://bcgov.github.io/rems2aquachem/reference/index.html</loc>
+    <loc>https://bcgov.github.io/bcgwcat/reference/index.html</loc>
   </url>
   <url>
-    <loc>https://bcgov.github.io/rems2aquachem/reference/meq.html</loc>
+    <loc>https://bcgov.github.io/bcgwcat/reference/meq.html</loc>
   </url>
   <url>
-    <loc>https://bcgov.github.io/rems2aquachem/reference/meq_conversion.html</loc>
+    <loc>https://bcgov.github.io/bcgwcat/reference/meq_conversion.html</loc>
   </url>
   <url>
-    <loc>https://bcgov.github.io/rems2aquachem/reference/pipe.html</loc>
+    <loc>https://bcgov.github.io/bcgwcat/reference/pipe.html</loc>
   </url>
   <url>
-    <loc>https://bcgov.github.io/rems2aquachem/reference/piper_plot.html</loc>
+    <loc>https://bcgov.github.io/bcgwcat/reference/piper_plot.html</loc>
   </url>
   <url>
-    <loc>https://bcgov.github.io/rems2aquachem/reference/rems_to_aquachem.html</loc>
+    <loc>https://bcgov.github.io/bcgwcat/reference/rems_to_aquachem.html</loc>
   </url>
   <url>
-    <loc>https://bcgov.github.io/rems2aquachem/reference/stiff_plot.html</loc>
+    <loc>https://bcgov.github.io/bcgwcat/reference/stiff_plot.html</loc>
   </url>
   <url>
-    <loc>https://bcgov.github.io/rems2aquachem/reference/tidyeval.html</loc>
+    <loc>https://bcgov.github.io/bcgwcat/reference/tidyeval.html</loc>
   </url>
   <url>
-    <loc>https://bcgov.github.io/rems2aquachem/reference/units_remove.html</loc>
+    <loc>https://bcgov.github.io/bcgwcat/reference/units_remove.html</loc>
   </url>
   <url>
-    <loc>https://bcgov.github.io/rems2aquachem/reference/water_quality.html</loc>
+    <loc>https://bcgov.github.io/bcgwcat/reference/water_quality.html</loc>
   </url>
   <url>
-    <loc>https://bcgov.github.io/rems2aquachem/reference/water_type.html</loc>
+    <loc>https://bcgov.github.io/bcgwcat/reference/water_type.html</loc>
   </url>
 </urlset>
