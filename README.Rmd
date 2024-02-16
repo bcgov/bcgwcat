@@ -12,17 +12,17 @@ output: github_document
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
-  fig.path = "man/figures/README-",
+  fig.path = "man/figures/",
   out.width = "100%"
 )
 ```
-# `bcgwcat` - Groundwater Chemistry Analysis Tool
+# bcgwcat - Groundwater Chemistry Analysis Tool
 
-The goal of `bcgwcat` is to provide easy access to EMS data as well as
+The goal of bcgwcat is to provide easy access to EMS data as well as
 tools specific to those working with groundwater through R functions but
 also through a **Shiny user-interface**. This tool can help with:
 
-- Downloading EMS data via the [`rems`](http://github.com/bcgov/rems) package
+- Downloading EMS data via the [rems](http://github.com/bcgov/rems) package
 - Calculating charge balances
 - Calculating water types
 - Converting data to a format for importing into AquaChem
@@ -47,7 +47,16 @@ also through a **Shiny user-interface**. This tool can help with:
      ```{r, eval = FALSE}
      install.packages("remotes")
      ```
-5. **Update `rems`** In the console type the following and hit enter
+5. **Install bcgwcat** In the console type the following and hit enter 
+(be sure to install all updates if prompted!)
+  
+    ```{r, eval = FALSE}
+    remotes::install_github("bcgov/bcgwcat")
+    ```
+    
+### Troubleshooting
+
+1. **Update rems** In the console type the following and hit enter
 
      ```{r, eval = FALSE}
      remotes::install_github("bcgov/rems")
@@ -67,48 +76,31 @@ also through a **Shiny user-interface**. This tool can help with:
     > 
     > 3. Re-install rems `remotes::install_github("bcgov/rems")` and 
     >    then try again
-
-     
-6. **Install `bcgwcat`** In the console type the following and hit enter 
-(be sure to install all updates if prompted!)
   
+2. **Update all packages** If you run into errors right at the start, consider updating your packages.
+
     ```{r, eval = FALSE}
-    remotes::install_github("bcgov/bcgwcat")
+    remotes::update_packages()
     ```
 
-If you run into errors right at the start, consider updating your packages.
+## Using bcgwcat
 
-```{r, eval = FALSE}
-remotes::update_packages()
-```
+### Shiny User-Interface
 
-  
-## Using `bcgwcat`
-
-### Shiny GUI
-
-1. In RStudio, first load the `bcgwcat` package (this must be done every time)
-
-    ```{r}
-    library(bcgwcat)
-    ```
-
-2. Next, launch the shiny GUI. 
-
-    Type the following in the console and hit enter
-
-    ```{r eval = FALSE}
-    bcgwcat_app()
-    ```
+Type this line into the R console at the prompt (in the screen with `>`) and
+hit 'Enter'.
+   ```{r, eval = FALSE}
+   bcgwcat::gw_app() # Launch the app
+   ```
     
-**See the [tutorial](https://bcgov.github.io/bcgwcat/articles/bcgwcat.html) for a more in-depth look at the GUI**
+**See the [tutorial](https://bcgov.github.io/bcgwcat/articles/bcgwcat.html) for a more in-depth look at how to use the User Interface**
 
-![Screenshot](figures/up-to-date.png)
+![Screenshot](man/figures/up-to-date.png)
 
 
 ### R command line
 
-For advanced users, `bcgwcat` can be used directly from R.
+For advanced users, bcgwcat can be used directly from R.
 
 Downloads, converts and saves to csv
  
@@ -135,7 +127,7 @@ stiff_plot(r, ems_id = "1401030")
 
 ## Vignette/Tutorials
 
-See the [`bcgwcat` website](https://bcgov.github.io/bcgwcat)
+See the [bcgwcat website](https://bcgov.github.io/bcgwcat)
 
 ## License
 
