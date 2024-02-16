@@ -6,8 +6,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="description" content="Set of tools for working with groundwater chemstry data from the 
-    BC Government Environmental Monitoring System (EMS). Download EMS data via 
-    the rems package and a) export for use in AquaChem, b) view water
+    BC Government Environmental Monitoring System (EMS). Download EMS data and 
+    a) export for use in AquaChem, b) view water
     quality summaries, c) create piper and stiff plots. ">
 <title>BC Groundwater Chemistry Analysis Tool • bcgwcat</title>
 <script src="deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -16,8 +16,8 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- bootstrap-toc --><script src="https://cdn.jsdelivr.net/gh/afeld/bootstrap-toc@v1.0.1/dist/bootstrap-toc.min.js" integrity="sha256-4veVQbu7//Lk5TSmc7YV48MxtMy98e26cf5MrgZYnwo=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="BC Groundwater Chemistry Analysis Tool">
 <meta property="og:description" content="Set of tools for working with groundwater chemstry data from the 
-    BC Government Environmental Monitoring System (EMS). Download EMS data via 
-    the rems package and a) export for use in AquaChem, b) view water
+    BC Government Environmental Monitoring System (EMS). Download EMS data and 
+    a) export for use in AquaChem, b) view water
     quality summaries, c) create piper and stiff plots. ">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
@@ -28,7 +28,7 @@
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
     
 
-    <nav class="navbar fixed-top navbar-light navbar-expand-lg bg-light"><div class="container">
+    <nav class="navbar fixed-top navbar-dark navbar-expand-lg bg-primary"><div class="container">
     
     <a class="navbar-brand me-2" href="index.html">bcgwcat</a>
 
@@ -76,10 +76,12 @@
 </nav><div class="container template-home">
 <div class="row">
   <main id="main" class="col-md-9">
-<!-- README.md is generated from README.Rmd. Please edit that file -->
 <div class="section level1">
 <div class="page-header"><h1 id="bcgwcat---groundwater-chemistry-analysis-tool">bcgwcat - Groundwater Chemistry Analysis Tool<a class="anchor" aria-label="anchor" href="#bcgwcat---groundwater-chemistry-analysis-tool"></a>
 </h1></div>
+<blockquote>
+<p><em>Previously known as rems2aquachem, as the scope of this tool has expanded, we have renamed it to better reflect what it does</em></p>
+</blockquote>
 <p>The goal of bcgwcat is to provide easy access to EMS data as well as tools specific to those working with groundwater through R functions but also through a <strong>Shiny user-interface</strong>. This tool can help with:</p>
 <ul>
 <li>Downloading EMS data via the <a href="http://github.com/bcgov/rems" class="external-link">rems</a> package</li>
@@ -95,54 +97,53 @@
 <ul>
 <li>Install <a href="https://cloud.r-project.org/" class="external-link"><strong>R</strong></a> and <a href="https://rstudio.com/" class="external-link"><strong>RStudio</strong></a>
 </li>
-<li>Install remotes - <code>install.packages("remotes")</code>
+<li>Install pak - <code>install.packages("pak")</code>
 </li>
-<li>Install bcgwcat - <code>remotes::install_github("bcgov/bcgwcat")</code>
-</li>
+<li>Install bcgwcat - <code>pak::pkg_install("bcgov/bcgwcat")</code> [Update All if asked]</li>
 <li>Launch the Shiny App - <code><a href="reference/gw_app.html">gw_app()</a></code>
 </li>
 </ul>
 </div>
 <div class="section level2">
-<h2 id="installing">Installing<a class="anchor" aria-label="anchor" href="#installing"></a>
+<h2 id="in-detail">In Detail<a class="anchor" aria-label="anchor" href="#in-detail"></a>
 </h2>
 <ol style="list-style-type: decimal">
 <li><p><a href="https://rstudio.com/" class="external-link"><strong>Update RStudio</strong></a> (if it’s been a while)</p></li>
 <li><p><a href="https://cloud.r-project.org/" class="external-link"><strong>Update R</strong></a> (if it’s been a while)</p></li>
 <li><p><strong>Open RStudio</strong></p></li>
 <li>
-<p><strong>Install remotes</strong> In the console type the following and hit enter</p>
+<p><strong>Install pak</strong> In the console type the following and hit enter</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"remotes"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"pak"</span><span class="op">)</span></span></code></pre></div>
 </li>
 <li>
 <p><strong>Install bcgwcat</strong> In the console type the following and hit enter (be sure to install all updates if prompted!)</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">remotes</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"bcgov/bcgwcat"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu">pak</span><span class="fu">::</span><span class="fu"><a href="https://pak.r-lib.org/reference/pkg_install.html" class="external-link">pkg_install</a></span><span class="op">(</span><span class="st">"bcgov/bcgwcat"</span><span class="op">)</span></span></code></pre></div>
 </li>
 </ol>
-<div class="section level3">
-<h3 id="troubleshooting">Troubleshooting<a class="anchor" aria-label="anchor" href="#troubleshooting"></a>
-</h3>
+<div class="section level4">
+<h4 id="troubleshooting">Troubleshooting<a class="anchor" aria-label="anchor" href="#troubleshooting"></a>
+</h4>
 <ol style="list-style-type: decimal">
 <li>
 <p><strong>Update rems</strong> In the console type the following and hit enter</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">remotes</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"bcgov/rems"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu">pak</span><span class="fu">::</span><span class="fu"><a href="https://pak.r-lib.org/reference/pkg_install.html" class="external-link">pkg_install</a></span><span class="op">(</span><span class="st">"bcgov/rems"</span><span class="op">)</span></span></code></pre></div>
 <blockquote>
-<p><strong>Note:</strong> If you run into errors during the <code>rems</code> data updates, this might be due to old rems caches.</p>
+<p><strong>Note:</strong> If you run into errors during the rems data updates, this might be due to old rems caches.</p>
 <strong>Try the following:</strong>
 <ol style="list-style-type: decimal">
-<li><p>Uninstall <code>rems</code> - RStudio, go to the lower right hand window, click on the “Packages” tab, in the search bar, search for “rems”, then click on the “X” in a circle to the right of it’s name.</p></li>
-<li><p>Remove the <code>rems</code> cache - Delete the cache folders by going to <code>C:\Users\YOUR_USER\AppData\Local</code> (windows) or <code>~/Library/Application Support (mac)</code> and delete the “rems” folder</p></li>
-<li><p>Re-install rems <code>remotes::install_github("bcgov/rems")</code> and then try again</p></li>
+<li><p>Uninstall rems - RStudio, go to the lower right hand window, click on the “Packages” tab, in the search bar, search for “rems”, then click on the “X” in a circle to the right of it’s name.</p></li>
+<li><p>Remove the rems cache - Delete the cache folders by going to <code>C:\Users\YOUR_USER\AppData\Local</code> (windows) or <code>~/Library/Application Support (mac)</code> and delete the “rems” folder</p></li>
+<li><p>Re-install rems <code>pak::pkg_install("bcgov/rems")</code> and then try again</p></li>
 </ol>
 </blockquote>
 </li>
 <li>
 <p><strong>Update all packages</strong> If you run into errors right at the start, consider updating your packages.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">remotes</span><span class="fu">::</span><span class="fu">update_packages</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu">pak</span><span class="fu">::</span><span class="fu"><a href="https://pak.r-lib.org/reference/pkg_install.html" class="external-link">pkg_install</a></span><span class="op">(</span><span class="st">"bcgov/bcgwcat"</span>, upgrade <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 </li>
 </ol>
 </div>
@@ -150,9 +151,9 @@
 <div class="section level2">
 <h2 id="using-bcgwcat">Using bcgwcat<a class="anchor" aria-label="anchor" href="#using-bcgwcat"></a>
 </h2>
-<div class="section level3">
-<h3 id="shiny-user-interface">Shiny User-Interface<a class="anchor" aria-label="anchor" href="#shiny-user-interface"></a>
-</h3>
+<div class="section level4">
+<h4 id="shiny-user-interface">Shiny User-Interface<a class="anchor" aria-label="anchor" href="#shiny-user-interface"></a>
+</h4>
 <p>Type this line into the R console at the prompt (in the screen with <code>&gt;</code>) and hit ‘Enter’.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">bcgwcat</span><span class="fu">::</span><span class="fu"><a href="reference/gw_app.html">gw_app</a></span><span class="op">(</span><span class="op">)</span> <span class="co"># Launch the app</span></span></code></pre></div>
@@ -161,53 +162,59 @@
 Screenshot
 </figcaption></figure>
 </div>
-<div class="section level3">
-<h3 id="r-command-line">R command line<a class="anchor" aria-label="anchor" href="#r-command-line"></a>
-</h3>
-<p>For advanced users, bcgwcat can be used directly from R.</p>
-<p>Downloads, converts and saves to csv</p>
+<div class="section level4">
+<h4 id="r-command-line">R command line<a class="anchor" aria-label="anchor" href="#r-command-line"></a>
+</h4>
+<p>bcgwcat can also be used directly from R.</p>
+<p>To extract EMS data, and convert for use in AquaChem… (by default saved as CSV)</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://bcgov.github.io/bcgwcat/">bcgwcat</a></span><span class="op">)</span></span>
-<span><span class="va">r</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/rems_to_aquachem.html">rems_to_aquachem</a></span><span class="op">(</span>ems_ids <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"1401030"</span>, <span class="st">"1401377"</span>, <span class="st">"E292373"</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Checking for locally stored historical data...</span></span>
-<span><span class="co">#&gt; Last download was 1 days ago</span></span>
-<span><span class="co">#&gt; If you would like to update historical data, run 'rems::download_historic_data()'</span></span>
-<span><span class="co">#&gt; Checking for locally stored recent data...</span></span>
-<span><span class="co">#&gt; Fetching data from cache...</span></span>
-<span><span class="co">#&gt; For consistency EMS charge balances, anion sums, and cation sums have been replaced with recalculated values.</span></span>
-<span><span class="co">#&gt; See `?charge_balance` for more details.</span></span>
-<span><span class="va">r</span></span>
-<span><span class="co">#&gt; # A tibble: 16 × 178</span></span>
-<span><span class="co">#&gt;    Sample_Date  SampleID    Coord_Lat Project     Coord_Long StationID Watertype</span></span>
-<span><span class="co">#&gt;    &lt;chr&gt;        &lt;chr&gt;       &lt;chr&gt;     &lt;chr&gt;       &lt;chr&gt;      &lt;chr&gt;     &lt;chr&gt;    </span></span>
-<span><span class="co">#&gt;  1 ""           ""          °         ""          °          ""        ""       </span></span>
-<span><span class="co">#&gt;  2 "1987-07-07" "1401030-1" 49.20635  "BACKGROUN… -119.82532 "075"     "Fresh W…</span></span>
-<span><span class="co">#&gt;  3 "1991-08-07" "1401030-2" 49.20635  "BACKGROUN… -119.82532 "075"     "Fresh W…</span></span>
-<span><span class="co">#&gt;  4 "1994-06-08" "1401030-3" 49.20635  "BACKGROUN… -119.82532 "075"     "Fresh W…</span></span>
-<span><span class="co">#&gt;  5 "2001-09-09" "1401030-4" 49.20635  "BACKGROUN… -119.82532 "075"     "Fresh W…</span></span>
-<span><span class="co">#&gt;  6 "2009-11-11" "1401030-5" 49.20635  "BACKGROUN… -119.82532 "075"     "Fresh W…</span></span>
-<span><span class="co">#&gt;  7 "2010-08-09" "1401030-6" 49.20635  "BACKGROUN… -119.82532 "075"     "Fresh W…</span></span>
-<span><span class="co">#&gt;  8 "2016-11-02" "1401030-7" 49.20635  "BACKGROUN… -119.82532 "075"     "Fresh W…</span></span>
-<span><span class="co">#&gt;  9 "2018-06-14" "1401030-8" 49.20635  "BACKGROUN… -119.82532 "075"     "Ground …</span></span>
-<span><span class="co">#&gt; 10 "1987-07-07" "1401377-1" 49.175    "BACKGROUN… -119.7353  "203"     "Fresh W…</span></span>
-<span><span class="co">#&gt; 11 "1989-10-11" "1401377-2" 49.175    "BACKGROUN… -119.7353  "203"     "Fresh W…</span></span>
-<span><span class="co">#&gt; 12 "1994-03-24" "1401377-3" 49.175    "BACKGROUN… -119.7353  "203"     "Fresh W…</span></span>
-<span><span class="co">#&gt; 13 "2016-11-02" "1401377-4" 49.175    "BACKGROUN… -119.7353  "203"     "Fresh W…</span></span>
-<span><span class="co">#&gt; 14 "2020-06-29" "1401377-5" 49.175    "BACKGROUN… -119.7353  "203"     "Ground …</span></span>
-<span><span class="co">#&gt; 15 "2015-03-06" "E292373-1" 49.364604 "GROUNDWAT… -124.6141… "426"     "Fresh W…</span></span>
-<span><span class="co">#&gt; 16 "2017-10-11" "E292373-2" 49.364604 "GROUNDWAT… -124.6141… "426"     "Fresh W…</span></span>
-<span><span class="co">#&gt; # ℹ 171 more variables: Analysis_Date &lt;chr&gt;, shortWatertype &lt;chr&gt;,</span></span>
-<span><span class="co">#&gt; #   Comment &lt;chr&gt;, Reference &lt;chr&gt;, Quality_control &lt;chr&gt;, Duplicate_ID &lt;chr&gt;,</span></span>
-<span><span class="co">#&gt; #   Labcode &lt;chr&gt;, Location &lt;chr&gt;, Geology &lt;chr&gt;, X &lt;chr&gt;, Y &lt;chr&gt;,</span></span>
-<span><span class="co">#&gt; #   Elevation &lt;chr&gt;, Well_Depth &lt;chr&gt;, Screen_Top &lt;chr&gt;, Screen_Mid &lt;chr&gt;,</span></span>
-<span><span class="co">#&gt; #   Screen_Bottom &lt;chr&gt;, Gradient &lt;chr&gt;, Station_Comment &lt;chr&gt;,</span></span>
-<span><span class="co">#&gt; #   Sample_Depth &lt;chr&gt;, Temp &lt;chr&gt;, `14C` &lt;chr&gt;, `18O` &lt;chr&gt;, `2H` &lt;chr&gt;,</span></span>
-<span><span class="co">#&gt; #   Ag_diss &lt;chr&gt;, Ag_tot &lt;chr&gt;, Al_diss &lt;chr&gt;, Al_tot &lt;chr&gt;, As_diss &lt;chr&gt;, …</span></span></code></pre></div>
-<p>Create plots</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<span><span class="va">r</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/rems_to_aquachem.html">rems_to_aquachem</a></span><span class="op">(</span>ems_ids <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"1401030"</span>, <span class="st">"1401377"</span>, <span class="st">"E292373"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Checking for locally stored historical data...</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Last download was 2 days ago</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; If you would like to update historical data, run 'rems::download_historic_data()'</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Checking for locally stored recent data...</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Fetching data from cache...</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; For consistency EMS charge balances, anion sums, and cation sums have been replaced with recalculated values.</span></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; See `?charge_balance` for more details.</span></span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">r</span></span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 16 × 178</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    Sample_Date  SampleID    Coord_Lat Project     Coord_Long StationID Watertype</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    &lt;chr&gt;        &lt;chr&gt;       &lt;chr&gt;     &lt;chr&gt;       &lt;chr&gt;      &lt;chr&gt;     &lt;chr&gt;    </span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1 ""           ""          °         ""          °          ""        ""       </span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  2 "1987-07-07" "1401030-1" 49.20635  "BACKGROUN… -119.82532 "075"     "Fresh W…</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  3 "1991-08-07" "1401030-2" 49.20635  "BACKGROUN… -119.82532 "075"     "Fresh W…</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  4 "1994-06-08" "1401030-3" 49.20635  "BACKGROUN… -119.82532 "075"     "Fresh W…</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  5 "2001-09-09" "1401030-4" 49.20635  "BACKGROUN… -119.82532 "075"     "Fresh W…</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  6 "2009-11-11" "1401030-5" 49.20635  "BACKGROUN… -119.82532 "075"     "Fresh W…</span></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  7 "2010-08-09" "1401030-6" 49.20635  "BACKGROUN… -119.82532 "075"     "Fresh W…</span></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8 "2016-11-02" "1401030-7" 49.20635  "BACKGROUN… -119.82532 "075"     "Fresh W…</span></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9 "2018-06-14" "1401030-8" 49.20635  "BACKGROUN… -119.82532 "075"     "Ground …</span></span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10 "1987-07-07" "1401377-1" 49.175    "BACKGROUN… -119.7353  "203"     "Fresh W…</span></span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 11 "1989-10-11" "1401377-2" 49.175    "BACKGROUN… -119.7353  "203"     "Fresh W…</span></span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 12 "1994-03-24" "1401377-3" 49.175    "BACKGROUN… -119.7353  "203"     "Fresh W…</span></span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 13 "2016-11-02" "1401377-4" 49.175    "BACKGROUN… -119.7353  "203"     "Fresh W…</span></span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 14 "2020-06-29" "1401377-5" 49.175    "BACKGROUN… -119.7353  "203"     "Ground …</span></span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 15 "2015-03-06" "E292373-1" 49.364604 "GROUNDWAT… -124.6141… "426"     "Fresh W…</span></span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 16 "2017-10-11" "E292373-2" 49.364604 "GROUNDWAT… -124.6141… "426"     "Fresh W…</span></span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ℹ 171 more variables: Analysis_Date &lt;chr&gt;, shortWatertype &lt;chr&gt;,</span></span>
+<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; #   Comment &lt;chr&gt;, Reference &lt;chr&gt;, Quality_control &lt;chr&gt;, Duplicate_ID &lt;chr&gt;,</span></span>
+<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; #   Labcode &lt;chr&gt;, Location &lt;chr&gt;, Geology &lt;chr&gt;, X &lt;chr&gt;, Y &lt;chr&gt;,</span></span>
+<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; #   Elevation &lt;chr&gt;, Well_Depth &lt;chr&gt;, Screen_Top &lt;chr&gt;, Screen_Mid &lt;chr&gt;,</span></span>
+<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; #   Screen_Bottom &lt;chr&gt;, Gradient &lt;chr&gt;, Station_Comment &lt;chr&gt;,</span></span>
+<span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; #   Sample_Depth &lt;chr&gt;, Temp &lt;chr&gt;, `14C` &lt;chr&gt;, `18O` &lt;chr&gt;, `2H` &lt;chr&gt;,</span></span>
+<span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; #   Ag_diss &lt;chr&gt;, Ag_tot &lt;chr&gt;, Al_diss &lt;chr&gt;, Al_tot &lt;chr&gt;, As_diss &lt;chr&gt;, …</span></span></code></pre></div>
+<p>To create plots…</p>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="reference/piper_plot.html">piper_plot</a></span><span class="op">(</span><span class="va">r</span>, ems_id <span class="op">=</span> <span class="st">"1401030"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="reference/figures/unnamed-chunk-8-1.png" width="50%"></p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="reference/stiff_plot.html">stiff_plot</a></span><span class="op">(</span><span class="va">r</span>, ems_id <span class="op">=</span> <span class="st">"1401030"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="reference/figures/unnamed-chunk-9-1.png" width="50%"></p>
 </div>
@@ -260,7 +267,7 @@ Screenshot
 <div class="developers">
 <h2 data-toc-skip>Developers</h2>
 <ul class="list-unstyled">
-<li>Steffi LaZerte <br><small class="roles"> Author, maintainer </small>  </li>
+<li>Steffi LaZerte <br><small class="roles"> Author, maintainer </small> <a href="https://orcid.org/0000-0002-7690-8360" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
 <li>Andarge Baye <br><small class="roles"> Author </small>  </li>
 <li><a href="authors.html">More about authors...</a></li>
 </ul>
