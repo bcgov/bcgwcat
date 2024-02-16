@@ -71,12 +71,11 @@
   <main id="main" class="col-md-9">
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 <div class="section level1">
-<div class="page-header"><h1 id="bcgwcat---groundwater-chemistry-analysis-tool">
-<code>bcgwcat</code> - Groundwater Chemistry Analysis Tool<a class="anchor" aria-label="anchor" href="#bcgwcat---groundwater-chemistry-analysis-tool"></a>
+<div class="page-header"><h1 id="bcgwcat---groundwater-chemistry-analysis-tool">bcgwcat - Groundwater Chemistry Analysis Tool<a class="anchor" aria-label="anchor" href="#bcgwcat---groundwater-chemistry-analysis-tool"></a>
 </h1></div>
-<p>The goal of <code>bcgwcat</code> is to provide easy access to EMS data as well as tools specific to those working with groundwater through R functions but also through a <strong>Shiny user-interface</strong>. This tool can help with:</p>
+<p>The goal of bcgwcat is to provide easy access to EMS data as well as tools specific to those working with groundwater through R functions but also through a <strong>Shiny user-interface</strong>. This tool can help with:</p>
 <ul>
-<li>Downloading EMS data via the <a href="http://github.com/bcgov/rems" class="external-link"><code>rems</code></a> package</li>
+<li>Downloading EMS data via the <a href="http://github.com/bcgov/rems" class="external-link">rems</a> package</li>
 <li>Calculating charge balances</li>
 <li>Calculating water types</li>
 <li>Converting data to a format for importing into AquaChem</li>
@@ -110,8 +109,18 @@
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"remotes"</span><span class="op">)</span></span></code></pre></div>
 </li>
 <li>
-<p><strong>Update <code>rems</code></strong> In the console type the following and hit enter</p>
+<p><strong>Install bcgwcat</strong> In the console type the following and hit enter (be sure to install all updates if prompted!)</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">remotes</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"bcgov/bcgwcat"</span><span class="op">)</span></span></code></pre></div>
+</li>
+</ol>
+<div class="section level3">
+<h3 id="troubleshooting">Troubleshooting<a class="anchor" aria-label="anchor" href="#troubleshooting"></a>
+</h3>
+<ol style="list-style-type: decimal">
+<li>
+<p><strong>Update rems</strong> In the console type the following and hit enter</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">remotes</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"bcgov/rems"</span><span class="op">)</span></span></code></pre></div>
 <blockquote>
 <p><strong>Note:</strong> If you run into errors during the <code>rems</code> data updates, this might be due to old rems caches.</p>
@@ -124,46 +133,33 @@
 </blockquote>
 </li>
 <li>
-<p><strong>Install <code>bcgwcat</code></strong> In the console type the following and hit enter (be sure to install all updates if prompted!)</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">remotes</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"bcgov/bcgwcat"</span><span class="op">)</span></span></code></pre></div>
-</li>
-</ol>
-<p>If you run into errors right at the start, consider updating your packages.</p>
+<p><strong>Update all packages</strong> If you run into errors right at the start, consider updating your packages.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">remotes</span><span class="fu">::</span><span class="fu">update_packages</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-</div>
-<div class="section level2">
-<h2 id="using-bcgwcat">Using <code>bcgwcat</code>
-<a class="anchor" aria-label="anchor" href="#using-bcgwcat"></a>
-</h2>
-<div class="section level3">
-<h3 id="shiny-gui">Shiny GUI<a class="anchor" aria-label="anchor" href="#shiny-gui"></a>
-</h3>
-<ol style="list-style-type: decimal">
-<li>
-<p>In RStudio, first load the <code>bcgwcat</code> package (this must be done every time)</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://bcgov.github.io/bcgwcat/">bcgwcat</a></span><span class="op">)</span></span></code></pre></div>
-</li>
-<li>
-<p>Next, launch the shiny GUI.</p>
-<p>Type the following in the console and hit enter</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">bcgwcat_app</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 </li>
 </ol>
-<p><strong>See the <a href="https://bcgov.github.io/bcgwcat/articles/bcgwcat.html">tutorial</a> for a more in-depth look at the GUI</strong></p>
-<figure><img src="figures/up-to-date.png" alt="Screenshot"><figcaption aria-hidden="true">
+</div>
+</div>
+<div class="section level2">
+<h2 id="using-bcgwcat">Using bcgwcat<a class="anchor" aria-label="anchor" href="#using-bcgwcat"></a>
+</h2>
+<div class="section level3">
+<h3 id="shiny-user-interface">Shiny User-Interface<a class="anchor" aria-label="anchor" href="#shiny-user-interface"></a>
+</h3>
+<p>Type this line into the R console at the prompt (in the screen with <code>&gt;</code>) and hit ‘Enter’.</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">bcgwcat</span><span class="fu">::</span><span class="fu"><a href="reference/gw_app.html">gw_app</a></span><span class="op">(</span><span class="op">)</span> <span class="co"># Launch the app</span></span></code></pre></div>
+<p><strong>See the <a href="https://bcgov.github.io/bcgwcat/articles/bcgwcat.html">tutorial</a> for a more in-depth look at how to use the User Interface</strong></p>
+<figure><img src="reference/figures/up-to-date.png" alt="Screenshot"><figcaption aria-hidden="true">
 Screenshot
 </figcaption></figure>
 </div>
 <div class="section level3">
 <h3 id="r-command-line">R command line<a class="anchor" aria-label="anchor" href="#r-command-line"></a>
 </h3>
-<p>For advanced users, <code>bcgwcat</code> can be used directly from R.</p>
+<p>For advanced users, bcgwcat can be used directly from R.</p>
 <p>Downloads, converts and saves to csv</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://bcgov.github.io/bcgwcat/">bcgwcat</a></span><span class="op">)</span></span>
 <span><span class="va">r</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/rems_to_aquachem.html">rems_to_aquachem</a></span><span class="op">(</span>ems_ids <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"1401030"</span>, <span class="st">"1401377"</span>, <span class="st">"E292373"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Checking for locally stored historical data...</span></span>
@@ -201,18 +197,18 @@ Screenshot
 <span><span class="co">#&gt; #   Sample_Depth &lt;chr&gt;, Temp &lt;chr&gt;, `14C` &lt;chr&gt;, `18O` &lt;chr&gt;, `2H` &lt;chr&gt;,</span></span>
 <span><span class="co">#&gt; #   Ag_diss &lt;chr&gt;, Ag_tot &lt;chr&gt;, Al_diss &lt;chr&gt;, Al_tot &lt;chr&gt;, As_diss &lt;chr&gt;, …</span></span></code></pre></div>
 <p>Create plots</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="reference/piper_plot.html">piper_plot</a></span><span class="op">(</span><span class="va">r</span>, ems_id <span class="op">=</span> <span class="st">"1401030"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="reference/figures/README-unnamed-chunk-9-1.png" width="50%"></p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<p><img src="reference/figures/unnamed-chunk-8-1.png" width="50%"></p>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="reference/stiff_plot.html">stiff_plot</a></span><span class="op">(</span><span class="va">r</span>, ems_id <span class="op">=</span> <span class="st">"1401030"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="reference/figures/README-unnamed-chunk-10-1.png" width="50%"></p>
+<p><img src="reference/figures/unnamed-chunk-9-1.png" width="50%"></p>
 </div>
 </div>
 <div class="section level2">
 <h2 id="vignettetutorials">Vignette/Tutorials<a class="anchor" aria-label="anchor" href="#vignettetutorials"></a>
 </h2>
-<p>See the <a href="https://bcgov.github.io/bcgwcat"><code>bcgwcat</code> website</a></p>
+<p>See the <a href="https://bcgov.github.io/bcgwcat">bcgwcat website</a></p>
 </div>
 <div class="section level2">
 <h2 id="license">License<a class="anchor" aria-label="anchor" href="#license"></a>
