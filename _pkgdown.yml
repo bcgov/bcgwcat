@@ -1,6 +1,11 @@
 url: https://bcgov.github.io/bcgwcat/
 template:
   bootstrap: 5
+  bootswatch: cerulean
+  bslib:
+    headings-color: "#003366"
+    primary: "#003366"
+    body-secondary-color: "white"
 
 reference:
 - title: Shiny User-Interface

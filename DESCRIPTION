@@ -2,13 +2,14 @@ Package: bcgwcat
 Type: Package
 Title: BC Groundwater Chemistry Analysis Tool
 Version: 0.5.1
-Authors@R: c(person("Steffi", "LaZerte", email = "steffi@steffi.ca",
-  role = c("aut", "cre")), 
+Authors@R: 
+  c(person("Steffi", "LaZerte", email = "sel@steffilazerte.ca", role = c("aut", "cre"), 
+           comment = c(ORCID = "0000-0002-7690-8360")),
   person("Andarge", "Baye", email = "Andarge.Baye@gov.bc.ca", role = "aut"),
   person("Province of British Columbia", role = "cph"))
 Description: Set of tools for working with groundwater chemstry data from the 
-    BC Government Environmental Monitoring System (EMS). Download EMS data via 
-    the rems package and a) export for use in AquaChem, b) view water
+    BC Government Environmental Monitoring System (EMS). Download EMS data and 
+    a) export for use in AquaChem, b) view water
     quality summaries, c) create piper and stiff plots. 
 License: file LICENSE
 Encoding: UTF-8

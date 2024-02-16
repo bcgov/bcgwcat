@@ -1,22 +1,24 @@
 ---
 output: github_document
 ---
+
 <!-- badges: start -->
 [![Lifecycle](https://img.shields.io/badge/Lifecycle-Maturing-007EC6)](https://github.com/bcgov/repomountie/blob/master/doc/lifecycle-badges.md)
 [![R-CMD-check](https://github.com/bcgov/bcgwcat/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/bcgov/bcgwcat/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
-<!-- README.md is generated from README.Rmd. Please edit that file -->
+# bcgwcat - Groundwater Chemistry Analysis Tool
+
+> *Previously known as rems2aquachem, as the scope of this tool has expanded,
+> we have renamed it to better reflect what it does*
 
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
-  collapse = TRUE,
   comment = "#>",
   fig.path = "man/figures/",
   out.width = "100%"
 )
 ```
-# bcgwcat - Groundwater Chemistry Analysis Tool
 
 The goal of bcgwcat is to provide easy access to EMS data as well as
 tools specific to those working with groundwater through R functions but
@@ -32,60 +34,60 @@ also through a **Shiny user-interface**. This tool can help with:
 ## Quick Start
 
 - Install [**R**](https://cloud.r-project.org/) and [**RStudio**](https://rstudio.com/)
-- Install remotes - `install.packages("remotes")`
-- Install bcgwcat - `remotes::install_github("bcgov/bcgwcat")`
+- Install pak - `install.packages("pak")`
+- Install bcgwcat - `pak::pkg_install("bcgov/bcgwcat")` [Update All if asked]
 - Launch the Shiny App - `gw_app()`
 
 
-## Installing
+## In Detail
 
 1. [**Update RStudio**](https://rstudio.com/) (if it's been a while)
 2. [**Update R**](https://cloud.r-project.org/) (if it's been a while)
 3. **Open RStudio**
-4. **Install remotes** In the console type the following and hit enter
+4. **Install pak** In the console type the following and hit enter
 
      ```{r, eval = FALSE}
-     install.packages("remotes")
+     install.packages("pak")
      ```
 5. **Install bcgwcat** In the console type the following and hit enter 
 (be sure to install all updates if prompted!)
   
     ```{r, eval = FALSE}
-    remotes::install_github("bcgov/bcgwcat")
+    pak::pkg_install("bcgov/bcgwcat")
     ```
     
-### Troubleshooting
+#### Troubleshooting
 
 1. **Update rems** In the console type the following and hit enter
 
      ```{r, eval = FALSE}
-     remotes::install_github("bcgov/rems")
+     pak::pkg_install("bcgov/rems")
      ```
      
-    > **Note:** If you run into errors during the `rems` data updates, this might 
+    > **Note:** If you run into errors during the rems data updates, this might 
     > be due to old rems caches. 
     > 
     > **Try the following:** 
-    >  1. Uninstall `rems` - RStudio, go to the lower right hand window, click 
+    >  1. Uninstall rems - RStudio, go to the lower right hand window, click 
     >     on the "Packages" tab, in the search bar, search for "rems", then 
     >     click on the "X" in a circle to the right of it's name.
     > 
-    > 2. Remove the `rems` cache - Delete the cache folders by going to 
+    > 2. Remove the rems cache - Delete the cache folders by going to 
     >    `C:\Users\YOUR_USER\AppData\Local` (windows) or 
     >    `~/Library/Application Support (mac)` and delete the "rems" folder
     > 
-    > 3. Re-install rems `remotes::install_github("bcgov/rems")` and 
+    > 3. Re-install rems `pak::pkg_install("bcgov/rems")` and 
     >    then try again
   
 2. **Update all packages** If you run into errors right at the start, consider updating your packages.
 
     ```{r, eval = FALSE}
-    remotes::update_packages()
+    pak::pkg_install("bcgov/bcgwcat", upgrade = TRUE)
     ```
 
 ## Using bcgwcat
 
-### Shiny User-Interface
+#### Shiny User-Interface
 
 Type this line into the R console at the prompt (in the screen with `>`) and
 hit 'Enter'.
@@ -98,11 +100,11 @@ hit 'Enter'.
 ![Screenshot](man/figures/up-to-date.png)
 
 
-### R command line
+#### R command line
 
-For advanced users, bcgwcat can be used directly from R.
+bcgwcat can also be used directly from R.
 
-Downloads, converts and saves to csv
+To extract EMS data, and convert for use in AquaChem... (by default saved as CSV)
  
 ```{r example}
 library(bcgwcat)
@@ -114,7 +116,7 @@ r
 file.remove(paste0("aquachem_", Sys.Date(), ".csv"))
 ```
 
-Create plots
+To create plots...
 
 ```{r, out.width = "50%", fig.width = 8, fig.asp = 1}
 piper_plot(r, ems_id = "1401030")

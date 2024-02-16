@@ -14,4 +14,4 @@ quality and creating piper and stiff plots.
 \dontrun{gw_app()}
 
 }
-\concept{Shiny App User-Interface}
+\concept{shiny_app}
