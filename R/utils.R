@@ -286,6 +286,10 @@ piper_plot <- function(d, ems_id = NULL, group = "ems_id",
     stop("'group' must be a column in the data", call. = FALSE)
   }
 
+  if(!is.null(ems_id)) {
+    d <- dplyr::filter(d, .data$ems_id %in% !!ems_id)
+  }
+
   if(is.null(group)) group <- "ems_id"
 
   d <- d %>%

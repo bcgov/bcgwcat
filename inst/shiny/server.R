@@ -428,7 +428,8 @@ server <- function(input, output, session) {
 
   # Parameter table ----------------------------------------------------------
   output$parameters <- DT::renderDT({
-    params %>%
+
+    bcgwcat:::params %>%
       dplyr::select(-"smwr_code", -"type", -"data_type") %>%
       dplyr::rename_with(.fn = ~{
         .x %>%
