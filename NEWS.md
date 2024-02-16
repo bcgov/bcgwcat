@@ -4,6 +4,7 @@
 * Added more details to Shiny app explaining private vs. public EMS data, 
   water quality guidelines and parameter/unit changes
 * Fixed water quality summary to exclude Nitrate and Nitrate limits when measured as N (not applicable here)
+* Fixed bug, where piperplot did not respect EMS IDs to plot (`ems_id` argument)
 
 # rems2aquachem 0.5.1
 * Speed increases
