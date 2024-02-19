@@ -153,7 +153,7 @@ All comparisons are only upper limit exceedances.
 
 Plots can be previewed by clicking on the **Plots** tab.
 
-From the drop-down menu on the left, select the EMS ID of the site you wish to view. To download **ALL** plots (i.e. not just the ones you can see), click on the "Download All Plots" button. This will zip the individual plots and ask you where to save the file.
+From the drop-down menu on the left, select the EMS ID of the site you wish to view. To download all plots, click on the "Download All Plots" button. This will zip the individual plots and ask you where to save the file.
 
 If you wish, you can change the plot settings on the left hand side by including questionable data (**Omit 'bad' charge balances?**; where the charge balance is > 10 or < -10) or omitting sample legends on the piper plot (**Piper plot legend**).
 
