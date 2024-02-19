@@ -24,28 +24,36 @@ also through a **Shiny user-interface**. This tool can help with:
 
 ## Quick Start
 
-- Install [**R**](https://cloud.r-project.org/) and
+- Install/Update [**R**](https://cloud.r-project.org/) and
   [**RStudio**](https://rstudio.com/)
-- Install pak - `install.packages("pak")`
+- Install pak - `install.packages("pak", dependencies = TRUE)`
 - Install bcgwcat - `pak::pkg_install("bcgov/bcgwcat")` \[Update All if
   asked\]
 - Launch the Shiny App - `gw_app()`
 
 ## In Detail
 
-1.  [**Update RStudio**](https://rstudio.com/) (if it’s been a while)
+1.  [**Install/Update RStudio**](https://rstudio.com/) (if it’s been a
+    while)
 
-2.  [**Update R**](https://cloud.r-project.org/) (if it’s been a while)
+2.  [**Install/Update R**](https://cloud.r-project.org/) (if it’s been a
+    while)
 
 3.  **Open RStudio**
 
 4.  **Install pak** In the console type the following and hit enter
 
     ``` r
-    install.packages("pak")
+    install.packages("pak", dependencies = TRUE)
     ```
 
-5.  **Install bcgwcat** In the console type the following and hit enter
+5.  **Check that your system is ready** Install build tools if prompted
+
+    ``` r
+    pkgbuild::check_build_tools()
+    ```
+
+6.  **Install bcgwcat** In the console type the following and hit enter
     (be sure to install all updates if prompted!)
 
     ``` r
@@ -118,7 +126,7 @@ r <- rems_to_aquachem(ems_ids = c("1401030", "1401377", "E292373"))
 
     #> Checking for locally stored historical data...
 
-    #> Last download was 2 days ago
+    #> Last download was 5 days ago
 
     #> If you would like to update historical data, run 'rems::download_historic_data()'
 
@@ -166,13 +174,13 @@ To create plots…
 piper_plot(r, ems_id = "1401030")
 ```
 
-<img src="man/figures/unnamed-chunk-8-1.png" width="50%" />
+<img src="man/figures/unnamed-chunk-9-1.png" width="50%" />
 
 ``` r
 stiff_plot(r, ems_id = "1401030")
 ```
 
-<img src="man/figures/unnamed-chunk-9-1.png" width="50%" />
+<img src="man/figures/unnamed-chunk-10-1.png" width="50%" />
 
 ## Vignette/Tutorials
 

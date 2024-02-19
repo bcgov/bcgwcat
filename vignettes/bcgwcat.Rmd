@@ -1,17 +1,15 @@
 ---
-title: "Shiny GUI Walkthrough"
+title: "Shiny App Walkthrough"
 output: rmarkdown::html_vignette
 resource_files:
   - figures
 vignette: >
-  %\VignetteIndexEntry{Shiny GUI Walkthrough}
+  %\VignetteIndexEntry{Shiny App Walkthrough}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
 
 ```{r, include = FALSE}
-
-
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
@@ -21,13 +19,12 @@ knitr::opts_chunk$set(
 library(knitr)
 ```
 
-## Opening the GUI
+## Opening the App
 
-In the R console type the following, hiting enter after each line. This will launch the Shiny App.
+In the R console type the following, hitting enter after the line. This will launch the Shiny App.
 
 ```{r setup, eval = FALSE}
-library(bcgwcat)
-gw_app()
+bcgwcat::gw_app()
 ```
 
 
@@ -179,7 +176,7 @@ include_graphics("figures/plots.png")
 
 
 ```
-# Copyright 2021 Province of British Columbia
+# Copyright 2024 Province of British Columbia
 # 
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
