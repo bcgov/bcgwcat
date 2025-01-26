@@ -137,6 +137,22 @@ test_that("water_type", {
     style = "json2", tolerance = 0.000001)
 })
 
+test_that("dominant_water_types()", {
+  suppressMessages({
+    r <- rems_to_aquachem(ems_ids = "1401057", save = FALSE)
+  })
+
+  expect_silent(d <- dominant_water_types(r))
+  expect_equal(unique(d$water_type[d$dominant]), c("Ca-Mg-HCO3*-SO4", "Ca-Mg-HCO3-SO4"))
+  expect_silent(d <- dominant_water_types(r, n = nrow(r)))
+  expect_true(all(d$dominant))
+  expect_silent(d <- dominant_water_types(r, p = 0.8))
+  expect_equal(unique(d$water_type[d$dominant]),
+               c("Ca-Mg-HCO3*-SO4", "Ca-Mg-HCO3-SO4", "Ca-Na-HCO3*-Cl"))
+
+  expect_snapshot_value(r, style = "json2", tolerance = 0.000001)
+})
+
 # plots -------------------------------------
 test_that("plots", {
   skip_on_ci()
@@ -192,4 +208,25 @@ test_that("plot messages", {
   expect_message(stiff_plot(p), "Not enough good quality data")
   expect_message(stiff_plot(p, valid = FALSE), "Not enough data")
   expect_silent(piper_plot(p, valid = FALSE, plot_data = TRUE))
+})
+
+
+test_that("plots outliers", {
+  skip_on_ci()
+  suppressMessages({
+    r <- rems_to_aquachem(ems_ids = "1401057", save = FALSE)
+  })
+
+  path <- piper_plot(d = r) %>%
+    save_plot()
+  expect_snapshot_file(path, name = "piper3.png")
+
+  path <- piper_plot(d = r, omit_outliers = TRUE) %>%
+    save_plot()
+  expect_snapshot_file(path, name = "piper4.png")
+
+  path <- piper_plot(d = r, omit_outliers = TRUE, with_Alk = TRUE) %>%
+    save_plot()
+  expect_snapshot_file(path, name = "piper5.png")
+
 })

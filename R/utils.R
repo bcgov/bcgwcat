@@ -267,6 +267,44 @@ water_type <- function(d) {
   wt
 }
 
+#' Find the dominant water types
+#'
+#' Find the dominant waters type in a group of samples, if there are more than
+#' `n` samples. Match HCO3 and HCO3* types. Considered dominant types if in >`p`
+#' of samples.
+#'
+#' @param ems Data frame. EMS data for a single site.
+#' @param n Numeric. Number of samples above which to remove outliers.
+#' @param p Numeric. Proportion of data required to assign a dominant water
+#'   type.
+#'
+#' @returns ems data frame with added `dominant` column (TRUE or FALSE) if the
+#'   water type is in the dominant set.
+#' @export
+
+dominant_water_types <- function(d, n = 5, p = 0.75) {
+
+  if(nrow(d) > n) {
+    wt <- dplyr::filter(d, water_type != "") %>% # Also omit NA
+      dplyr::mutate(water_type = stringr::str_remove(water_type, "\\*")) %>%
+      dplyr::count(water_type, name = "n_wt") %>%
+      dplyr::arrange(dplyr::desc(.data$n_wt), dplyr::desc(.data$water_type)) %>%
+      dplyr::mutate(
+        p = .data$n_wt/sum(.data$n_wt),
+        cum_p1 = cumsum(p)) %>%
+      dplyr::arrange(.data$n_wt, .data$water_type) %>%
+      dplyr::mutate(cum_p2 = cumsum(p)) %>%
+      dplyr::filter(cum_p1 <= .env$p | cum_p2 >= (1 - .env$p)) %>%
+      dplyr::pull(.data$water_type)
+
+    # Mark if domiant
+    d <- dplyr::mutate(
+      d,
+      dominant = stringr::str_remove(.data$water_type, "\\*") %in% .env$wt)
+  } else d$dominant <- TRUE
+  d
+}
+
 #' Create Piper plot
 #'
 #' @param d  Data frame. AquaChem formatted dataset
@@ -280,6 +318,10 @@ water_type <- function(d) {
 #' @param legend_title Character. Title of legend. Defaults to `group`.
 #' @param valid Logical. Keep only valid data (charge balances <=10)
 #' @param plot_data Logical. Whether to return plot data rather than a plot
+#' @param omit_outliers Logical. Whether to omit outliers by looking at dominant
+#'   water types (see `?dominant_water_types()`). Default FALSE.
+#' @param with_Alk Logical. Whether to use `Meas_Alk_meq` for `HCO3_meq` if
+#'   missing. Default FALSE. Matches behaviour of `water_type()`.
 #' @param point_size Numeric. Point size. Either a single value (applied to
 #'   all), or a vector of values the same length as the number of `groups`.
 #' @param point_colour Character. Colour or colours by which to colour points.
@@ -299,6 +341,8 @@ piper_plot <- function(d, ems_id = NULL, group = "ems_id",
                        legend = TRUE, legend_position = "topleft",
                        legend_title = group,
                        valid = TRUE, plot_data = FALSE,
+                       omit_outliers = FALSE,
+                       with_Alk = FALSE,
                        point_colour = "viridis",
                        point_size = 0.1,
                        point_filled = TRUE,
@@ -317,6 +361,12 @@ piper_plot <- function(d, ems_id = NULL, group = "ems_id",
 
   if(is.null(group)) group <- "ems_id"
 
+  if(with_Alk) {
+    d <- dplyr::mutate(
+      d,
+      HCO3_meq = dplyr::if_else(is.na(HCO3_meq), Meas_Alk_meq, HCO3_meq))
+  }
+
   d <- d %>%
     dplyr::arrange(.data[[group]], .data$Sample_Date) %>%
     dplyr::select(c("ems_id", "charge_balance",
@@ -325,6 +375,7 @@ piper_plot <- function(d, ems_id = NULL, group = "ems_id",
                     "Cl_meq",              # X Anions
                     "HCO3_meq", "CO3_meq", # Y Anions
                     "SO4_meq",             # Z Anions
+                    "water_type",
                     .env$group)) %>%       # Grouping variable
 
     dplyr::rowwise() %>%
@@ -346,6 +397,15 @@ piper_plot <- function(d, ems_id = NULL, group = "ems_id",
 
   # Keep only valid data if specified
   if(valid) d <- dplyr::filter(d, is_valid(charge_balance))
+
+  if(omit_outliers) {
+
+    # Remove outliers if they are not in the dominant set
+    # - If <= 5 samples, all are considered dominant
+    d <- dominant_water_types(d) %>%
+      dplyr::filter(.data$dominant)
+  }
+  d <- dplyr::select(d, -"water_type")
 
   # Remove completely empty rows
   d <- d %>%
