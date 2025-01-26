@@ -265,6 +265,82 @@
             {
               "targets": 5,
               "render": "function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatRound(data, 2, 3, \",\", \".\", null);\n  }"
+            },
+            {
+              "name": "StationID",
+              "targets": 0
+            },
+            {
+              "name": "SampleID",
+              "targets": 1
+            },
+            {
+              "name": "Sample_Date",
+              "targets": 2
+            },
+            {
+              "name": "cation_sum",
+              "targets": 3
+            },
+            {
+              "name": "anion_sum",
+              "targets": 4
+            },
+            {
+              "name": "charge_balance",
+              "targets": 5
+            },
+            {
+              "name": "Ca",
+              "targets": 6
+            },
+            {
+              "name": "Mg",
+              "targets": 7
+            },
+            {
+              "name": "Na",
+              "targets": 8
+            },
+            {
+              "name": "Cl",
+              "targets": 9
+            },
+            {
+              "name": "HCO3",
+              "targets": 10
+            },
+            {
+              "name": "SO4",
+              "targets": 11
+            },
+            {
+              "name": "Ca_meq",
+              "targets": 12
+            },
+            {
+              "name": "Mg_meq",
+              "targets": 13
+            },
+            {
+              "name": "Na_meq",
+              "targets": 14
+            },
+            {
+              "name": "Cl_meq",
+              "targets": 15
+            },
+            {
+              "name": "HCO3_meq",
+              "targets": 16
+            },
+            {
+              "name": "SO4_meq",
+              "targets": 17
+            },
+            {
+              "name": "water_type",
+              "targets": 18
             }
           ],
           "order": [
@@ -326,9 +402,9 @@
         },
         {
           "name": "dt-core",
-          "version": "1.13.4",
+          "version": "1.13.6",
           "src": {
-            "href": "dt-core-1.13.4"
+            "href": "dt-core-1.13.6"
           },
           "meta": null,
           "script": "js/jquery.dataTables.min.js",
@@ -343,9 +419,9 @@
         },
         {
           "name": "crosstalk",
-          "version": "1.2.0",
+          "version": "1.2.1",
           "src": {
-            "href": "crosstalk-1.2.0"
+            "href": "crosstalk-1.2.1"
           },
           "meta": null,
           "script": "js/crosstalk.min.js",
@@ -361,9 +437,9 @@
       "deps": [
         {
           "name": "selectize",
-          "version": "0.12.4",
+          "version": "0.15.2",
           "src": {
-            "href": "selectize-0.12.4"
+            "href": "selectize-0.15.2"
           },
           "meta": null,
           "script": [
@@ -378,13 +454,13 @@
       ]
     },
     "rems_status_historic": {
-      "html": "<div class=\"small-box bg-orange\">\n  <div class=\"inner\">\n    <h3>Out-of-date<\/h3>\n    <p>Historic EMS Data (last updated: 1 days ago)<\/p>\n  <\/div>\n<\/div>",
+      "html": "<div class=\"small-box bg-orange\">\n  <div class=\"inner\">\n    <h3>Out-of-date<\/h3>\n    <p>Historic EMS Data (last updated: 67 days ago)<\/p>\n  <\/div>\n<\/div>",
       "deps": [
 
       ]
     },
     "rems_status_recent": {
-      "html": "<div class=\"small-box bg-orange\">\n  <div class=\"inner\">\n    <h3>Out-of-date<\/h3>\n    <p>Recent EMS Data (last updated: 2024-02-13)<\/p>\n  <\/div>\n<\/div>",
+      "html": "<div class=\"small-box bg-orange\">\n  <div class=\"inner\">\n    <h3>Out-of-date<\/h3>\n    <p>Recent EMS Data (last updated: 2024-11-19)<\/p>\n  <\/div>\n<\/div>",
       "deps": [
 
       ]

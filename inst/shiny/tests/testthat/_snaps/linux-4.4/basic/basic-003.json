@@ -240,422 +240,11 @@
 
     ],
     "data_wq_columns_selected": null,
-    "data_wq_rows_all": [
-      1,
-      2,
-      3,
-      4,
-      5,
-      6,
-      7,
-      8,
-      9,
-      10,
-      11,
-      12,
-      13,
-      14,
-      15,
-      16,
-      17,
-      18,
-      19,
-      20,
-      21,
-      22,
-      23,
-      24,
-      25,
-      26,
-      27,
-      28,
-      29,
-      30,
-      31,
-      32,
-      33,
-      34,
-      35,
-      36,
-      37,
-      38,
-      39,
-      40,
-      41,
-      42,
-      43,
-      44,
-      45,
-      46,
-      47,
-      48,
-      49,
-      50,
-      51,
-      52,
-      53,
-      54,
-      55,
-      56,
-      57,
-      58,
-      59,
-      60,
-      61,
-      62,
-      63,
-      64,
-      65,
-      66,
-      67,
-      68,
-      69,
-      70,
-      71,
-      72,
-      73,
-      74,
-      75,
-      76,
-      77,
-      78,
-      79,
-      80,
-      81,
-      82,
-      83,
-      84,
-      85,
-      86,
-      87,
-      88,
-      89,
-      90,
-      91,
-      92,
-      93,
-      94,
-      95,
-      96,
-      97,
-      98,
-      99,
-      100,
-      101,
-      102,
-      103,
-      104,
-      105,
-      106,
-      107,
-      108,
-      109,
-      110,
-      111,
-      112,
-      113,
-      114,
-      115,
-      116,
-      117,
-      118,
-      119,
-      120,
-      121,
-      122,
-      123,
-      124,
-      125,
-      126,
-      127,
-      128,
-      129,
-      130,
-      131,
-      132,
-      133,
-      134,
-      135,
-      136,
-      137,
-      138,
-      139,
-      140,
-      141,
-      142,
-      143,
-      144,
-      145,
-      146,
-      147,
-      148,
-      149,
-      150,
-      151,
-      152,
-      153,
-      154,
-      155,
-      156,
-      157,
-      158,
-      159,
-      160,
-      161,
-      162,
-      163,
-      164,
-      165,
-      166,
-      167,
-      168,
-      169,
-      170,
-      171,
-      172,
-      173,
-      174,
-      175,
-      176,
-      177,
-      178,
-      179,
-      180,
-      181,
-      182,
-      183,
-      184,
-      185,
-      186,
-      187,
-      188,
-      189,
-      190,
-      191,
-      192,
-      193,
-      194,
-      195,
-      196,
-      197,
-      198,
-      199,
-      200,
-      201,
-      202,
-      203,
-      204,
-      205,
-      206,
-      207,
-      208,
-      209,
-      210,
-      211,
-      212,
-      213,
-      214,
-      215,
-      216,
-      217,
-      218,
-      219,
-      220,
-      221,
-      222,
-      223,
-      224,
-      225,
-      226,
-      227,
-      228,
-      229,
-      230,
-      231,
-      232,
-      233,
-      234,
-      235,
-      236,
-      237,
-      238,
-      239,
-      240,
-      241,
-      242,
-      243,
-      244,
-      245,
-      246,
-      247,
-      248,
-      249,
-      250,
-      251,
-      252,
-      253,
-      254,
-      255,
-      256,
-      257,
-      258,
-      259,
-      260,
-      261,
-      262,
-      263,
-      264,
-      265,
-      266,
-      267,
-      268,
-      269,
-      270,
-      271,
-      272,
-      273,
-      274,
-      275,
-      276,
-      277,
-      278,
-      279,
-      280,
-      281,
-      282,
-      283,
-      284,
-      285
-    ],
-    "data_wq_rows_current": [
-      1,
-      2,
-      3,
-      4,
-      5,
-      6,
-      7,
-      8,
-      9,
-      10,
-      11,
-      12,
-      13,
-      14,
-      15,
-      16,
-      17,
-      18,
-      19,
-      20
-    ],
+    "data_wq_rows_all": null,
+    "data_wq_rows_current": null,
     "data_wq_rows_selected": null,
     "data_wq_search": "",
-    "data_wq_state": {
-      "start": 0,
-      "length": 20,
-      "order": [
-
-      ],
-      "search": {
-        "search": "",
-        "smart": true,
-        "regex": false,
-        "caseInsensitive": true
-      },
-      "columns": [
-        {
-          "visible": true,
-          "search": {
-            "search": "",
-            "smart": true,
-            "regex": false,
-            "caseInsensitive": true
-          }
-        },
-        {
-          "visible": true,
-          "search": {
-            "search": "",
-            "smart": true,
-            "regex": false,
-            "caseInsensitive": true
-          }
-        },
-        {
-          "visible": true,
-          "search": {
-            "search": "",
-            "smart": true,
-            "regex": false,
-            "caseInsensitive": true
-          }
-        },
-        {
-          "visible": true,
-          "search": {
-            "search": "",
-            "smart": true,
-            "regex": false,
-            "caseInsensitive": true
-          }
-        },
-        {
-          "visible": true,
-          "search": {
-            "search": "",
-            "smart": true,
-            "regex": false,
-            "caseInsensitive": true
-          }
-        },
-        {
-          "visible": true,
-          "search": {
-            "search": "",
-            "smart": true,
-            "regex": false,
-            "caseInsensitive": true
-          }
-        },
-        {
-          "visible": true,
-          "search": {
-            "search": "",
-            "smart": true,
-            "regex": false,
-            "caseInsensitive": true
-          }
-        },
-        {
-          "visible": true,
-          "search": {
-            "search": "",
-            "smart": true,
-            "regex": false,
-            "caseInsensitive": true
-          }
-        },
-        {
-          "visible": true,
-          "search": {
-            "search": "",
-            "smart": true,
-            "regex": false,
-            "caseInsensitive": true
-          }
-        },
-        {
-          "visible": false,
-          "search": {
-            "search": "",
-            "smart": true,
-            "regex": false,
-            "caseInsensitive": true
-          }
-        }
-      ]
-    },
+    "data_wq_state": null,
     "date_range": [
       "1900-01-01",
       "2099-01-01"
@@ -745,6 +334,82 @@
             {
               "targets": 5,
               "render": "function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatRound(data, 2, 3, \",\", \".\", null);\n  }"
+            },
+            {
+              "name": "StationID",
+              "targets": 0
+            },
+            {
+              "name": "SampleID",
+              "targets": 1
+            },
+            {
+              "name": "Sample_Date",
+              "targets": 2
+            },
+            {
+              "name": "cation_sum",
+              "targets": 3
+            },
+            {
+              "name": "anion_sum",
+              "targets": 4
+            },
+            {
+              "name": "charge_balance",
+              "targets": 5
+            },
+            {
+              "name": "Ca",
+              "targets": 6
+            },
+            {
+              "name": "Mg",
+              "targets": 7
+            },
+            {
+              "name": "Na",
+              "targets": 8
+            },
+            {
+              "name": "Cl",
+              "targets": 9
+            },
+            {
+              "name": "HCO3",
+              "targets": 10
+            },
+            {
+              "name": "SO4",
+              "targets": 11
+            },
+            {
+              "name": "Ca_meq",
+              "targets": 12
+            },
+            {
+              "name": "Mg_meq",
+              "targets": 13
+            },
+            {
+              "name": "Na_meq",
+              "targets": 14
+            },
+            {
+              "name": "Cl_meq",
+              "targets": 15
+            },
+            {
+              "name": "HCO3_meq",
+              "targets": 16
+            },
+            {
+              "name": "SO4_meq",
+              "targets": 17
+            },
+            {
+              "name": "water_type",
+              "targets": 18
             }
           ],
           "order": [
@@ -806,9 +471,9 @@
         },
         {
           "name": "dt-core",
-          "version": "1.13.4",
+          "version": "1.13.6",
           "src": {
-            "href": "dt-core-1.13.4"
+            "href": "dt-core-1.13.6"
           },
           "meta": null,
           "script": "js/jquery.dataTables.min.js",
@@ -823,9 +488,9 @@
         },
         {
           "name": "crosstalk",
-          "version": "1.2.0",
+          "version": "1.2.1",
           "src": {
-            "href": "crosstalk-1.2.0"
+            "href": "crosstalk-1.2.1"
           },
           "meta": null,
           "script": "js/crosstalk.min.js",
@@ -841,9 +506,9 @@
       "deps": [
         {
           "name": "selectize",
-          "version": "0.12.4",
+          "version": "0.15.2",
           "src": {
-            "href": "selectize-0.12.4"
+            "href": "selectize-0.15.2"
           },
           "meta": null,
           "script": [
@@ -862,9 +527,9 @@
       "deps": [
         {
           "name": "selectize",
-          "version": "0.12.4",
+          "version": "0.15.2",
           "src": {
-            "href": "selectize-0.12.4"
+            "href": "selectize-0.15.2"
           },
           "meta": null,
           "script": [
@@ -901,6 +566,46 @@
                 5,
                 6
               ]
+            },
+            {
+              "name": "StationID",
+              "targets": 0
+            },
+            {
+              "name": "SampleID",
+              "targets": 1
+            },
+            {
+              "name": "Sample Date",
+              "targets": 2
+            },
+            {
+              "name": "AquaChem Code",
+              "targets": 3
+            },
+            {
+              "name": "Parameter",
+              "targets": 4
+            },
+            {
+              "name": "Value (Transformed)",
+              "targets": 5
+            },
+            {
+              "name": "Water Quality Limit (Upper)",
+              "targets": 6
+            },
+            {
+              "name": "Limit Notes",
+              "targets": 7
+            },
+            {
+              "name": "Units",
+              "targets": 8
+            },
+            {
+              "name": "Quality Problem",
+              "targets": 9
             }
           ],
           "order": [
@@ -954,9 +659,9 @@
         },
         {
           "name": "dt-core",
-          "version": "1.13.4",
+          "version": "1.13.6",
           "src": {
-            "href": "dt-core-1.13.4"
+            "href": "dt-core-1.13.6"
           },
           "meta": null,
           "script": "js/jquery.dataTables.min.js",
@@ -971,9 +676,9 @@
         },
         {
           "name": "crosstalk",
-          "version": "1.2.0",
+          "version": "1.2.1",
           "src": {
-            "href": "crosstalk-1.2.0"
+            "href": "crosstalk-1.2.1"
           },
           "meta": null,
           "script": "js/crosstalk.min.js",
@@ -985,13 +690,13 @@
       ]
     },
     "rems_status_historic": {
-      "html": "<div class=\"small-box bg-orange\">\n  <div class=\"inner\">\n    <h3>Out-of-date<\/h3>\n    <p>Historic EMS Data (last updated: 1 days ago)<\/p>\n  <\/div>\n<\/div>",
+      "html": "<div class=\"small-box bg-orange\">\n  <div class=\"inner\">\n    <h3>Out-of-date<\/h3>\n    <p>Historic EMS Data (last updated: 67 days ago)<\/p>\n  <\/div>\n<\/div>",
       "deps": [
 
       ]
     },
     "rems_status_recent": {
-      "html": "<div class=\"small-box bg-orange\">\n  <div class=\"inner\">\n    <h3>Out-of-date<\/h3>\n    <p>Recent EMS Data (last updated: 2024-02-13)<\/p>\n  <\/div>\n<\/div>",
+      "html": "<div class=\"small-box bg-orange\">\n  <div class=\"inner\">\n    <h3>Out-of-date<\/h3>\n    <p>Recent EMS Data (last updated: 2024-11-19)<\/p>\n  <\/div>\n<\/div>",
       "deps": [
 
       ]
