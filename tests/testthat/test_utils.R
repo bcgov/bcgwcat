@@ -96,6 +96,7 @@ test_that("water_type", {
 
   d <- data.frame(Sample_Date = "2022-01-01", SampleID = "999990-01", StationID = 000,
                   Cl_meq = 0.0226, SO4_meq = 0.0208, HCO3_meq = 1.54,
+                  Meas_Alk_meq = 1.7,
                   Ca_meq = 0.187, Mg_meq = 0.490, Na_meq = 0.465, K_meq = 0.0665,
                   charge_balance = 0.5)
 
@@ -104,6 +105,7 @@ test_that("water_type", {
 
   d <- data.frame(SampleID = "999990-01", StationID = 000,
                   Cl_meq = 0.0226, SO4_meq = 0.0208, HCO3_meq = 1.54,
+                  Meas_Alk_meq = 1.7,
                   Ca_meq = 0.187, Mg_meq = 0.490, Na_meq = 0.465, K_meq = 0.0665,
                   charge_balance = 0.5)
 
@@ -112,11 +114,12 @@ test_that("water_type", {
 
   d <- data.frame(Sample_Date = "2022-01-01", SampleID = "999990-01", StationID = 000,
                   Cl_meq = NA, SO4_meq = 0.0208, HCO3_meq = NA,
+                  Meas_Alk_meq = 1.7,
                   Ca_meq = 0.187, Mg_meq = 0.490, Na_meq = 0.465, K_meq = 0.0665,
                   charge_balance = 0.5)
 
   expect_silent(d <- water_type(d))
-  expect_equal(d$water_type, "Mg-Na-Ca")
+  expect_equal(d$water_type, "Mg-Na-HCO3*") # Missing MCO3
 
   skip_on_ci()
   expect_message(p <- rems_to_aquachem(c("E298873", "E292373"),
@@ -126,7 +129,12 @@ test_that("water_type", {
     suppressMessages()
 
   expect_equal(p$water_type,
-               c("Ca-Mg-Na", "Ca-Na-HCO3-Cl", "Ca-Na-HCO3-Cl", "Ca-Na-HCO3"))
+               c("Ca-Mg-HCO3*", "Ca-Na-HCO3-Cl", "Ca-Na-HCO3-Cl", "Ca-Na-HCO3-Cl"))
+  expect_snapshot_value(
+    dplyr::select(p, "Sample_Date", "SampleID", "StationID", "Cl_meq", "SO4_meq",
+                  "HCO3_meq", "Meas_Alk_meq", "Ca_meq", "Mg_meq", "Na_meq", "K_meq",
+                  "charge_balance", "water_type"),
+    style = "json2", tolerance = 0.000001)
 })
 
 # plots -------------------------------------

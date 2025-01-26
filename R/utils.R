@@ -174,16 +174,20 @@ is_valid <- function(charge_balance) {
 
 #' Calculate water type
 #'
-#' Water type based on anions Cl, SO4, HCO3 and cations Ca, Mg, Na and K. Elements
+#' Water type based on anions Cl, SO4, HCO3 and cations Ca, Mg, and Na. Elements
 #' are ranked by proportion MEQ, all greater than 10% are listed in descending
 #' order of presence, cations first. Water type is only calculated for samples
-#' with valid charge balances. Missing ions are ignored (i.e. treated as 0).
+#' with valid charge balances. If HCO3 is missing, we use Meas Alk as a replacement
+#' (indicated by an '*' on HCO3 in the water type). Otherwise, missing ions are
+#' ignored (i.e. treated as 0). The column `missing_ion` indicates whether there
+#' is a problem with the water type, such that it is missing a cation or anion
+#' (i.e. is all cations or all anions).
 #'
 #' @param d Data frame. Must contain columns `Sample_Date`, `SampleID`,
-#'   `StationID`, `Cl_meq`, `SO4_meq`, `HCO3_meq`, `Ca_meq`, `Mg_meq`, `Na_meq`,
-#'   `K_meq`, and `charge_balance`.
+#'   `StationID`, `Cl_meq`, `SO4_meq`, `HCO3_meq`, `Meas_Alk_meq`,
+#'   `Ca_meq`, `Mg_meq`, `Na_meq`, and `charge_balance`.
 #'
-#' @return Data frame with added column `water_type`.
+#' @return Data frame with added columns `water_type` and `missing_ion`.
 #'
 #' @examples
 #'
@@ -191,9 +195,16 @@ is_valid <- function(charge_balance) {
 #'                 Cl_meq = 0.0226, SO4_meq = 0.0208, HCO3_meq = 1.54,
 #'                 Ca_meq = 0.187, Mg_meq = 0.490, Na_meq = 0.465, K_meq = 0.0665,
 #'                 charge_balance = 0.5)
+#' water_type(d)
 #'
-#' d <- water_type(d)
-#' d
+#' # If missing HCO3_meq, use Meas_Alk_meq
+#' d <- data.frame(Sample_Date = "2022-01-01", SampleID = "999990-01", StationID = 000,
+#'                 Cl_meq = 0.0226, SO4_meq = 0.0208, HCO3_meq = NA, Meas_Alk_meq = 1.7,
+#'                 Ca_meq = 0.187, Mg_meq = 0.490, Na_meq = 0.465, K_meq = 0.0665,
+#'                 charge_balance = 0.5)
+#'
+#' water_type(d)
+#'
 #'
 #' @export
 
@@ -201,7 +212,8 @@ water_type <- function(d) {
 
   if(!all(
     c("Sample_Date", "SampleID", "StationID", "Cl_meq", "SO4_meq",
-      "HCO3_meq", "Ca_meq", "Mg_meq", "Na_meq", "K_meq", "charge_balance") %in%
+      "HCO3_meq", "Meas_Alk_meq", "Ca_meq", "Mg_meq", "Na_meq",
+      "charge_balance") %in%
     names(d))) stop("Missing required columns. See ?water_type for details",
                     call. = FALSE)
 
@@ -211,13 +223,19 @@ water_type <- function(d) {
 
   if(nrow(wt) > 0) {
     wt <- wt %>%
-      dplyr::select("Sample_Date", "SampleID", "StationID",
+      # If missing HCO3, try Meas_Alk
+      dplyr::mutate(
+        HCO3_missing = is.na(HCO3_meq),
+        HCO3_meq = dplyr::if_else(is.na(HCO3_meq), Meas_Alk_meq, HCO3_meq)) %>%
+
+      dplyr::select("Sample_Date", "SampleID", "StationID", "HCO3_missing",
 
                     #anions
                     "Cl_meq", "SO4_meq", "HCO3_meq",
 
                     #cations
-                    "Ca_meq", "Mg_meq", "Na_meq", "K_meq") %>%
+                    "Ca_meq", "Mg_meq", "Na_meq") %>%
+
 
       tidyr::pivot_longer(cols = dplyr::ends_with("_meq"),
                           names_to = "ion", values_to = "value") %>%
@@ -232,10 +250,17 @@ water_type <- function(d) {
       dplyr::filter(.data$prop >= 0.1) %>%
       dplyr::arrange(dplyr::desc(.data$type), dplyr::desc(.data$prop),
                      .by_group = TRUE) %>%
-      dplyr::summarize(water_type = paste0(stringr::str_remove(.data$ion, "_meq"),
-                                           collapse = "-"), .groups = "drop") %>%
-      dplyr::select("Sample_Date", "SampleID", "StationID", "water_type") %>%
+      dplyr::mutate(
+        ion = dplyr::if_else(HCO3_missing & ion == "HCO3_meq", "HCO3*_meq", ion)) %>%
+      dplyr::summarize(
+        missing_ion = !all(c("anion", "cation") %in% type),
+        water_type = paste0(stringr::str_remove(.data$ion, "_meq"),
+                            collapse = "-"), .groups = "drop") %>%
+      dplyr::select("Sample_Date", "SampleID", "StationID", "water_type", "missing_ion") %>%
       dplyr::left_join(d, ., by = c("StationID", "SampleID", "Sample_Date"))
+
+    # select(wt, -c(1:259)) |>
+    #  readr::write_csv("testing.csv",  na = "")
   } else {
     wt <- dplyr::mutate(d, water_type = NA_character_)
   }

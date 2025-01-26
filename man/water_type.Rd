@@ -8,17 +8,21 @@ water_type(d)
 }
 \arguments{
 \item{d}{Data frame. Must contain columns \code{Sample_Date}, \code{SampleID},
-\code{StationID}, \code{Cl_meq}, \code{SO4_meq}, \code{HCO3_meq}, \code{Ca_meq}, \code{Mg_meq}, \code{Na_meq},
-\code{K_meq}, and \code{charge_balance}.}
+\code{StationID}, \code{Cl_meq}, \code{SO4_meq}, \code{HCO3_meq}, \code{Meas_Alk_meq},
+\code{Ca_meq}, \code{Mg_meq}, \code{Na_meq}, and \code{charge_balance}.}
 }
 \value{
-Data frame with added column \code{water_type}.
+Data frame with added columns \code{water_type} and \code{missing_ion}.
 }
 \description{
-Water type based on anions Cl, SO4, HCO3 and cations Ca, Mg, Na and K. Elements
+Water type based on anions Cl, SO4, HCO3 and cations Ca, Mg, and Na. Elements
 are ranked by proportion MEQ, all greater than 10\% are listed in descending
 order of presence, cations first. Water type is only calculated for samples
-with valid charge balances. Missing ions are ignored (i.e. treated as 0).
+with valid charge balances. If HCO3 is missing, we use Meas Alk as a replacement
+(indicated by an '*' on HCO3 in the water type). Otherwise, missing ions are
+ignored (i.e. treated as 0). The column \code{missing_ion} indicates whether there
+is a problem with the water type, such that it is missing a cation or anion
+(i.e. is all cations or all anions).
 }
 \examples{
 
@@ -26,8 +30,15 @@ d <- data.frame(Sample_Date = "2022-01-01", SampleID = "999990-01", StationID = 
                 Cl_meq = 0.0226, SO4_meq = 0.0208, HCO3_meq = 1.54,
                 Ca_meq = 0.187, Mg_meq = 0.490, Na_meq = 0.465, K_meq = 0.0665,
                 charge_balance = 0.5)
+water_type(d)
 
-d <- water_type(d)
-d
+# If missing HCO3_meq, use Meas_Alk_meq
+d <- data.frame(Sample_Date = "2022-01-01", SampleID = "999990-01", StationID = 000,
+                Cl_meq = 0.0226, SO4_meq = 0.0208, HCO3_meq = NA, Meas_Alk_meq = 1.7,
+                Ca_meq = 0.187, Mg_meq = 0.490, Na_meq = 0.465, K_meq = 0.0665,
+                charge_balance = 0.5)
+
+water_type(d)
+
 
 }

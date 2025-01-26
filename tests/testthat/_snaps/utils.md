@@ -25,3 +25,99 @@
       17 SO4       96.1              2      48.0 
       18 Zn_diss   65.4              2      32.7 
 
+# water_type
+
+    {
+      "type": "list",
+      "attributes": {
+        "names": {
+          "type": "character",
+          "attributes": {},
+          "value": ["Sample_Date", "SampleID", "StationID", "Cl_meq", "SO4_meq", "HCO3_meq", "Meas_Alk_meq", "Ca_meq", "Mg_meq", "Na_meq", "K_meq", "charge_balance", "water_type"]
+        },
+        "row.names": {
+          "type": "integer",
+          "attributes": {},
+          "value": [1, 2, 3, 4]
+        },
+        "class": {
+          "type": "character",
+          "attributes": {},
+          "value": ["tbl_df", "tbl", "data.frame"]
+        }
+      },
+      "value": [
+        {
+          "type": "double",
+          "attributes": {
+            "class": {
+              "type": "character",
+              "attributes": {},
+              "value": ["Date"]
+            }
+          },
+          "value": [16500, 16489, 16849, 17051]
+        },
+        {
+          "type": "character",
+          "attributes": {},
+          "value": ["E292373-1", "E298873-1", "E298873-2", "E298873-3"]
+        },
+        {
+          "type": "character",
+          "attributes": {},
+          "value": ["426", "451", "451", "451"]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [0.05077144, 0.36668265, 0.23411277, 0.16952021]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [0.02519191, 0.06995438, 0.06662322, 0.07307735]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": ["NA", 0.50970321, 0.50150862, 0.56870422]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [1.32285044, 0.50955719, 0.61146863, 0.69339744]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [0.92819003, 0.55391986, 0.4935376, 0.5139977]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [0.3488994, 0.14811767, 0.12919152, 0.1505863]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [0.17486038, 0.26272555, 0.22444766, 0.21531316]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [0.03401682, 0.03708601, 0.03529565, 0.03836484]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [3.4, 1, -4.2, -4.1]
+        },
+        {
+          "type": "character",
+          "attributes": {},
+          "value": ["Ca-Mg-HCO3*", "Ca-Na-HCO3-Cl", "Ca-Na-HCO3-Cl", "Ca-Na-HCO3-Cl"]
+        }
+      ]
+    }
+
