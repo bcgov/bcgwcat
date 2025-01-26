@@ -56,7 +56,7 @@
       ]
     },
     "rems_status_recent": {
-      "html": "<div class=\"small-box bg-orange\">\n  <div class=\"inner\">\n    <h3>Out-of-date<\/h3>\n    <p>Recent EMS Data (last updated: 2024-02-13)<\/p>\n  <\/div>\n<\/div>",
+      "html": "<div class=\"small-box bg-green\">\n  <div class=\"inner\">\n    <h3>Up-to-date<\/h3>\n    <p>Recent EMS Data (last updated: 2025-01-24)<\/p>\n  <\/div>\n<\/div>",
       "deps": [
 
       ]
