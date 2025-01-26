@@ -1,5 +1,6 @@
 # bcgwcat 0.6.1
-* Allow water types to use Meas Alk if HCO3 is missing (identifyed by HCO3* in the returned water type).
+* Allow water types to use Meas Alk if HCO3 is missing (identified by HCO3* in the returned water type).
+* Don't use K
 * Water type also returns a check column `mission_ion` to identify if the water type is missing all anions or all cations.
 
 # bcgwcat 0.6.0
