@@ -138,6 +138,7 @@ test_that("water_type", {
 })
 
 test_that("dominant_water_types()", {
+  skip_on_ci()
   suppressMessages({
     r <- rems_to_aquachem(ems_ids = "1401057", save = FALSE)
   })

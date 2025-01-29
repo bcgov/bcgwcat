@@ -276,12 +276,12 @@ water_type <- function(d) {
 #' `n` samples. Match HCO3 and HCO3* types. Considered dominant types if in >`p`
 #' of samples.
 #'
-#' @param ems Data frame. EMS data for a single site.
+#' @param d Data frame with `water_type` column (e.g., output of `rems_to_aquachem()`)
 #' @param n Numeric. Number of samples above which to remove outliers.
 #' @param p Numeric. Proportion of data required to assign a dominant water
 #'   type.
 #'
-#' @returns ems data frame with added `dominant` column (TRUE or FALSE) if the
+#' @returns Data frame with added `dominant` column (TRUE or FALSE) if the
 #'   water type is in the dominant set.
 #' @export
 
@@ -289,15 +289,15 @@ dominant_water_types <- function(d, n = 5, p = 0.75) {
 
   if(nrow(d) > n) {
     wt <- dplyr::filter(d, water_type != "") %>% # Also omit NA
-      dplyr::mutate(water_type = stringr::str_remove(water_type, "\\*")) %>%
-      dplyr::count(water_type, name = "n_wt") %>%
+      dplyr::mutate(water_type = stringr::str_remove(.data$water_type, "\\*")) %>%
+      dplyr::count(.data$water_type, name = "n_wt") %>%
       dplyr::arrange(dplyr::desc(.data$n_wt), dplyr::desc(.data$water_type)) %>%
       dplyr::mutate(
         p = .data$n_wt/sum(.data$n_wt),
-        cum_p1 = cumsum(p)) %>%
+        cum_p1 = cumsum(.data$p)) %>%
       dplyr::arrange(.data$n_wt, .data$water_type) %>%
-      dplyr::mutate(cum_p2 = cumsum(p)) %>%
-      dplyr::filter(cum_p1 <= .env$p | cum_p2 >= (1 - .env$p)) %>%
+      dplyr::mutate(cum_p2 = cumsum(.data$p)) %>%
+      dplyr::filter(.data$cum_p1 <= .env$p | .data$cum_p2 >= (1 - .env$p)) %>%
       dplyr::pull(.data$water_type)
 
     # Mark if domiant
