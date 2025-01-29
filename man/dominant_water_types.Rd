@@ -7,15 +7,15 @@
 dominant_water_types(d, n = 5, p = 0.75)
 }
 \arguments{
+\item{d}{Data frame with \code{water_type} column (e.g., output of \code{rems_to_aquachem()})}
+
 \item{n}{Numeric. Number of samples above which to remove outliers.}
 
 \item{p}{Numeric. Proportion of data required to assign a dominant water
 type.}
-
-\item{ems}{Data frame. EMS data for a single site.}
 }
 \value{
-ems data frame with added \code{dominant} column (TRUE or FALSE) if the
+Data frame with added \code{dominant} column (TRUE or FALSE) if the
 water type is in the dominant set.
 }
 \description{

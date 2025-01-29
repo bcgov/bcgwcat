@@ -189,6 +189,7 @@ test_that("plots customized", {
                      point_colour = c("#21908C90", "#44015490", "#9AD93C90"),
                      point_shape = c("square", "triangle", "circle"),
                      point_size = 0.2,
+                     with_Alk = TRUE, omit_outliers = TRUE,
                      legend_position = c(-1.5, 1),
                      legend_title = "Year") %>%
   save_plot()
@@ -218,11 +219,11 @@ test_that("plots outliers", {
     r <- rems_to_aquachem(ems_ids = "1401057", save = FALSE)
   })
 
-  path <- piper_plot(d = r) %>%
+  path <- piper_plot(d = r, omit_outliers = FALSE, with_Alk = FALSE) %>%
     save_plot()
   expect_snapshot_file(path, name = "piper3.png")
 
-  path <- piper_plot(d = r, omit_outliers = TRUE) %>%
+  path <- piper_plot(d = r, omit_outliers = TRUE, with_Alk = FALSE) %>%
     save_plot()
   expect_snapshot_file(path, name = "piper4.png")
 

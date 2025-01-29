@@ -1,7 +1,12 @@
 # bcgwcat 0.6.1
-* Allow water types to use Meas Alk if HCO3 is missing (identified by HCO3* in the returned water type).
-* Don't use K
-* Water type also returns a check column `mission_ion` to identify if the water type is missing all anions or all cations.
+* Correct general calculations of water types
+    * Allow water types to use Meas Alk if HCO3 is missing (identified by HCO3* in the returned water type).
+    * Water type also returns a check column `mission_ion` to identify if the water type is missing all anions or all cations.
+* New function for calculating dominant water types (`dominant_water_type()`)
+  in a series of samples.
+* Tweak piper plots and stiff plots
+    * Use Meas Alk (Total Alkalinity) instead of HCO3 if missing.
+    * Omit outlier points (when >5 samples, those not in a Dominant Water Type)
 
 # bcgwcat 0.6.0
 * Rename to bcgwcat to reflect change in scope

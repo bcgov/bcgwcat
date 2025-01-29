@@ -13,8 +13,8 @@ piper_plot(
   legend_title = group,
   valid = TRUE,
   plot_data = FALSE,
-  omit_outliers = FALSE,
-  with_Alk = FALSE,
+  omit_outliers = TRUE,
+  with_Alk = TRUE,
   point_colour = "viridis",
   point_size = 0.1,
   point_filled = TRUE,
@@ -42,10 +42,10 @@ of two numeric values x, and y to specify an exact position.}
 \item{plot_data}{Logical. Whether to return plot data rather than a plot}
 
 \item{omit_outliers}{Logical. Whether to omit outliers by looking at dominant
-water types (see \code{?dominant_water_types()}). Default FALSE.}
+water types (see \code{?dominant_water_types()}). Default TRUE.}
 
 \item{with_Alk}{Logical. Whether to use \code{Meas_Alk_meq} for \code{HCO3_meq} if
-missing. Default FALSE. Matches behaviour of \code{water_type()}.}
+missing. Default TRUE. Matches behaviour of \code{water_type()}.}
 
 \item{point_colour}{Character. Colour or colours by which to colour points.
 Either a single value (applied to all), or a vector of values the same

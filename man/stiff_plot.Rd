@@ -4,7 +4,14 @@
 \alias{stiff_plot}
 \title{Create Stiff plot}
 \usage{
-stiff_plot(d, ems_id = NULL, colour = TRUE, legend = TRUE, valid = TRUE)
+stiff_plot(
+  d,
+  ems_id = NULL,
+  colour = TRUE,
+  legend = TRUE,
+  valid = TRUE,
+  with_Alk = TRUE
+)
 }
 \arguments{
 \item{d}{AquaChem formatted dataset}
@@ -16,6 +23,9 @@ stiff_plot(d, ems_id = NULL, colour = TRUE, legend = TRUE, valid = TRUE)
 \item{legend}{Whether to show the legend}
 
 \item{valid}{Logical. Keep only valid data (charge balances <=10)}
+
+\item{with_Alk}{Logical. Whether to use \code{Meas_Alk_meq} for \code{HCO3_meq} if
+missing. Default TRUE. Matches behaviour of \code{water_type()}.}
 }
 \description{
 Create Stiff plot

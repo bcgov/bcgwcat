@@ -120,8 +120,8 @@ meq <- function(d, drop_na = FALSE) {
 #' @param d Data set formatted for AquaChem (output of `rems_to_aquachem()`)
 #'
 #' @return Data frame
-#'
-#'
+#' @export
+
 charge_balance <- function(d) {
 
   message("For consistency EMS charge balances, anion sums, and cation sums ",
@@ -227,8 +227,9 @@ water_type <- function(d) {
     wt <- wt %>%
       # If missing HCO3, try Meas_Alk
       dplyr::mutate(
-        HCO3_missing = is.na(HCO3_meq),
-        HCO3_meq = dplyr::if_else(is.na(HCO3_meq), Meas_Alk_meq, HCO3_meq)) %>%
+        HCO3_missing = is.na(.data$HCO3_meq),
+        HCO3_meq = dplyr::if_else(
+          is.na(.data$HCO3_meq), .data$Meas_Alk_meq, .data$HCO3_meq)) %>%
 
       # Define Ions
       dplyr::select("Sample_Date", "SampleID", "StationID", "HCO3_missing",
@@ -254,9 +255,9 @@ water_type <- function(d) {
       dplyr::arrange(dplyr::desc(.data$type), dplyr::desc(.data$prop),
                      .by_group = TRUE) %>%
       dplyr::mutate(
-        ion = dplyr::if_else(HCO3_missing & ion == "HCO3_meq", "HCO3*_meq", ion)) %>%
+        ion = dplyr::if_else(.data$HCO3_missing & .data$ion == "HCO3_meq", "HCO3*_meq", .data$ion)) %>%
       dplyr::summarize(
-        missing_ion = !all(c("anion", "cation") %in% type),
+        missing_ion = !all(c("anion", "cation") %in% .data$type),
         water_type = paste0(stringr::str_remove(.data$ion, "_meq"),
                             collapse = "-"), .groups = "drop") %>%
       dplyr::select("Sample_Date", "SampleID", "StationID", "water_type", "missing_ion") %>%
@@ -322,9 +323,9 @@ dominant_water_types <- function(d, n = 5, p = 0.75) {
 #' @param valid Logical. Keep only valid data (charge balances <=10)
 #' @param plot_data Logical. Whether to return plot data rather than a plot
 #' @param omit_outliers Logical. Whether to omit outliers by looking at dominant
-#'   water types (see `?dominant_water_types()`). Default FALSE.
+#'   water types (see `?dominant_water_types()`). Default TRUE.
 #' @param with_Alk Logical. Whether to use `Meas_Alk_meq` for `HCO3_meq` if
-#'   missing. Default FALSE. Matches behaviour of `water_type()`.
+#'   missing. Default TRUE. Matches behaviour of `water_type()`.
 #' @param point_size Numeric. Point size. Either a single value (applied to
 #'   all), or a vector of values the same length as the number of `groups`.
 #' @param point_colour Character. Colour or colours by which to colour points.
@@ -344,8 +345,8 @@ piper_plot <- function(d, ems_id = NULL, group = "ems_id",
                        legend = TRUE, legend_position = "topleft",
                        legend_title = group,
                        valid = TRUE, plot_data = FALSE,
-                       omit_outliers = FALSE,
-                       with_Alk = FALSE,
+                       omit_outliers = TRUE,
+                       with_Alk = TRUE,
                        point_colour = "viridis",
                        point_size = 0.1,
                        point_filled = TRUE,
@@ -367,7 +368,8 @@ piper_plot <- function(d, ems_id = NULL, group = "ems_id",
   if(with_Alk) {
     d <- dplyr::mutate(
       d,
-      HCO3_meq = dplyr::if_else(is.na(HCO3_meq), Meas_Alk_meq, HCO3_meq))
+      HCO3_meq = dplyr::if_else(
+        is.na(.data$HCO3_meq), .data$Meas_Alk_meq, .data$HCO3_meq))
   }
 
   d <- d %>%
@@ -558,16 +560,18 @@ piper_plot_single <- function(data, plot = NULL, n = 1, opts) {
 
 #' Create Stiff plot
 #'
-#' @param d  AquaChem formatted dataset
+#' @param d AquaChem formatted dataset
 #' @param ems_id Ids to plot if dataset includes more than one
 #' @param colour Whether to add colour by ems_id
 #' @param legend Whether to show the legend
 #' @param valid Logical. Keep only valid data (charge balances <=10)
+#' @param with_Alk Logical. Whether to use `Meas_Alk_meq` for `HCO3_meq` if
+#'   missing. Default TRUE. Matches behaviour of `water_type()`.
 #'
 #' @export
 
 stiff_plot <- function(d, ems_id = NULL, colour = TRUE, legend = TRUE,
-                       valid = TRUE) {
+                       valid = TRUE, with_Alk = TRUE) {
 
 
   d <- d %>%
@@ -583,6 +587,14 @@ stiff_plot <- function(d, ems_id = NULL, colour = TRUE, legend = TRUE,
   } else if(length(unique(d$ems_id)) > 1 & !colour) {
     stop("With more than one ems_id included in data, need to specify which id ",
          "OR 'colour = TRUE'" , call. = FALSE)
+  }
+
+  # Use Meas_Alk if missing HCO3
+  if(with_Alk) {
+    d <- dplyr::mutate(
+      d,
+      HCO3_meq = dplyr::if_else(
+        is.na(.data$HCO3_meq), .data$Meas_Alk_meq, .data$HCO3_meq))
   }
 
   d <- dplyr::select(d, c("ems_id", "SampleID", "charge_balance",
