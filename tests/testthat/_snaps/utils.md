@@ -116,7 +116,7 @@
         {
           "type": "character",
           "attributes": {},
-          "value": ["Ca-Mg-HCO3*", "Ca-Na-HCO3-Cl", "Ca-Na-HCO3-Cl", "Ca-Na-HCO3-Cl"]
+          "value": ["Ca-Mg-HCO3*", "Ca-Na-HCO3-Cl", "Ca-Na-HCO3-Cl", "Ca-Na-HCO3"]
         }
       ]
     }

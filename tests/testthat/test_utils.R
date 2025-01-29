@@ -129,7 +129,7 @@ test_that("water_type", {
     suppressMessages()
 
   expect_equal(p$water_type,
-               c("Ca-Mg-HCO3*", "Ca-Na-HCO3-Cl", "Ca-Na-HCO3-Cl", "Ca-Na-HCO3-Cl"))
+               c("Ca-Mg-HCO3*", "Ca-Na-HCO3-Cl", "Ca-Na-HCO3-Cl", "Ca-Na-HCO3"))
   expect_snapshot_value(
     dplyr::select(p, "Sample_Date", "SampleID", "StationID", "Cl_meq", "SO4_meq",
                   "HCO3_meq", "Meas_Alk_meq", "Ca_meq", "Mg_meq", "Na_meq", "K_meq",
