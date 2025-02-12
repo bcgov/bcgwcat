@@ -120,8 +120,8 @@ meq <- function(d, drop_na = FALSE) {
 #' @param d Data set formatted for AquaChem (output of `rems_to_aquachem()`)
 #'
 #' @return Data frame
-#'
-#'
+#' @export
+
 charge_balance <- function(d) {
 
   message("For consistency EMS charge balances, anion sums, and cation sums ",
@@ -174,26 +174,39 @@ is_valid <- function(charge_balance) {
 
 #' Calculate water type
 #'
-#' Water type based on anions Cl, SO4, HCO3 and cations Ca, Mg, Na and K. Elements
+#' Water type based on anions Cl, SO4, HCO3 and cations Ca, Mg, Na and K. Ions
 #' are ranked by proportion MEQ, all greater than 10% are listed in descending
 #' order of presence, cations first. Water type is only calculated for samples
-#' with valid charge balances. Missing ions are ignored (i.e. treated as 0).
+#' with valid charge balances. If HCO3 is missing, we use Meas Alk as a
+#' replacement (indicated by an '*' on HCO3 in the water type). Otherwise,
+#' missing ions are ignored (i.e. treated as 0). The column `missing_ion`
+#' indicates whether there is a problem with the water type, such that it is
+#' missing a cation or anion (i.e. is all cations or all anions).
+#' Water type is designed to compliment piper plots by using the same ions so
+#' they are comparable.
 #'
 #' @param d Data frame. Must contain columns `Sample_Date`, `SampleID`,
-#'   `StationID`, `Cl_meq`, `SO4_meq`, `HCO3_meq`, `Ca_meq`, `Mg_meq`, `Na_meq`,
-#'   `K_meq`, and `charge_balance`.
+#'   `StationID`, `Cl_meq`, `SO4_meq`, `HCO3_meq`, `Meas_Alk_meq`,
+#'   `Ca_meq`, `Mg_meq`, `Na_meq`, `K_meq` and `charge_balance`.
 #'
-#' @return Data frame with added column `water_type`.
+#' @return Data frame with added columns `water_type` and `missing_ion`.
 #'
 #' @examples
 #'
 #' d <- data.frame(Sample_Date = "2022-01-01", SampleID = "999990-01", StationID = 000,
-#'                 Cl_meq = 0.0226, SO4_meq = 0.0208, HCO3_meq = 1.54,
+#'                 Cl_meq = 0.0226, SO4_meq = 0.0208, HCO3_meq = 1.54, Meas_Alk_meq = 1.7,
+#'                 Ca_meq = 0.187, Mg_meq = 0.490, Na_meq = 0.465, K_meq = 0.0665,
+#'                 charge_balance = 0.5)
+#' water_type(d)
+#'
+#' # If missing HCO3_meq, use Meas_Alk_meq
+#' d <- data.frame(Sample_Date = "2022-01-01", SampleID = "999990-01", StationID = 000,
+#'                 Cl_meq = 0.0226, SO4_meq = 0.0208, HCO3_meq = NA, Meas_Alk_meq = 1.7,
 #'                 Ca_meq = 0.187, Mg_meq = 0.490, Na_meq = 0.465, K_meq = 0.0665,
 #'                 charge_balance = 0.5)
 #'
-#' d <- water_type(d)
-#' d
+#' water_type(d)
+#'
 #'
 #' @export
 
@@ -201,7 +214,8 @@ water_type <- function(d) {
 
   if(!all(
     c("Sample_Date", "SampleID", "StationID", "Cl_meq", "SO4_meq",
-      "HCO3_meq", "Ca_meq", "Mg_meq", "Na_meq", "K_meq", "charge_balance") %in%
+      "HCO3_meq", "Meas_Alk_meq", "Ca_meq", "Mg_meq", "Na_meq", "K_meq",
+      "charge_balance") %in%
     names(d))) stop("Missing required columns. See ?water_type for details",
                     call. = FALSE)
 
@@ -211,13 +225,21 @@ water_type <- function(d) {
 
   if(nrow(wt) > 0) {
     wt <- wt %>%
-      dplyr::select("Sample_Date", "SampleID", "StationID",
+      # If missing HCO3, try Meas_Alk
+      dplyr::mutate(
+        HCO3_missing = is.na(.data$HCO3_meq),
+        HCO3_meq = dplyr::if_else(
+          is.na(.data$HCO3_meq), .data$Meas_Alk_meq, .data$HCO3_meq)) %>%
+
+      # Define Ions
+      dplyr::select("Sample_Date", "SampleID", "StationID", "HCO3_missing",
 
                     #anions
                     "Cl_meq", "SO4_meq", "HCO3_meq",
 
                     #cations
                     "Ca_meq", "Mg_meq", "Na_meq", "K_meq") %>%
+
 
       tidyr::pivot_longer(cols = dplyr::ends_with("_meq"),
                           names_to = "ion", values_to = "value") %>%
@@ -232,14 +254,59 @@ water_type <- function(d) {
       dplyr::filter(.data$prop >= 0.1) %>%
       dplyr::arrange(dplyr::desc(.data$type), dplyr::desc(.data$prop),
                      .by_group = TRUE) %>%
-      dplyr::summarize(water_type = paste0(stringr::str_remove(.data$ion, "_meq"),
-                                           collapse = "-"), .groups = "drop") %>%
-      dplyr::select("Sample_Date", "SampleID", "StationID", "water_type") %>%
+      dplyr::mutate(
+        ion = dplyr::if_else(.data$HCO3_missing & .data$ion == "HCO3_meq", "HCO3*_meq", .data$ion)) %>%
+      dplyr::summarize(
+        missing_ion = !all(c("anion", "cation") %in% .data$type),
+        water_type = paste0(stringr::str_remove(.data$ion, "_meq"),
+                            collapse = "-"), .groups = "drop") %>%
+      dplyr::select("Sample_Date", "SampleID", "StationID", "water_type", "missing_ion") %>%
       dplyr::left_join(d, ., by = c("StationID", "SampleID", "Sample_Date"))
+
+    # select(wt, -c(1:259)) |>
+    #  readr::write_csv("testing.csv",  na = "")
   } else {
     wt <- dplyr::mutate(d, water_type = NA_character_)
   }
   wt
+}
+
+#' Find the dominant water types
+#'
+#' Find the dominant waters type in a group of samples, if there are more than
+#' `n` samples. Match HCO3 and HCO3* types. Considered dominant types if in >`p`
+#' of samples.
+#'
+#' @param d Data frame with `water_type` column (e.g., output of `rems_to_aquachem()`)
+#' @param n Numeric. Number of samples above which to remove outliers.
+#' @param p Numeric. Proportion of data required to assign a dominant water
+#'   type.
+#'
+#' @returns Data frame with added `dominant` column (TRUE or FALSE) if the
+#'   water type is in the dominant set.
+#' @export
+
+dominant_water_types <- function(d, n = 5, p = 0.75) {
+
+  if(nrow(d) > n) {
+    wt <- dplyr::filter(d, water_type != "") %>% # Also omit NA
+      dplyr::mutate(water_type = stringr::str_remove(.data$water_type, "\\*")) %>%
+      dplyr::count(.data$water_type, name = "n_wt") %>%
+      dplyr::arrange(dplyr::desc(.data$n_wt), dplyr::desc(.data$water_type)) %>%
+      dplyr::mutate(
+        p = .data$n_wt/sum(.data$n_wt),
+        cum_p1 = cumsum(.data$p)) %>%
+      dplyr::arrange(.data$n_wt, .data$water_type) %>%
+      dplyr::mutate(cum_p2 = cumsum(.data$p)) %>%
+      dplyr::filter(.data$cum_p1 <= .env$p | .data$cum_p2 >= (1 - .env$p)) %>%
+      dplyr::pull(.data$water_type)
+
+    # Mark if domiant
+    d <- dplyr::mutate(
+      d,
+      dominant = stringr::str_remove(.data$water_type, "\\*") %in% .env$wt)
+  } else d$dominant <- TRUE
+  d
 }
 
 #' Create Piper plot
@@ -255,6 +322,10 @@ water_type <- function(d) {
 #' @param legend_title Character. Title of legend. Defaults to `group`.
 #' @param valid Logical. Keep only valid data (charge balances <=10)
 #' @param plot_data Logical. Whether to return plot data rather than a plot
+#' @param omit_outliers Logical. Whether to omit outliers by looking at dominant
+#'   water types (see `?dominant_water_types()`). Default TRUE.
+#' @param with_Alk Logical. Whether to use `Meas_Alk_meq` for `HCO3_meq` if
+#'   missing. Default TRUE. Matches behaviour of `water_type()`.
 #' @param point_size Numeric. Point size. Either a single value (applied to
 #'   all), or a vector of values the same length as the number of `groups`.
 #' @param point_colour Character. Colour or colours by which to colour points.
@@ -274,6 +345,8 @@ piper_plot <- function(d, ems_id = NULL, group = "ems_id",
                        legend = TRUE, legend_position = "topleft",
                        legend_title = group,
                        valid = TRUE, plot_data = FALSE,
+                       omit_outliers = TRUE,
+                       with_Alk = TRUE,
                        point_colour = "viridis",
                        point_size = 0.1,
                        point_filled = TRUE,
@@ -292,6 +365,13 @@ piper_plot <- function(d, ems_id = NULL, group = "ems_id",
 
   if(is.null(group)) group <- "ems_id"
 
+  if(with_Alk) {
+    d <- dplyr::mutate(
+      d,
+      HCO3_meq = dplyr::if_else(
+        is.na(.data$HCO3_meq), .data$Meas_Alk_meq, .data$HCO3_meq))
+  }
+
   d <- d %>%
     dplyr::arrange(.data[[group]], .data$Sample_Date) %>%
     dplyr::select(c("ems_id", "charge_balance",
@@ -300,6 +380,7 @@ piper_plot <- function(d, ems_id = NULL, group = "ems_id",
                     "Cl_meq",              # X Anions
                     "HCO3_meq", "CO3_meq", # Y Anions
                     "SO4_meq",             # Z Anions
+                    "water_type",
                     .env$group)) %>%       # Grouping variable
 
     dplyr::rowwise() %>%
@@ -321,6 +402,15 @@ piper_plot <- function(d, ems_id = NULL, group = "ems_id",
 
   # Keep only valid data if specified
   if(valid) d <- dplyr::filter(d, is_valid(charge_balance))
+
+  if(omit_outliers) {
+
+    # Remove outliers if they are not in the dominant set
+    # - If <= 5 samples, all are considered dominant
+    d <- dominant_water_types(d) %>%
+      dplyr::filter(.data$dominant)
+  }
+  d <- dplyr::select(d, -"water_type")
 
   # Remove completely empty rows
   d <- d %>%
@@ -470,16 +560,18 @@ piper_plot_single <- function(data, plot = NULL, n = 1, opts) {
 
 #' Create Stiff plot
 #'
-#' @param d  AquaChem formatted dataset
+#' @param d AquaChem formatted dataset
 #' @param ems_id Ids to plot if dataset includes more than one
 #' @param colour Whether to add colour by ems_id
 #' @param legend Whether to show the legend
 #' @param valid Logical. Keep only valid data (charge balances <=10)
+#' @param with_Alk Logical. Whether to use `Meas_Alk_meq` for `HCO3_meq` if
+#'   missing. Default TRUE. Matches behaviour of `water_type()`.
 #'
 #' @export
 
 stiff_plot <- function(d, ems_id = NULL, colour = TRUE, legend = TRUE,
-                       valid = TRUE) {
+                       valid = TRUE, with_Alk = TRUE) {
 
 
   d <- d %>%
@@ -495,6 +587,14 @@ stiff_plot <- function(d, ems_id = NULL, colour = TRUE, legend = TRUE,
   } else if(length(unique(d$ems_id)) > 1 & !colour) {
     stop("With more than one ems_id included in data, need to specify which id ",
          "OR 'colour = TRUE'" , call. = FALSE)
+  }
+
+  # Use Meas_Alk if missing HCO3
+  if(with_Alk) {
+    d <- dplyr::mutate(
+      d,
+      HCO3_meq = dplyr::if_else(
+        is.na(.data$HCO3_meq), .data$Meas_Alk_meq, .data$HCO3_meq))
   }
 
   d <- dplyr::select(d, c("ems_id", "SampleID", "charge_balance",

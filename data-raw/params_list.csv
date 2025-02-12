@@ -14,7 +14,7 @@ Barium Dissolved,BA-D,mg/L,Ba,mg/L,param,,numeric,
 Barium Total,BA-T,mg/L,Ba_tot,mg/L,param,,numeric,
 Beryllium Dissolved,BE-D,mg/L,,,param,,numeric,
 Beryllium Total,BE-T,mg/L,,,param,,numeric,
-Bicarbonate Alkalinity,150,mg/L,HCO3,mg/L,param,FALSE,numeric,bicarbonate
+Bicarbonate Alkalinity (as CaCO3),150,mg/L,HCO3,mg/L,param,FALSE,numeric,bicarbonate
 Bismuth Dissolved,BI-D,mg/L,,,param,,numeric,
 Bismuth Total,BI-T,mg/L,,,param,,numeric,
 Boron Dissolved,B--D,mg/L,B,mg/L,param,,numeric,

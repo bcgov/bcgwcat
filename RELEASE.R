@@ -40,6 +40,7 @@ usethis::use_github_release()
 # Testing ----------------------------------------
 pkgdown::build_site()
 pkgdown::build_article("bcgwcat")
+pkgdown::build_article("ions")
 pkgdown::build_article("piperplots")
 pkgdown::build_reference_index()
 
