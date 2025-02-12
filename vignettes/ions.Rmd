@@ -119,7 +119,7 @@ For example with this data
 #| echo: false
 d <- data.frame(Sample_Date = "2022-01-01", SampleID = "999990-01", StationID = 000,
                 Cl_meq = 0.0226, SO4_meq = 0.0208, HCO3_meq = 1.54, Meas_Alk_meq = 1.7,
-                Ca_meq = 0.187, Mg_meq = 0.490, Na_meq = 0.465, 
+                Ca_meq = 0.187, Mg_meq = 0.490, Na_meq = 0.465, K_meq = 0.0665,
                 charge_balance = 0.5) |>
   dplyr::as_tibble()
 gt::gt(d)
