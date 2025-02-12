@@ -1,0 +1,132 @@
+---
+title: "Anions and Cations"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Anions and Cations}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+
+Balances of anions and cations are used throughout bcgwcat in order to assess
+various water chemistry metrics.
+
+In particular they are used to calculate
+
+ - **Charge Balances** `charge_balance()`
+ - **Water Types** `water_type()`
+ - **Piper plots** `piper_plot()`
+ - **Stiff plots** `stiff_plot()`
+
+Generally speaking, charge balances are used to assess whether the water chemistry
+data is valid. For water types, piper plots and stiff plots, samples are only 
+retained if the charge balance is <=10%. 
+
+The exact types of anions and cations used depend on the calculation.
+
+```{r}
+#| echo: false
+#| results: "asis"
+ions <- data.frame(
+  ions = c("Cl", "SO4", "HCO3", "CO3", "F", "NO3", "NO2", "Meas_Alk",
+           "Ca", "Mg", "Na", "K", "Al_diss", "Cu_diss", "Fe_diss", "Mn_diss", "Zn_diss", "NH4",
+           "pH_lab"),
+  type = c(rep("anions", 8), rep("cations", 11))) %>%
+  dplyr::mutate(
+    `charge balance` = dplyr::if_else(ions %in% c(
+      "Cl", "SO4", "F", "NO3", "NO2", "Meas_Alk",
+      "Ca", "Mg", "Na", "K", "Al_diss", "Cu_diss", "Fe_diss", "Mn_diss", "Zn_diss", "NH4", "pH_lab"),
+      "X", ""),
+    `water type` =  dplyr::if_else(ions %in% c("Cl", "SO4", "HCO3", "Ca", "Mg", "Na", "K"), "X", ""),
+    `water type` = dplyr::if_else(ions == "Meas_Alk", "*", `water type`),
+    `piper plots` = dplyr::if_else(ions %in% c("Cl", "SO4", "HCO3", "CO3", "Ca", "Mg", "Na", "K"),  "X", ""),
+    `piper plots` = dplyr::if_else(ions == "Meas_Alk", "*", `piper plots`),
+    `stiff plots` = dplyr::if_else(ions %in% c("Cl", "SO4", "HCO3", "Ca", "Mg", "Na"),  "X", ""),
+    `stiff plots` = dplyr::if_else(ions == "Meas_Alk", "*", `stiff plots`),
+  )
+
+ions %>%
+  dplyr::group_by(type) %>%
+  gt::gt() %>%
+  gt::cols_align("center", columns = -"ions") %>%
+  gt::tab_style(gt::cell_text(weight = "bold", align = "center", transform = "capitalize"),
+                locations = gt::cells_column_labels(-"ions")) %>%
+  gt::tab_style(gt::cell_text(weight = "bold", transform = "capitalize"),
+                locations = list(gt::cells_row_groups(), gt::cells_column_labels("ions"))) %>%
+  gt::tab_footnote("* Used if HCO3 is missing")
+```
+
+
+### Charge balances
+
+Charge balances are calculated based on a formula from ALS formula.
+
+Although EMS data contains charge balances, as well as the anion and cation sums
+used to calculate these values, potential changes in workflows over the years
+have made it difficult to ascertain exactly how charge balances were calculated
+in older samples. This resulted in discrepancies between EMS and locally
+calculated charge balances. Therefore for consistency, we calculate charge
+balances for all samples using the ALS formula below.
+
+**Note:** This means that the original EMS charge balances, anion sums, and 
+cation sums, have been **omitted**.
+
+One difference between our calculation and that of ALS, is that we use more
+significant digits when calculating MEQ.
+
+Charge balances use following measures in MEQ
+
+- **Anions** Cl, SO4, F, NO3, NO2, Meas_Alk
+- **Cations** Ca, Mg, Na, K, Al_diss, Cu_diss, Fe_diss, Mn_diss, Zn_diss, NH4,
+  and pH_lab
+
+And are calculated as follows
+
+$\textrm{Anion sum} = Cl + SO_4 + F + NO_3 + NO_2 + Meas\_Alk$
+
+$$
+\textrm{Cation sum} = Ca + Mg + Na + K + Al_{diss} +
+             Cu_{diss} + Fe_{diss} + Mn_{diss} + Zn_{diss} + NH_4 +
+             (10 ^{-\textrm{pH_lab}}) * 1000
+$$
+
+$\textrm{Charge balance} = | 100 \times (\textrm{Cation Sum} - \textrm{Anion sum}) / (\textrm{Cation Sum} + \textrm{Anion Sum}) |$
+
+Missing values are ignored (i.e. generally treated as 0). However, if all
+values for cations or anions are missing the charge balance is `NA`.
+
+This means that Charge Balances will be invalid if there are too many missing
+measures.
+
+### Water Types
+
+Water types identify the major cations and anions in a water sample. 
+In bcgwcat, we calculate water types using the following ions:
+
+- **Anions** Cl, SO4, HCO3
+- **Cations** Ca, Mg, and Na
+
+Water type is only calculated for samples with valid charge balances.
+Ions are ranked by proportion MEQ, all greater than 10% are listed in descending
+order, cations first. If HCO3 is missing, we use Meas Alk as a replacement
+(indicated by an '*' on HCO3 in the water type). Otherwise, missing ions are
+ignored (i.e. treated as 0). The column `missing_ion` indicates whether there
+is a problem with the water type, such that it is missing a cation or anion
+(i.e. is all cations or all anions).
+
+For example with this data
+```{r}
+#| echo: false
+d <- data.frame(Sample_Date = "2022-01-01", SampleID = "999990-01", StationID = 000,
+                Cl_meq = 0.0226, SO4_meq = 0.0208, HCO3_meq = 1.54, Meas_Alk_meq = 1.7,
+                Ca_meq = 0.187, Mg_meq = 0.490, Na_meq = 0.465, 
+                charge_balance = 0.5) %>%
+  dplyr::as_tibble()
+gt::gt(d)
+```
+
+We would get the following water type.
+```{r}
+#| echo: false
+gt::gt(bcgwcat::water_type(d)[, c("water_type", "missing_ion")])
+```
