@@ -31,7 +31,7 @@ ions <- data.frame(
   ions = c("Cl", "SO4", "HCO3", "CO3", "F", "NO3", "NO2", "Meas_Alk",
            "Ca", "Mg", "Na", "K", "Al_diss", "Cu_diss", "Fe_diss", "Mn_diss", "Zn_diss", "NH4",
            "pH_lab"),
-  type = c(rep("anions", 8), rep("cations", 11))) %>%
+  type = c(rep("anions", 8), rep("cations", 11))) |>
   dplyr::mutate(
     `charge balance` = dplyr::if_else(ions %in% c(
       "Cl", "SO4", "F", "NO3", "NO2", "Meas_Alk",
@@ -45,14 +45,14 @@ ions <- data.frame(
     `stiff plots` = dplyr::if_else(ions == "Meas_Alk", "*", `stiff plots`),
   )
 
-ions %>%
-  dplyr::group_by(type) %>%
-  gt::gt() %>%
-  gt::cols_align("center", columns = -"ions") %>%
+ions |>
+  dplyr::group_by(type) |>
+  gt::gt() |>
+  gt::cols_align("center", columns = -"ions") |>
   gt::tab_style(gt::cell_text(weight = "bold", align = "center", transform = "capitalize"),
-                locations = gt::cells_column_labels(-"ions")) %>%
+                locations = gt::cells_column_labels(-"ions")) |>
   gt::tab_style(gt::cell_text(weight = "bold", transform = "capitalize"),
-                locations = list(gt::cells_row_groups(), gt::cells_column_labels("ions"))) %>%
+                locations = list(gt::cells_row_groups(), gt::cells_column_labels("ions"))) |>
   gt::tab_footnote("* Used if HCO3 is missing")
 ```
 
@@ -120,7 +120,7 @@ For example with this data
 d <- data.frame(Sample_Date = "2022-01-01", SampleID = "999990-01", StationID = 000,
                 Cl_meq = 0.0226, SO4_meq = 0.0208, HCO3_meq = 1.54, Meas_Alk_meq = 1.7,
                 Ca_meq = 0.187, Mg_meq = 0.490, Na_meq = 0.465, 
-                charge_balance = 0.5) %>%
+                charge_balance = 0.5) |>
   dplyr::as_tibble()
 gt::gt(d)
 ```
