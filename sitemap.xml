@@ -1,78 +1,30 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://bcgov.github.io/bcgwcat/404.html</loc>
-  </url>
-  <url>
-    <loc>https://bcgov.github.io/bcgwcat/CODE_OF_CONDUCT.html</loc>
-  </url>
-  <url>
-    <loc>https://bcgov.github.io/bcgwcat/CONTRIBUTING.html</loc>
-  </url>
-  <url>
-    <loc>https://bcgov.github.io/bcgwcat/LICENSE-text.html</loc>
-  </url>
-  <url>
-    <loc>https://bcgov.github.io/bcgwcat/articles/bcgwcat.html</loc>
-  </url>
-  <url>
-    <loc>https://bcgov.github.io/bcgwcat/articles/index.html</loc>
-  </url>
-  <url>
-    <loc>https://bcgov.github.io/bcgwcat/articles/piperplots.html</loc>
-  </url>
-  <url>
-    <loc>https://bcgov.github.io/bcgwcat/authors.html</loc>
-  </url>
-  <url>
-    <loc>https://bcgov.github.io/bcgwcat/index.html</loc>
-  </url>
-  <url>
-    <loc>https://bcgov.github.io/bcgwcat/news/index.html</loc>
-  </url>
-  <url>
-    <loc>https://bcgov.github.io/bcgwcat/reference/charge_balance.html</loc>
-  </url>
-  <url>
-    <loc>https://bcgov.github.io/bcgwcat/reference/check_present.html</loc>
-  </url>
-  <url>
-    <loc>https://bcgov.github.io/bcgwcat/reference/get_rems.html</loc>
-  </url>
-  <url>
-    <loc>https://bcgov.github.io/bcgwcat/reference/gw_app.html</loc>
-  </url>
-  <url>
-    <loc>https://bcgov.github.io/bcgwcat/reference/index.html</loc>
-  </url>
-  <url>
-    <loc>https://bcgov.github.io/bcgwcat/reference/meq.html</loc>
-  </url>
-  <url>
-    <loc>https://bcgov.github.io/bcgwcat/reference/meq_conversion.html</loc>
-  </url>
-  <url>
-    <loc>https://bcgov.github.io/bcgwcat/reference/pipe.html</loc>
-  </url>
-  <url>
-    <loc>https://bcgov.github.io/bcgwcat/reference/piper_plot.html</loc>
-  </url>
-  <url>
-    <loc>https://bcgov.github.io/bcgwcat/reference/rems_to_aquachem.html</loc>
-  </url>
-  <url>
-    <loc>https://bcgov.github.io/bcgwcat/reference/stiff_plot.html</loc>
-  </url>
-  <url>
-    <loc>https://bcgov.github.io/bcgwcat/reference/tidyeval.html</loc>
-  </url>
-  <url>
-    <loc>https://bcgov.github.io/bcgwcat/reference/units_remove.html</loc>
-  </url>
-  <url>
-    <loc>https://bcgov.github.io/bcgwcat/reference/water_quality.html</loc>
-  </url>
-  <url>
-    <loc>https://bcgov.github.io/bcgwcat/reference/water_type.html</loc>
-  </url>
+<urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
+<url><loc>https://bcgov.github.io/bcgwcat/404.html</loc></url>
+<url><loc>https://bcgov.github.io/bcgwcat/CODE_OF_CONDUCT.html</loc></url>
+<url><loc>https://bcgov.github.io/bcgwcat/CONTRIBUTING.html</loc></url>
+<url><loc>https://bcgov.github.io/bcgwcat/LICENSE-text.html</loc></url>
+<url><loc>https://bcgov.github.io/bcgwcat/articles/bcgwcat.html</loc></url>
+<url><loc>https://bcgov.github.io/bcgwcat/articles/index.html</loc></url>
+<url><loc>https://bcgov.github.io/bcgwcat/articles/ions.html</loc></url>
+<url><loc>https://bcgov.github.io/bcgwcat/articles/piperplots.html</loc></url>
+<url><loc>https://bcgov.github.io/bcgwcat/authors.html</loc></url>
+<url><loc>https://bcgov.github.io/bcgwcat/index.html</loc></url>
+<url><loc>https://bcgov.github.io/bcgwcat/news/index.html</loc></url>
+<url><loc>https://bcgov.github.io/bcgwcat/reference/charge_balance.html</loc></url>
+<url><loc>https://bcgov.github.io/bcgwcat/reference/check_present.html</loc></url>
+<url><loc>https://bcgov.github.io/bcgwcat/reference/dominant_water_types.html</loc></url>
+<url><loc>https://bcgov.github.io/bcgwcat/reference/get_rems.html</loc></url>
+<url><loc>https://bcgov.github.io/bcgwcat/reference/gw_app.html</loc></url>
+<url><loc>https://bcgov.github.io/bcgwcat/reference/index.html</loc></url>
+<url><loc>https://bcgov.github.io/bcgwcat/reference/meq.html</loc></url>
+<url><loc>https://bcgov.github.io/bcgwcat/reference/meq_conversion.html</loc></url>
+<url><loc>https://bcgov.github.io/bcgwcat/reference/pipe.html</loc></url>
+<url><loc>https://bcgov.github.io/bcgwcat/reference/piper_plot.html</loc></url>
+<url><loc>https://bcgov.github.io/bcgwcat/reference/rems_to_aquachem.html</loc></url>
+<url><loc>https://bcgov.github.io/bcgwcat/reference/stiff_plot.html</loc></url>
+<url><loc>https://bcgov.github.io/bcgwcat/reference/tidyeval.html</loc></url>
+<url><loc>https://bcgov.github.io/bcgwcat/reference/units_remove.html</loc></url>
+<url><loc>https://bcgov.github.io/bcgwcat/reference/water_quality.html</loc></url>
+<url><loc>https://bcgov.github.io/bcgwcat/reference/water_type.html</loc></url>
 </urlset>
+
